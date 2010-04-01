@@ -1,0 +1,68 @@
+sudo gem install dougo_view_helpers dougo_model_helpers dougo_user_helpers
+sudo gem install will_paginate acts_as_list
+
+Download and Install 'jquery.autocomplete.pack.js'  into the public/javascripts directory
+Download and Install 'jquery.blockUI.js'            into the public/javascripts directory
+Download and Install 'thickbox.js'                  into the public/javascripts directory
+
+*** RUN ./script/generate dougo_view_helpers
+*** RUN ./script/generate dougo_user_helpers
+  - FOLLOW INSTRUCTIONS
+
+*** EDIT config/environment.rb
+
+Rails::Initializer.run do |config|
+  ...
+  config.gem 'rules_engine'
+  config.gem 'acts_as_list'
+  ...
+  
+  config.active_record.observers = :re_pipeline_activated_observer
+  
+end
+  
+RulesEngine::Discovery.discover!
+
+ActionController::Base.define_access_level(:editor,   10)
+ActionController::Base.define_access_level(:reader,   9)
+
+*** EDIT config/environments/production.rb
+*** EDIT config/environments/development.rb
+*** EDIT config/environments/test.rb
+
+  RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
+    #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
+    #   RulesEngine::Cache.cache_store = :memory_store
+    #   RulesEngine::Cache.cache_store = :file_store, "/path/to/cache/directory"
+    #   RulesEngine::Cache.cache_store = :drb_store, "druby://localhost:9192"
+    #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost"
+    #   RulesEngine::Cache.cache_store = MyOwnStore.new("parameter")
+
+
+*** EDIT config/routes.rb
+
+ActionController::Routing::Routes.draw do |map|
+  ...
+  map.resources :re_pipelines, :collection => {:lookup => :get}, :member => {:change => :get, :activate => :put, :deactivate => :put, :revert => :put} do |re_pipeline|  
+    re_pipeline.resources :re_rules, :collection => {:help => :get, :error => :get}, :member => {:move_up => :put, :move_down => :put}
+    re_pipeline.resources :re_jobs, :controller => :re_pipeline_jobs, :only => [:index]
+  end
+  
+  map.resources :re_jobs, :only => [:index, :show]
+  ...
+end  
+
+
+*** EDIT application.html.erb
+  <%= javascript_include_tag ... , 'jquery.blockUI', 'jquery.autocomplete.pack', 'thickbox', 're_pipeline', :cache => true %>
+  <%= stylesheet_link_tag ... , 'thickbox', 'jquery.autocomplete', 're_pipeline', :cache => true %>  
+  ...
+</head>
+<body>
+  ...  
+  <%= render :partial => '/layouts/blockUI'  %>
+</body>
+
+*** RUN rake db:migrate
+
+restart app and goto http://localhost:3000/re_pipelines

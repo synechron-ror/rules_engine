@@ -1,0 +1,26 @@
+<div class="clear prepend-1 span-18">
+  <h2 class="rule-class-new"> New : <%= @rule_class.options[:name] %></h2>
+  <div class="clear top-10"></div>
+
+  <% dougo_form_for(@re_rule, :url => re_pipeline_re_rules_path(@re_pipeline), :method => :post, :span => "3x13", :html => {:id => "rule_new_form"}) do |f| %>
+    <%= hidden_field_tag('rule_class', @rule_class) %>
+    <%= f.error_messages :message => "Unable To Create Rule : #{@rule_class.options[:name]}" %>
+    <% unless @rule.errors.empty? %>
+      <div id="errorExplanation" class="errorExplanation">
+        <% @rule.errors.each do |error| %>
+          <p><%= error %></p>
+        <% end %>  
+      </div>
+    <% end %>  
+    
+    <% whitebox do %>    
+    
+      <%= render(@rule_class.options[:new_template], :f => f) %>
+      
+      <div class="clear"></div>
+  	  <%= button_submit_green('Create', :id => "rule_new_insert") %>
+  	  <%= button_link_orange('Cancel', change_re_pipeline_path(@re_pipeline), :id => "rule_new_cancel") %>
+    <% end %>
+  <% end %>
+</div>  
+<div class="clear"></div>

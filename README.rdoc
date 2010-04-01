@@ -1,4 +1,4 @@
-= rules_engine
+= dougo_rules_engine
 
 Description goes here.
 

@@ -1,0 +1,57 @@
+<% re_rule_verify = re_rule.verify %>
+<% local_first_rule = local_assigns[:first_rule] && first_rule  %>
+<% local_last_rule = local_assigns[:last_rule] && last_rule  %>
+
+<div class="span-15 last rule-change" id="change_rule_<%= re_rule.id %>">
+  <div class="<%= re_rule_verify.blank? ? 'bluebox' : 'redbox' %> rule-status-<%= re_rule_verify.blank? ? 'valid' : 'verify' %>">
+    <h3 class="float-left"><%= re_rule.title %></h3>
+    <div class="float-right">
+      <%= link_to("<span>Edit</span>", "##{@re_pipeline.id}|#{re_rule.id}", :class => "rule-edit") %>
+      <%= link_to("<span>Delete</span>", "##{@re_pipeline.id}|#{re_rule.id}", :class => "rule-delete") %>
+      <%= link_to("<span>Move Down</span>", "##{@re_pipeline.id}|#{re_rule.id}", :class => "#{local_last_rule ? 'rule-move-down-off' : 'rule-move-down'}") %>
+      <%= link_to("<span>Move Up</span>", "##{@re_pipeline.id}|#{re_rule.id}", :class => "#{local_first_rule ? 'rule-move-up-off' : 'rule-move-up'}") %>
+    </div>
+    <div class="clear"></div>    
+  </div>
+  <div class="<%= re_rule_verify.blank? ? 'bluebox' : 'redbox' %> no-top"> 
+      <div class="span-10">
+        <p class="top-5 left-10">
+          <%= re_rule.summary %>
+        </p>
+      </div>
+      
+      <div class="prepend-10 top-10">
+        <% if re_rule.re_rule_outcomes.empty? %>
+          <div class="rule-continue">Continue</div>
+        <% end %>        
+        <% unless re_rule.re_rule_outcome_next.nil? %>
+          <div class="rule-continue">Continue</div>
+        <% end %>  
+        <% re_rule.re_rule_outcomes_start_pipeline.each do |re_rule_outcome| %>
+          <div class="rule-goto-pipeline"><%= re_rule_outcome.pipeline_code %></div>
+        <% end %>  
+        <% unless re_rule.re_rule_outcome_failure.nil? %>
+          <div class="rule-stop-failure">Stop Failure</div>
+        <% end %>  
+        <% unless re_rule.re_rule_outcome_success.nil? %>
+          <div class="rule-stop-success">Stop Success</div>
+        <% end %>  
+      </div>
+      <div class="clear"></div>  
+    </div>          
+</div>
+
+<% unless local_last_rule %>
+  <div class="prepend-7 span-2"><div class="rule-next-change"></div></div>
+<% end %>
+
+<div style="display:none">
+  <% dougo_form_for(re_rule, :url => re_pipeline_re_rule_path(@re_pipeline, re_rule), :html => {:method => :delete, :id => "rule_delete_form_#{re_rule.id}"}) do |f| %>
+  <% end %>  
+  
+  <% dougo_form_for(re_rule, :url => move_up_re_pipeline_re_rule_path(@re_pipeline, re_rule), :html => {:method => :put, :id => "rule_move_up_form_#{re_rule.id}"}) do |f| %>
+  <% end %>  
+  
+  <% dougo_form_for(re_rule, :url => move_down_re_pipeline_re_rule_path(@re_pipeline, re_rule), :html => {:method => :put, :id => "rule_move_down_form_#{re_rule.id}"}) do |f| %>
+  <% end %>  
+</div>  

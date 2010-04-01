@@ -1,0 +1,8 @@
+<%= javascript_alert_messages %>
+
+self.parent.tb_remove();
+
+$('#pipeline_index').after('<%=escape_javascript(render('/re_pipelines/index', :re_pipeline => @re_pipeline, :hide => true))%>');
+
+$('#pipelines_empty').hide();
+$('#pipeline_index_<%=@re_pipeline.id%>').slideDown();

@@ -1,0 +1,41 @@
+<h3>Job List</h3>
+
+<div class="right-10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="data" id="job_table">
+	   <% @re_jobs.each do | re_job | %>
+	     <tr class="<%= cycle('', 'odd') %>">
+	       <td class="no-border-right text-right">
+<%  
+					job_date =  re_job['start_date']
+					case re_job['job_status'].to_i
+						when ReJob::JOB_STATUS_NONE, ReJob::JOB_STATUS_RUNNING
+							job_class = 'job-running' 
+						when ReJob::JOB_STATUS_SUCCESS	
+							job_class = 'job-success'
+						else	
+							job_class = 'job-error'
+					end
+%>
+					<div class="<%= job_class %>">
+						<%= re_job['job_id'] %>
+					</div>	
+				</td>	
+				<td  class="no-border-left no-border-right text-right">
+					<%= job_date.strftime('%d %b %Y - %H:%M:%S') %>
+				</td>
+				<td  class="no-border-left text-right">
+					<a class="pipeline-job-detail" href='#<%= re_job['job_id'] %>'></a>	
+				</td>	
+	     </tr>
+	   <% end %>
+
+		<tr class="<%= cycle('', 'odd') %>">
+			<td colspan = "3">
+				<a class="job-page-next-<%= @re_jobs.next_page ? 'enabled' : 'disabled' %>" href='#<%= @re_jobs.next_page || '0' %>'></a>
+				<a class="job-page-prev-<%= @re_jobs.previous_page ? 'enabled' : 'disabled' %>" href='#<%= @re_jobs.previous_page || '0' %>'></a>
+							
+			</td>
+		</tr>	
+	</table>
+
+</div>

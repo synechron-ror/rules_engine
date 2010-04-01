@@ -1,0 +1,6 @@
+directories :
+  - app/views/re_rule_definitions/simple
+  
+
+files :  
+  - app/rules/simple.rb 

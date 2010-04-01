@@ -1,0 +1,21 @@
+<% set_javascript_include 're_jobs' %>
+<div class="jobs-index">
+	<h1>All Jobs</h1>
+	<div class="prepend-1 span-22 append-1">      
+	  <div class="jobs-index-box">
+		
+			<%= render '/re_jobs/empty', :hide => !@re_jobs.empty? %>
+
+			<div id="job_list_pending" style="display:none">
+				<h3 class="left-20">Updating Job List</h3>
+			</div>	
+			<div id="job_list">
+				<%= render '/re_jobs/index' %>
+			</div>
+
+			
+	   	<div class="clear"></div>
+	  </div>  
+	</div>  
+	<div class="clear"></div>
+</div>	

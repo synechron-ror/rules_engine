@@ -1,0 +1,21 @@
+<div class="clear prepend-1 span-18">
+  <h2 class="pipeline-edit">Edit Pipeline Details</h2>
+  <div class="clear top-10"></div>
+  
+  <% dougo_form_for(@re_pipeline, :url => re_pipeline_path(@re_pipeline), :method => :post, :span => "3x13", :html => {:id => "pipeline_edit_form"}) do |f| %>
+    <%= f.error_messages :message => "Unable To Update Pipeline" %>
+    <% whitebox do %>    
+      <%= f.text_field(:title, :required => true) %>
+
+      <%= form_text_ext("Code", @re_pipeline.code, :span => "3x13", :hint => "<strong>NOTE :</strong> the pipeline code cannot be changed") %>
+      <div class="clear top-5"></div>
+      
+      <%= f.text_area(:description) %>
+    
+      <div class="clear"></div>
+  	  <%= button_submit_green('Update', :id => "pipeline_edit_update") %>
+  	  <%= button_link_orange('Cancel', change_re_pipeline_path(@re_pipeline), :id => "pipeline_edit_cancel") %>
+    <% end %>
+  <% end %>
+</div>  
+<div class="clear"></div>

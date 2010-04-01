@@ -1,0 +1,43 @@
+<% re_rule_verify = re_rule.verify %>
+<% local_first_rule = local_assigns[:first_rule] && first_rule  %>
+<% local_last_rule = local_assigns[:last_rule] && last_rule  %>
+
+<div class="span-15 last rule-change" id="change_rule_<%= re_rule.id %>">
+  <div class="<%= re_rule_verify.blank? ? 'bluebox' : 'redbox' %> rule-status-<%= re_rule_verify.blank? ? 'valid' : 'verify' %>">
+    <h3 class="float-left"><%= re_rule.title %></h3>
+    <div class="float-right">
+			<!-- NO ACTIONS ON THE RULE	 -->
+    </div>
+    <div class="clear"></div>    
+  </div>
+  <div class="<%= re_rule_verify.blank? ? 'bluebox' : 'redbox' %> no-top"> 
+      <div class="span-10">
+        <p class="top-5 left-10">
+          <%= re_rule.summary %>
+        </p>
+      </div>
+      
+      <div class="prepend-10 top-10">
+        <% if re_rule.re_rule_outcomes.empty? %>
+          <div class="rule-continue">Continue</div>
+        <% end %>        
+        <% unless re_rule.re_rule_outcome_next.nil? %>
+          <div class="rule-continue">Continue</div>
+        <% end %>  
+        <% re_rule.re_rule_outcomes_start_pipeline.each do |re_rule_outcome| %>
+          <div class="rule-goto-pipeline"><%= re_rule_outcome.pipeline_code %></div>
+        <% end %>  
+        <% unless re_rule.re_rule_outcome_failure.nil? %>
+          <div class="rule-stop-failure">Stop Failure</div>
+        <% end %>  
+        <% unless re_rule.re_rule_outcome_success.nil? %>
+          <div class="rule-stop-success">Stop Success</div>
+        <% end %>  
+      </div>
+      <div class="clear"></div>  
+    </div>          
+</div>
+
+<% unless local_last_rule %>
+  <div class="prepend-7 span-2"><div class="rule-next-change"></div></div>
+<% end %>

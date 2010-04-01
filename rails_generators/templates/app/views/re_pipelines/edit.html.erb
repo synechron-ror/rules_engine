@@ -1,0 +1,11 @@
+<% set_subnav 'Edit Pipeline Details', 
+              link_to("All Pipelines", re_pipelines_path, :class => "pipeline-list"),
+              link_to("Edit Pipeline", change_re_pipeline_path(@re_pipeline), :class => "pipeline-change") %>
+
+<div class="prepend-1 span-22 append-1">      
+  <div class="infobox">
+    <%= render :partial => 'edit' %>
+    <div class="clear top-5"></div>
+  </div>  
+</div>  
+<div class="clear"></div>

@@ -1,0 +1,37 @@
+<% set_javascript_include 're_pipeline_change' %>
+<% set_subnav 'Edit Pipeline', 
+              link_to("All Pipelines", re_pipelines_path, :class => "pipeline-list"), 
+              link_to("View Pipeline", re_pipeline_path(@re_pipeline), :class => "pipeline-show") %>
+
+<div class="prepend-1 span-16 border" id="change_pipeline">      
+  <%= render :partial => 'change' %>    
+</div>
+<div class="span-7 last" id="change_pipeline_actions">      
+  <%= render :partial => 'change_actions' %>
+</div>
+<div class="clear"></div>
+
+<hr/>
+
+<div class="prepend-1 span-16 border">      
+  <div class="infobox">
+    
+    <div class="clear top-5"></div>
+    <div id="change_rules">      
+      <% @re_pipeline.re_rules.each do |re_rule | %>
+        <%= render '/re_rules/change', :re_rule => re_rule, :first_rule => re_rule == @re_pipeline.re_rules[0], :last_rule => re_rule == @re_pipeline.re_rules[-1] %>
+        <div class="clear"></div>
+      <% end %>
+    </div>    
+
+    <div class="clear top-5"></div>
+    <%= render '/re_rules/empty', :re_pipeline => @re_pipeline %>    
+  </div>  
+</div>  
+<div class="span-7 last">      
+  <%= render :partial => '/re_rules/menu' %>    
+</div>  
+<div class="clear"></div>
+
+<%= render :partial => 'confirm' %>
+
