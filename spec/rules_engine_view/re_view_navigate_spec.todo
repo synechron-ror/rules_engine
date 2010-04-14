@@ -1,0 +1,81 @@
+require File.expand_path(File.dirname(__FILE__) ) + "/../spec_helper"
+
+describe "breadcrumbs", :type => :helper do 
+  def call_breadcrumbs(*links)
+    eval_erb("<%= breadcrumbs(*#{links.inspect})%>")
+  end
+  
+  it "should be accessible to rails apps by default" do 
+    ActionView::Base.new.methods.should include("breadcrumbs")
+  end
+
+  it "should set the default class to breadcrumbs" do
+    call_breadcrumbs("default value").should have_tag("div.breadcrumbs")
+  end
+
+  it "should show the links seperated by a <span>" do
+    call_breadcrumbs("<div id=one>one</div>", "<div id=two>two</div>", "<div id=last>last</div>").should have_tag("div.breadcrumbs") do |inner_text|
+      with_tag("div#one", :text => "one") 
+      with_tag("div#one + span", :text => ">")
+      with_tag("div#one + span + div#two + span + em > div#last")
+      with_tag("div#one + span + div#two", :text => "two")
+      with_tag("div#one + span + div#two + span", :text => ">")
+      with_tag("div#one + span + div#two + span + em", :text => "last")
+    end
+  end
+end
+
+describe "breadcrumbs-right", :type => :helper do 
+  def call_breadcrumbs_right(*links)
+    eval_erb("<%= breadcrumbs_right(*#{links.inspect})%>")
+  end
+  
+  it "should be accessible to rails apps by default" do 
+    ActionView::Base.new.methods.should include("breadcrumbs_right")
+  end
+
+  it "should set the default class to breadcrumbs" do
+    call_breadcrumbs_right("default value").should have_tag("div.breadcrumbs") do
+      with_tag("div.breadcrumb-right", :text => "default value")
+    end
+  end
+
+  it "should show the links seperated by a <span>" do
+    call_breadcrumbs_right("<div id=one>one</div>", "<div id=two>two</div>", "<div id=last>last</div>", "<div id=right>right</div>").should have_tag("div.breadcrumbs") do |inner_text|
+      with_tag("div#one", :text => "one") 
+      with_tag("div#one + span", :text => ">")
+      with_tag("div#one + span + div#two + span + em > div#last")
+      with_tag("div#one + span + div#two", :text => "two")
+      with_tag("div#one + span + div#two + span", :text => ">")
+      with_tag("div#one + span + div#two + span + em", :text => "last")
+      with_tag("div#one + span + div#two + span + em + div.breadcrumb-right > div#right", :text => "right")
+    end
+  end
+end
+
+describe "subnav", :type => :helper do 
+  def call_subnav(heading, *links)
+    eval_erb("<%= subnav(\"#{heading}\", *#{links.inspect})%>")
+  end
+  
+  it "should be accessible to rails apps by default" do 
+    ActionView::Base.new.methods.should include("subnav")
+  end
+
+  it "should set the default class to subnav" do
+    call_subnav("default value", "one").should have_tag("div.subnav")
+  end
+
+  it "should set the subnavheading" do
+    call_subnav("default value", "one").should have_tag("div.subnav h1.subnavheading", :test => "default value")
+  end
+
+  it "should show the links in a ul" do
+    call_subnav("heading", "<div id=one>one</div>", "<div id=two>two</div>", "<div id=last>last</div>").should have_tag("div.subnav div.subnavitems") do |inner_text|
+      with_tag("ul li div#one", :text => "one") 
+      with_tag("ul li div#two", :text => "two")
+      with_tag("ul li div#last", :text => "last")
+    end
+  end
+end
+

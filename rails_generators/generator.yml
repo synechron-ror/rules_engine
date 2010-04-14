@@ -3,12 +3,14 @@ directories :
   - app/views/re_rules
   - app/views/re_jobs
   - app/views/re_pipeline_jobs
+  - public/stylesheets/re_view_box
+  - public/stylesheets/re_view_button
+  - public/stylesheets/re_view_navigate
   - public/stylesheets/re_pipeline
   - public/images/re_pipeline
   - public/images/re_rule
   - public/images/re_rule_class
   - public/images/re_job
-  
 
 files :  
   - app/controllers/re_pipelines_controller.rb 
@@ -28,18 +30,27 @@ files :
   - app/models/re_job_audit.rb               
 
   - app/views/layouts/_blockUI.html.erb
-
+  - app/views/layouts/rules_engine.html.erb
+  
   - db/migrate/20100308225008_create_re_pipelines.rb
 
   - lib/tasks/re_runner.rake
                 
+  - public/javascripts/re_view.js
   - public/javascripts/re_pipeline.js        
   - public/javascripts/re_pipeline_change.js 
   - public/javascripts/re_pipeline_index.js  
   - public/javascripts/re_pipeline_new.js
   - public/javascripts/re_pipeline_jobs.js
   - public/javascripts/re_jobs.js  
-        
+
+  - public/stylesheets/re_view.css        
+  - public/stylesheets/re_view_box.css
+  - public/stylesheets/re_view_button.css
+  - public/stylesheets/re_view_error.css
+  - public/stylesheets/re_view_form.css
+  - public/stylesheets/re_view_navigate.css
+  - public/stylesheets/re_view_table.css          
   - public/stylesheets/re_pipeline.css
   - public/stylesheets/re_pipeline/accept.png
   - public/stylesheets/re_pipeline/exclamation.png
@@ -55,4 +66,3 @@ files :
   - spec/models/re_job_audit_spec.rb
 
   - spec/support/blueprint_re_pipelines.rb
-  

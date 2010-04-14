@@ -1,4 +1,4 @@
-= dougo_rules_engine
+= re_rules_engine
 
 Description goes here.
 

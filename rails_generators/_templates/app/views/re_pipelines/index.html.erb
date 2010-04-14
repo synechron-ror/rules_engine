@@ -1,0 +1,14 @@
+<% set_javascript_include ['re_pipeline_index', 're_pipeline_new'] %>
+<% set_subnav 'All Pipelines', link_to("New Pipeline", new_re_pipeline_path, :class => "pipeline-new") %>
+
+<div class="prepend-1 span-22 append-1" id="index_pipelines_empty">
+  <div class="clear" id="pipeline_index"></div>
+  
+  <%= render 'empty', :hide => !@re_pipelines.empty? %>
+
+  <% @re_pipelines.each do | re_pipeline | %>
+    <%= render 'index', :re_pipeline => re_pipeline %>
+  <% end %>  
+
+</div>  
+<div class="clear"></div>

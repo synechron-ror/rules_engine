@@ -1,0 +1,6 @@
+<%= text_field_ext "Rule Title", 
+                        "simple_title", 
+                        params[:simple_title] || @re_rule.title || @rule.options[:name],
+                        :size => 30, 
+                        :required => true, 
+                        :span => '4x12' %>

@@ -1,13 +1,10 @@
-sudo gem install dougo_view_helpers dougo_model_helpers dougo_user_helpers
 sudo gem install will_paginate acts_as_list
 
 Download and Install 'jquery.autocomplete.pack.js'  into the public/javascripts directory
 Download and Install 'jquery.blockUI.js'            into the public/javascripts directory
 Download and Install 'thickbox.js'                  into the public/javascripts directory
 
-*** RUN ./script/generate dougo_view_helpers
-*** RUN ./script/generate dougo_user_helpers
-  - FOLLOW INSTRUCTIONS
+*** RUN ./script/generate re_view_helpers
 
 *** EDIT config/environment.rb
 
@@ -22,9 +19,6 @@ Rails::Initializer.run do |config|
 end
   
 RulesEngine::Discovery.discover!
-
-ActionController::Base.define_access_level(:editor,   10)
-ActionController::Base.define_access_level(:reader,   9)
 
 *** EDIT config/environments/production.rb
 *** EDIT config/environments/development.rb
@@ -66,3 +60,9 @@ end
 *** RUN rake db:migrate
 
 restart app and goto http://localhost:3000/re_pipelines
+
+
+******  RULES_ENGINE_USER
+ActionController::Base.define_access_level(:editor,   10)
+ActionController::Base.define_access_level(:reader,   9)
+
