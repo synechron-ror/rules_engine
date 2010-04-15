@@ -25,7 +25,7 @@
 <h1>Boxes</h1>   
   <div class="span-12">
     <h3>Whitebox</h3>   
-    <% whitebox do %>
+    <% re_whitebox do %>
       <div class="span-11 last">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p> 
       </div>  
@@ -34,7 +34,7 @@
   
   <div class="span-12 last">
     <h3>Shadowbox</h3>   
-    <% shadowbox do %>
+    <% re_shadowbox do %>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p> 
     <% end %>  
   </div>
@@ -84,11 +84,11 @@
 <h1>Button Links</h1>   
 <div class="span-24 showgrid">
   <% %w(3 4 5 6 ).each do |action| %>
-    <%= button_link_red("Button " + action, "#", :span => action) %>
+    <%= re_button_link_red("Button " + action, "#", :span => action) %>
   <% end %>
   <div class="clear"></div>
   <% %w(red gray blue green orange).each do |color| %>
-    <%= button_link(color, "#", color) %>
+    <%= re_button_link(color, "#", color) %>
   <% end %>  
 </div>  
 <hr>
@@ -96,11 +96,11 @@
 <h1>Button Submit</h1>   
 <div class="span-24 showgrid">
   <% %w(3 4 5 6 ).each do |action| %>
-    <%= button_submit_red("Button " + action, :span => action) %>
+    <%= re_button_submit_red("Button " + action, :span => action) %>
   <% end %>
   <div class="clear"></div>
   <% %w(red gray blue green orange).each do |color| %>
-    <%= button_submit(color, color) %>
+    <%= re_button_submit(color, color) %>
   <% end %>  
 </div>  
 <hr>

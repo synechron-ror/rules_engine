@@ -14,7 +14,7 @@
   <%= stylesheet_link_tag 're_view', 're_view_form', 're_view_button', 
                           're_view_error', 're_view_box', 're_view_navigate', 're_view_table', :cache => true %>  
                           
-  <%= yield :defer_javascript_include %>                          
+  <%= yield :defer_re_javascript_include %>                          
 </head>
 <body>
   <div class="container">
@@ -23,9 +23,9 @@
   		<h1>RulesEngine View Helper Test Pages</h1>
   	</div>
     <div class="clear"></div>
-    <%= yield :defer_breadcrumbs %>
-    <%= yield :defer_subnav %>
-    <%= view_alert %>
+    <%= yield :defer_re_breadcrumbs %>
+    <%= yield :defer_re_subnav %>
+    <%= re_alert %>
 	  
     <%= yield %>
     

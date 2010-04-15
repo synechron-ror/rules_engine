@@ -18,8 +18,8 @@ files :
   - app/controllers/re_jobs_controller.rb
   - app/controllers/re_pipeline_jobs_controller.rb
 
-  - app/helpers/re_pipeline_helper.rb 
-        
+  - app/helpers/re_pipeline_helper.rb
+
   - app/models/re_pipeline.rb           
   - app/models/re_pipeline_activated.rb 
   - app/models/re_pipeline_activated_observer.rb 
@@ -37,7 +37,6 @@ files :
   - lib/tasks/re_runner.rake
                 
   - public/javascripts/re_view.js
-  - public/javascripts/re_pipeline.js        
   - public/javascripts/re_pipeline_change.js 
   - public/javascripts/re_pipeline_index.js  
   - public/javascripts/re_pipeline_new.js

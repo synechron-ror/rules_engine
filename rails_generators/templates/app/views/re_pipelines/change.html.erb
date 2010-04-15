@@ -1,5 +1,5 @@
-<% set_javascript_include 're_pipeline_change' %>
-<% set_subnav 'Edit Pipeline', 
+<% set_re_javascript_include 're_pipeline_change' %>
+<% set_re_subnav 'Edit Pipeline', 
               link_to("All Pipelines", re_pipelines_path, :class => "pipeline-list"), 
               link_to("View Pipeline", re_pipeline_path(@re_pipeline), :class => "pipeline-show") %>
 
@@ -14,7 +14,7 @@
 <hr/>
 
 <div class="prepend-1 span-16 border">      
-  <div class="infobox">
+  <div class="re-infobox">
     
     <div class="clear top-5"></div>
     <div id="change_rules">      

@@ -1,7 +1,7 @@
 module RulesEngineView
   module Buttons
 
-    def button_submit(title, color, options ={})
+    def re_button_submit(title, color, options ={})
       klass = "form-button-#{color} #{options[:class]}"
       result = "<div class='form-button"
       result << " span-#{options[:span]}" unless options[:span].blank?
@@ -11,28 +11,28 @@ module RulesEngineView
       result
     end
 
-    def button_submit_gray(title, options = {})
-      return button_submit(title, "gray", options)
+    def re_button_submit_gray(title, options = {})
+      return re_button_submit(title, "gray", options)
     end
 
-    def button_submit_blue(title, options = {})
-      return button_submit(title, "blue", options)
+    def re_button_submit_blue(title, options = {})
+      return re_button_submit(title, "blue", options)
     end
 
-    def button_submit_green(title, options = {})
-      return button_submit(title, "green", options)
+    def re_button_submit_green(title, options = {})
+      return re_button_submit(title, "green", options)
     end
 
-    def button_submit_orange(title, options = {})
-      return button_submit(title, "orange", options)
+    def re_button_submit_orange(title, options = {})
+      return re_button_submit(title, "orange", options)
     end
 
-    def button_submit_red(title, options = {})
-      return button_submit(title, "red", options)
+    def re_button_submit_red(title, options = {})
+      return re_button_submit(title, "red", options)
     end
 
 
-    def button_link(title, url, color, options = {})
+    def re_button_link(title, url, color, options = {})
       klass = "form-button-#{color} #{options[:class]}"
       result = "<div class='form-button"
       result << " span-#{options[:span]}" unless options[:span].blank?
@@ -42,24 +42,24 @@ module RulesEngineView
       result
     end
     
-    def button_link_gray(title, url, options = {})
-      return button_link(title, url, "gray", options)
+    def re_button_link_gray(title, url, options = {})
+      return re_button_link(title, url, "gray", options)
     end
 
-    def button_link_blue(title, url, options = {})
-      return button_link(title, url, "blue", options)
+    def re_button_link_blue(title, url, options = {})
+      return re_button_link(title, url, "blue", options)
     end
 
-    def button_link_green(title, url, options = {})
-      return button_link(title, url, "green", options)
+    def re_button_link_green(title, url, options = {})
+      return re_button_link(title, url, "green", options)
     end
 
-    def button_link_orange(title, url, options = {})
-      return button_link(title, url, "orange", options)
+    def re_button_link_orange(title, url, options = {})
+      return re_button_link(title, url, "orange", options)
     end
 
-    def button_link_red(title, url, options = {})
-      return button_link(title, url, "red", options)
+    def re_button_link_red(title, url, options = {})
+      return re_button_link(title, url, "red", options)
     end
 
     

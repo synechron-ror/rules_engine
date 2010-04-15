@@ -3,7 +3,7 @@
 <% re_pipeline_verify = re_pipeline.verify %>
 
 <div class="span-22" id="pipeline_index_<%= re_pipeline.id %>" style="<%= local_hide ?  'display:none' : '' %>">
-  <div class="infobox">
+  <div class="re-infobox">
     <div class="span-16">
       <h3 class="pipeline-status-<%= re_pipeline_verify.blank? ? re_pipeline_status : 'verify' %>"><%=h re_pipeline.code %></h3>
     </div>  
@@ -43,7 +43,7 @@
     <div class="clear"></div>
     
   </div>    
-  <div class="infobox no-top hide" id="pipeline_rule_list_<%= re_pipeline.id %>">        
+  <div class="re-infobox no-top hide" id="pipeline_rule_list_<%= re_pipeline.id %>">        
     <%= render '/re_rules/empty.html', :re_pipeline => re_pipeline %>
     
     <% re_pipeline.re_rules.each_with_index do |re_rule, index | %>

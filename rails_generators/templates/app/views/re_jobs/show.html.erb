@@ -1,9 +1,9 @@
-<%# set_javascript_include 're_pipeline_jobs' %>
-<% set_subnav "Show Job", 
+<%# set_re_javascript_include 're_pipeline_jobs' %>
+<% set_re_subnav "Show Job", 
               link_to("All Jobs", re_jobs_path, :class => "job-list") %>
 
 <div class="prepend-1 span-22 append-1">      
-  <div class="infobox">
+  <div class="re-infobox">
 
 	 <%= render '/re_jobs/show' %>
    <div class="clear"></div>

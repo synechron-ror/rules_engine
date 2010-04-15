@@ -1,4 +1,4 @@
-.whitebox{
+.re-whitebox{
 	border-top: 1px solid #b5b5b5;
 	border-left: 1px solid #b5b5b5;
 	border-right: 1px solid #b5b5b5;
@@ -6,11 +6,11 @@
 	background: #FFFFFF url("re_view_box/whitebox.jpg") no-repeat top left;
 	height: 1%  
 }
-html>body .whitebox {
+html>body .re-whitebox {
   height: auto;
 }
 
-.whitebox-content{
+.re-whitebox-content{
 	margin-top: 0px;
 	margin-right: 10px; 
 	margin-bottom: 5px;
@@ -19,71 +19,70 @@ html>body .whitebox {
 	text-align: left;
 }
 
-
-.shadowbox-outer{
+.re-shadowbox-outer{
   padding-bottom: 25px;
   background: #FFFFFF url("re_view_box/shadowbox.jpg") no-repeat bottom left;
 }
 
-.shadowbox-inner{
+.re-shadowbox-inner{
   border-right: 1px solid #ccc;
   background-color: #FDF8B3;
   padding: 5px 15px 5px 15px;
 }
 
-.bluebox-header {
+.re-bluebox-header {
 	color: #fff;
 	background: #5b93ba;
 	border: 1px #335871 solid; 
 	padding: 3px 2px 3px 4px;
 	margin: 0 2px;
 }
-.bluebox {
+.re-bluebox {
   border: 1px #4983a5 solid;
 	padding: 0px 2px 3px 2px;
 	margin: 0 2px;
 }
 
-.greenbox-header {
+.re-greenbox-header {
 	color: #fff;
 	background: #92b83c;
 	border: 1px #92b83c solid; 
 	padding: 3px 2px 3px 4px;
 	margin: 0 2px;
 }
-.greenbox {
+.re-greenbox {
 	border: 1px #92b83c solid;
 	padding: 0px 2px 3px 2px;
 	margin: 0 2px;
 }
 
-.redbox-header {
+.re-redbox-header {
 	color: #fff;
 	background: #b43838;
 	border: 1px #7c1e1e solid; 
 	padding: 3px 2px 3px 4px;
 	margin: 0 2px;
 }
-.redbox {
+.re-redbox {
 	border: 1px #7c1e1e solid;
 	padding: 0px 2px 3px 2px;
 	margin: 0 2px;
 }
 
-.dkgreenbox-header {
+.re-dkgreenbox-header {
 	color: #fff;
 	background: #218868;
 	border: 1px #548B54 solid; 
 	padding: 3px 2px 3px 4px;
 	margin: 0 2px;
 }
-.dkgreenbox {
+.re-dkgreenbox {
 	border: 1px #548B54 solid;
 	padding: 0px 2px 3px 2px;
 	margin: 0 2px;
 }
 
-.brownbox-header {
+.re-brownbox-header {
   background: #a8a388;  
   border-top: 1px solid #989377;
   border-right: 1px solid #989377;
@@ -91,78 +90,30 @@ html>body .whitebox {
 	padding: 3px 0px 3px 4px;
 	margin: 0 2px;
 }
-.brownbox {
+.re-brownbox {
 	background: #ece9da;
 	border: 1px #d5d1ba solid;
 	padding: 0px 2px 3px 2px;
 	margin: 0 2px;
 }
 
-.yellowbox-header {
+.re-yellowbox-header {
   background: #f3f1b1;
   border: 1px solid #f3f1b1;
 	padding: 3px 2px 3px 4px;
 	margin: 0 2px;
 }
-.yellowbox{
+.re-yellowbox{
 	background: #fffef0;
 	border: 1px #f3f1b1 solid;
 	padding: 0px 2px 3px 2px;
 	margin: 0 2px;
 }
 
-
-.boombox {
-	padding: 15px 20px 10px 20px;
-	background: #fff url("re_view_box/boombox.png") bottom left repeat-x;
-	border: solid #bbb 1px;
-  margin: 0 2px;
-	text-align: center;
-}
-
-.infobox {
+.re-infobox {
 	font-size: 13px;
 	line-height: 16px;
 	padding: 5px 3px 5px 5px;
   margin: 0 2px;
 	border: solid #ddd 10px;
-}
-
-.headerbox {
-	padding: 7px 5px 3px 10px;
-	margin: 0;
-	background-color: #90bade;
-	color: #333;	
-}	
-
-/* @group ALERTS */
-.errorbox {
-	font-size: 1.4em;
-	background: #fff6bf url("re_view_box/exclamation.png") center no-repeat;
-	background-position: 15px 50%; /* x-pos y-pos */
-	text-align: left;
-	padding: 5px 0px 5px 45px;
-	border-bottom: 2px solid #ffd324;
-	margin-left: auto;
-	margin-right: auto;
-}	
-
-.successbox {
-	font-size: 1.4em;
-	background: #fff6bf url("re_view_box/accept.png") center no-repeat;
-	background-position: 15px 50%; /* x-pos y-pos */
-	text-align: left;
-	padding: 5px 0px 5px 45px;
-	border-bottom: 2px solid #92b83c;
-  margin-left: auto;
-  margin-right: auto;
-}	
-
-.error, .notice, .success {
-  margin-top: 2px;
-  margin-bottom: 0px;
-}
-
-.error strong, .notice strong, .success strong {
-  padding-right: 5px;
 }

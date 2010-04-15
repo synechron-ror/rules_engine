@@ -1,9 +1,7 @@
 module RulesEngineView
   module Alerts
     
-    ########################################################################################
-    ## Alert Messages
-    def view_alert
+    def re_alert
       unless flash[:error].blank?
         result = '<div class="error"><strong>Error :</strong>'
         result << flash.delete(:error)
@@ -31,6 +29,23 @@ module RulesEngineView
         return result      
       end      
     end    
+    
+    def re_alert_js
+      unless flash[:error].blank?  
+        flash.delete(:success)
+        flash.delete(:notice)
+        return "$.re_error_message('" + escape_javascript(flash.delete(:error)) + "');"
+      end
+      unless flash[:success].blank?
+        flash.delete(:notice)
+        return "$.re_success_message('" + escape_javascript(flash.delete(:success)) + "');"
+      end      
+      unless flash[:notice].blank?
+        return "$.re_notice_message('" + escape_javascript(flash.delete(:notice)) + "');"
+      end    
+    end  
+
+    
   end
 end
 

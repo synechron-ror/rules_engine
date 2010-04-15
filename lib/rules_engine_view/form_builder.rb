@@ -1,7 +1,7 @@
 module RulesEngineView
   class FormBuilder < ActionView::Helpers::FormBuilder
     
-    include RulesEngineView::Styles
+    include RulesEngineView::FormStyles
     
     %w(text_field password_field file_field text_area select date_select datetime_select time_select time_zone_select).each do |method|
       src = <<-END_SRC

@@ -13,13 +13,13 @@
       </div>
     <% end %>  
     
-    <% whitebox do %>    
+    <% re_whitebox do %>    
     
       <%= render(@rule_class.options[:new_template], :f => f) %>
       
       <div class="clear"></div>
-  	  <%= button_submit_green('Create', :id => "rule_new_insert") %>
-  	  <%= button_link_orange('Cancel', change_re_pipeline_path(@re_pipeline), :id => "rule_new_cancel") %>
+  	  <%= re_button_submit_green('Create', :id => "rule_new_insert") %>
+  	  <%= re_button_link_orange('Cancel', change_re_pipeline_path(@re_pipeline), :id => "rule_new_cancel") %>
     <% end %>
   <% end %>
 </div>  

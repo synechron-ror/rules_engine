@@ -1,6 +1,6 @@
 <div class="rules-menu">
   <% RulesEngine::Discovery.rule_groups.each do |name, rule_classes| %>
-    <% shadowbox do %>
+    <% re_shadowbox do %>
       <a href="#" class="rule-class-list-toggle">
         <h5 class="rule-class-list-right"><%=h name %></h5>
       </a>  
@@ -20,7 +20,7 @@
     <% end %>
   <% end %>  
 
-  <% shadowbox do %>
+  <% re_shadowbox do %>
     <a href="#" class="rule-class-list-toggle">
       <h5 class="rule-class-list-down">All Rules</h5>
     </a>  

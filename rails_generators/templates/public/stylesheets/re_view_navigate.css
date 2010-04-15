@@ -1,6 +1,6 @@
 /* @group BREADCRUMBS */
 
-.breadcrumbs {
+.re-breadcrumbs {
 	overflow:hidden;
 	margin:0 0px 0 0px;
 	padding:0;
@@ -9,7 +9,7 @@
 	border:1px solid #eee;
 	color: #222;
 }
-.breadcrumbs a {
+.re-breadcrumbs a {
 	float:left;
 	overflow:hidden;
 	height:30px;
@@ -18,11 +18,11 @@
 	font-size: 16px;	
   text-decoration: none;
 }
-.breadcrumbs a:hover {
+.re-breadcrumbs a:hover {
 	background:#fff;
 	text-decoration: underline;
 }
-.breadcrumbs em {
+.re-breadcrumbs em {
 	float:left;
 	overflow:hidden;
 	height:30px;
@@ -30,7 +30,7 @@
 	font-weight: normal;
 	font-size: 16px;	
 }
-.breadcrumbs span {
+.re-breadcrumbs span {
 	background:url(./re_view_navigate/breadcrumb.png) no-repeat left center;
 	float:left;
 	overflow:hidden;
@@ -41,30 +41,30 @@
 	opacity:0.4;
 }
 
-.breadcrumbs .breadcrumb-right {
+.re-breadcrumbs .breadcrumb-right {
 	float:right;
 	margin:0;
 	padding:0px;
 	text-align:left;
 }
 
-.subnav {
+.re-subnav {
   background:url("./re_view_navigate/subnav-bg.jpg") repeat-x scroll 0 0 #E0E5E8;
   color:#000000;
   height:36px;
   margin:0;
   padding:0;
 }
-.subnavheading {
+.re-subnavheading {
   float:left;
   padding-top: 10px;
   color: #8a1f11; 
 }
-h1.subnavheading {
+h1.re-subnavheading {
   font-size: 32px;
   padding-left: 20px;
 }
-.subnavitems {
+.re-subnavitems {
   float:right;
   background:url(./re_view_navigate/subnavitems-bg.gif) no-repeat top right;
   height:46px;
@@ -73,20 +73,20 @@ h1.subnavheading {
   padding:6px 16px 0 0;
   text-align:right;
 }
-.subnavitems ul {
+.re-subnavitems ul {
   list-style:none;
   display:inline;
 }
-.subnavitems li {
+.re-subnavitems li {
   display:inline;
 }
-.subnavitems li strong {
+.re-subnavitems li strong {
   display: block;
   float: right;
   line-height: 28px;
   padding: 0 0 0 3px;
 }
-.subnavitems li a {
+.re-subnavitems li a {
   display: block;
   float: right;
   padding: 0px 0 0 3px;

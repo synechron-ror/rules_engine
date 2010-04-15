@@ -1,10 +1,10 @@
 module RulesEngineView
   module Navigate
     
-    def breadcrumbs *links
+    def re_breadcrumbs *links
       return if links.empty?
       result = ''
-      result << '<div class="breadcrumbs">'
+      result << '<div class="re-breadcrumbs">'
       links[0 ... -1].each do |link|
         result << link
         result << '<span>></span>'
@@ -18,10 +18,10 @@ module RulesEngineView
       result
     end
     
-    def breadcrumbs_right *links
+    def re_breadcrumbs_right *links
       return if links.empty?
       result = ''
-      result << '<div class="breadcrumbs">'
+      result << '<div class="re-breadcrumbs">'
       links[0 ... -2].each do |link|
         result << link
         result << '<span>></span>'
@@ -31,17 +31,17 @@ module RulesEngineView
       result << "</em>"
       result << '<span>></span>' if links[-2] == links[0]
       
-      result << "<div class='breadcrumb-right'>#{links[-1]}</div>"
+      result << "<div class='re-breadcrumb-right'>#{links[-1]}</div>"
       result << '</div>'      
       # result << '<div class="clear top-5">.</div>'
       result            
     end
     
-    def subnav heading, *links
+    def re_subnav heading, *links
       result = ''
-      result << '<div class="subnav"><h1 class="subnavheading">'
+      result << '<div class="re-subnav"><h1 class="re-subnavheading">'
       result << heading
-      result << '</h1><div class="subnavitems"><ul>'
+      result << '</h1><div class="re-subnavitems"><ul>'
         
       links[0 ... -1].each do |link|
         result << '<li><strong>'

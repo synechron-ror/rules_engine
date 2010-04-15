@@ -1,9 +1,9 @@
 module RulesEngineView
   module Boxes
-    def whitebox(&block)
+    def re_whitebox(&block)
       result = ''
-      result << '<div class="whitebox">' 
-      result << '<div class="whitebox-content">'
+      result << '<div class="re-whitebox">' 
+      result << '<div class="re-whitebox-content">'
       result << capture(&block)
       result << '<div class="clear"></div>'
       result << '</div>'
@@ -12,10 +12,10 @@ module RulesEngineView
       concat result
     end
     
-    def shadowbox(&block)
+    def re_shadowbox(&block)
       result = ''
-      result << '<div class="shadowbox-outer">' 
-      result << '<div class="shadowbox-inner">'
+      result << '<div class="re-shadowbox-outer">' 
+      result << '<div class="re-shadowbox-inner">'
       result << capture(&block)
       result << '<div class="clear"></div>'
       result << '</div>'

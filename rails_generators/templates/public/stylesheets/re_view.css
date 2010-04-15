@@ -6,6 +6,14 @@ body {
   font-family: "Lucida Grande","Lucida Sans Unicode",verdana,arial,helvetica,sans-serif;
 }
 
+.re .error, .re .notice, .re .success {
+  margin-top: 2px;
+  margin-bottom: 0px;
+}
+.re .error strong, .re .notice strong, .re .success strong {
+  padding-right: 5px;
+}
+
 .re .container {
 	background: #fff;
 }
