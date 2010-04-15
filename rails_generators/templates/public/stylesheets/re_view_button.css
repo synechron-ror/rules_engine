@@ -1,15 +1,15 @@
-div.form-button {
+div.re-form-button {
   display: block;
   float: right;
   margin-top: 4px;
   margin-bottom: 1px;
 }
 
-a.form-button-gray,
-a.form-button-blue,
-a.form-button-green,
-a.form-button-orange,
-a.form-button-red
+a.re-form-button-gray,
+a.re-form-button-blue,
+a.re-form-button-green,
+a.re-form-button-orange,
+a.re-form-button-red
 {
   display: block;
   font-size: 14px;      /* Change 13px as desired */
@@ -25,55 +25,55 @@ a.form-button-red
 /*  margin-bottom: 5px;*/
 }
 
-a:link.form-button-gray, a:visited.form-button-gray, a:active.form-button-gray,
-a:link.form-button-blue, a:visited.form-button-blue, a:active.form-button-blue,
-a:link.form-button-green, a:visited.form-button-green, a:active.form-button-green,
-a:link.form-button-orange, a:visited.form-button-orange, a:active.form-button-orange,
-a:link.form-button-red, a:visited.form-button-red, a:active.form-button-red
+a:link.re-form-button-gray, a:visited.re-form-button-gray, a:active.re-form-button-gray,
+a:link.re-form-button-blue, a:visited.re-form-button-blue, a:active.re-form-button-blue,
+a:link.re-form-button-green, a:visited.re-form-button-green, a:active.re-form-button-green,
+a:link.re-form-button-orange, a:visited.re-form-button-orange, a:active.re-form-button-orange,
+a:link.re-form-button-red, a:visited.re-form-button-red, a:active.re-form-button-red
 {
 	color: #494949; /*button text color*/
 }
 
-a.form-button-gray span,
-a.form-button-blue span,
-a.form-button-green span,
-a.form-button-orange span,
-a.form-button-red span
+a.re-form-button-gray span,
+a.re-form-button-blue span,
+a.re-form-button-green span,
+a.re-form-button-orange span,
+a.re-form-button-red span
 {
 	display: block;
 	padding: 4px 11px 4px 0; /*Set 11px below to match value of 'padding-left' value above*/
 }
 
-a.form-button-gray:hover,
-a.form-button-blue:hover,
-a.form-button-green:hover,
-a.form-button-orange:hover,
-a.form-button-red:hover
+a.re-form-button-gray:hover,
+a.re-form-button-blue:hover,
+a.re-form-button-green:hover,
+a.re-form-button-orange:hover,
+a.re-form-button-red:hover
 { /* Hover state CSS */
 	background-position: bottom left;
 }
 
-a.form-button-gray:hover span,
-a.form-button-blue:hover span,
-a.form-button-green:hover span,
-a.form-button-orange:hover span,
-a.form-button-red:hover span
+a.re-form-button-gray:hover span,
+a.re-form-button-blue:hover span,
+a.re-form-button-green:hover span,
+a.re-form-button-orange:hover span,
+a.re-form-button-red:hover span
 { /* Hover state CSS */	
 	background-position: bottom right;
 	color: black;
 }
 
-a.form-button-gray{ background: transparent url('re_view_button/oval-gray-left.gif') no-repeat top left;}
-a.form-button-blue{ background: transparent url('re_view_button/oval-blue-left.gif') no-repeat top left;}
-a.form-button-green{ background: transparent url('re_view_button/oval-green-left.gif') no-repeat top left;}
-a.form-button-orange{ background: transparent url('re_view_button/oval-orange-left.gif') no-repeat top left;}
-a.form-button-red{ background: transparent url('re_view_button/oval-red-left.gif') no-repeat top left;}
+a.re-form-button-gray{ background: transparent url('re_view_button/oval-gray-left.gif') no-repeat top left;}
+a.re-form-button-blue{ background: transparent url('re_view_button/oval-blue-left.gif') no-repeat top left;}
+a.re-form-button-green{ background: transparent url('re_view_button/oval-green-left.gif') no-repeat top left;}
+a.re-form-button-orange{ background: transparent url('re_view_button/oval-orange-left.gif') no-repeat top left;}
+a.re-form-button-red{ background: transparent url('re_view_button/oval-red-left.gif') no-repeat top left;}
 
-a.form-button-gray span{ background: transparent url('re_view_button/oval-gray-right.gif') no-repeat top right;}
-a.form-button-blue span{ background: transparent url('re_view_button/oval-blue-right.gif') no-repeat top right;}
-a.form-button-green span{ background: transparent url('re_view_button/oval-green-right.gif') no-repeat top right;}
-a.form-button-orange span{ background: transparent url('re_view_button/oval-orange-right.gif') no-repeat top right;}
-a.form-button-red span{ background: transparent url('re_view_button/oval-red-right.gif') no-repeat top right;}
+a.re-form-button-gray span{ background: transparent url('re_view_button/oval-gray-right.gif') no-repeat top right;}
+a.re-form-button-blue span{ background: transparent url('re_view_button/oval-blue-right.gif') no-repeat top right;}
+a.re-form-button-green span{ background: transparent url('re_view_button/oval-green-right.gif') no-repeat top right;}
+a.re-form-button-orange span{ background: transparent url('re_view_button/oval-orange-right.gif') no-repeat top right;}
+a.re-form-button-red span{ background: transparent url('re_view_button/oval-red-right.gif') no-repeat top right;}
 
 a.button-checked{
 	background: transparent url('./re_view_button/checked-on.gif') no-repeat 1px 1px;
@@ -101,7 +101,7 @@ a.button-unchecked{
 }
 a.button-unchecked:hover	{ background-color: #696969; }
 
-a.nested-add-link {
+a.re-add-link {
 	background: url(./re_view_button/icon-add.png) top left no-repeat;
 	text-decoration: none;
 	font-weight: normal;	
@@ -109,7 +109,7 @@ a.nested-add-link {
   margin: 0;
 }
 
-a.nested-remove-link {
+a.re-remove-link {
 	background: url(./re_view_button/icon-delete.png) top left no-repeat;
 	text-decoration: none;
 	font-weight: normal;

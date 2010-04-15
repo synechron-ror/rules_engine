@@ -10,11 +10,11 @@ describe "re_button_submit", :type => :helper do
   end
 
   it "should set the default class to re-form-field" do
-    call_re_button_submit("Title", "red").should have_tag('div.form-button input[type=submit].form-button-red')
+    call_re_button_submit("Title", "red").should have_tag('div.re-form-button input[type=submit].re-form-button-red')
   end
   
   it "should set the width from the span value" do
-    call_re_button_submit("Title", "red", :span => '20').should have_tag('div.form-button.span-20')
+    call_re_button_submit("Title", "red", :span => '20').should have_tag('div.re-form-button.span-20')
   end  
 end
 
@@ -42,11 +42,11 @@ describe "re_button_link", :type => :helper do
   end
 
   it "should set the default class to re-form-field" do
-    call_re_button_link("Title", "http://wow", "red").should have_tag("div.form-button a[href=http://wow].form-button-red")
+    call_re_button_link("Title", "http://wow", "red").should have_tag("div.re-form-button a[href=http://wow].re-form-button-red")
   end
   
   it "should set the width from the span value" do
-    call_re_button_link("Title", "http://wow", "red", :span => '20').should have_tag('div.form-button.span-20')
+    call_re_button_link("Title", "http://wow", "red", :span => '20').should have_tag('div.re-form-button.span-20')
   end  
   
 end
@@ -65,59 +65,59 @@ end
 end
 
 
-describe "render_add_link", :type => :helper do 
+describe "re_add_link", :type => :helper do 
   it "should call link_to with the title" do
     @template.should_receive(:link_to).with("mock_title", "#", anything())
-    eval_erb("<% render_add_link('mock_title', 'mock_id') %>")    
+    eval_erb("<% re_add_link('mock_title', 'mock_id') %>")    
   end      
 
   it "should call link_to with the id" do
     @template.should_receive(:link_to).with(anything(), anything(), hash_including({:id => 'mock_id'}))
-    eval_erb("<% render_add_link('mock_title', 'mock_id') %>")    
+    eval_erb("<% re_add_link('mock_title', 'mock_id') %>")    
   end      
 
-  it "should set the link class to nested-add-link" do
-    @template.should_receive(:link_to).with(anything(), anything(), hash_including({:class => 'nested-add-link'}))
-    eval_erb("<% render_add_link('mock_title', 'mock_id') %>")    
+  it "should set the link class to re-add-link" do
+    @template.should_receive(:link_to).with(anything(), anything(), hash_including({:class => 're-add-link'}))
+    eval_erb("<% re_add_link('mock_title', 'mock_id') %>")    
   end      
 
 end
 
-describe "render_remove_link", :type => :helper do 
+describe "re_remove_link", :type => :helper do 
   it "shouldbe blank if the id is 0" do
-    eval_erb("<% render_remove_link('mock_title', 'object[name]', 0) %>").should be_blank
+    eval_erb("<% re_remove_link('mock_title', 'object[name]', 0) %>").should be_blank
   end      
 
   it "should call link_to with the title" do
     @template.should_receive(:link_to).with("mock_title", anything(), anything())
-    eval_erb("<% render_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
+    eval_erb("<% re_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
   end      
 
   it "should call link_to with the id" do
     @template.should_receive(:link_to).with(anything(), anything(), hash_including({:id => 'object_name_remove'}))
-    eval_erb("<% render_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
+    eval_erb("<% re_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
   end      
 
-  it "should set the link class to nested-remove-link" do
-    @template.should_receive(:link_to).with(anything(), anything(), hash_including({:class => 'nested-remove-link'}))
-    eval_erb("<% render_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
+  it "should set the link class to re-remove-link" do
+    @template.should_receive(:link_to).with(anything(), anything(), hash_including({:class => 're-remove-link'}))
+    eval_erb("<% re_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
   end      
 
 end
 
-describe "render_delete_field", :type => :helper do 
+describe "re_remove_field", :type => :helper do 
   it "should be blank if the id is 0" do
-    eval_erb("<% render_delete_field('object[name]', 0) %>").should be_blank
+    eval_erb("<% re_remove_field('object[name]', 0) %>").should be_blank
   end      
 
   it "should call hidden_field_tag with the _delete field" do
     @template.should_receive(:hidden_field_tag).with("object[name][_delete]", anything(), anything())
-    eval_erb("<% render_delete_field('object[name]', 'mock_id') %>")    
+    eval_erb("<% re_remove_field('object[name]', 'mock_id') %>")    
   end      
 
   it "should call hidden_field_tag with the id" do
     @template.should_receive(:hidden_field_tag).with(anything(), anything(), hash_including({:id => 'object_name__delete'}))
-    eval_erb("<% render_delete_field('object[name]', 'mock_id') %>")    
+    eval_erb("<% re_remove_field('object[name]', 'mock_id') %>")    
   end      
 
 end

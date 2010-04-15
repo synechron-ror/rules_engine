@@ -90,7 +90,7 @@ jQuery.replace_new_record_ids = function(s){
 
 // document ready
 $(document).ready(function() {	
-  $('div.form-button').each(function() { 
+  $('div.re-form-button').each(function() { 
    $(this).re_form_button(); 
   });  
 	
@@ -102,13 +102,13 @@ $(document).ready(function() {
 	
 	// nested attributes wrap in a new_position_NAME
 	// and put the delete in the outermost div to be deleted so I can grab the parent and hide it
- 	$('a.nested-add-link').live('click', function() {
+ 	$('a.re-add-link').live('click', function() {
  	  var value = eval('new_' + $(this).attr('id'))
  	  var $new_content = $($.replace_new_record_ids(value))
  		$("#new_position_" + $(this).attr('id')).append($new_content); 		
  		$new_content.find('input').focus();
  	});	
- 	$('a.nested-remove-link').live('click', function() { 
+ 	$('a.re-remove-link').live('click', function() { 
 		var id = $(this).attr('id').replace("_remove", "__delete");
 		$('input[id=' + id + ']').attr('value', '1');
 		$('input[id=' + id + ']').parent().hide();

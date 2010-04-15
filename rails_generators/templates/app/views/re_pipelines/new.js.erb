@@ -1,5 +1,5 @@
 $('#tb_temp_container').html('<%=escape_javascript(render(:partial => '/re_pipelines/new'))%>');
 
-$('#pipeline_new_insert').closest('div.form-button').re_form_button(); 
+$('#pipeline_new_insert').closest('div.re-form-button').re_form_button(); 
 
 $("#pipeline_new_form").submit(function() { return false; });

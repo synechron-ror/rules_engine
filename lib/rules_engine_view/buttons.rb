@@ -2,8 +2,8 @@ module RulesEngineView
   module Buttons
 
     def re_button_submit(title, color, options ={})
-      klass = "form-button-#{color} #{options[:class]}"
-      result = "<div class='form-button"
+      klass = "re-form-button-#{color} #{options[:class]}"
+      result = "<div class='re-form-button"
       result << " span-#{options[:span]}" unless options[:span].blank?
       result << "'>"
       result << submit_tag(title, options.merge(:class=> klass).except(:span))      
@@ -33,8 +33,8 @@ module RulesEngineView
 
 
     def re_button_link(title, url, color, options = {})
-      klass = "form-button-#{color} #{options[:class]}"
-      result = "<div class='form-button"
+      klass = "re-form-button-#{color} #{options[:class]}"
+      result = "<div class='re-form-button"
       result << " span-#{options[:span]}" unless options[:span].blank?
       result << "'>"
       result << link_to("<span>#{title}</span>", url, options.merge(:class=> klass).except(:span))      
@@ -65,18 +65,18 @@ module RulesEngineView
     
     ############################## 
     # nested buttons
-    def render_add_link(title, id) 
-      link_to("#{title}", "#", :class => 'nested-add-link', :id => "#{id}")
+    def re_add_link(title, id) 
+      link_to("#{title}", "#", :class => 're-add-link', :id => "#{id}")
     end  
 
-    def render_remove_link(title, object_name, id)
+    def re_remove_link(title, object_name, id)
       return "" if id == 0
       
       builder_id = object_name.gsub('[', '_').gsub(']', '')    
-      link_to("#{title}", "#", :class => 'nested-remove-link', :id => "#{builder_id}_remove")
+      link_to("#{title}", "#", :class => 're-remove-link', :id => "#{builder_id}_remove")
     end
 
-    def render_delete_field(object_name, id)
+    def re_remove_field(object_name, id)
       return "" if id == 0
       
       builder_id = object_name.gsub('[', '_').gsub(']', '')
