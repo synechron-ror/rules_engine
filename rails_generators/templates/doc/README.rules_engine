@@ -1,0 +1,75 @@
+***************************************************** 
+*** INSTALL GEMS
+
+sudo gem install will_paginate acts_as_list
+
+***************************************************** 
+*** EDIT config/environment.rb
+
+Rails::Initializer.run do |config|
+  ...
+  config.gem 'rules_engine'
+  config.gem 'will_paginate'
+  config.gem 'acts_as_list'
+  ...
+  config.active_record.observers = :re_pipeline_activated_observer
+  ...
+end
+  
+RulesEngine::Discovery.discover!
+
+***************************************************** 
+*** EDIT config/environments/production.rb
+*** EDIT config/environments/development.rb
+*** EDIT config/environments/test.rb
+
+RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
+  #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
+  #   RulesEngine::Cache.cache_store = :memory_store
+  #   RulesEngine::Cache.cache_store = :file_store, "/path/to/cache/directory"
+  #   RulesEngine::Cache.cache_store = :drb_store, "druby://localhost:9192"
+  #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost"
+  #   RulesEngine::Cache.cache_store = MyOwnStore.new("parameter")
+
+
+***************************************************** 
+*** EDIT config/routes.rb
+
+ActionController::Routing::Routes.draw do |map|
+
+  ...
+  ### map.root :controller => 're_pipelines', :action => 'template'
+  map.resources :re_pipelines, :collection => {:lookup => :get}, :member => {:change => :get, :activate => :put, :deactivate => :put, :revert => :put} do |re_pipeline|  
+    re_pipeline.resources :re_rules, :collection => {:help => :get, :error => :get}, :member => {:move_up => :put, :move_down => :put}
+    re_pipeline.resources :re_jobs, :controller => :re_pipeline_jobs, :only => [:index]
+  end
+  
+  map.resources :re_jobs, :only => [:index, :show]
+  ...
+end  
+
+***************************************************** 
+*** RUN rake db:migrate
+
+restart app and goto http://localhost:3000/re_pipelines
+
+
+***************************************************** 
+*** INSTALL RULES_ENGINE_USER
+*** EDIT config/environment.rb
+ActionController::Base.define_access_level(:editor,   10)
+ActionController::Base.define_access_level(:reader,   9)
+
+***************************************************** 
+*** DEFINE YOUR OWN USER ACCESS RULES
+*** EDIT app/controllers/application_controller.rb
+class ApplicationController < ActionController::Base
+  ...
+  def re_reader_access_required
+    # redirect if the current user cannot read the rules
+  end
+  
+  def re_editor_access_required
+    # redirect if the current user cannot edit the rules
+  end
+  

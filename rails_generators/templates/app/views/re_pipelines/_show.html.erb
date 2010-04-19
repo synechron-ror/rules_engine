@@ -4,13 +4,13 @@
 <div class="span-16">
   <div class="re-infobox">
     <div class="span-10">
-      <h3 class="pipeline-status-<%= @re_pipeline_verify.blank? ? re_pipeline_status : 'verify' %>"><%=h @re_pipeline.code%></h3>
+      <h3 class="re-pipeline-status-<%= @re_pipeline_verify.blank? ? re_pipeline_status : 'verify' %>"><%=h @re_pipeline.code%></h3>
     </div>  
     <div class="span-5 last">      
       <% if re_pipeline_verify.blank? %>
-        <em class="float-right pipeline-status-<%= re_pipeline_status %>"><%= re_pipeline_status.titleize %></em>
+        <em class="float-right re-pipeline-status-<%= re_pipeline_status %>"><%= re_pipeline_status.titleize %></em>
       <% else %>
-        <em class="float-right pipeline-status-verify"><%= re_pipeline_verify %></em>
+        <em class="float-right re-pipeline-status-verify"><%= re_pipeline_verify %></em>
       <% end %>    
     </div>    
     

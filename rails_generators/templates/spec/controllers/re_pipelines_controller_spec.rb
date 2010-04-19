@@ -2,9 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 %w(lookup index show new create change edit update activate deactivate revert destroy).each do |action|
   %w(editor reader).each do |type|
-    shared_examples_for "#{type}_access_required_for_#{action}" do
+    shared_examples_for "re_#{type}_access_required_for_#{action}" do
       before do
-        controller.stub!(:"#{type}_access_required").and_return(false)
+        controller.stub!(:"re_#{type}_access_required").and_return(false)
       end
 
       it "should confirm #{type} when calling #{action}" do
@@ -15,23 +15,23 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 end
 
 describe RePipelinesController do
-  it_should_behave_like "reader_access_required_for_lookup"
-  it_should_behave_like "reader_access_required_for_index"
-  it_should_behave_like "reader_access_required_for_show"
+  it_should_behave_like "re_reader_access_required_for_lookup"
+  it_should_behave_like "re_reader_access_required_for_index"
+  it_should_behave_like "re_reader_access_required_for_show"
   
-  it_should_behave_like "editor_access_required_for_new"
-  it_should_behave_like "editor_access_required_for_create"
-  it_should_behave_like "editor_access_required_for_change"
-  it_should_behave_like "editor_access_required_for_edit"
-  it_should_behave_like "editor_access_required_for_update"
-  it_should_behave_like "editor_access_required_for_activate"
-  it_should_behave_like "editor_access_required_for_deactivate"
-  it_should_behave_like "editor_access_required_for_revert"
-  it_should_behave_like "editor_access_required_for_destroy"
+  it_should_behave_like "re_editor_access_required_for_new"
+  it_should_behave_like "re_editor_access_required_for_create"
+  it_should_behave_like "re_editor_access_required_for_change"
+  it_should_behave_like "re_editor_access_required_for_edit"
+  it_should_behave_like "re_editor_access_required_for_update"
+  it_should_behave_like "re_editor_access_required_for_activate"
+  it_should_behave_like "re_editor_access_required_for_deactivate"
+  it_should_behave_like "re_editor_access_required_for_revert"
+  it_should_behave_like "re_editor_access_required_for_destroy"
   
   before do
-    controller.stub!(:editor_access_required).and_return(true)
-    controller.stub!(:reader_access_required).and_return(true)
+    controller.stub!(:re_editor_access_required).and_return(true)
+    controller.stub!(:re_reader_access_required).and_return(true)
   end
   
   describe "index" do

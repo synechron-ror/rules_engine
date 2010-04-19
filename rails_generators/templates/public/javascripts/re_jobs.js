@@ -13,7 +13,7 @@ get_job_list = function(page) {
 
 $(document).ready(function() {	  
   
-  $('a.pipeline-job-detail').live('click', function() {    
+  $('a.re-job-detail').live('click', function() {    
     var job = $(this).attr('href').replace('#', '');
       
     tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=450&width=800', false);
@@ -24,32 +24,32 @@ $(document).ready(function() {
   });  
 
 
-  $('a.job-page-prev-enabled').live('click', function() {
+  $('a.re-job-page-prev-enabled').live('click', function() {
     var page = $(this).attr('href').replace('#', ''); 
     
-    $('#job_list').hide();
-    $('#job_list_pending').show();
+    $('#re_job_list').hide();
+    $('#re_job_list_pending').show();
     get_job_list(page);  
     
   	return false;  
   });  
 
-  $('a.job-page-prev-disabled').live('click', function() {
+  $('a.re-job-page-prev-disabled').live('click', function() {
     return false;
   });
   
 
-  $('a.job-page-next-enabled').live('click', function() {
+  $('a.re-job-page-next-enabled').live('click', function() {
     var page = $(this).attr('href').replace('#', ''); 
     
-    $('#job_list').hide();
-    $('#job_list_pending').show();
+    $('#re_job_list').hide();
+    $('#re_job_list_pending').show();
     get_job_list(page);  
     
   	return false;  
   });  
 
-  $('a.job-page-next-disabled').live('click', function() {
+  $('a.re-job-page-next-disabled').live('click', function() {
     return false;
   });
   

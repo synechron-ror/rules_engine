@@ -1,5 +1,5 @@
 <div class="clear prepend-1 span-18">
-  <h2 class="rule-class-help"> Help : <%= @rule_class.options[:name] %></h2>
+  <h2 class="re-rule-class-help"> Help : <%= @rule_class.options[:name] %></h2>
   <div class="clear top-10"></div>
 
   <% re_whitebox do %>      
@@ -7,7 +7,7 @@
     <%= render(@rule_class.options[:help_template]) %>    
     
     <div class="clear"></div>
-	  <%= re_button_link_red('Close', edit_re_pipeline_path(@re_pipeline), :id => "rule_help_cancel") %>
+	  <%= re_button_link_red('Close', edit_re_pipeline_path(@re_pipeline), :id => "re_rule_help_cancel") %>
   <% end %>
 </div>  
 <div class="clear"></div>

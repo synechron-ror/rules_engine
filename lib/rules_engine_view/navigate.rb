@@ -45,9 +45,9 @@ module RulesEngineView
         
       links[0 ... -1].each do |link|
         result << '<li><strong>'
-        result << link
-        result << ' | '
+        result << link        
         result << '</strong></li>'
+        result << '<li><strong> | </strong></li>'        
       end
       result << '<li><strong>'
       result << links[-1]

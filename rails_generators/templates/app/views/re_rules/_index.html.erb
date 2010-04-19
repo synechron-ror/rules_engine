@@ -7,26 +7,26 @@
   <div class="clear top-5"></div>
 <% end %>
 
-<div class="span-6 <%= local_new_row ? 'left-20' : '' %> rule-show">
-  <div class="<%= re_rule_verify.blank? ? 'bluebox' : 'redbox' %> rule-status-<%= re_rule_verify.blank? ? 'valid' : 'verify' %>"><%= re_rule.title %></div>
-  <div class="<%= re_rule_verify.blank? ? 'bluebox' : 'redbox' %> no-top"> 
+<div class="span-6 <%= local_new_row ? 'left-20' : '' %> re-rule-show">
+  <div class="<%= re_rule_verify.blank? ? 're-bluebox' : 're-redbox' %> re-rule-status-<%= re_rule_verify.blank? ? 'valid' : 'verify' %>"><%= re_rule.title %></div>
+  <div class="<%= re_rule_verify.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
       <p class="top-5"><%= re_rule.summary %></p>
 
       <div class="top-10 float-right">
         <% if re_rule.re_rule_outcomes.empty? %>
-          <div class="rule-continue">Continue</div>
+          <div class="re-rule-continue">Continue</div>
         <% end %>        
         <% unless re_rule.re_rule_outcome_next.nil? %>
-          <div class="rule-continue">Continue</div>
+          <div class="re-rule-continue">Continue</div>
         <% end %>  
         <% re_rule.re_rule_outcomes_start_pipeline.each do |re_rule_outcome| %>
-          <div class="rule-goto-pipeline"><%= re_rule_outcome.pipeline_code %></div>
+          <div class="re-rule-goto-pipeline"><%= re_rule_outcome.pipeline_code %></div>
         <% end %>  
         <% unless re_rule.re_rule_outcome_failure.nil? %>
-          <div class="rule-stop-failure">Stop Failure</div>
+          <div class="re-rule-stop-failure">Stop Failure</div>
         <% end %>  
         <% unless re_rule.re_rule_outcome_success.nil? %>
-          <div class="rule-stop-success">Stop Success</div>
+          <div class="re-rule-stop-success">Stop Success</div>
         <% end %>  
       </div>
       <div class="clear"></div>  
@@ -34,5 +34,5 @@
 </div>
 
 <% unless local_last_rule %>
-  <div class="span-1 last"> <div class="rule-next-show"></div> </div>
+  <div class="span-1 last"> <div class="re-rule-next-show"></div> </div>
 <% end %>

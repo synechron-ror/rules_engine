@@ -6,22 +6,22 @@ unblock_fetching_thickbox = function() {
   $('#TB_ajaxContent').unblock();
 }
 
-pipeline_action_confirm = function(id, title, action) {
-  $('#pipeline_action_title').attr('class', 'pipeline-' + id + ' red');
-  $('#pipeline_action_title').html(title);
-  $('#pipeline_action_content_code').html($('#pipeline_code').html());
-  $('#pipeline_action_content_title').html($('#pipeline_title').html());
+re_pipeline_action_confirm = function(id, title, action) {
+  $('#re_pipeline_action_title').attr('class', 're-pipeline-' + id + ' red');
+  $('#re_pipeline_action_title').html(title);
+  $('#re_pipeline_action_content_code').html($('#re_pipeline_code').html());
+  $('#re_pipeline_action_content_title').html($('#re_pipeline_title').html());
 
-  $('#pipeline_action_ok').attr('href', '#pipeline_' + id + '_form');
-  $('#pipeline_action_ok').html("<span>" + action + "</span>")
+  $('#re_pipeline_action_ok').attr('href', '#re_pipeline_' + id + '_form');
+  $('#re_pipeline_action_ok').html("<span>" + action + "</span>")
   
-  tb_show("", '#?TB_inline=true&inlineId=pipeline_action_confirm&height=160&width=600', false);
+  tb_show("", '#?TB_inline=true&inlineId=re_pipeline_action_confirm&height=160&width=600', false);
 }
 
 
 $(document).ready(function() {	  
 
-  $('a.pipeline-action-edit').live('click', function() {    
+  $('a.re-pipeline-action-edit').live('click', function() {    
     var pipeline = $(this).attr('href').replace('#', '');
       
     tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=800', false);
@@ -30,50 +30,50 @@ $(document).ready(function() {
   	return false;  
   });  
 
-  $("#pipeline_edit_cancel").live('click', function() {
+  $("#re_pipeline_edit_cancel").live('click', function() {
     self.parent.tb_remove();
     return false;
   });  
 
-  $('#pipeline_edit_update').live('click', function() {
+  $('#re_pipeline_edit_update').live('click', function() {
     block_fetching_thickbox();    
-    $.post($('#pipeline_edit_form').attr('action'), $('#pipeline_edit_form').serialize(), unblock_fetching_thickbox, 'script');    
+    $.post($('#re_pipeline_edit_form').attr('action'), $('#re_pipeline_edit_form').serialize(), unblock_fetching_thickbox, 'script');    
     return false;
   });
 
-  $('a.pipeline-action-activate').live('click', function() {    
-    pipeline_action_confirm('activate', "Confirm Activate Pipeline", "Activate")
+  $('a.re-pipeline-action-activate').live('click', function() {    
+    re_pipeline_action_confirm('activate', "Confirm Activate Pipeline", "Activate")
   	return false;  
   });  
 
-  $('a.pipeline-action-deactivate').live('click', function() {    
-    pipeline_action_confirm('deactivate', "Confirm Deactivate Pipeline", "Deactivate")
+  $('a.re-pipeline-action-deactivate').live('click', function() {    
+    re_pipeline_action_confirm('deactivate', "Confirm Deactivate Pipeline", "Deactivate")
   	return false;  
   });  
 
-  $('a.pipeline-action-revert').live('click', function() {    
-    pipeline_action_confirm('revert', "Confirm Discard Pipeline Changed", "Discard Changes")
+  $('a.re-pipeline-action-revert').live('click', function() {    
+    re_pipeline_action_confirm('revert', "Confirm Discard Pipeline Changed", "Discard Changes")
   	return false;  
   });  
 
-  $('a.pipeline-action-delete').live('click', function() {    
-    pipeline_action_confirm('delete', "Confirm Delete <strong>This cannot be undone !!!</strong>", "Delete Pipeline")
+  $('a.re-pipeline-action-delete').live('click', function() {    
+    re_pipeline_action_confirm('delete', "Confirm Delete <strong>This cannot be undone !!!</strong>", "Delete Pipeline")
   	return false;  
   });  
 
-  $("#pipeline_action_cancel").live('click', function() {
+  $("#re_pipeline_action_cancel").live('click', function() {
     self.parent.tb_remove();
     return false;
   });  
 
-  $('#pipeline_action_ok').live('click', function() {
+  $('#re_pipeline_action_ok').live('click', function() {
     var form_id = $(this).attr('href');
     $.post($(form_id).attr('action'), $(form_id).serialize(), unblock_fetching_thickbox, 'script');    
     return false;
   });
 
   // NEW RULE
-  $('a.rule-class-new').live('click', function() {    
+  $('a.re-rule-class-new').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
     if (values.length != 2)
       return false;
@@ -84,19 +84,19 @@ $(document).ready(function() {
   	return false;  
   });  
 
-  $("#rule_new_cancel").live('click', function() {
+  $("#re_rule_new_cancel").live('click', function() {
     self.parent.tb_remove();
     return false;
   });  
 
-  $('#rule_new_insert').live('click', function() {
+  $('#re_rule_new_insert').live('click', function() {
     block_fetching_thickbox();    
-    $.post($('#rule_new_form').attr('action'), $('#rule_new_form').serialize(), unblock_fetching_thickbox, 'script');    
+    $.post($('#re_rule_new_form').attr('action'), $('#re_rule_new_form').serialize(), unblock_fetching_thickbox, 'script');    
     return false;
   });
 
   // RULE EDIT
-  $('a.rule-edit').live('click', function() {    
+  $('a.re-rule-edit').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
     if (values.length != 2)
       return false;
@@ -107,66 +107,66 @@ $(document).ready(function() {
   	return false;  
   });  
 
-  $("#rule_edit_cancel").live('click', function() {
+  $("#re_rule_edit_cancel").live('click', function() {
     self.parent.tb_remove();
     return false;
   });  
 
-  $('#rule_edit_update').live('click', function() {
+  $('#re_rule_edit_update').live('click', function() {
     block_fetching_thickbox();    
-    $.post($('#rule_edit_form').attr('action'), $('#rule_edit_form').serialize(), unblock_fetching_thickbox, 'script');    
+    $.post($('#re_rule_edit_form').attr('action'), $('#re_rule_edit_form').serialize(), unblock_fetching_thickbox, 'script');    
     return false;
   });
 
   // RULE DELETE
-  $('a.rule-delete').live('click', function() {    
+  $('a.re-rule-delete').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
     if (values.length != 2)
       return false;
       
-    $('#rule_delete_ok').attr('href', '#rule_delete_form_' + values[1])  
-    tb_show("", '#?TB_inline=true&inlineId=rule_delete_confirm&height=160&width=500', false);
+    $('#re_rule_delete_ok').attr('href', '#re_rule_delete_form_' + values[1])  
+    tb_show("", '#?TB_inline=true&inlineId=re_rule_delete_confirm&height=160&width=500', false);
   	return false;  
   });  
 
-  $("#rule_delete_cancel").live('click', function() {
+  $("#re_rule_delete_cancel").live('click', function() {
     self.parent.tb_remove();
     return false;
   });  
 
-  $('#rule_delete_ok').live('click', function() {
+  $('#re_rule_delete_ok').live('click', function() {
     var form_id = $(this).attr('href');
     $.post($(form_id).attr('action'), $(form_id).serialize(), unblock_fetching_thickbox, 'script');    
     return false;
   });
 
   // RULE MOVE
-  $('a.rule-move-up').live('click', function() {    
+  $('a.re-rule-move-up').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
     if (values.length != 2)
       return false;
       
-    $(this).removeClass('rule-move-up');
-    $(this).addClass('rule-move-up-off');
+    $(this).removeClass('re-rule-move-up');
+    $(this).addClass('re-rule-move-up-off');
     
-    $.post($('#rule_move_up_form_' + values[1]).attr('action'), $('#rule_move_up_form_' + values[1]).serialize(), null, 'script');    
+    $.post($('#re_rule_move_up_form_' + values[1]).attr('action'), $('#re_rule_move_up_form_' + values[1]).serialize(), null, 'script');    
   	return false;  
   });  
 
-  $('a.rule-move-down').live('click', function() {    
+  $('a.re-rule-move-down').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
     if (values.length != 2)
       return false;
       
-    $(this).removeClass('rule-move-down');
-    $(this).addClass('rule-move-down-off');
+    $(this).removeClass('re-rule-move-down');
+    $(this).addClass('re-rule-move-down-off');
     
-    $.post($('#rule_move_down_form_' + values[1]).attr('action'), $('#rule_move_down_form_' + values[1]).serialize(), null, 'script');    
+    $.post($('#re_rule_move_down_form_' + values[1]).attr('action'), $('#re_rule_move_down_form_' + values[1]).serialize(), null, 'script');    
   	return false;  
   });  
 
   // RULE HELP  
-  $('a.rule-class-help').live('click', function() {    
+  $('a.re-rule-class-help').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
     if (values.length != 2)
       return false;
@@ -177,25 +177,25 @@ $(document).ready(function() {
   	return false;  
   });  
 
-  $("#rule_help_cancel").live('click', function() {
+  $("#re_rule_help_cancel").live('click', function() {
     self.parent.tb_remove();
     return false;
   });  
 
 
   // RULE LIST  
-  $('a.rule-class-list-toggle').live('click', function() {    
+  $('a.re-rule-class-list-toggle').live('click', function() {    
     var $h5 = $(this).find('h5')
-    var $list = $(this).next('.rule-class-list')
-    if ($h5.hasClass('rule-class-list-down')) {
+    var $list = $(this).next('.re-rule-class-list')
+    if ($h5.hasClass('re-rule-class-list-down')) {
       $list.slideUp(150, function() {
-        $h5.removeClass('rule-class-list-down');
-        $h5.addClass('rule-class-list-right');
+        $h5.removeClass('re-rule-class-list-down');
+        $h5.addClass('re-rule-class-list-right');
       });
     } else {
       $list.slideDown(150, function() {
-        $h5.removeClass('rule-class-list-right');
-        $h5.addClass('rule-class-list-down');
+        $h5.removeClass('re-rule-class-list-right');
+        $h5.addClass('re-rule-class-list-down');
       });
     }
   });

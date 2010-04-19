@@ -1,0 +1,18 @@
+<div class="clear top-10"></div>
+<hr/>
+
+<div class="span-8">
+  <%= select_ext "Match Outcome", 'complex_pipeline_action', 
+                                    options_for_select([
+                                                        ["Continue Next", 'next'], 
+                                                        ["Stop Success", 'stop_success'],
+                                                        ["Stop Failure", 'stop_failure'],
+                                                        ["Add to Pipeline", 'start_pipeline']
+                                                        ], 
+                                                        @rule.pipeline_action || params['complex_pipeline_action']),
+																		:required => true %>
+</div>
+<div class="prepend-1 span-7 last">
+  <%= text_field_ext "Pipeline Name", "complex_pipeline", @rule.pipeline || params[:complex_pipeline] || '', :size => 20, :required => true, :span => '3x5' %>
+</div>
+

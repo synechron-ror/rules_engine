@@ -27,13 +27,13 @@ jQuery.re_message = function(style, header, message, timeout){
    });
 }
 
-jQuery.error_message = function(message, timeout){
+jQuery.re_error_message = function(message, timeout){
 	jQuery.re_message('growl-error', 'Error', message, timeout);
 }
-jQuery.success_message = function(message, timeout){
+jQuery.re_success_message = function(message, timeout){
 	jQuery.re_message('growl-success', 'Success', message, timeout);
 }
-jQuery.$.re_notice_message = function(message, timeout){
+jQuery.re_notice_message = function(message, timeout){
 	jQuery.re_message('growl-notice', 'Notice', message, timeout);
 }
 

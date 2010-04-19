@@ -1,5 +1,6 @@
+<%= set_re_subnav "Rules Engine Template ", link_to("- List Pipelines", re_pipelines_path) %>
+
 <div class="span-24"> 
-  <h1>Heading and Paragraph Styles</h1> 
   <% %w(h1 h2 h3 h4 h5 h6).each do |type| %>
     <hr/>
     <<%= type %>><%= type %></<%= type %>> 
@@ -15,9 +16,9 @@
 
 <div class="span-24"> 
   <h1>Navigate</h1> 
-  <%= breadcrumbs link_to("level one", "#"), link_to("level two", "#"), "level three" %>
-  <%= breadcrumbs_right link_to("level one", "#"), link_to("level two", "#"), "level three", link_to("link_right", "#")  %>
-  <%= subnav "Heading", link_to("level one", "#"), link_to("level two", "#"), link_to("level three", "#"), link_to("level four", "#") %>
+  <%= re_breadcrumbs link_to("level one", "#"), link_to("level two", "#"), "level three" %>
+  <%= re_breadcrumbs_right link_to("level one", "#"), link_to("level two", "#"), "level three", link_to("link_right", "#")  %>
+  <%= re_subnav "Heading", link_to("level one", "#"), link_to("level two", "#"), link_to("level three", "#"), link_to("level four", "#") %>
 
 </div>  
 <hr>
@@ -39,44 +40,32 @@
     <% end %>  
   </div>
   
-  <% %w(box error notice success).each do |type| %>
-    <div class="span-6 <%= type == 'success' ?  'last' : ''%>">
+  <% %w(error notice success).each do |type| %>
+    <div class="span-6 prepend-1 <%= type == 'success' ?  'last' : ''%>">
       <h3><%= type %></h3>   
       <div class="span-5 <%= type %>">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p> 
       </div>    
     </div>
   <% end %>
-  <div class="clear"></div>
+  <div class="clear top-10"></div>
   
   <% %w(bluebox greenbox redbox dkgreenbox brownbox yellowbox).each do |type| %>
     <div class="span-4 <%= type == 'yellowbox' ?  'last' : ''%>">
-      <div class="<%= type %>-header"><%= type %> header</div>   
-      <div class="<%= type %>">
+      <div class="re-<%= type %>-header">re-<%= type %> header</div>   
+      <div class="re-<%= type %>">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p> 
       </div>    
     </div>
   <% end %>  
   <div class="clear"></div>
 
-  <% %w(boombox infobox headerbox).each do |type| %>
-    <div class="span-8 <%= type == 'headerbox' ?  'last' : ''%>">
-      <h3><%= type %></h3>   
-      <div class="<%= type %>">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p> 
-      </div>    
-    </div>
-  <% end %>  
-  <div class="clear"></div>
-
-  <% %w(errorbox successbox).each do |type| %>
-    <div class="span-12 <%= type == 'successbox' ?  'last' : ''%>">
-      <h3><%= type %></h3>   
-      <div class="<%= type %>">
-        Oh Dear!!!
-      </div>    
-    </div>
-  <% end %>  
+   <div class="span-8 prepend-5">
+     <h3>re-infobox</h3>   
+     <div class="re-infobox">
+       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p> 
+     </div>    
+   </div>
   <div class="clear"></div>
 
 <hr>

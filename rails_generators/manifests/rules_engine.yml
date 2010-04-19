@@ -1,0 +1,76 @@
+directories :
+  - app/views/re_jobs
+  - app/views/re_pipeline_jobs
+  - app/views/re_pipelines
+  - app/views/re_rules
+
+  - public/images/re_pipeline
+  - public/images/re_rule
+  - public/images/re_rule_class
+  - public/images/re_job
+
+  - public/stylesheets/blueprint
+  - public/stylesheets/re_pipeline
+  - public/stylesheets/re_view_box
+  - public/stylesheets/re_view_button
+  - public/stylesheets/re_view_navigate
+  
+files :  
+  - doc/README.rules_engine
+  - app/controllers/re_pipelines_controller.rb 
+  - app/controllers/re_rules_controller.rb
+  - app/controllers/re_jobs_controller.rb
+  - app/controllers/re_pipeline_jobs_controller.rb
+
+  - app/helpers/re_pipeline_helper.rb
+
+  - app/models/re_pipeline.rb           
+  - app/models/re_pipeline_activated.rb 
+  - app/models/re_pipeline_activated_observer.rb 
+  - app/models/re_pipeline_base.rb      
+  - app/models/re_rule.rb               
+  - app/models/re_rule_outcome.rb
+  - app/models/re_job.rb               
+  - app/models/re_job_audit.rb               
+
+  - app/views/layouts/rules_engine.html.erb
+  
+  - db/migrate/20100308225008_create_re_pipelines.rb
+
+  - lib/tasks/re_runner.rake
+                
+  - public/images/loadingAnimation.gif
+  
+  - public/javascripts/jquery-1.3.2.min.js
+  - public/javascripts/jquery.autocomplete.pack.js
+  - public/javascripts/jquery.blockUI.js
+  - public/javascripts/re_jobs.js    
+  - public/javascripts/re_pipeline_change.js 
+  - public/javascripts/re_pipeline_index.js  
+  - public/javascripts/re_pipeline_jobs.js
+  - public/javascripts/re_pipeline_new.js
+  - public/javascripts/re_view.js
+  - public/javascripts/thickbox.js
+  - public/stylesheets/jquery.autocomplete.css
+  - public/stylesheets/macFFBgHack.png
+  - public/stylesheets/re_pipeline.css
+  - public/stylesheets/re_view_box.css
+  - public/stylesheets/re_view_button.css
+  - public/stylesheets/re_view_error.css
+  - public/stylesheets/re_view_form.css
+  - public/stylesheets/re_view_navigate.css
+  - public/stylesheets/re_view_table.css          
+  - public/stylesheets/re_view.css        
+  - public/stylesheets/thickbox.css
+    
+  - spec/controllers/re_pipelines_controller_spec.rb
+    
+  - spec/models/re_pipeline_base_spec.rb
+  - spec/models/re_pipeline_spec.rb
+  - spec/models/re_pipeline_activated_spec.rb
+  - spec/models/re_rule_spec.rb
+  - spec/models/re_rule_outcome_spec.rb
+  - spec/models/re_job_spec.rb
+  - spec/models/re_job_audit_spec.rb
+
+  - spec/support/blueprint_re_pipelines.rb

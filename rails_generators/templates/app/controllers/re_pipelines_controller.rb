@@ -1,13 +1,14 @@
 class RePipelinesController < ApplicationController    
   helper :re_pipeline 
+  layout 'rules_engine'
   
   before_filter :only => [:show, :change, :edit, :update, :activate, :deactivate, :revert, :destroy] do |controller|
     controller.re_load_model :re_pipeline
   end    
 
   # before_filter :login_required
-  before_filter :editor_access_required,  :only => [:new, :create, :change, :edit, :update, :activate, :deactivate, :revert, :destroy]
-  before_filter :reader_access_required,  :only => [:lookup, :index, :show]
+  before_filter :re_editor_access_required,  :only => [:new, :create, :change, :edit, :update, :activate, :deactivate, :revert, :destroy]
+  before_filter :re_reader_access_required,  :only => [:lookup, :index, :show]
 
   def lookup
     klass = RePipeline

@@ -1,6 +1,0 @@
-directories :
-  - app/views/re_rule_definitions/blacklist_word
-  
-
-files :  
-  - app/rules/blacklist_word.rb 

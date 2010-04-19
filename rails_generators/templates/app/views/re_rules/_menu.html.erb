@@ -1,17 +1,17 @@
-<div class="rules-menu">
+<div class="re-rule-menu">
   <% RulesEngine::Discovery.rule_groups.each do |name, rule_classes| %>
     <% re_shadowbox do %>
-      <a href="#" class="rule-class-list-toggle">
-        <h5 class="rule-class-list-right"><%=h name %></h5>
+      <a href="#" class="re-rule-class-list-toggle">
+        <h5 class="re-rule-class-list-right"><%=h name %></h5>
       </a>  
-      <div class="rule-class-list hide">
+      <div class="re-rule-class-list hide">
         <% rule_classes.each do |rule_class| %>
-          <div class="yellowbox">
+          <div class="re-yellowbox">
             <h5>
               <%= rule_class.options[:name] %>          
             </h5>
-            <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="rule-class-new"> <span>Add</span> </a>
-            <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="rule-class-help"> <span>Help</span> </a>
+            <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
+            <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
             <div class="clear"></div>
           </div>      
           <div class="clear top-5"></div>
@@ -21,17 +21,17 @@
   <% end %>  
 
   <% re_shadowbox do %>
-    <a href="#" class="rule-class-list-toggle">
-      <h5 class="rule-class-list-down">All Rules</h5>
+    <a href="#" class="re-rule-class-list-toggle">
+      <h5 class="re-rule-class-list-down">All Rules</h5>
     </a>  
-    <div class="rule-class-list">
+    <div class="re-rule-class-list">
       <% RulesEngine::Discovery.rule_classes.each do |rule_class| %>    
-        <div class="yellowbox">
+        <div class="re-yellowbox">
           <h5>
             <%= rule_class.options[:name] %>          
           </h5>
-          <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="rule-class-new"> <span>Add</span> </a>
-          <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="rule-class-help"> <span>Help</span> </a>
+          <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
+          <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
           <div class="clear"></div>
         </div>      
         <div class="clear top-5"></div>

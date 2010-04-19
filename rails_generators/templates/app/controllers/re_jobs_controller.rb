@@ -1,12 +1,13 @@
 class ReJobsController < ApplicationController    
   helper :re_pipeline 
+  layout 'rules_engine'
   
   before_filter :only => [:show] do |controller|
     controller.re_load_model :re_job
   end    
   
   # before_filter :login_required
-  before_filter :reader_access_required
+  before_filter :re_reader_access_required
 
   def index
     @re_jobs = ReJob.find_jobs(:page => params[:page], :per_page => 2)

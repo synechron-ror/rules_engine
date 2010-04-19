@@ -20,7 +20,7 @@ class RePipeline < RePipelineBase
   def deactivate!
    self.activated_re_pipeline.destroy unless activated_re_pipeline.nil?          
    self.activated_re_pipeline = nil
-   self.activated_status = RePipelineBase::ACTIVATED_STATUS_DRAFT
+   # self.activated_status = RePipelineBase::ACTIVATED_STATUS_DRAFT
    save
   end  
 

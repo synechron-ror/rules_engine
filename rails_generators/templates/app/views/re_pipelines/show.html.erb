@@ -1,5 +1,5 @@
 <% set_re_javascript_include 're_pipeline_jobs' %>
-<% set_re_subnav 'View Pipeline', link_to("All Pipelines", re_pipelines_path, :class => "pipeline-list") %>
+<% set_re_subnav 'View Pipeline', link_to("All Pipelines", re_pipelines_path, :class => "re-pipeline-list") %>
 
 <div class="prepend-1 span-16 border">      
   <%= render :partial => 'show' %>    
@@ -27,12 +27,12 @@
 <div class="span-7 last">      
   <%= render '/re_pipeline_jobs/empty', :hide => true %>
 	
-	<div id="job_list_pending" class="re-infobox">
+	<div id="re_job_list_pending" class="re-infobox">
 		<h3 class="left-20">Updating Job List</h3>
-		<a id="job_list_pipeline" href="#<%=  @re_pipeline.id %>"/>
+		<a id="re_job_list_pipeline" href="#<%=  @re_pipeline.id %>"/>
 	</div>	
 
-	<div id="job_list">
+	<div id="re_job_list">
 	</div>
 	
 	<div class="clear"></div>    

@@ -84,12 +84,11 @@ h1.re-subnavheading {
   display: block;
   float: right;
   line-height: 28px;
-  padding: 0 0 0 3px;
+  padding: 0 0 0 8px;
 }
 .re-subnavitems li a {
   display: block;
-  float: right;
-  padding: 0px 0 0 3px;
+  padding: 0;
   text-decoration:none; 
   color:#CB0E22; 
 }

@@ -1,34 +1,34 @@
 <% changed_status = @re_pipeline.changed_status %>
 
-<h3 class="pipeline-edit float-left clear">
-  <%= link_to("Edit Pipeline Details", "##{@re_pipeline.id}", :class => "pipeline-action-edit") %>
+<h3 class="re-pipeline-edit float-left clear">
+  <%= link_to("Edit Pipeline Details", "##{@re_pipeline.id}", :class => "re-pipeline-action-edit") %>
 </h3>
 
 <% if changed_status == RePipelineBase::CHANGED_STATUS_DRAFT %>
-  <h3 class="pipeline-activate float-left clear">
-    <%= link_to("Activate Pipeline", "##{@re_pipeline.id}", :class => "pipeline-action-activate") %>
+  <h3 class="re-pipeline-activate float-left clear">
+    <%= link_to("Activate Pipeline", "##{@re_pipeline.id}", :class => "re-pipeline-action-activate") %>
   </h3>    
 <% end %>  
 <% if changed_status == RePipelineBase::CHANGED_STATUS_CHANGED %>
-  <h3 class="pipeline-activate float-left clear">
-    <%= link_to("Activate Pipeline Changes", "##{@re_pipeline.id}", :class => "pipeline-action-activate") %>
+  <h3 class="re-pipeline-activate float-left clear">
+    <%= link_to("Activate Pipeline Changes", "##{@re_pipeline.id}", :class => "re-pipeline-action-activate") %>
   </h3>    
 <% end %>  
 
 <% if changed_status != RePipelineBase::CHANGED_STATUS_DRAFT && changed_status != RePipelineBase::CHANGED_STATUS_CHANGED %>
-  <h3 class="pipeline-deactivate float-left clear">
-    <%= link_to("Deactivate Pipeline", "##{@re_pipeline.id}", :class => "pipeline-action-deactivate") %>
+  <h3 class="re-pipeline-deactivate float-left clear">
+    <%= link_to("Deactivate Pipeline", "##{@re_pipeline.id}", :class => "re-pipeline-action-deactivate") %>
   </h3>    
 <% end %>  
 
 <% if changed_status == RePipelineBase::CHANGED_STATUS_CHANGED %>
-  <h3 class="pipeline-revert float-left clear">
-    <%= link_to("Discard Pipeline Changes", "##{@re_pipeline.id}", :class => "pipeline-action-revert") %>
+  <h3 class="re-pipeline-revert float-left clear">
+    <%= link_to("Discard Pipeline Changes", "##{@re_pipeline.id}", :class => "re-pipeline-action-revert") %>
   </h3>    
 <% end %>  
 
 <% if changed_status == RePipelineBase::CHANGED_STATUS_DRAFT %>
-  <h3 class="pipeline-delete float-left clear">
-    <%= link_to("Delete Pipeline", "##{@re_pipeline.id}", :class => "pipeline-action-delete") %>
+  <h3 class="re-pipeline-delete float-left clear">
+    <%= link_to("Delete Pipeline", "##{@re_pipeline.id}", :class => "re-pipeline-action-delete") %>
   </h3>    
 <% end %>  
