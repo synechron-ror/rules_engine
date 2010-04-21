@@ -35,7 +35,7 @@ class RulesEngineManifest
       app/controllers
       spec/models
       public/images
-      public/stylesheets/re_pipeline
+      public/stylesheets/re_view_error
     ).each do |dirname|
       m.directory dirname
     end
@@ -46,6 +46,7 @@ class RulesEngineManifest
       public/stylesheets/re_view_navigate/icon-delete.png
       public/images/re_rule/move-down-48.png
       spec/models/re_pipeline_spec.rb
+      public/stylesheets/rules_engine.css
       public/images/re_pipeline/revert-14.png
       public/images/re_job/next-enabled-48.png
       public/images/re_pipeline/new-48.png
@@ -148,7 +149,6 @@ class RulesEngineManifest
       public/images/re_rule/destroy-18.png
       public/images/re_rule/valid-48.png
       app/views/re_pipelines/new.html.erb
-      public/stylesheets/re_pipeline.css
       app/controllers/re_rules_controller.rb
       public/images/re_pipeline/new-25.png
       public/images/re_job/prev-enabled-14.png
@@ -168,7 +168,6 @@ class RulesEngineManifest
       public/images/re_job/list-25.png
       public/images/re_job/loadingAnimation.gif
       public/images/re_job/error-48.png
-      public/stylesheets/re_pipeline/accept.png
       public/images/re_job/next-disabled-25.png
       app/views/re_pipelines/template.html.erb
       public/stylesheets/re_view_navigate/subnavitems-bg.jpg
@@ -273,6 +272,7 @@ class RulesEngineManifest
       public/images/re_rule/move-up-18.png
       public/images/re_pipeline/destroy-14.png
       public/images/re_rule/next-change-14.png
+      public/stylesheets/re_view_error/exclamation.png
       public/stylesheets/blueprint/plugins/link-icons/icons/pdf.png
       public/stylesheets/blueprint/plugins/link-icons/icons/xls.png
       public/images/re_pipeline/list-48.png
@@ -334,6 +334,7 @@ class RulesEngineManifest
       public/stylesheets/re_view_button/oval-blue-right.gif
       public/images/re_rule/edit-14.png
       public/images/re_rule/move-down-off-48.png
+      public/stylesheets/re_view_error/accept.png
       public/images/re_pipeline/show-14.png
       public/images/re_pipeline/verify-18.png
       public/stylesheets/blueprint/plugins/buttons/readme.txt
@@ -358,7 +359,6 @@ class RulesEngineManifest
       public/stylesheets/re_view_navigate/add-new-icon.png
       public/images/re_rule/__destroy-14.png
       public/stylesheets/re_view_navigate/icon-add.png
-      public/stylesheets/re_pipeline/exclamation.png
       app/views/re_rules/error.html.erb
       public/images/re_pipeline/revert-48.png
       public/images/re_pipeline/current-48.png

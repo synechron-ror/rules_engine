@@ -10,9 +10,9 @@ directories :
   - public/images/re_job
 
   - public/stylesheets/blueprint
-  - public/stylesheets/re_pipeline
   - public/stylesheets/re_view_box
   - public/stylesheets/re_view_button
+  - public/stylesheets/re_view_error
   - public/stylesheets/re_view_navigate
   
 files :  
@@ -55,7 +55,7 @@ files :
   - public/javascripts/thickbox.js
   - public/stylesheets/jquery.autocomplete.css
   - public/stylesheets/macFFBgHack.png
-  - public/stylesheets/re_pipeline.css
+  - public/stylesheets/rules_engine.css
   - public/stylesheets/re_view_box.css
   - public/stylesheets/re_view_button.css
   - public/stylesheets/re_view_error.css

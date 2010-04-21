@@ -12,40 +12,6 @@
 /*  padding-bottom: 15px;*/
 /*}*/
 
-/* @group ALERTS */
-.growl-error {
-	font-size: 1.4em;
-	background: #fff6bf url("./re_pipeline/exclamation.png") center no-repeat;
-	background-position: 15px 50%; /* x-pos y-pos */
-	text-align: left;
-	padding: 5px 0px 5px 45px;
-	border-bottom: 2px solid #ffd324;
-	margin-left: auto;
-	margin-right: auto;
-}	
-
-.growl-success {
-	font-size: 1.4em;
-	background: #fff6bf url("./re_pipeline/accept.png") center no-repeat;
-	background-position: 15px 50%; /* x-pos y-pos */
-	text-align: left;
-	padding: 5px 0px 5px 45px;
-	border-bottom: 2px solid #92b83c;
-  margin-left: auto;
-  margin-right: auto;
-}	
-
-.growl-notice {
-	font-size: 1.4em;
-	background: #fff6bf url("./re_pipeline/exclamation.png") center no-repeat;
-	background-position: 15px 50%; /* x-pos y-pos */
-	text-align: left;
-	padding: 5px 0px 5px 45px;
-	border-bottom: 2px solid #ffd324;
-	margin-left: auto;
-	margin-right: auto;
-}	
-
 /* subnav title items */
 .re-subnavitems li a.re-pipeline-new {
 	background: transparent url('/images/re_pipeline/new-25.png') no-repeat 0 2px;
