@@ -83,6 +83,23 @@ jQuery.fn.re_form_enable = function() {
   $(this).parents('.re-form-field').removeClass('re-form-disabled');
 }
 
+jQuery.fn.re_form_valid = function() {
+  var $parent = $(this).parents('.re-form-field')
+  $parent.find('.re-form-label-error').addClass('re-form-label').removeClass('re-form-label-error');
+  $parent.find('.re-form-data-error').addClass('re-form-data').removeClass('re-form-data-error');
+
+  // $(this).removeAttr("re-form-disabled"); 
+  // $(this).parents('.re-form-field').removeClass('re-form-disabled');
+}
+jQuery.fn.re_form_invalid = function() {
+  var $parent = $(this).parents('.re-form-field')
+  $parent.find('.re-form-label').addClass('re-form-label-error').removeClass('re-form-label');
+    $parent.find('.re-form-data').addClass('re-form-data-error').removeClass('re-form-data');
+
+  // $(this).removeAttr("re-form-disabled"); 
+  // $(this).parents('.re-form-field').removeClass('re-form-disabled');
+}
+
 jQuery.replace_new_record_ids = function(s){
   var new_id = new Date().getTime();
   return s.replace(/NEW_RECORD/g, new_id);

@@ -10,18 +10,21 @@
     <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
   <![endif]-->
 
-  <%= javascript_include_tag 'jquery-1.3.2.min', 'jquery.blockUI', 'jquery.autocomplete.pack', 'thickbox', 're_view', :cache => true %>
+  <%= javascript_include_tag 'jquery-1.3.2.min', 'jquery.blockUI', 'jquery.autocomplete.pack', 'thickbox', 
+															're_view', 
+															'application', :cache => true %>
 
   <%= stylesheet_link_tag 're_view', 're_view_form', 're_view_button', 
                           're_view_error', 're_view_box', 're_view_navigate', 're_view_table', 
 													'rules_engine',  
-													'thickbox', 'jquery.autocomplete', :cache => true %>  
+													'thickbox', 'jquery.autocomplete', 
+													'application', :cache => true %>  
                           
   <%= yield :defer_re_javascript_include %>                          
 </head>
 <body>
   <div class="container"> 
-			<%#= render :partial => '/layouts/header'  %>
+			<%= render :partial => '/layouts/header'  %>
       
       <%= yield :defer_re_breadcrumbs %>
       <%= yield :defer_re_subnav %>
@@ -30,7 +33,7 @@
       <%= yield %>
       <div class="clear"></div>
 
-      <%#= render :partial => '/layouts/footer'  %>
+      <%= render :partial => '/layouts/footer'  %>
 			
 			<div id="tb_temp_frame"><div id="tb_temp_container"></div>
 		</div>

@@ -33,12 +33,33 @@ RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
 
 
 ***************************************************** 
+*** EDIT config/environments/test.rb
+
+  config.gem 'cucumber-rails',   :lib => false, :version => '>=0.3.0'
+  config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0'
+  config.gem 'webrat',           :lib => false, :version => '>=0.7.0'
+
+  config.gem "rspec",             :version => '>=1.3.0', :lib => false
+  config.gem "rspec-rails",       :version => '>=1.3.2', :lib => false
+  config.gem "faker",             :version => '>=0.3.1', :lib => false
+
+  config.gem "machinist",         :version => '>=1.0.6', :lib => false
+  config.gem 'rcov',              :version => '>=0.9.8', :lib => false
+  config.gem 'remarkable_rails',  :version => '>=3.1.13', :lib => false
+
+  require 'machinist/active_record'
+  require 'sham'
+  require 'faker'
+  require 'remarkable_rails'
+
+***************************************************** 
 *** EDIT config/routes.rb
 
 ActionController::Routing::Routes.draw do |map|
 
   ...
   ### map.root :controller => 're_pipelines', :action => 'template'
+  ### map.preview '/preview', :controller => 're_pipelines', :action => 'template'
   map.resources :re_pipelines, :collection => {:lookup => :get}, :member => {:change => :get, :activate => :put, :deactivate => :put, :revert => :put} do |re_pipeline|  
     re_pipeline.resources :re_rules, :collection => {:help => :get, :error => :get}, :member => {:move_up => :put, :move_down => :put}
     re_pipeline.resources :re_jobs, :controller => :re_pipeline_jobs, :only => [:index]
@@ -48,6 +69,18 @@ ActionController::Routing::Routes.draw do |map|
   ...
 end  
 
+
+***************************************************** 
+*** EDIT spec/spec_helper.rb
+
+  Spec::Runner.configure do |config|
+    ...
+  
+    config.before(:each, :behaviour_type => :controller) do
+      @controller.instance_eval { flash.stub!(:sweep) }
+    end  
+
+
 ***************************************************** 
 *** RUN rake db:migrate
 
@@ -55,14 +88,11 @@ restart app and goto http://localhost:3000/re_pipelines
 
 
 ***************************************************** 
-*** INSTALL RULES_ENGINE_USER
-*** EDIT config/environment.rb
-ActionController::Base.define_access_level(:editor,   10)
-ActionController::Base.define_access_level(:reader,   9)
-
-***************************************************** 
+*** INSTALL RULES_ENGINE_USERS
+***           OR 
 *** DEFINE YOUR OWN USER ACCESS RULES
 *** EDIT app/controllers/application_controller.rb
+
 class ApplicationController < ActionController::Base
 
   helper_method :logged_in?, :current_user
