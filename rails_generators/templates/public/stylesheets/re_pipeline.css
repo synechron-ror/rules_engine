@@ -362,6 +362,7 @@ h5.re-rule-class-list-down {
 }
 .re-rule-class-list h5 {
   float: left;
+  font-size: 120%;
 }
 a.re-rule-class-new {
   float: right;

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-04-19}
+  s.date = %q{2010-04-21}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -129,6 +129,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_rules/update.js.erb",
      "rails_generators/templates/db/migrate/20100308225008_create_re_pipelines.rb",
      "rails_generators/templates/doc/README.rules_engine",
+     "rails_generators/templates/doc/README.rules_engine_view",
      "rails_generators/templates/lib/tasks/re_runner.rake",
      "rails_generators/templates/public/images/loadingAnimation.gif",
      "rails_generators/templates/public/images/re_job/error-14.png",
@@ -344,6 +345,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/public/stylesheets/re_view_box/accept.png",
      "rails_generators/templates/public/stylesheets/re_view_box/exclamation.png",
      "rails_generators/templates/public/stylesheets/re_view_box/shadowbox.jpg",
+     "rails_generators/templates/public/stylesheets/re_view_box/shadowbox.png",
      "rails_generators/templates/public/stylesheets/re_view_box/whitebox.jpg",
      "rails_generators/templates/public/stylesheets/re_view_button.css",
      "rails_generators/templates/public/stylesheets/re_view_button/checked-off.gif",

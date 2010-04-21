@@ -64,6 +64,16 @@ ActionController::Base.define_access_level(:reader,   9)
 *** DEFINE YOUR OWN USER ACCESS RULES
 *** EDIT app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
+
+  helper_method :logged_in?, :current_user
+  
+  def current_user
+    Struct.new(:id, :full_name).new('1001', 'Christopher Douglas')
+  end
+  
+  def logged_in?
+    return true
+  end  
   ...
   def re_reader_access_required
     # redirect if the current user cannot read the rules

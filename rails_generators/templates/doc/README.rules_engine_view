@@ -1,0 +1,92 @@
+##########################################################
+= form_styles
+
+- re_build_form_field  (value options)  # options :class, :id, :disabled, :span
+- re_build_form_label  (value options)  # options :class, :id, :disabled, :span, :error, :required
+- re_build_form_data   (value options)   # options :class, :id, :disabled, :span, :error, :required, :hint, :text
+
+##########################################################
+= form_builder
+
+- re_form_for          (record_or_name_or_array, *args, &proc)
+- re_fields_for        (record_or_name_or_array, *args, &proc)
+- re_form_remote_for   (record_or_name_or_array, *args, &proc)  
+- re_remote_form_for   (record_or_name_or_array, *args, &proc)
+
+- text_field              (name, value, *args)
+- password_field          (name, value, *args)
+- file_field              (name, value, *args)
+- text_area               (name, value, *args)
+- select                  (name, value, *args)
+- date_select             (name, value, *args)
+- datetime_select         (name, value, *args)
+- time_select             (name, value, *args)
+- time_zone_select        (name, value, *args)  
+- check_box               (name, value = "1", checked = false, options = {})
+
+##########################################################
+= form_fields
+
+- re_text_field        (label, name, value, *args)
+- re_password_field    (label, name, value, *args)
+- re_file_field        (label, name, value, *args)
+- re_text_area         (label, name, value, *args)
+- re_select            (label, name, value, *args)
+- re_date_select       (label, name, value, *args)
+- re_datetime_select   (label, name, value, *args)
+- re_time_select       (label, name, value, *args)
+- re_time_zone_select  (label, name, value, *args)  
+- re_check_box         (label, name, value = "1", checked = false, options = {})
+- re_form_text         (label, text = "", options = {})
+- re_form_blank        (options = {})
+
+##########################################################
+= alert
+
+- re_alert
+- re_alert_js
+
+##########################################################
+= boxes
+
+- re_whitebox(&block)
+- re_shadowbox(&block)  
+
+##########################################################
+= buttons
+
+- re_button_submit(title, color, options ={})
+
+- re_button_submit_gray(title, options = {})
+- re_button_submit_blue(title, options = {})
+- re_button_submit_green(title, options = {})
+- re_button_submit_orange(title, options = {})
+- re_button_submit_red(title, options = {})
+
+- re_button_link(title, url, color, options = {})
+
+- re_button_link_gray(title, url, options = {})
+- re_button_link_blue(title, url, options = {})
+- re_button_link_green(title, url, options = {})
+- re_button_link_orange(title, url, options = {})
+- re_button_link_red(title, url, options = {})
+
+- re_add_link(title, id) 
+- re_remove_link(title, object_name, id)
+- re_remove_field(object_name, id)
+
+##########################################################
+= navigate
+
+- re_breadcrumbs       (*links)
+- re_breadcrumbs_right (*links)
+- re_subnav            (heading, *links)
+
+##########################################################
+= defer
+
+- set_re_javascript_include  (javascript_include_or_array)
+- set_re_breadcrumbs         (*links)
+- set_re_breadcrumbs_right   (*links)
+- set_re_subnav              (header, *links)
+

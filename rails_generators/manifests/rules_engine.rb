@@ -326,6 +326,7 @@ class RulesEngineManifest
       app/views/re_jobs/show.js.erb
       public/images/re_rule_class/new-25.png
       public/stylesheets/re_view_navigate/subnav-bg.jpg
+      public/stylesheets/re_view_box/shadowbox.png
       public/images/re_rule/move-up-off-18.png
       public/images/re_rule_class/new-18.png
       public/images/re_pipeline/show-48.png
@@ -349,6 +350,7 @@ class RulesEngineManifest
       public/images/re_pipeline/destroy-18.png
       spec/models/re_pipeline_activated_spec.rb
       public/javascripts/re_pipeline_change.js
+      doc/README.rules_engine_view
       public/images/re_pipeline/alert-25.png
       app/views/re_jobs/index.js.erb
       app/views/re_pipelines/_index.html.erb

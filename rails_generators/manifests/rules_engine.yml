@@ -17,6 +17,8 @@ directories :
   
 files :  
   - doc/README.rules_engine
+  - doc/README.rules_engine_view
+
   - app/controllers/re_pipelines_controller.rb 
   - app/controllers/re_rules_controller.rb
   - app/controllers/re_jobs_controller.rb

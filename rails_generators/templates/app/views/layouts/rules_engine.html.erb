@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<title> Rules Engine - <%= controller.controller_name.humanize %> </title>
+	<title> <%= (page_title = yield :defer_page_title) ? page_title : controller.controller_name.humanize %> </title>
 
   <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
   <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">
@@ -21,31 +21,7 @@
 </head>
 <body>
   <div class="container"> 
-		<div class="re">
-			<div style="border-bottom:3px solid #CCC;">
-				<div class="top-10 float-left">			
-					<%= link_to image_tag('Demand_DV.jpg'), root_path %>
-				</div>
-				<div class="float-right">
-		      <% if logged_in_as_admin? %>			      
-		        <div>
-		          <%= link_to 'Administrator', admin_path %>
-		        </div>
-		        <div class='top-10'>
-				    <%= link_to 'Surveillance', surveillance_viewer_path, :class=> 'blue' %>
-				  </div>            
-				  <div class='top-5'>
-				    <%= link_to 'Logout', user_logout_path, :class=> 'red' %>
-				  </div>            
-		      <% else %>
-		        <div class="clear top-15">.</div>
-					  <div class='top-20'>
-					    <%= link_to 'Logout', user_logout_path, :class=> 'red' %>
-					  </div>
-		      <% end %>
-				</div>	
-				<div class="clear"></div>
-			</div>			
+			<%#= render :partial => '/layouts/header'  %>
       
       <%= yield :defer_re_breadcrumbs %>
       <%= yield :defer_re_subnav %>

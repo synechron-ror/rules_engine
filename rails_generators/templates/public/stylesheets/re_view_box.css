@@ -20,8 +20,8 @@ html>body .re-whitebox {
 }
 
 .re-shadowbox-outer{
-  padding-bottom: 25px;
-  background: #FFFFFF url("re_view_box/shadowbox.jpg") no-repeat bottom left;
+  padding-bottom: 12px;
+  background: #FFFFFF url("re_view_box/shadowbox.png") no-repeat bottom left;
 }
 
 .re-shadowbox-inner{
