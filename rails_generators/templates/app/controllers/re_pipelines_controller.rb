@@ -7,8 +7,8 @@ class RePipelinesController < ApplicationController
   end    
 
   # before_filter :login_required
-  before_filter :re_editor_access_required,  :only => [:new, :create, :change, :edit, :update, :activate, :deactivate, :revert, :destroy]
-  before_filter :re_reader_access_required,  :only => [:lookup, :index, :show]
+  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :change, :edit, :update, :activate, :deactivate, :revert, :destroy]
+  before_filter :rules_engine_reader_access_required,  :only => [:lookup, :index, :show]
 
   def lookup
     klass = RePipeline

@@ -105,11 +105,11 @@ class ApplicationController < ActionController::Base
     return true
   end  
   ...
-  def re_reader_access_required
+  def rules_engine_reader_access_required
     # redirect if the current user cannot read the rules
   end
   
-  def re_editor_access_required
+  def rules_engine_editor_access_required
     # redirect if the current user cannot edit the rules
   end
   

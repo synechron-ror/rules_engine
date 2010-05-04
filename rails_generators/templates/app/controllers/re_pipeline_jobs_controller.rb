@@ -10,7 +10,7 @@ class RePipelineJobsController < ApplicationController
   end    
   
   # before_filter :login_required
-  before_filter :re_reader_access_required
+  before_filter :rules_engine_reader_access_required
 
   def index
     @re_jobs = ReJob.find_jobs_by_pipeline(@re_pipeline.id, :page => params[:page], :per_page => 20)

@@ -1,11 +1,3 @@
-block_fetching_thickbox = function() {
-  $('#TB_ajaxContent').block({'message' : 'loading'});
-}
-
-unblock_fetching_thickbox = function() {
-  $('#TB_ajaxContent').unblock();
-}
-
 get_job_list = function(page) {
   $.get('/re_jobs?page=' + page, null, null, 'script');
 }
@@ -17,8 +9,8 @@ $(document).ready(function() {
     var job = $(this).attr('href').replace('#', '');
       
     tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=450&width=800', false);
-    block_fetching_thickbox();
-    $.get('/re_jobs/' + job, null, unblock_fetching_thickbox, 'script');
+    block_thickbox();
+    $.get('/re_jobs/' + job, null, unblock_thickbox, 'script');
     
   	return false;  
   });  

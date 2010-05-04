@@ -41,7 +41,7 @@
 	opacity:0.4;
 }
 
-.re-breadcrumbs .breadcrumb-right {
+.re-breadcrumbs .re-breadcrumb-right {
 	float:right;
 	margin:0;
 	padding:0px;

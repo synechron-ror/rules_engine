@@ -1,17 +1,17 @@
 /* @group ALERTS */
 .growl-error {
-	font-size: 1.4em;
+	font-size: 1.6em;
 	background: #fff6bf url("./re_view_error/exclamation.png") center no-repeat;
 	background-position: 15px 50%; /* x-pos y-pos */
 	text-align: left;
 	padding: 5px 0px 5px 45px;
-	border-bottom: 2px solid #ffd324;
+	border-bottom: 2px solid #b43838;
 	margin-left: auto;
 	margin-right: auto;
 }	
 
 .growl-success {
-	font-size: 1.4em;
+	font-size: 1.6em;
 	background: #fff6bf url("./re_view_error/accept.png") center no-repeat;
 	background-position: 15px 50%; /* x-pos y-pos */
 	text-align: left;
@@ -22,8 +22,8 @@
 }	
 
 .growl-notice {
-	font-size: 1.4em;
-	background: #fff6bf url("./re_pipeline/exclamation.png") center no-repeat;
+	font-size: 1.6em;
+	background: #fff6bf url("./re_view_error/exclamation.png") center no-repeat;
 	background-position: 15px 50%; /* x-pos y-pos */
 	text-align: left;
 	padding: 5px 0px 5px 45px;

@@ -1,11 +1,3 @@
-block_fetching_thickbox = function() {
-  $('#TB_ajaxContent').block({'message' : 'loading'});
-}
-
-unblock_fetching_thickbox = function() {
-  $('#TB_ajaxContent').unblock();
-}
-
 re_pipeline_action_confirm = function(id, title, action) {
   $('#re_pipeline_action_title').attr('class', 're-pipeline-' + id + ' red');
   $('#re_pipeline_action_title').html(title);
@@ -25,8 +17,8 @@ $(document).ready(function() {
     var pipeline = $(this).attr('href').replace('#', '');
       
     tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=800', false);
-    block_fetching_thickbox();
-    $.get('/re_pipelines/' + pipeline + '/edit', null, unblock_fetching_thickbox, 'script');
+    block_thickbox();
+    $.get('/re_pipelines/' + pipeline + '/edit', null, unblock_thickbox, 'script');
   	return false;  
   });  
 
@@ -36,8 +28,8 @@ $(document).ready(function() {
   });  
 
   $('#re_pipeline_edit_update').live('click', function() {
-    block_fetching_thickbox();    
-    $.post($('#re_pipeline_edit_form').attr('action'), $('#re_pipeline_edit_form').serialize(), unblock_fetching_thickbox, 'script');    
+    block_thickbox();    
+    $.post($('#re_pipeline_edit_form').attr('action'), $('#re_pipeline_edit_form').serialize(), unblock_thickbox, 'script');    
     return false;
   });
 
@@ -68,7 +60,7 @@ $(document).ready(function() {
 
   $('#re_pipeline_action_ok').live('click', function() {
     var form_id = $(this).attr('href');
-    $.post($(form_id).attr('action'), $(form_id).serialize(), unblock_fetching_thickbox, 'script');    
+    $.post($(form_id).attr('action'), $(form_id).serialize(), unblock_thickbox, 'script');    
     return false;
   });
 
@@ -79,8 +71,8 @@ $(document).ready(function() {
       return false;
 
     tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=780', false);
-    block_fetching_thickbox();
-    $.get('/re_pipelines/' + values[0] + '/re_rules/new?rule_class=' + values[1], null, unblock_fetching_thickbox, 'script');
+    block_thickbox();
+    $.get('/re_pipelines/' + values[0] + '/re_rules/new?rule_class=' + values[1], null, unblock_thickbox, 'script');
   	return false;  
   });  
 
@@ -90,8 +82,8 @@ $(document).ready(function() {
   });  
 
   $('#re_rule_new_insert').live('click', function() {
-    block_fetching_thickbox();    
-    $.post($('#re_rule_new_form').attr('action'), $('#re_rule_new_form').serialize(), unblock_fetching_thickbox, 'script');    
+    block_thickbox();    
+    $.post($('#re_rule_new_form').attr('action'), $('#re_rule_new_form').serialize(), unblock_thickbox, 'script');    
     return false;
   });
 
@@ -102,8 +94,8 @@ $(document).ready(function() {
       return false;
 
     tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=780', false);
-    block_fetching_thickbox();
-    $.get('/re_pipelines/' + values[0] + '/re_rules/' + values[1] + '/edit', null, unblock_fetching_thickbox, 'script');
+    block_thickbox();
+    $.get('/re_pipelines/' + values[0] + '/re_rules/' + values[1] + '/edit', null, unblock_thickbox, 'script');
   	return false;  
   });  
 
@@ -113,8 +105,8 @@ $(document).ready(function() {
   });  
 
   $('#re_rule_edit_update').live('click', function() {
-    block_fetching_thickbox();    
-    $.post($('#re_rule_edit_form').attr('action'), $('#re_rule_edit_form').serialize(), unblock_fetching_thickbox, 'script');    
+    block_thickbox();    
+    $.post($('#re_rule_edit_form').attr('action'), $('#re_rule_edit_form').serialize(), unblock_thickbox, 'script');    
     return false;
   });
 
@@ -136,7 +128,7 @@ $(document).ready(function() {
 
   $('#re_rule_delete_ok').live('click', function() {
     var form_id = $(this).attr('href');
-    $.post($(form_id).attr('action'), $(form_id).serialize(), unblock_fetching_thickbox, 'script');    
+    $.post($(form_id).attr('action'), $(form_id).serialize(), unblock_thickbox, 'script');    
     return false;
   });
 
@@ -172,8 +164,8 @@ $(document).ready(function() {
       return false;
       
     tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=800', false);
-    block_fetching_thickbox();
-    $.get('/re_pipelines/' + values[0] + '/re_rules/help?rule_class=' + values[1], null, unblock_fetching_thickbox, 'script');
+    block_thickbox();
+    $.get('/re_pipelines/' + values[0] + '/re_rules/help?rule_class=' + values[1], null, unblock_thickbox, 'script');
   	return false;  
   });  
 

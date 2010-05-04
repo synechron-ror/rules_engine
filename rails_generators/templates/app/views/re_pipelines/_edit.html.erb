@@ -7,7 +7,7 @@
     <% re_whitebox do %>    
       <%= f.text_field(:title, :required => true) %>
 
-      <%= form_text_ext("Code", @re_pipeline.code, :span => "3x13", :hint => "<strong>NOTE :</strong> the pipeline code cannot be changed") %>
+      <%= re_form_text("Code", @re_pipeline.code, :span => "3x13", :hint => "<strong>NOTE :</strong> the pipeline code cannot be changed") %>
       <div class="clear top-5"></div>
       
       <%= f.text_area(:description) %>

@@ -2,8 +2,8 @@ jQuery.re_message = function(style, header, message, timeout){
 	var $m = $('<div class="' + style + '"></div>');
 	$m.append('<strong>' + header + '</strong>');
 	if (message) $m.append(' : ' + message);
-	if (timeout == undefined) timeout = 2300;
-  $.blockUI({
+	if (timeout == undefined) timeout = 3300;
+  $('.container').block({
 		message: $m, 
 		fadeIn: 700, 
 		fadeOut: 2000, 
@@ -11,10 +11,10 @@ jQuery.re_message = function(style, header, message, timeout){
 		timeout: timeout, 
 		showOverlay: false,
 		css: {
-						width:    '450px',
-						top:      '10px',
-						left:     '',
-						right:    '10px',
+            width:    '450px',
+            top:      '60px',
+            left:     '10px',
+            right:    '10px',
 					  border:   'none',
 					  padding:  '5px',
 					  opacity:   0.95,
@@ -37,17 +37,32 @@ jQuery.re_notice_message = function(message, timeout){
 	jQuery.re_message('growl-notice', 'Notice', message, timeout);
 }
 
+// BLOCKING
+block_thickbox = function() {
+  $('#TB_ajaxContent').block({'message' : 'loading'});
+}
+unblock_thickbox = function() {
+  $('#TB_ajaxContent').unblock();
+}
+
+block_page = function() {
+  $('.container').block({'message' : 'loading'});
+}
+block_page = function() {
+  $('.container').unblock();
+}
+
 $(document).ready(function() {	
 	// make success, notice and failure message growl at the user
 	if ($('.error').length) {
 			$.re_error_message($('.error').text());
 			$('.error').hide();			
 	}		
-	if ($('.success').length) {
+	else if ($('.success').length) {
 			$.re_success_message($('.success').text());
 			$('.success').hide();			
 	}		
-	if ($('.notice').length) {
+	else if ($('.notice').length) {
 			$.re_notice_message($('.notice').text());
 			$('.notice').hide();			
 	}			

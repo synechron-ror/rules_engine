@@ -12,8 +12,8 @@ class ReRulesController < ApplicationController
   before_filter :load_rule_class_from_model,       :only => [:edit, :update, :move_up, :move_down]
   
   # before_filter :login_required
-  before_filter :re_editor_access_required, :except => [:error, :help]
-  before_filter :re_reader_access_required, :only => [:error, :help]
+  before_filter :rules_engine_editor_access_required, :except => [:error, :help]
+  before_filter :rules_engine_reader_access_required, :only => [:error, :help]
 
   def error
   end  
