@@ -1,5 +1,5 @@
-module RulesEngine
-  module RuleModelLoader
+module RulesEngineView
+  module ModelLoader
   # options
   # => :parents array of required parent objects
   # => :param_id (default = id)
@@ -67,5 +67,5 @@ end
 
 
 ActionController::Base.class_eval do
-  include RulesEngine::RuleModelLoader
+  include RulesEngineView::ModelLoader
 end

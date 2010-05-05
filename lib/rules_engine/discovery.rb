@@ -1,5 +1,4 @@
 module RulesEngine
-  ##################################################################
   class Discovery
     
     RULES_PATH = File.expand_path(File.join(RAILS_ROOT, '/app/rules'))

@@ -8,8 +8,8 @@ module RulesEngine
     end
 
     module ClassMethods  
-      def rule_class
-        self.to_s
+      def rule_class_name
+        self.name.classify
       end
     end
       
@@ -31,7 +31,7 @@ module RulesEngine
     end
 
     def save(re_rule)
-      re_rule.rule_class = self.class.rule_class
+      re_rule.rule_class_name = self.class.rule_class_name
       true
     end    
     

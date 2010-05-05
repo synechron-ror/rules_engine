@@ -1,10 +1,10 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-class MockControllerExtController < ActionController::Base
+class MockModelLoaderController < ActionController::Base
 end
 
-describe "ControllerExt", :type => :controller  do
-  controller_name 'MockControllerExt'
+describe "RulesEngineView::ModelLoader", :type => :controller  do
+  controller_name 'MockModelLoader'
 
   before(:each) do
     @target = mock("Target")
