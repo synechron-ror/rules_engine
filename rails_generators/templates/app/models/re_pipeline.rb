@@ -20,7 +20,6 @@ class RePipeline < RePipelineBase
   def deactivate!
    self.activated_re_pipeline.destroy unless activated_re_pipeline.nil?          
    self.activated_re_pipeline = nil
-   # self.activated_status = RePipelineBase::ACTIVATED_STATUS_DRAFT
    save
   end  
 
@@ -41,29 +40,10 @@ class RePipeline < RePipelineBase
   def changed_status
     if self.activated_re_pipeline.nil?
       RePipelineBase::CHANGED_STATUS_DRAFT
-    elsif !equals?(self.activated_re_pipeline) 
+    elsif !self.equals?(self.activated_re_pipeline) 
       RePipelineBase::CHANGED_STATUS_CHANGED
     else
       RePipelineBase::CHANGED_STATUS_CURRENT
     end
   end    
-    
-  # private
-  #   def reset_activated_status
-  #     if self.activated_re_pipeline.nil?
-  #       self.activated_status = RePipelineBase::ACTIVATED_STATUS_DRAFT
-  #     else 
-  #       self.activated_status = RePipelineBase::ACTIVATED_STATUS_ACTIVE
-  #     end  
-  #   end
-  # 
-  #   def reset_changed_status
-  #     if self.activated_re_pipeline.nil?
-  #       self.changed_status = RePipelineBase::CHANGED_STATUS_DRAFT
-  #     elsif !equals?(self.activated_re_pipeline) 
-  #       self.changed_status = RePipelineBase::CHANGED_STATUS_CHANGED
-  #     else
-  #       self.changed_status = RePipelineBase::CHANGED_STATUS_CURRENT
-  #     end
-  #   end    
 end

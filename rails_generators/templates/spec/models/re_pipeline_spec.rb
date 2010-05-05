@@ -105,7 +105,39 @@ describe RePipeline do
       @re_pipeline.activate!
     end
   end
+  
+  describe "deactivating a pipeline" do
+    before(:each) do
+      @re_pipeline = RePipeline.new(valid_attributes)
+      @re_pipeline_activated = RePipelineActivated.new
+      @re_pipeline.activated_re_pipeline = @re_pipeline_activated
+      @re_pipeline_activated.stub!(:destroy)
+    end
+        
+    it "should destroy the activated pipeline" do
+      @re_pipeline_activated.should_receive(:destroy)
+      @re_pipeline.deactivate!
+    end
 
+    it "should not destroy the activated pipeline if not set" do
+      @re_pipeline.activated_re_pipeline = nil
+      @re_pipeline.deactivate!
+    end
+        
+    it "should set the activated_re_pipeline to nil" do
+      @re_pipeline.activated_re_pipeline.should_not be_nil
+      @re_pipeline.deactivate!
+      @re_pipeline.activated_re_pipeline.should be_nil
+    end
+    
+    it "should save the pipeline" do
+      @re_pipeline.should_receive(:save)
+      @re_pipeline.deactivate!
+    end
+            
+    
+  end
+  
   describe "reverting a re_pipeline to it's previous state" do
     before(:each) do
       @re_pipeline = RePipeline.create(valid_attributes)

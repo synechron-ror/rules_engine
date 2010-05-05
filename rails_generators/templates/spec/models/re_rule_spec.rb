@@ -4,7 +4,7 @@ describe ReRule do
   def valid_attributes
     {
       :title => "Mock Title",      
-      :rule_class => "Mock Type",
+      :rule_class_name => "MockRuleClass",
       :summary => "Mock Summary",
       :data_version => 0,
       :data => "Lots Of Data"
@@ -19,14 +19,14 @@ describe ReRule do
   should_have_many :re_job_audits
   
   should_validate_presence_of :title
-  should_validate_presence_of :rule_class
+  should_validate_presence_of :rule_class_name
   should_validate_presence_of :summary
   should_validate_presence_of :data_version
   should_validate_presence_of :data
   
   describe "copying the rule" do
     
-    %W(title rule_class summary data error).each do |key|
+    %W(title rule_class_name summary data error).each do |key|
       it "should copy the attribute #{key}" do
         src = ReRule.new(valid_attributes.merge(key.to_sym => "mock source value"))
         dest = ReRule.new(valid_attributes.merge(key.to_sym => "mock dest value"))
@@ -68,7 +68,7 @@ describe ReRule do
       dest.equals?(src).should be_true
     end
     
-    %W(title rule_class summary data).each do |key|
+    %W(title rule_class_name summary data).each do |key|
       it "should not be equal if the attribute #{key} are different" do
         src = ReRule.new(valid_attributes.merge(key.to_sym => "mock source value"))
         dest = ReRule.new(valid_attributes.merge(key.to_sym => "mock dest value"))
@@ -167,5 +167,44 @@ describe ReRule do
 
       base.re_rules.should == [re_rule_2, re_rule_1]
     end
+  end
+  
+  describe "rule outcomes available" do
+    before(:each) do
+      @re_rule = ReRule.new      
+    end
+    
+    it "should return the first outcome that is a OUTCOME_NEXT" do
+      outcome_1 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)
+      outcome_2 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)
+      @re_rule.re_rule_outcomes << outcome_1
+      @re_rule.re_rule_outcomes << outcome_2
+      @re_rule.re_rule_outcome_next.should == outcome_1
+    end
+
+    it "should return the first outcome that is a OUTCOME_STOP_SUCCESS" do
+      outcome_1 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
+      outcome_2 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
+      @re_rule.re_rule_outcomes << outcome_1
+      @re_rule.re_rule_outcomes << outcome_2
+      @re_rule.re_rule_outcome_success.should == outcome_1
+    end
+
+    it "should return the first outcome that is a OUTCOME_STOP_FAILURE" do
+      outcome_1 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
+      outcome_2 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
+      @re_rule.re_rule_outcomes << outcome_1
+      @re_rule.re_rule_outcomes << outcome_2
+      @re_rule.re_rule_outcome_failure.should == outcome_1
+    end
+
+    it "should return all outcomes that are a OUTCOME_START_PIPELINE" do
+      outcome_1 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
+      outcome_2 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
+      @re_rule.re_rule_outcomes << outcome_1
+      @re_rule.re_rule_outcomes << outcome_2
+      @re_rule.re_rule_outcomes_start_pipeline.should == [outcome_1, outcome_2]
+    end
+    
   end
 end

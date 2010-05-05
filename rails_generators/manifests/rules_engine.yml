@@ -75,4 +75,7 @@ files :
   - spec/models/re_job_spec.rb
   - spec/models/re_job_audit_spec.rb
 
+  - spec/helpers/re_pipeline_helper_spec.rb
+
   - spec/support/blueprint_re_pipelines.rb
+  - spec/support/rules_engine_macros.rb

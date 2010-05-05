@@ -7,7 +7,7 @@ class ReRule < ActiveRecord::Base
     
   validates_associated  :re_pipeline
   validates_presence_of :title
-  validates_presence_of :rule_class
+  validates_presence_of :rule_class_name
   validates_presence_of :summary
   validates_presence_of :data_version
   validates_presence_of :data

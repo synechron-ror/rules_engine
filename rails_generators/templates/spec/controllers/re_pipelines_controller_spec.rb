@@ -1,33 +1,43 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-%w(lookup index show new create change edit update activate deactivate revert destroy).each do |action|
-  %w(editor reader).each do |type|
-    shared_examples_for "re_#{type}_access_required_for_#{action}" do
-      before do
-        controller.stub!(:"re_#{type}_access_required").and_return(false)
-      end
-
-      it "should confirm #{type} when calling #{action}" do
-        get action
-      end
-    end
-  end  
+def it_should_require_rules_engine_reader_access(action)
+  controller.should_receive(:"rules_engine_reader_access_required")
+  get action
 end
 
+# %w(lookup index show new create change edit update activate deactivate revert destroy).each do |action|
+#   %w(editor reader).each do |type|
+#     shared_examples_for "re_#{type}_access_required_for_#{action}" do
+#       before do
+#         controller.stub!(:"re_#{type}_access_required").and_return(false)
+#       end
+# 
+#       it "should confirm #{type} when calling #{action}" do
+#         
+#       end
+#     end
+#   end  
+# end
+
 describe RePipelinesController do
-  it_should_behave_like "rules_engine_reader_access_required_for_lookup"
-  it_should_behave_like "rules_engine_reader_access_required_for_index"
-  it_should_behave_like "rules_engine_reader_access_required_for_show"
   
-  it_should_behave_like "rules_engine_editor_access_required_for_new"
-  it_should_behave_like "rules_engine_editor_access_required_for_create"
-  it_should_behave_like "rules_engine_editor_access_required_for_change"
-  it_should_behave_like "rules_engine_editor_access_required_for_edit"
-  it_should_behave_like "rules_engine_editor_access_required_for_update"
-  it_should_behave_like "rules_engine_editor_access_required_for_activate"
-  it_should_behave_like "rules_engine_editor_access_required_for_deactivate"
-  it_should_behave_like "rules_engine_editor_access_required_for_revert"
-  it_should_behave_like "rules_engine_editor_access_required_for_destroy"
+  before(:each) do
+    controller.instance_eval { flash.stub!(:sweep) }
+  end  
+  
+  # it_should_behave_like "rules_engine_reader_access_required_for_lookup"
+  # it_should_behave_like "rules_engine_reader_access_required_for_index"
+  # it_should_behave_like "rules_engine_reader_access_required_for_show"
+  # 
+  # it_should_behave_like "rules_engine_editor_access_required_for_new"
+  # it_should_behave_like "rules_engine_editor_access_required_for_create"
+  # it_should_behave_like "rules_engine_editor_access_required_for_change"
+  # it_should_behave_like "rules_engine_editor_access_required_for_edit"
+  # it_should_behave_like "rules_engine_editor_access_required_for_update"
+  # it_should_behave_like "rules_engine_editor_access_required_for_activate"
+  # it_should_behave_like "rules_engine_editor_access_required_for_deactivate"
+  # it_should_behave_like "rules_engine_editor_access_required_for_revert"
+  # it_should_behave_like "rules_engine_editor_access_required_for_destroy"
   
   before do
     controller.stub!(:rules_engine_editor_access_required).and_return(true)

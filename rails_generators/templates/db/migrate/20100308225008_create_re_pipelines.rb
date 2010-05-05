@@ -21,7 +21,7 @@ class CreateRePipelines < ActiveRecord::Migration
       
       t.integer :position
 
-      t.string  :rule_class
+      t.string  :rule_class_name
 
       t.string  :title
       t.string  :summary      

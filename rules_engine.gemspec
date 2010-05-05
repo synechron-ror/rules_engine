@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-04-21}
+  s.date = %q{2010-05-05}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -26,7 +26,6 @@ Gem::Specification.new do |s|
      "lib/rules_engine/discovery.rb",
      "lib/rules_engine/job_runner.rb",
      "lib/rules_engine/rule.rb",
-     "lib/rules_engine/rule_model_loader.rb",
      "lib/rules_engine/rule_outcome.rb",
      "lib/rules_engine_view/alerts.rb",
      "lib/rules_engine_view/boxes.rb",
@@ -35,6 +34,7 @@ Gem::Specification.new do |s|
      "lib/rules_engine_view/form_builder.rb",
      "lib/rules_engine_view/form_fields.rb",
      "lib/rules_engine_view/form_styles.rb",
+     "lib/rules_engine_view/model_loader.rb",
      "lib/rules_engine_view/navigate.rb",
      "rails_generators/manifests/rules_engine.rb",
      "rails_generators/manifests/rules_engine.yml",
@@ -385,6 +385,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/spec/models/re_rule_spec.rb",
      "rails_generators/templates/spec/support/blueprint_re_pipelines.rb",
      "spec/railsenv/app/controllers/application_controller.rb",
+     "spec/railsenv/app/rules/mock_rule.rb",
      "spec/railsenv/config/boot.rb",
      "spec/railsenv/config/database.yml",
      "spec/railsenv/config/environment.rb",
@@ -402,8 +403,10 @@ Gem::Specification.new do |s|
      "spec/railsenv/log/debug.log",
      "spec/railsenv/log/test.log",
      "spec/rcov.opts",
-     "spec/rules_engine/rule_model_loader_spec.rb",
-     "spec/rules_engine/rules_engine_spec.rb",
+     "spec/rules_engine/cache_spec.rb",
+     "spec/rules_engine/discovery_spec.rb",
+     "spec/rules_engine/job_runner_spec.rb",
+     "spec/rules_engine/rule_spec.rb",
      "spec/rules_engine_view/alerts_spec.rb",
      "spec/rules_engine_view/boxes_spec.rb",
      "spec/rules_engine_view/buttons_spec.rb",
@@ -412,6 +415,7 @@ Gem::Specification.new do |s|
      "spec/rules_engine_view/form_builder_spec.rb",
      "spec/rules_engine_view/form_fields_spec.rb",
      "spec/rules_engine_view/form_styles_spec.rb",
+     "spec/rules_engine_view/model_loader_spec.rb",
      "spec/rules_engine_view/navigate_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
@@ -427,6 +431,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Rules engine}
   s.test_files = [
     "spec/railsenv/app/controllers/application_controller.rb",
+     "spec/railsenv/app/rules/mock_rule.rb",
      "spec/railsenv/config/boot.rb",
      "spec/railsenv/config/environment.rb",
      "spec/railsenv/config/environments/development.rb",
@@ -438,8 +443,10 @@ Gem::Specification.new do |s|
      "spec/railsenv/config/initializers/new_rails_defaults.rb",
      "spec/railsenv/config/initializers/session_store.rb",
      "spec/railsenv/config/routes.rb",
-     "spec/rules_engine/rule_model_loader_spec.rb",
-     "spec/rules_engine/rules_engine_spec.rb",
+     "spec/rules_engine/cache_spec.rb",
+     "spec/rules_engine/discovery_spec.rb",
+     "spec/rules_engine/job_runner_spec.rb",
+     "spec/rules_engine/rule_spec.rb",
      "spec/rules_engine_view/alerts_spec.rb",
      "spec/rules_engine_view/boxes_spec.rb",
      "spec/rules_engine_view/buttons_spec.rb",
@@ -448,6 +455,7 @@ Gem::Specification.new do |s|
      "spec/rules_engine_view/form_builder_spec.rb",
      "spec/rules_engine_view/form_fields_spec.rb",
      "spec/rules_engine_view/form_styles_spec.rb",
+     "spec/rules_engine_view/model_loader_spec.rb",
      "spec/rules_engine_view/navigate_spec.rb",
      "spec/spec_helper.rb"
   ]

@@ -28,6 +28,7 @@ class RulesEngineManifest
       app/views/re_rules
       app/views/re_jobs
       public/images/re_rule_class
+      spec/helpers
       app/views/layouts
       public/stylesheets/re_view_navigate
       public/stylesheets/blueprint/plugins/buttons/icons
@@ -45,6 +46,7 @@ class RulesEngineManifest
       app/models/re_rule_outcome.rb
       public/stylesheets/re_view_navigate/icon-delete.png
       public/images/re_rule/move-down-48.png
+      spec/support/rules_engine_macros.rb
       spec/models/re_pipeline_spec.rb
       public/stylesheets/rules_engine.css
       public/images/re_pipeline/revert-14.png
@@ -158,6 +160,7 @@ class RulesEngineManifest
       public/images/re_job/info-25.png
       public/stylesheets/blueprint/src/grid.png
       public/javascripts/re_pipeline_new.js
+      spec/helpers/re_pipeline_helper_spec.rb
       public/stylesheets/re_view_navigate.css
       public/stylesheets/re_view_box/accept.png
       public/images/re_rule/move-up-off-14.png

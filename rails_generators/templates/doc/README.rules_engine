@@ -71,17 +71,6 @@ end
 
 
 ***************************************************** 
-*** EDIT spec/spec_helper.rb
-
-  Spec::Runner.configure do |config|
-    ...
-  
-    config.before(:each, :behaviour_type => :controller) do
-      @controller.instance_eval { flash.stub!(:sweep) }
-    end  
-
-
-***************************************************** 
 *** RUN rake db:migrate
 
 restart app and goto http://localhost:3000/re_pipelines
