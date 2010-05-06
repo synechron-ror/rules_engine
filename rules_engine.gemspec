@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-05-05}
+  s.date = %q{2010-05-06}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -375,7 +375,11 @@ Gem::Specification.new do |s|
      "rails_generators/templates/public/stylesheets/re_view_table.css",
      "rails_generators/templates/public/stylesheets/rules_engine.css",
      "rails_generators/templates/public/stylesheets/thickbox.css",
+     "rails_generators/templates/spec/controllers/re_jobs_controller_spec.rb",
+     "rails_generators/templates/spec/controllers/re_pipeline_jobs_controller_spec.rb",
      "rails_generators/templates/spec/controllers/re_pipelines_controller_spec.rb",
+     "rails_generators/templates/spec/controllers/re_rules_controller_spec.rb",
+     "rails_generators/templates/spec/helpers/re_pipeline_helper_spec.rb",
      "rails_generators/templates/spec/models/re_job_audit_spec.rb",
      "rails_generators/templates/spec/models/re_job_spec.rb",
      "rails_generators/templates/spec/models/re_pipeline_activated_spec.rb",
@@ -384,6 +388,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/spec/models/re_rule_outcome_spec.rb",
      "rails_generators/templates/spec/models/re_rule_spec.rb",
      "rails_generators/templates/spec/support/blueprint_re_pipelines.rb",
+     "rails_generators/templates/spec/support/rules_engine_macros.rb",
      "spec/railsenv/app/controllers/application_controller.rb",
      "spec/railsenv/app/rules/mock_rule.rb",
      "spec/railsenv/config/boot.rb",

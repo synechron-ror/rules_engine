@@ -87,7 +87,6 @@ class ReRulesController < ApplicationController
   
   def move_up
     @re_rule.move_higher
-    @re_pipeline.changed
     flash[:success] = 'Rule Moved Up.'      
     
     respond_to do |format|
@@ -102,7 +101,6 @@ class ReRulesController < ApplicationController
 
   def move_down
     @re_rule.move_lower
-    @re_pipeline.changed
     flash[:success] = 'Rule Moved Down.'      
     
     respond_to do |format|
@@ -120,7 +118,7 @@ class ReRulesController < ApplicationController
       @rule_class = RulesEngine::Discovery.rule_class(params[:rule_class_name])
       if @rule_class.nil?
         flash[:error] = "#{params[:rule_class]} : class not found."
-        render :action => :error
+        render :error
       else
         @rule = @rule_class.new  
       end      
@@ -130,10 +128,10 @@ class ReRulesController < ApplicationController
       @rule_class = RulesEngine::Discovery.rule_class(@re_rule.rule_class_name)
       if @rule_class.nil?
         flash[:error] = "#{@re_rule.rule_class_name} : class not found."
-        render :action => :error
+        render :error
       else
         @rule = @rule_class.new  
-        render :action => :error unless @rule.load(@re_rule)
+        render :error unless @rule.load(@re_rule)
       end      
     end
 end

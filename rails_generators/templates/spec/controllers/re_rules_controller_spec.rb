@@ -16,7 +16,7 @@ describe ReRulesController do
     @re_pipeline = mock_model(RePipeline)
     RePipeline.stub!(:find).and_return(@re_pipeline)    
     
-    @re_rule = mock_model(ReRule, :save => true, :destroy => true, :rule_class_name => "re_rule_rule_class", :re_pipeline_id => @re_pipeline.id )
+    @re_rule = mock_model(ReRule, :save => true, :destroy => true, :rule_class_name => "re_rule_rule_class", :re_pipeline_id => @re_pipeline.id, :move_higher => true, :move_lower => true)
     ReRule.stub!(:new).and_return(@re_rule)
     ReRule.stub!(:find).and_return(@re_rule)
   end  
@@ -342,5 +342,192 @@ describe ReRulesController do
       xhr :delete, :destroy, :re_pipeline_id => 1001, :re_rule_id => 2002
       response.should render_template(:destroy)
     end          
+  end
+  
+  describe "move_up" do
+    it_should_require_rules_engine_editor_access(:move_up)
+  
+    it "should assign the re_pipeline" do
+      put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
+      assigns[:re_pipeline].should == @re_pipeline
+    end      
+    
+    it "should call load_rule_class_from_rule" do
+      RulesEngine::Discovery.should_receive(:rule_class).with("re_rule_rule_class").and_return(@mock_rule_class)
+      put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
+    end
+    
+    it "should assign the rule_class" do
+      put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
+      assigns[:rule_class].should == @mock_rule_class
+    end      
+  
+    it "should assign the rule" do
+      put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
+      assigns[:rule].should == @mock_rule
+    end      
+    
+    it "should assign the re_rule record" do
+      ReRule.should_receive(:find).and_return(@re_rule)
+      put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
+      assigns[:re_rule].should == @re_rule
+    end
+
+    it "should call move_higher for the re_rule" do
+      @re_rule.should_receive(:move_higher)
+      put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
+    end
+    
+    it "should set the success message" do
+      put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
+      flash[:success].should_not be_blank
+    end
+
+    it "should redirect to the change re_pipeline page for HTML" do
+      put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
+      response.should redirect_to(change_re_pipeline_path(@re_pipeline))
+    end
+
+    it "should render 'update' template for JAVASCRIPT" do
+      xhr :put, :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
+      response.should render_template(:update)
+    end          
+  end
+
+  describe "move_down" do
+    it_should_require_rules_engine_editor_access(:move_down)
+  
+    it "should assign the re_pipeline" do
+      put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
+      assigns[:re_pipeline].should == @re_pipeline
+    end      
+    
+    it "should call load_rule_class_from_rule" do
+      RulesEngine::Discovery.should_receive(:rule_class).with("re_rule_rule_class").and_return(@mock_rule_class)
+      put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
+    end
+    
+    it "should assign the rule_class" do
+      put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
+      assigns[:rule_class].should == @mock_rule_class
+    end      
+  
+    it "should assign the rule" do
+      put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
+      assigns[:rule].should == @mock_rule
+    end      
+    
+    it "should assign the re_rule record" do
+      ReRule.should_receive(:find).and_return(@re_rule)
+      put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
+      assigns[:re_rule].should == @re_rule
+    end
+
+    it "should call move_lower for the re_rule" do
+      @re_rule.should_receive(:move_lower)
+      put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
+    end
+    
+    it "should set the success message" do
+      put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
+      flash[:success].should_not be_blank
+    end
+
+    it "should redirect to the change re_pipeline page for HTML" do
+      put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
+      response.should redirect_to(change_re_pipeline_path(@re_pipeline))
+    end
+
+    it "should render 'update' template for JAVASCRIPT" do
+      xhr :put, :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
+      response.should render_template(:update)
+    end          
+  end
+  
+  describe "load_rule_class_from_rule_class_name" do
+    before(:each) do
+      @mock_flash = {}
+      controller.stub!(:flash).and_return(@mock_flash)
+      controller.stub!(:render)
+    end
+    
+    it "should use the rule_class_name parameter to load the class" do
+      controller.stub!(:params).and_return(:rule_class_name => "mock_rule_class")
+      RulesEngine::Discovery.should_receive(:rule_class).with("mock_rule_class")      
+      controller.send(:load_rule_class_from_rule_class_name)
+    end              
+    
+    describe "rule_class not found" do
+      before(:each) do
+        RulesEngine::Discovery.stub!(:rule_class).and_return(nil)
+      end
+      
+      it "should set the flash error message" do
+        controller.send(:load_rule_class_from_rule_class_name)
+        @mock_flash[:error].should_not be_blank
+      end
+      
+      it "should render the 'error' template" do
+        controller.should_receive(:render).with(:error)
+        controller.send(:load_rule_class_from_rule_class_name)        
+      end                    
+    end
+        
+    describe "rule_class found" do
+      it "should assign the rule_class and rule" do    
+        controller.send(:load_rule_class_from_rule_class_name)  
+        controller.instance_variable_get(:@rule_class).should == @mock_rule_class
+        controller.instance_variable_get(:@rule).should == @mock_rule
+      end          
+    end
+  end
+
+
+  describe "load_rule_class_from_model" do
+    before(:each) do
+      controller.instance_variable_set(:@re_rule, @re_rule)
+      @mock_flash = {}
+      controller.stub!(:flash).and_return(@mock_flash)
+      controller.stub!(:render)
+    end
+    
+    it "should use the rule_class_name variable to load the class" do
+      @re_rule.should_receive(:rule_class_name).and_return("mock_rule_class")
+      RulesEngine::Discovery.should_receive(:rule_class).with("mock_rule_class")
+      controller.send(:load_rule_class_from_model)
+    end              
+    
+    describe "rule_class not found" do
+      before(:each) do
+        RulesEngine::Discovery.stub!(:rule_class).and_return(nil)
+      end
+      
+      it "should set the flash error message" do
+        controller.send(:load_rule_class_from_model)
+        @mock_flash[:error].should_not be_blank
+      end
+      
+      it "should render the 'error' template" do
+        controller.should_receive(:render).with(:error)
+        controller.send(:load_rule_class_from_model)        
+      end                    
+    end
+        
+    describe "rule_class found" do
+      it "should assign the rule_class and rule" do    
+        controller.send(:load_rule_class_from_model)  
+        controller.instance_variable_get(:@rule_class).should == @mock_rule_class
+        controller.instance_variable_get(:@rule).should == @mock_rule
+      end          
+      
+      describe "the rule cannot be loaded" do
+        it "should render the 'error' template" do
+          @mock_rule.should_receive(:load).with(@re_rule).and_return(false)
+          controller.should_receive(:render).with(:error)
+          controller.send(:load_rule_class_from_model)  
+        end          
+      end
+      
+    end
   end
 end
