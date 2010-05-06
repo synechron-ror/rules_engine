@@ -65,7 +65,10 @@ files :
   - public/stylesheets/re_view.css        
   - public/stylesheets/thickbox.css
     
+  - spec/controllers/re_jobs_controller_spec.rb
+  - spec/controllers/re_pipeline_jobs_controller_spec.rb
   - spec/controllers/re_pipelines_controller_spec.rb
+  - spec/controllers/re_rules_controller_spec.rb
     
   - spec/models/re_pipeline_base_spec.rb
   - spec/models/re_pipeline_spec.rb

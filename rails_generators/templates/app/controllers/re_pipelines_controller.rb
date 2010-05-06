@@ -2,28 +2,28 @@ class RePipelinesController < ApplicationController
   helper :re_pipeline 
   layout 'rules_engine'
   
-  before_filter :only => [:show, :change, :edit, :update, :activate, :deactivate, :revert, :destroy] do |controller|
-    controller.re_load_model :re_pipeline
-  end    
-
   # before_filter :login_required
   before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :change, :edit, :update, :activate, :deactivate, :revert, :destroy]
   before_filter :rules_engine_reader_access_required,  :only => [:lookup, :index, :show]
+
+  before_filter :only => [:show, :change, :edit, :update, :activate, :deactivate, :revert, :destroy] do |controller|
+    controller.re_load_model :re_pipeline
+  end    
 
   def lookup
     klass = RePipeline
     query = params[:q] || ''
     if params[:t] == 'code'
-      if query.chomp.blank?
-        render :text => klass.find(:all, :order => "title", :limit => 10 ).map(&:title).join("\n")
-      else
-        render :text => klass.find(:all, :conditions => ["title LIKE ?", "#{params[:q]}%"], :order => "title", :limit => 10 ).map(&:title).join("\n")
-      end
-    else # params[:t] == 'title'
-      if query.chomp.blank?
+      if query.blank?
         render :text => klass.find(:all, :order => "code", :limit => 10 ).map(&:code).join("\n")
       else
-        render :text => klass.find(:all, :conditions => ["code LIKE ?", "#{params[:q]}%"], :order => "code", :limit => 10 ).map(&:code).join("\n")
+        render :text => klass.find(:all, :conditions => ["code LIKE ?", "#{query}%"], :order => "code", :limit => 10 ).map(&:code).join("\n")
+      end
+    else # params[:t] == 'title'
+      if query.blank?
+        render :text => klass.find(:all, :order => "title", :limit => 10 ).map(&:title).join("\n")
+      else
+        render :text => klass.find(:all, :conditions => ["title LIKE ?", "#{query}%"], :order => "title", :limit => 10 ).map(&:title).join("\n")
       end
     end  
   end
@@ -68,7 +68,8 @@ class RePipelinesController < ApplicationController
   end
 
   def update
-    @re_pipeline.attributes = params[:re_pipeline].except(:code)
+    update_params = params[:re_pipeline] || {}
+    @re_pipeline.attributes = update_params.except(:code)
     if @re_pipeline.save
       flash[:success] = 'Pipeline Updated.'
       

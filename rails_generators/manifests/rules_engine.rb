@@ -218,6 +218,7 @@ class RulesEngineManifest
       public/images/re_pipeline/list-right.png
       app/views/re_rules/error.js.erb
       public/images/re_pipeline/revert-18.png
+      spec/controllers/re_jobs_controller_spec.rb
       public/images/re_job/info-48.png
       public/javascripts/jquery.blockUI.js
       db/migrate/20100308225008_create_re_pipelines.rb
@@ -240,6 +241,7 @@ class RulesEngineManifest
       public/images/re_rule_class/help-18.png
       public/images/re_job/prev-disabled-25.png
       spec/models/re_job_audit_spec.rb
+      spec/controllers/re_pipeline_jobs_controller_spec.rb
       public/stylesheets/re_view_button/oval-red-left.gif
       public/images/re_job/list-48.png
       public/images/re_job/info-14.png
@@ -302,6 +304,7 @@ class RulesEngineManifest
       public/images/re_pipeline/revert-25.png
       public/images/re_job/prev-disabled-14.png
       spec/models/re_pipeline_base_spec.rb
+      spec/controllers/re_rules_controller_spec.rb
       app/views/re_rules/help.js.erb
       app/views/re_pipelines/new.js.erb
       app/views/re_pipeline_jobs/_empty.html.erb

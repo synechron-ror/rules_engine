@@ -2,23 +2,25 @@ class ReRulesController < ApplicationController
   helper :re_pipeline 
   layout 'rules_engine'
   
+  # before_filter :login_required
+  before_filter :rules_engine_editor_access_required, :except => [:help, :error]
+  before_filter :rules_engine_reader_access_required, :only => [:help, :error]
+  
   before_filter do |controller|
     controller.re_load_model :re_pipeline, {:param_id => :re_pipeline_id, :redirect_path => :re_pipelines_path}    
   end
+  
   before_filter :only => [:edit, :update, :destroy, :move_up, :move_down] do |controller|
     controller.re_load_model :re_rule, {:param_id => :id, :parents => [:re_pipeline], :redirect_path => :re_pipeline_path}
   end    
-  before_filter :load_rule_class_from_rule_class,  :only => [:help, :new, :create]
-  before_filter :load_rule_class_from_model,       :only => [:edit, :update, :move_up, :move_down]
   
-  # before_filter :login_required
-  before_filter :rules_engine_editor_access_required, :except => [:error, :help]
-  before_filter :rules_engine_reader_access_required, :only => [:error, :help]
+  before_filter :load_rule_class_from_rule_class_name,  :only => [:help, :new, :create]
+  before_filter :load_rule_class_from_model,            :only => [:edit, :update, :destroy, :move_up, :move_down]
 
-  def error
+  def help
   end  
   
-  def help
+  def error
   end  
   
   def new
@@ -26,8 +28,8 @@ class ReRulesController < ApplicationController
   end
   
   def create
-    @re_rule = ReRule.new(:re_pipeline_id => @re_pipeline.id)
     @rule.attributes = params
+    @re_rule = ReRule.new(:re_pipeline_id => @re_pipeline.id)
     if @rule.valid? && @rule.save(@re_rule) && @re_rule.save
       flash[:success] = 'Rule Created.'      
       @rule.after_create(@re_rule)
@@ -49,9 +51,8 @@ class ReRulesController < ApplicationController
   end
 
   def update
-    @rule.attributes = params      
+    @rule.attributes = params
     if @rule.valid? && @rule.save(@re_rule) && @re_rule.save
-      @re_pipeline.changed
       flash[:success] = 'Rule Updated.'      
       @rule.after_update(@re_rule)
       
@@ -64,18 +65,13 @@ class ReRulesController < ApplicationController
         end
       end
     else
-      render :action => "new"
+      render :action => "edit"
     end
   end
 
   def destroy
-    @rule_class = RulesEngine::Discovery.rule_class(@re_rule.rule_class)
-    if (@rule_class)
-      @rule = @rule_class.new  
-      @rule.before_destroy(@re_rule)
-    end  
+    @rule.before_destroy(@re_rule)
     @re_rule.destroy
-    @re_pipeline.changed
     flash[:success] = 'Rule Deleted.'
 
     respond_to do |format|
@@ -120,8 +116,8 @@ class ReRulesController < ApplicationController
   end
   
   protected
-    def load_rule_class_from_rule_class
-      @rule_class = RulesEngine::Discovery.rule_class(params[:rule_class])
+    def load_rule_class_from_rule_class_name
+      @rule_class = RulesEngine::Discovery.rule_class(params[:rule_class_name])
       if @rule_class.nil?
         flash[:error] = "#{params[:rule_class]} : class not found."
         render :action => :error
@@ -131,9 +127,9 @@ class ReRulesController < ApplicationController
     end
 
     def load_rule_class_from_model
-      @rule_class = RulesEngine::Discovery.rule_class(@re_rule.rule_class)
+      @rule_class = RulesEngine::Discovery.rule_class(@re_rule.rule_class_name)
       if @rule_class.nil?
-        flash[:error] = "#{@re_rule.rule_class} : class not found."
+        flash[:error] = "#{@re_rule.rule_class_name} : class not found."
         render :action => :error
       else
         @rule = @rule_class.new  

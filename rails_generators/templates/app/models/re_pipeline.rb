@@ -5,8 +5,6 @@ class RePipeline < RePipelineBase
 
   has_many :re_job_audits
   
-  # before_save :reset_activated_status, :reset_changed_status
-
   def activate!
     self.activated_re_pipeline ||= RePipelineActivated.new
     activated_re_pipeline.copy! self
