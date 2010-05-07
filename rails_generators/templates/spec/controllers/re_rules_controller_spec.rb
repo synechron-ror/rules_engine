@@ -526,8 +526,7 @@ describe ReRulesController do
           controller.should_receive(:render).with(:error)
           controller.send(:load_rule_class_from_model)  
         end          
-      end
-      
+      end      
     end
   end
 end
