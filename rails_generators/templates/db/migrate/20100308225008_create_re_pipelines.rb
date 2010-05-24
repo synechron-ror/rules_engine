@@ -37,7 +37,7 @@ class CreateRePipelines < ActiveRecord::Migration
     add_index :re_rules, [:re_pipeline_id, :position]
 
     #################################
-    create_table :re_rule_outcomes do |t|
+    create_table :re_rule_expected_outcomes do |t|
       t.integer :re_rule_id
       
       t.integer :outcome
@@ -46,7 +46,7 @@ class CreateRePipelines < ActiveRecord::Migration
       t.datetime :created_at
       t.datetime :updated_at
     end    
-    add_index :re_rule_outcomes, [:re_rule_id]
+    add_index :re_rule_expected_outcomes, [:re_rule_id]
     
     #################################
     create_table :re_jobs do |t|
@@ -73,7 +73,7 @@ class CreateRePipelines < ActiveRecord::Migration
   def self.down
     drop_table :re_job_audits
     drop_table :re_jobs
-    drop_table :re_rule_outcomes
+    drop_table :re_rule_expected_outcomes
     drop_table :re_rules
     drop_table :re_pipelines
   end

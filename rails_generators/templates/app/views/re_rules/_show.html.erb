@@ -18,19 +18,19 @@
       </div>
       
       <div class="prepend-10 top-10">
-        <% if re_rule.re_rule_outcomes.empty? %>
+        <% if re_rule.re_rule_expected_outcomes.empty? %>
           <div class="re-rule-continue">Continue</div>
         <% end %>        
-        <% unless re_rule.re_rule_outcome_next.nil? %>
+        <% unless re_rule.re_rule_expected_outcome_next.nil? %>
           <div class="re-rule-continue">Continue</div>
         <% end %>  
-        <% re_rule.re_rule_outcomes_start_pipeline.each do |re_rule_outcome| %>
-          <div class="re-rule-goto-pipeline"><%= re_rule_outcome.pipeline_code %></div>
+        <% re_rule.re_rule_expected_outcomes_start_pipeline.each do |re_rule_expected_outcome| %>
+          <div class="re-rule-goto-pipeline"><%= re_rule_expected_outcome.pipeline_code %></div>
         <% end %>  
-        <% unless re_rule.re_rule_outcome_failure.nil? %>
+        <% unless re_rule.re_rule_expected_outcome_failure.nil? %>
           <div class="re-rule-stop-failure">Stop Failure</div>
         <% end %>  
-        <% unless re_rule.re_rule_outcome_success.nil? %>
+        <% unless re_rule.re_rule_expected_outcome_success.nil? %>
           <div class="re-rule-stop-success">Stop Success</div>
         <% end %>  
       </div>

@@ -15,7 +15,7 @@ describe ReRule do
     ReRule.new(valid_attributes).should be_valid
   end
 
-  should_have_many :re_rule_outcomes
+  should_have_many :re_rule_expected_outcomes
   should_have_many :re_job_audits
   
   should_validate_presence_of :title
@@ -48,14 +48,14 @@ describe ReRule do
       src = ReRule.new(valid_attributes)
       dest = ReRule.new(valid_attributes)
       
-      src_outcome = mock_model(ReRuleOutcome)
-      dest_outcome = mock_model(ReRuleOutcome )
+      src_outcome = mock_model(ReRuleExpectedOutcome)
+      dest_outcome = mock_model(ReRuleExpectedOutcome )
               
-      ReRuleOutcome.should_receive(:new).and_return(dest_outcome)
+      ReRuleExpectedOutcome.should_receive(:new).and_return(dest_outcome)
       dest_outcome.should_receive(:copy!).with(src_outcome).and_return(dest_outcome)
       
-      src.should_receive(:re_rule_outcomes).and_return([src_outcome])
-      dest.should_receive(:re_rule_outcomes=).with([dest_outcome])
+      src.should_receive(:re_rule_expected_outcomes).and_return([src_outcome])
+      dest.should_receive(:re_rule_expected_outcomes=).with([dest_outcome])
       
       dest.copy!(src)
     end
@@ -86,33 +86,33 @@ describe ReRule do
 
     describe "equals rule outcome" do
       before(:each) do
-        @re_rule_re_rule_outcome_1 = mock_model(ReRuleOutcome)
-        @re_rule_re_rule_outcome_2 = mock_model(ReRuleOutcome)
+        @re_rule_re_rule_expected_outcome_1 = mock_model(ReRuleExpectedOutcome)
+        @re_rule_re_rule_expected_outcome_2 = mock_model(ReRuleExpectedOutcome)
         @re_rule_1 = ReRule.new(valid_attributes)
         @re_rule_2 = ReRule.new(valid_attributes)
-        @re_rule_1.stub!(:re_rule_outcomes).and_return([@re_rule_re_rule_outcome_1, @re_rule_re_rule_outcome_2])
-        @re_rule_2.stub!(:re_rule_outcomes).and_return([@re_rule_re_rule_outcome_1, @re_rule_re_rule_outcome_2])
+        @re_rule_1.stub!(:re_rule_expected_outcomes).and_return([@re_rule_re_rule_expected_outcome_1, @re_rule_re_rule_expected_outcome_2])
+        @re_rule_2.stub!(:re_rule_expected_outcomes).and_return([@re_rule_re_rule_expected_outcome_1, @re_rule_re_rule_expected_outcome_2])
         
       end
       it "should not compare the outcomes if the the number is different" do
-        @re_rule_2.stub!(:re_rule_outcomes).and_return([@re_rule_re_rule_outcome_1])
+        @re_rule_2.stub!(:re_rule_expected_outcomes).and_return([@re_rule_re_rule_expected_outcome_1])
         
-        @re_rule_re_rule_outcome_1.should_not_receive(:equals?)
-        @re_rule_re_rule_outcome_2.should_not_receive(:equals?)
+        @re_rule_re_rule_expected_outcome_1.should_not_receive(:equals?)
+        @re_rule_re_rule_expected_outcome_2.should_not_receive(:equals?)
       
         @re_rule_1.equals?(@re_rule_2)
       end
     
       it "should check the equals status of each rule outcome" do
-        @re_rule_re_rule_outcome_1.should_receive(:equals?).with(@re_rule_re_rule_outcome_1).and_return(true)
-        @re_rule_re_rule_outcome_2.should_receive(:equals?).with(@re_rule_re_rule_outcome_2).and_return(true)
+        @re_rule_re_rule_expected_outcome_1.should_receive(:equals?).with(@re_rule_re_rule_expected_outcome_1).and_return(true)
+        @re_rule_re_rule_expected_outcome_2.should_receive(:equals?).with(@re_rule_re_rule_expected_outcome_2).and_return(true)
       
         @re_rule_1.equals?(@re_rule_2).should be_true
       end
       
       it "should stop on the rule outcome equals error" do
-        @re_rule_re_rule_outcome_1.should_receive(:equals?).with(@re_rule_re_rule_outcome_1).and_return(false)
-        @re_rule_re_rule_outcome_2.should_not_receive(:equals?)
+        @re_rule_re_rule_expected_outcome_1.should_receive(:equals?).with(@re_rule_re_rule_expected_outcome_1).and_return(false)
+        @re_rule_re_rule_expected_outcome_2.should_not_receive(:equals?)
       
         @re_rule_1.equals?(@re_rule_2).should be_false
       end
@@ -127,25 +127,25 @@ describe ReRule do
     end
     
     it "should verify each rule outcome" do
-      re_rule_outcome_1 = mock_model(ReRule)
-      re_rule_outcome_2 = mock_model(ReRule)
+      re_rule_expected_outcome_1 = mock_model(ReRule)
+      re_rule_expected_outcome_2 = mock_model(ReRule)
       re_rule = ReRule.new
-      re_rule.stub!(:re_rule_outcomes).and_return([re_rule_outcome_1, re_rule_outcome_2])
+      re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome_1, re_rule_expected_outcome_2])
       
-      re_rule_outcome_1.should_receive(:verify).at_least(:once).and_return(nil)
-      re_rule_outcome_2.should_receive(:verify).at_least(:once).and_return(nil)
+      re_rule_expected_outcome_1.should_receive(:verify).at_least(:once).and_return(nil)
+      re_rule_expected_outcome_2.should_receive(:verify).at_least(:once).and_return(nil)
       
       re_rule.verify.should be_nil
     end
 
     it "should stop on the first verify error" do
-      re_rule_outcome_1 = mock_model(ReRule)
-      re_rule_outcome_2 = mock_model(ReRule)
+      re_rule_expected_outcome_1 = mock_model(ReRule)
+      re_rule_expected_outcome_2 = mock_model(ReRule)
       re_rule = ReRule.new
-      re_rule.stub!(:re_rule_outcomes).and_return([re_rule_outcome_1, re_rule_outcome_2])
+      re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome_1, re_rule_expected_outcome_2])
       
-      re_rule_outcome_1.should_receive(:verify).at_least(:once).and_return("mock fail error")
-      re_rule_outcome_2.should_not_receive(:verify)
+      re_rule_expected_outcome_1.should_receive(:verify).at_least(:once).and_return("mock fail error")
+      re_rule_expected_outcome_2.should_not_receive(:verify)
       
       re_rule.verify.should == "mock fail error"
     end
@@ -175,35 +175,35 @@ describe ReRule do
     end
     
     it "should return the first outcome that is a OUTCOME_NEXT" do
-      outcome_1 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)
-      outcome_2 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)
-      @re_rule.re_rule_outcomes << outcome_1
-      @re_rule.re_rule_outcomes << outcome_2
-      @re_rule.re_rule_outcome_next.should == outcome_1
+      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)
+      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)
+      @re_rule.re_rule_expected_outcomes << outcome_1
+      @re_rule.re_rule_expected_outcomes << outcome_2
+      @re_rule.re_rule_expected_outcome_next.should == outcome_1
     end
 
     it "should return the first outcome that is a OUTCOME_STOP_SUCCESS" do
-      outcome_1 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
-      outcome_2 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
-      @re_rule.re_rule_outcomes << outcome_1
-      @re_rule.re_rule_outcomes << outcome_2
-      @re_rule.re_rule_outcome_success.should == outcome_1
+      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
+      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
+      @re_rule.re_rule_expected_outcomes << outcome_1
+      @re_rule.re_rule_expected_outcomes << outcome_2
+      @re_rule.re_rule_expected_outcome_success.should == outcome_1
     end
 
     it "should return the first outcome that is a OUTCOME_STOP_FAILURE" do
-      outcome_1 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
-      outcome_2 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
-      @re_rule.re_rule_outcomes << outcome_1
-      @re_rule.re_rule_outcomes << outcome_2
-      @re_rule.re_rule_outcome_failure.should == outcome_1
+      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
+      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
+      @re_rule.re_rule_expected_outcomes << outcome_1
+      @re_rule.re_rule_expected_outcomes << outcome_2
+      @re_rule.re_rule_expected_outcome_failure.should == outcome_1
     end
 
     it "should return all outcomes that are a OUTCOME_START_PIPELINE" do
-      outcome_1 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
-      outcome_2 = ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
-      @re_rule.re_rule_outcomes << outcome_1
-      @re_rule.re_rule_outcomes << outcome_2
-      @re_rule.re_rule_outcomes_start_pipeline.should == [outcome_1, outcome_2]
+      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
+      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
+      @re_rule.re_rule_expected_outcomes << outcome_1
+      @re_rule.re_rule_expected_outcomes << outcome_2
+      @re_rule.re_rule_expected_outcomes_start_pipeline.should == [outcome_1, outcome_2]
     end
     
   end

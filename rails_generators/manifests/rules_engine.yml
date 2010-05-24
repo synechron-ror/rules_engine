@@ -31,7 +31,7 @@ files :
   - app/models/re_pipeline_activated_observer.rb 
   - app/models/re_pipeline_base.rb      
   - app/models/re_rule.rb               
-  - app/models/re_rule_outcome.rb
+  - app/models/re_rule_expected_outcome.rb
   - app/models/re_job.rb               
   - app/models/re_job_audit.rb               
 
@@ -74,11 +74,9 @@ files :
   - spec/models/re_pipeline_spec.rb
   - spec/models/re_pipeline_activated_spec.rb
   - spec/models/re_rule_spec.rb
-  - spec/models/re_rule_outcome_spec.rb
+  - spec/models/re_rule_expected_outcome_spec.rb
   - spec/models/re_job_spec.rb
   - spec/models/re_job_audit_spec.rb
 
   - spec/helpers/re_pipeline_helper_spec.rb
-
-  - spec/support/blueprint_re_pipelines.rb
   - spec/support/rules_engine_macros.rb

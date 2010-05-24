@@ -43,7 +43,6 @@ class RulesEngineManifest
 
     %w(
       public/stylesheets/re_view_error.css
-      app/models/re_rule_outcome.rb
       public/stylesheets/re_view_navigate/icon-delete.png
       public/images/re_rule/move-down-48.png
       spec/support/rules_engine_macros.rb
@@ -106,6 +105,7 @@ class RulesEngineManifest
       app/views/re_pipeline_jobs/_index.html.erb
       public/images/re_rule/next-change-25.png
       public/images/re_rule/move-up-14.png
+      app/models/re_rule_expected_outcome.rb
       public/images/re_pipeline/change-14.png
       public/images/re_pipeline/activate-14.png
       public/images/re_rule/stop-success-14.png
@@ -120,7 +120,6 @@ class RulesEngineManifest
       public/stylesheets/blueprint/src/ie.css
       public/images/re_rule/verify-25.png
       public/images/re_rule/__destroy-25.png
-      spec/models/re_rule_outcome_spec.rb
       app/views/re_pipelines/_show_actions.html.erb
       app/views/re_pipeline_jobs/index.html.erb
       app/views/re_pipelines/_change.html.erb
@@ -145,6 +144,7 @@ class RulesEngineManifest
       public/images/re_rule_class/add-48.png
       app/views/re_rules/_error.html.erb
       public/stylesheets/blueprint/src/grid.css
+      spec/models/re_rule_expected_outcome_spec.rb
       public/images/re_rule/stop-failure-18.png
       public/images/re_pipeline/changed-25.png
       public/images/re_pipeline/draft-48.png
@@ -200,7 +200,6 @@ class RulesEngineManifest
       public/images/re_pipeline/list-25.png
       app/controllers/re_pipelines_controller.rb
       public/stylesheets/blueprint/plugins/link-icons/screen.css
-      spec/support/blueprint_re_pipelines.rb
       public/stylesheets/re_view.css
       public/stylesheets/re_view_button.css
       app/models/re_pipeline_base.rb

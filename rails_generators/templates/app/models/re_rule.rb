@@ -2,7 +2,7 @@ class ReRule < ActiveRecord::Base
   belongs_to :re_pipeline
   acts_as_list :scope => :re_pipeline
 
-  has_many  :re_rule_outcomes, :dependent => :destroy, :order => "outcome ASC"
+  has_many  :re_rule_expected_outcomes, :dependent => :destroy, :order => "outcome ASC"
   has_many  :re_job_audits
     
   validates_associated  :re_pipeline
@@ -22,7 +22,7 @@ class ReRule < ActiveRecord::Base
       self[key] = value
     end
     
-    self.re_rule_outcomes = re_rule.re_rule_outcomes.map { |rule_outcome| ReRuleOutcome.new.copy!(rule_outcome) }
+    self.re_rule_expected_outcomes = re_rule.re_rule_expected_outcomes.map { |rule_expected_outcome| ReRuleExpectedOutcome.new.copy!(rule_expected_outcome) }
     
     self
   end
@@ -35,9 +35,9 @@ class ReRule < ActiveRecord::Base
       return false unless self[key] == value
     end
     
-    return false unless self.re_rule_outcomes.length == re_rule.re_rule_outcomes.length
-    self.re_rule_outcomes.each_with_index do |rule_outcome, index|
-      return false unless rule_outcome.equals?(re_rule.re_rule_outcomes[index])
+    return false unless self.re_rule_expected_outcomes.length == re_rule.re_rule_expected_outcomes.length
+    self.re_rule_expected_outcomes.each_with_index do |rule_expected_outcome, index|
+      return false unless rule_expected_outcome.equals?(re_rule.re_rule_expected_outcomes[index])
     end
     
     true
@@ -46,28 +46,28 @@ class ReRule < ActiveRecord::Base
   def verify
     return self.error unless self.error.blank?
 
-    self.re_rule_outcomes.each do |rule_outcome|
-      result = rule_outcome.verify
+    self.re_rule_expected_outcomes.each do |rule_expected_outcome|
+      result = rule_expected_outcome.verify
       return result unless result.blank?
     end
     
     nil
   end
 
-  def re_rule_outcome_next
-    re_rule_outcomes.detect{ |re_rule_outcome| re_rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_NEXT }
+  def re_rule_expected_outcome_next
+    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_NEXT }
   end
   
-  def re_rule_outcome_success
-    re_rule_outcomes.detect{ |re_rule_outcome| re_rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS }
+  def re_rule_expected_outcome_success
+    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS }
   end
 
-  def re_rule_outcome_failure
-    re_rule_outcomes.detect{ |re_rule_outcome| re_rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE }
+  def re_rule_expected_outcome_failure
+    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE }
   end
 
-  def re_rule_outcomes_start_pipeline
-    re_rule_outcomes.select{ |re_rule_outcome| re_rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE }
+  def re_rule_expected_outcomes_start_pipeline
+    re_rule_expected_outcomes.select{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE }
   end
 
   protected
