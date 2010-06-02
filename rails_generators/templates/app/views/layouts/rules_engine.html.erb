@@ -24,19 +24,18 @@
 </head>
 <body>
   <div class="container"> 
-			<%= render :partial => '/layouts/header'  %>
-      
-      <%= yield :defer_re_breadcrumbs %>
-      <%= yield :defer_re_subnav %>
-      <%= re_alert %>
-          
-      <%= yield %>
-      <div class="clear"></div>
+		<%= render :partial => '/layouts/header'  %>
 
-      <%= render :partial => '/layouts/footer'  %>
-			
-			<div id="tb_temp_frame"><div id="tb_temp_container"></div>
-		</div>
-   </div>		
+		<%= yield :defer_re_breadcrumbs %>
+		<%= yield :defer_re_subnav %>
+		<%= re_alert %>
+   
+		<%= yield %>
+		<div class="clear"></div>
+
+		<%= render :partial => '/layouts/footer'  %>
+
+		<div id="tb_temp_frame"><div id="tb_temp_container"></div></div>
+	</div>		
 </body>
 </html>

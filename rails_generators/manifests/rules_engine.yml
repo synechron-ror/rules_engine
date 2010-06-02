@@ -15,6 +15,8 @@ directories :
   - public/stylesheets/re_view_error
   - public/stylesheets/re_view_navigate
   
+  - features/re_pipeline
+  
 files :  
   - doc/README.rules_engine
   - doc/README.rules_engine_view
@@ -80,3 +82,16 @@ files :
 
   - spec/helpers/re_pipeline_helper_spec.rb
   - spec/support/rules_engine_macros.rb
+  
+  - features/step_definitions/common/re_debug_steps.rb
+  - features/step_definitions/common/re_form_steps.rb       
+  - features/step_definitions/common/re_pagination_steps.rb 
+  - features/step_definitions/common/re_view_steps.rb
+  - features/step_definitions/common/re_error_steps.rb      
+  - features/step_definitions/common/re_model_steps.rb
+
+  - features/support/rules_engine.rb
+  - features/support/blueprint_re_pipelines.rb
+
+  
+  

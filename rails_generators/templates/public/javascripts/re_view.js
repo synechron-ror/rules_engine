@@ -2,7 +2,7 @@ jQuery.re_message = function(style, header, message, timeout){
 	var $m = $('<div class="' + style + '"></div>');
 	$m.append('<strong>' + header + '</strong>');
 	if (message) $m.append(' : ' + message);
-	if (timeout == undefined) timeout = 3300;
+	if (timeout == undefined) timeout = 1000;
   $('.container').block({
 		message: $m, 
 		fadeIn: 700, 
@@ -11,8 +11,8 @@ jQuery.re_message = function(style, header, message, timeout){
 		timeout: timeout, 
 		showOverlay: false,
 		css: {
-            width:    '450px',
-            top:      '60px',
+            width:    '650px',
+            top:      '70px',
             left:     '10px',
             right:    '10px',
 					  border:   'none',
@@ -20,6 +20,7 @@ jQuery.re_message = function(style, header, message, timeout){
 					  opacity:   0.95,
 						cursor:    null,
 					  color:    '#000',
+					  border:         '1px solid #333',
 					  backgroundColor: '#fff6bf',
 					  '-webkit-border-radius': '10px',
 					  '-moz-border-radius':    '10px'

@@ -27,11 +27,14 @@ class RulesEngineManifest
       public/stylesheets/blueprint/plugins/rtl
       app/views/re_rules
       app/views/re_jobs
+      features/step_definitions/common
       public/images/re_rule_class
       spec/helpers
       app/views/layouts
+      features/re_pipeline
       public/stylesheets/re_view_navigate
       public/stylesheets/blueprint/plugins/buttons/icons
+      features/support
       spec/support
       app/controllers
       spec/models
@@ -130,7 +133,10 @@ class RulesEngineManifest
       public/images/re_pipeline/__destroy-14.png
       public/images/re_pipeline/verify-25.png
       public/images/re_pipeline/edit-18.png
+      features/support/blueprint_re_pipelines.rb
+      features/step_definitions/common/re_model_steps.rb
       public/javascripts/re_pipeline_index.js
+      features/re_pipeline/lookup.feature
       public/images/re_rule/next-show-14.png
       app/views/re_rules/new.js.erb
       public/images/re_job/success-14.png
@@ -173,6 +179,7 @@ class RulesEngineManifest
       public/images/re_job/error-48.png
       public/images/re_job/next-disabled-25.png
       app/views/re_pipelines/template.html.erb
+      features/step_definitions/common/re_error_steps.rb
       public/stylesheets/re_view_navigate/subnavitems-bg.jpg
       public/stylesheets/blueprint/plugins/fancy-type/readme.txt
       public/images/re_pipeline/verify-14.png
@@ -188,6 +195,7 @@ class RulesEngineManifest
       public/images/re_rule/__destroy-48.png
       public/images/re_pipeline/show-18.png
       public/images/re_pipeline/edit-48.png
+      features/step_definitions/common/re_view_steps.rb
       public/images/re_rule_class/list-right.png
       public/images/re_pipeline/verify-48.png
       public/stylesheets/blueprint/src/print.css
@@ -246,6 +254,7 @@ class RulesEngineManifest
       public/images/re_job/info-14.png
       public/images/re_pipeline/new-18.png
       public/images/re_rule/goto-pipeline-14.png
+      features/step_definitions/common/re_debug_steps.rb
       public/stylesheets/re_view_button/oval-red-right.gif
       public/stylesheets/blueprint/plugins/link-icons/icons/im.png
       public/images/re_pipeline/list-down.png
@@ -253,6 +262,7 @@ class RulesEngineManifest
       public/stylesheets/blueprint/plugins/fancy-type/screen.css
       app/views/re_pipelines/update.js.erb
       app/views/re_pipelines/create.js.erb
+      features/support/rules_engine.rb
       public/javascripts/re_jobs.js
       lib/tasks/re_runner.rake
       public/stylesheets/re_view_button/checked-on.gif
@@ -271,6 +281,7 @@ class RulesEngineManifest
       public/stylesheets/blueprint/plugins/link-icons/icons/visited.png
       app/views/re_pipelines/change.html.erb
       public/images/re_rule/edit-48.png
+      features/step_definitions/common/re_form_steps.rb
       public/javascripts/re_view.js
       app/views/re_pipelines/edit.js.erb
       public/images/re_rule/move-up-18.png
@@ -336,6 +347,7 @@ class RulesEngineManifest
       public/images/re_rule_class/new-18.png
       public/images/re_pipeline/show-48.png
       public/images/re_job/goto-16.png
+      features/step_definitions/common/re_pagination_steps.rb
       public/stylesheets/re_view_button/oval-blue-right.gif
       public/images/re_rule/edit-14.png
       public/images/re_rule/move-down-off-48.png

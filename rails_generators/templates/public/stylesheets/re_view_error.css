@@ -8,6 +8,7 @@
 	border-bottom: 2px solid #b43838;
 	margin-left: auto;
 	margin-right: auto;
+	clear: both;
 }	
 
 .growl-success {
