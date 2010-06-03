@@ -63,14 +63,14 @@ describe "RulesEngine::JobRunner" do
       
       @rule_1 = mock("ReRule")
       @rule_1.stub!(:title).and_return('rule 1')
-      @rule_1.stub!(:rule_class).and_return('rule_1')
+      @rule_1.stub!(:rule_class_name).and_return('rule_1')
       @rule_1.stub!(:new).and_return(@rule_1)
       @rule_1.stub!(:load).and_return(true)
       @rule_1.stub!(:process).and_return(nil)      
       
       @rule_2 = mock("ReRule")
       @rule_2.stub!(:title).and_return('rule 2')
-      @rule_2.stub!(:rule_class).and_return('rule_2')
+      @rule_2.stub!(:rule_class_name).and_return('rule_2')
       @rule_2.stub!(:new).and_return(@rule_2)
       @rule_2.stub!(:load).and_return(true)
       @rule_2.stub!(:process).and_return(nil)

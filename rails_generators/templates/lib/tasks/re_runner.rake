@@ -1,6 +1,6 @@
 namespace :re do
   
-  desc "create and run  job"   
+  desc "create and run a job"   
   task :run => :environment do
     
     RePipeline.find(:all).each do | re_pipeline |

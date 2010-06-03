@@ -36,21 +36,21 @@ class ReJob < ActiveRecord::Base
             FROM re_job_audits rejas 
             WHERE rejas.audit_code = #{ReJobAudit::AUDIT_PIPELINE_START} 
         )    
-        ORDER BY job_date DESC    
+        ORDER BY job_id DESC
     END_OF_STRING
     
     query = add_limit!(sql_select, :offset => options[:offset], :limit=>options[:limit])
       
     ActiveRecord::Base.connection.select_all(query).map do | result |
 
-      job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ? AND audit_code = ?", result['job_id'], ReJobAudit::AUDIT_PIPELINE_START], :order => "audit_date ASC", :limit => 1).first
+      job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ? AND audit_code = ?", result['job_id'], ReJobAudit::AUDIT_PIPELINE_START], :order => "re_job_id ASC, audit_date ASC", :limit => 1).first
       result.merge!({
         'start_date' => job_audit.audit_date,
         'start_data' => job_audit.audit_data, 
         'start_success' => job_audit.audit_success
       })
 
-      job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ? AND audit_code = ?", result['job_id'], ReJobAudit::AUDIT_PIPELINE_END], :order => "audit_date DESC", :limit => 1).first
+      job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ? AND audit_code = ?", result['job_id'], ReJobAudit::AUDIT_PIPELINE_END], :order => "re_job_id ASC, audit_date DESC", :limit => 1).first
       if (job_audit)
         result.merge!({
           'end_date' => job_audit.audit_date,
@@ -93,7 +93,7 @@ class ReJob < ActiveRecord::Base
             WHERE rejas.audit_code = #{ReJobAudit::AUDIT_PIPELINE_START} 
             AND rejas.re_pipeline_id = #{re_pipeline_id}
         )    
-        ORDER BY job_date DESC    
+        ORDER BY job_id DESC
     END_OF_STRING
     
     query = add_limit!(sql_select, :offset => options[:offset], :limit=>options[:limit])

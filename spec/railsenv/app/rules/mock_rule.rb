@@ -5,7 +5,7 @@ class MockRule
     return {:group => 'mock group'}
   end
   
-  def self.rule_class
-    return "mock_rule"    
+  def self.rule_class_name
+    return self.name.classify
   end
 end

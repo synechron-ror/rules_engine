@@ -22,7 +22,7 @@ describe "RulesEngine::Discovery" do
   
   it "should return the class that matches the name" do
     RulesEngine::Discovery.discover!      
-    RulesEngine::Discovery.rule_class('mock_rule').should == MockRule
+    RulesEngine::Discovery.rule_class('MockRule').should == MockRule
   end
 
   it "should return nil if the class is unknown" do

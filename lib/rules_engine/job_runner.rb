@@ -36,16 +36,16 @@ module RulesEngine
         end
 
         activated_pipeline.re_rules.each do | re_rule |
-          rule_class = RulesEngine::Discovery.rule_class(re_rule.rule_class)
+          rule_class = RulesEngine::Discovery.rule_class(re_rule.rule_class_name)
           unless rule_class
-            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, false, "Rule #{re_rule.rule_class} not found") 
+            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, false, "Rule #{re_rule.rule_class_name} not found") 
             error = done = true 
             break 
           end  
         
           rule = rule_class.new
           unless rule.load(re_rule)
-            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, false, "Rule #{re_rule.rule_class} cannot load")
+            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, false, "Rule #{re_rule.rule_class_name} cannot load")
             error = done = true 
             break 
           end  
