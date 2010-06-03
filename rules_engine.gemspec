@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-05-06}
+  s.date = %q{2010-06-03}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -58,6 +58,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/models/re_pipeline_activated_observer.rb",
      "rails_generators/templates/app/models/re_pipeline_base.rb",
      "rails_generators/templates/app/models/re_rule.rb",
+     "rails_generators/templates/app/models/re_rule_expected_outcome.rb",
      "rails_generators/templates/app/models/re_rule_outcome.rb",
      "rails_generators/templates/app/rules/complex.rb",
      "rails_generators/templates/app/rules/simple.rb",
@@ -130,6 +131,15 @@ Gem::Specification.new do |s|
      "rails_generators/templates/db/migrate/20100308225008_create_re_pipelines.rb",
      "rails_generators/templates/doc/README.rules_engine",
      "rails_generators/templates/doc/README.rules_engine_view",
+     "rails_generators/templates/features/re_pipeline/lookup.feature",
+     "rails_generators/templates/features/step_definitions/common/re_debug_steps.rb",
+     "rails_generators/templates/features/step_definitions/common/re_error_steps.rb",
+     "rails_generators/templates/features/step_definitions/common/re_form_steps.rb",
+     "rails_generators/templates/features/step_definitions/common/re_model_steps.rb",
+     "rails_generators/templates/features/step_definitions/common/re_pagination_steps.rb",
+     "rails_generators/templates/features/step_definitions/common/re_view_steps.rb",
+     "rails_generators/templates/features/support/blueprint_re_pipelines.rb",
+     "rails_generators/templates/features/support/rules_engine.rb",
      "rails_generators/templates/lib/tasks/re_runner.rake",
      "rails_generators/templates/public/images/loadingAnimation.gif",
      "rails_generators/templates/public/images/re_job/error-14.png",
@@ -385,9 +395,9 @@ Gem::Specification.new do |s|
      "rails_generators/templates/spec/models/re_pipeline_activated_spec.rb",
      "rails_generators/templates/spec/models/re_pipeline_base_spec.rb",
      "rails_generators/templates/spec/models/re_pipeline_spec.rb",
+     "rails_generators/templates/spec/models/re_rule_expected_outcome_spec.rb",
      "rails_generators/templates/spec/models/re_rule_outcome_spec.rb",
      "rails_generators/templates/spec/models/re_rule_spec.rb",
-     "rails_generators/templates/spec/support/blueprint_re_pipelines.rb",
      "rails_generators/templates/spec/support/rules_engine_macros.rb",
      "spec/railsenv/app/controllers/application_controller.rb",
      "spec/railsenv/app/rules/mock_rule.rb",
@@ -432,7 +442,7 @@ Gem::Specification.new do |s|
     }
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{Rules engine}
   s.test_files = [
     "spec/railsenv/app/controllers/application_controller.rb",
@@ -469,7 +479,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
     else
       s.add_dependency(%q<rspec>, [">= 1.2.9"])

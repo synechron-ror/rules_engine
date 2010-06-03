@@ -44,7 +44,18 @@ $(document).ready(function() {
   $('a.re-job-page-next-disabled').live('click', function() {
     return false;
   });
+
   
+  $('a.re-job-page-refresh').live('click', function() {
+    var page = $(this).attr('href').replace('#', ''); 
+
+    $('#re_job_list_empty').hide();
+    $('#re_job_list').hide();
+    $('#re_job_list_pending').show();
+    get_job_list(page);  
+
+  	return false;  
+  });  
   
 });
 

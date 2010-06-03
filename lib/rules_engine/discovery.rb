@@ -37,10 +37,10 @@ module RulesEngine
         @rule_groups
       end
     
-      def rule_class(rule_class)
+      def rule_class(rule_class_name)
         throw Exception.new("RulesEngine::Discovery.discover! required in environment.rb") if @rule_classes.nil?
         @rule_classes.each do |rule|
-          return rule if rule.rule_class == rule_class
+          return rule if rule.rule_class_name == rule_class_name
         end
         nil
       end

@@ -1,41 +1,37 @@
 <div class="re-rule-menu">
-  <% RulesEngine::Discovery.rule_groups.each do |name, rule_classes| %>
-    <% re_shadowbox do %>
-      <a href="#" class="re-rule-class-list-toggle">
-        <h5 class="re-rule-class-list-right"><%=h name %></h5>
-      </a>  
-      <div class="re-rule-class-list hide">
+	
+  <% re_shadowbox do %>	
+		<%= select_tag 're_rule_class_list', options_for_select(["All Rules"] + RulesEngine::Discovery.rule_groups.map {|name, rule_classes| name }) %>
+		<div class="clear top-5"></div>
+		
+		<% RulesEngine::Discovery.rule_groups.each do |name, rule_classes| %>
+      <div class="re-rule-class-list hide" id="re_rule_class_name_<%= name.gsub(' ', "_") %>">
         <% rule_classes.each do |rule_class| %>
-          <div class="re-yellowbox">
-            <h5>
-              <%= rule_class.options[:name] %>          
-            </h5>
-            <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
-            <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
-            <div class="clear"></div>
-          </div>      
-          <div class="clear top-5"></div>
+ 					<div class="re-yellowbox">
+						<h5>
+							<%= rule_class.options[:name] %>          
+						</h5>
+						<a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
+						<a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
+						<div class="clear"></div>
+		      </div>      
+		      <div class="clear top-5"></div>
         <% end %>    
       </div>  
-    <% end %>
-  <% end %>  
-
-  <% re_shadowbox do %>
-    <a href="#" class="re-rule-class-list-toggle">
-      <h5 class="re-rule-class-list-down">All Rules</h5>
-    </a>  
-    <div class="re-rule-class-list">
-      <% RulesEngine::Discovery.rule_classes.each do |rule_class| %>    
-        <div class="re-yellowbox">
-          <h5>
-            <%= rule_class.options[:name] %>          
-          </h5>
-          <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
-          <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
-          <div class="clear"></div>
-        </div>      
-        <div class="clear top-5"></div>
-      <% end %>
-    </div>  
+		<% end %>
+		
+		<div class="re-rule-class-list" id="re_rule_class_name_All_Rules">
+    	<% RulesEngine::Discovery.rule_classes.each do |rule_class| %>    
+	      <div class="re-yellowbox">
+	        <h5>
+	          <%= rule_class.options[:name] %>          
+	        </h5>
+	        <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
+	        <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
+	        <div class="clear"></div>
+	      </div>      
+	      <div class="clear top-5"></div>
+    	<% end %>		
+		</div>	
   <% end %>
 </div>

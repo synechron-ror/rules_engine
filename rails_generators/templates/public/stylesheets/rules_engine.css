@@ -315,16 +315,24 @@ a.re-rule-move-up-off span {
 
 
 /* rule-classes */
-a.re-rule-class-list-toggle {
+/*a.re-rule-class-list-toggle {
   text-decoration: none;
 }
 h5.re-rule-class-list-right {
-	background: transparent url('/images/re_rule_class/list-right.png') no-repeat 0px 6px;
+  background: transparent url('/images/re_rule_class/list-right.png') no-repeat 0px 6px;
   padding: 2px 0 4px 12px;
 }
 h5.re-rule-class-list-down {
-	background: transparent url('/images/re_rule_class/list-down.png') no-repeat 0px 6px;
+  background: transparent url('/images/re_rule_class/list-down.png') no-repeat 0px 6px;
   padding: 2px 0 4px 12px;
+}
+*/
+select#re_rule_class_list {
+  width: 240px;
+  height: 28px;
+  font: 18px/24px arial,sans-serif;
+  background-color: #FFF;
+  overflow: hidden;
 }
 .re-rule-class-list h5 {
   float: left;
@@ -444,6 +452,13 @@ color:#666666;
   width: 16px;  
   padding: 0 2px 0 5px;
 }
+.re-job-page-refresh {
+  float: right;
+  background: transparent url('/images/re_job/goto-16.png') no-repeat 0px 2px;
+  height: 18px;  
+  width: 16px;  
+  padding: 0 5px 0 2px;
+}
 
 a.re-job-goto {
   background: transparent url('/images/re_job/goto-16.png') no-repeat top right;
@@ -460,4 +475,3 @@ a.re-job-detail {
   width: 16px;  
   padding: 0px 0px 0px 20px;
 }
-

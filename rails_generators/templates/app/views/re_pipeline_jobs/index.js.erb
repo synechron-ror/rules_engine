@@ -1,10 +1,13 @@
 <%= re_alert_js %>
 
-$('#re_job_list_pending').slideUp(150, function() {
-  <% if @re_jobs.empty? %>
-    $('#re_job_list_empty').slideDown(150);
-  <% end %>  
-});
-
 $('#re_job_list').html('<%=escape_javascript(render(:partial => '/re_pipeline_jobs/index'))%>');
-$('#re_job_list').show();
+
+$('#re_job_list_pending').hide();
+<% if @re_jobs.empty? %>
+  $('#re_job_list_empty').show();
+  $('#re_job_list').hide();
+<% else %>  
+  $('#re_job_list_empty').hide();
+  $('#re_job_list').show();
+<% end %>  
+

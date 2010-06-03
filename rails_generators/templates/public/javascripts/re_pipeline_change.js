@@ -72,7 +72,7 @@ $(document).ready(function() {
 
     tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=780', false);
     block_thickbox();
-    $.get('/re_pipelines/' + values[0] + '/re_rules/new?rule_class=' + values[1], null, unblock_thickbox, 'script');
+    $.get('/re_pipelines/' + values[0] + '/re_rules/new?rule_class_name=' + values[1], null, unblock_thickbox, 'script');
   	return false;  
   });  
 
@@ -165,7 +165,7 @@ $(document).ready(function() {
       
     tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=800', false);
     block_thickbox();
-    $.get('/re_pipelines/' + values[0] + '/re_rules/help?rule_class=' + values[1], null, unblock_thickbox, 'script');
+    $.get('/re_pipelines/' + values[0] + '/re_rules/help?rule_class_name=' + values[1], null, unblock_thickbox, 'script');
   	return false;  
   });  
 
@@ -174,24 +174,15 @@ $(document).ready(function() {
     return false;
   });  
 
-
-  // RULE LIST  
-  $('a.re-rule-class-list-toggle').live('click', function() {    
-    var $h5 = $(this).find('h5')
-    var $list = $(this).next('.re-rule-class-list')
-    if ($h5.hasClass('re-rule-class-list-down')) {
-      $list.slideUp(150, function() {
-        $h5.removeClass('re-rule-class-list-down');
-        $h5.addClass('re-rule-class-list-right');
-      });
-    } else {
-      $list.slideDown(150, function() {
-        $h5.removeClass('re-rule-class-list-right');
-        $h5.addClass('re-rule-class-list-down');
-      });
-    }
+  $('select#re_rule_class_list').live('change', function() {
+    var name = $("select#re_rule_class_list option:selected").val().replace(" ", "_")
+    $('.re-rule-class-list').each(function() {
+      $(this).slideUp('slow');      
+    })
+    $('#re_rule_class_name_' + name).slideDown('slow');
+    
   });
-  
+    
 });
 
 

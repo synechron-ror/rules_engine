@@ -3,7 +3,7 @@
   <div class="clear top-10"></div>
 
   <% re_form_for(@re_rule, :url => re_pipeline_re_rules_path(@re_pipeline), :method => :post, :span => "3x13", :html => {:id => "re_rule_new_form"}) do |f| %>
-    <%= hidden_field_tag('rule_class', @rule_class) %>
+    <%= hidden_field_tag('rule_class_name', @rule_class.rule_class_name) %>
     <%= f.error_messages :message => "Unable To Create Rule : #{@rule_class.options[:name]}" %>
     <% unless @rule.errors.empty? %>
       <div id="errorExplanation" class="errorExplanation">

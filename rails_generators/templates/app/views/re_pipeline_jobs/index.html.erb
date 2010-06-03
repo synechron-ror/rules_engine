@@ -4,18 +4,17 @@
               link_to("Show Pipeline", re_pipeline_path(@re_pipeline), :class => "re-pipeline-show") %>
 
 <div class="prepend-1 span-22 append-1">      
-  <div class="re-infobox">
 
-	  <%= render '/re_pipeline_jobs/empty', :hide => true %>
-	
-		<div id="re_job_list_pending" class="re-infobox">
-			<h3 class="left-20">Updating Job List</h3>
-			<a id="re_job_list_pipeline" href="#<%=  @re_pipeline.id %>"/>
-		</div>	
+  <%= render '/re_pipeline_jobs/empty', :hide => true %>
 
-		<div id="re_job_list">
-		</div>
-   <div class="clear"></div>
-  </div>  
+	<div class="re-jobs-index-box" id="re_job_list_pending">
+		<h3 class="left-20">Updating Job List</h3>
+		<a id="re_job_list_pipeline" href="#<%=  @re_pipeline.id %>"/>
+	</div>	
+
+	<div class="re-jobs-index-box" id="re_job_list">
+	</div>
+  <div class="clear"></div>
 </div>  
-<div class="clear"></div>
+
+<div class="clear top-10"></div>

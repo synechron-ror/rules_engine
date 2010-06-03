@@ -56,13 +56,13 @@ class Complex < RulesEngine::Rule
     
     # save rule outcomes    
     if @pipeline_action == 'next'
-      re_rule.re_rule_outcomes = [ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)]
+      re_rule.re_rule_expected_outcomes = [ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)]
     elsif @pipeline_action == 'stop_success'
-      re_rule.re_rule_outcomes = [ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)]
+      re_rule.re_rule_expected_outcomes = [ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)]
     elsif @pipeline_action == 'stop_failure'
-      re_rule.re_rule_outcomes = [ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)]
+      re_rule.re_rule_expected_outcomes = [ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)]
     else # if @pipeline_action == 'start_pipeline'
-      re_rule.re_rule_outcomes = [ReRuleOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, 
+      re_rule.re_rule_expected_outcomes = [ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, 
                                                     :pipeline_code => @pipeline)]
     end
     
