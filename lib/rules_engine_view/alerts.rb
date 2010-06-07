@@ -3,9 +3,9 @@ module RulesEngineView
     
     def re_alert
       unless flash[:error].blank?
-        result = '<div class="error"><strong>Error :</strong>'
+        result = '<div class="error"><strong>Error : </strong><span>'
         result << flash.delete(:error)
-        result << '</div>'
+        result << '</span></div>'
 
         flash.delete(:success)
         flash.delete(:notice)
@@ -13,9 +13,9 @@ module RulesEngineView
       end
 
       unless flash[:success].blank?
-        result = '<div class="success"><strong>Success :</strong>'
+        result = '<div class="success"><strong>Success : </strong><span>'
         result << flash.delete(:success)
-        result << '</div>'
+        result << '</span></div>'
 
         flash.delete(:notice)
         return result      
@@ -23,9 +23,9 @@ module RulesEngineView
 
       unless flash[:notice].blank?
         result = ''
-        result = '<div class="notice"><strong>Warning :</strong> '
+        result = '<div class="notice"><strong>Warning : </strong><span>'
         result << flash.delete(:notice)
-        result << '</div>'
+        result << '</span></div>'
         return result      
       end      
     end    

@@ -165,6 +165,7 @@ class RulesEngineManifest
       public/stylesheets/blueprint/print.css
       public/images/re_job/info-25.png
       public/stylesheets/blueprint/src/grid.png
+      features/step_definitions/common/re_user_steps.rb
       public/javascripts/re_pipeline_new.js
       spec/helpers/re_pipeline_helper_spec.rb
       public/stylesheets/re_view_navigate.css
@@ -341,13 +342,13 @@ class RulesEngineManifest
       app/views/re_jobs/index.html.erb
       app/views/re_jobs/show.js.erb
       public/images/re_rule_class/new-25.png
+      doc/README.rules_engine_features
       public/stylesheets/re_view_navigate/subnav-bg.jpg
       public/stylesheets/re_view_box/shadowbox.png
       public/images/re_rule/move-up-off-18.png
       public/images/re_rule_class/new-18.png
       public/images/re_pipeline/show-48.png
       public/images/re_job/goto-16.png
-      features/step_definitions/common/re_pagination_steps.rb
       public/stylesheets/re_view_button/oval-blue-right.gif
       public/images/re_rule/edit-14.png
       public/images/re_rule/move-down-off-48.png

@@ -20,6 +20,7 @@ directories :
 files :  
   - doc/README.rules_engine
   - doc/README.rules_engine_view
+  - doc/README.rules_engine_features
 
   - app/controllers/re_pipelines_controller.rb 
   - app/controllers/re_rules_controller.rb
@@ -84,11 +85,11 @@ files :
   - spec/support/rules_engine_macros.rb
   
   - features/step_definitions/common/re_debug_steps.rb
-  - features/step_definitions/common/re_form_steps.rb       
-  - features/step_definitions/common/re_pagination_steps.rb 
-  - features/step_definitions/common/re_view_steps.rb
   - features/step_definitions/common/re_error_steps.rb      
+  - features/step_definitions/common/re_form_steps.rb       
   - features/step_definitions/common/re_model_steps.rb
+  - features/step_definitions/common/re_user_steps.rb
+  - features/step_definitions/common/re_view_steps.rb
 
   - features/support/rules_engine.rb
   - features/support/blueprint_re_pipelines.rb

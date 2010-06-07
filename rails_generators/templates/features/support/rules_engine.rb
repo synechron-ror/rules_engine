@@ -11,24 +11,13 @@ module RulesEngineHelpers
       'index'
       
     else
-      begin
-        page_name =~ /the (.*) page/
-        path_components = $1.split(/\s+/)
-        self.send(path_components.push('path').join('_').to_sym)
-      rescue Object => e
-        raise "Can't find mapping from \"#{template_name}\" to a template.\n" +
-          "Now, go and add a mapping in #{__FILE__}"
-      end
+      path_components = template_name.split(/\s+/)
+      path_components.join('_').to_s
     end    
   end
 
   def debug_page
     puts response.body
-  end
-  
-  def debug_page_text
-    doc = Hpricot(response.body)
-    puts doc.inner_text.gsub(/^\s*$/, "").squeeze("\n")
   end
   
   def warning(msg)

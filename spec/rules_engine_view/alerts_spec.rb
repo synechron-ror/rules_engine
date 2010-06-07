@@ -19,8 +19,8 @@ describe "re_alert", :type => :helper do
   
   describe "setting an error message" do
     it "should display the message" do
-      call_re_alert("error", "", "").should have_tag('div.error strong', :text => "Error :")
-      call_re_alert("<p>error</p>", "", "").should have_tag('div.error p', :text => "error")
+      call_re_alert("error", "", "").should have_tag('div.error > strong', :text => "Error :")
+      call_re_alert("error", "", "").should have_tag('div.error > span', :text => "error")
     end
 
     it "should not display the success message or notice message" do
@@ -38,8 +38,8 @@ describe "re_alert", :type => :helper do
 
   describe "setting a success message" do
     it "should display the message" do
-      call_re_alert("", "success", "").should have_tag('div.success strong', :text => "Success :")
-      call_re_alert("", "<p>success</p>", "").should have_tag('div.success p', :text => "success")
+      call_re_alert("", "success", "").should have_tag('div.success > strong', :text => "Success :")
+      call_re_alert("", "success", "").should have_tag('div.success > span', :text => "success")
     end
 
     it "should not display the notice message" do
@@ -56,8 +56,8 @@ describe "re_alert", :type => :helper do
 
   describe "setting a notice message" do
     it "should display the message" do
-      call_re_alert("", "", "notice").should have_tag('div.notice strong', :text => "Warning :")
-      call_re_alert("", "", "<p>notice</p>").should have_tag('div.notice p', :text => "notice")
+      call_re_alert("", "", "notice").should have_tag('div.notice > strong', :text => "Warning :")
+      call_re_alert("", "", "notice").should have_tag('div.notice > span', :text => "notice")
     end
 
     it "should reset the notice message" do

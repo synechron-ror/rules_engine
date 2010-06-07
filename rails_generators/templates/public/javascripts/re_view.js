@@ -12,8 +12,8 @@ jQuery.re_message = function(style, header, message, timeout){
 		showOverlay: false,
 		css: {
             width:    '650px',
-            top:      '70px',
-            left:     '10px',
+            top:      '10px',
+            // left:     '10px',
             right:    '10px',
 					  border:   'none',
 					  padding:  '5px',
@@ -56,16 +56,16 @@ block_page = function() {
 $(document).ready(function() {	
 	// make success, notice and failure message growl at the user
 	if ($('.error').length) {
-			$.re_error_message($('.error').text());
-			$('.error').hide();			
+			$.re_error_message($('.error > span').text());
+      // $('.error').hide();      
 	}		
 	else if ($('.success').length) {
-			$.re_success_message($('.success').text());
-			$('.success').hide();			
+			$.re_success_message($('.success > span').text());
+      // $('.success').hide();      
 	}		
 	else if ($('.notice').length) {
-			$.re_notice_message($('.notice').text());
-			$('.notice').hide();			
+			$.re_notice_message($('.notice > span').text());
+      // $('.notice').hide();     
 	}			
 });
 

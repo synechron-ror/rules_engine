@@ -1,37 +1,77 @@
-#---------- ERRORS
-# Then I should see the form errors
-# Then I should see an error message
-# Then I should see the error message "[message]"
-# Then I should see a success message
-# Then I should see the success message "[message]"
-# Then I should see a warning message
-# Then I should see the warning message "[message]"
+##########################################################
+# RE_ERROR_STEPS
+# 
+#   Then the form error message should be "[message]"
+#   Then the "([^\"]*)" field should be an error
 #
+#   Then the error message should not be blank
+#   Then the error message should be "[message]"
+#   Then the success message should not be blank
+#   Then the success message should be "[message]"
+#   Then the warning message should not be blank
+#   Then the warning message should be "[message]"
 
-Then /^I should see the form errors$/ do
-  response.should have_tag('div.errorExplanation')
+Then /^the form error message should be "([^\"]*)"$/ do |msg|
+  response.should have_tag('div.errorExplanation') do
+    with_tag('p', :text => msg)
+  end
 end
 
-Then /^I should see an error message$/ do
-  response.should have_tag('div.error')    
+Then /^the "([^\"]*)" field should be an error$/ do |form_field|
+  field_id = field_labeled(form_field).id
+  response.should have_tag("div.re-form-label-error > div.fieldWithErrors") do
+    with_tag("label", :text => form_field)
+  end  
+  response.should have_tag("div.re-form-data-error > div.fieldWithErrors") do
+    with_tag("input[id=#{field_id}]")
+  end  
 end
 
-Then /^I should see the error message "([^\"]*)"$/ do |msg|
-  response.should have_tag('div.error', msg)
+Then /^the error message should not be blank$/ do
+  error = flash[:error] || (flash.respond_to?(:now) && flash.now[:error])
+  if (error.blank?)
+    response.should have_tag('div.error')
+  end  
 end
 
-Then /^I should see a success message$/ do
-  response.should have_tag('div.success')
+Then /^the error message should be "([^\"]*)"$/ do |msg|
+  error = flash[:error] || (flash.respond_to?(:now) && flash.now[:error])
+  if (error.blank?)
+    response.should have_tag('div.error', :text => msg)
+  else  
+    error.should == msg
+  end  
 end
 
-Then /^I should see the success message "([^\"]*)"$/ do |msg|
-  response.should have_tag('div.success', msg)
+Then /^the success message should not be blank$/ do
+  success = flash[:success] || (flash.respond_to?(:now) && flash.now[:success])
+  if (success.blank?)
+    response.should have_tag('div.success')
+  end  
 end
 
-Then /^I should see a warning message$/ do
-  response.should have_tag('div.notice')
+Then /^the success message should be "([^\"]*)"$/ do |msg|
+  success = flash[:success] || (flash.respond_to?(:now) && flash.now[:success])
+  if (success.blank?)
+    response.should have_tag('div.success', :text => msg)
+  else
+    success.should == msg  
+  end  
 end
 
-Then /^I should see the warning message "([^\"]*)"$/ do |msg|
-  response.should have_tag('div.notice', msg)
+Then /^the warning message should not be blank$/ do
+  warning = flash[:warning] || (flash.respond_to?(:now) && flash.now[:warning])
+  if (warning.blank?)
+    response.should have_tag('div.notice')
+  end  
 end
+
+Then /^the warning message shold be "([^\"]*)"$/ do |msg|
+  warning = flash[:warning] || (flash.respond_to?(:now) && flash.now[:warning])
+  if (warning.blank?)
+    response.should have_tag('div.notice', :text => msg)
+  else
+    warning.should == msg
+  end  
+end
+

@@ -16,13 +16,10 @@ html, body {
 }
 
 .error, .notice, .success {
-  margin-top: 2px;
+  font-size:16px;
   margin-bottom: 0px;
+  padding: 5px 15px; 
 }
-.error strong, .notice strong, .success strong {
-  padding-right: 5px;
-}
-
 h1, h2, h3, h4, h5, h6 {
   font-weight:normal;
   color:#111;

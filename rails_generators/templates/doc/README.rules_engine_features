@@ -1,0 +1,61 @@
+##########################################################
+# RE_DEBUG_STEPS
+#
+  Then debug page
+  Then debug text
+  Then warning "[message]"
+
+##########################################################
+# RE_USER_STEPS
+#
+  Given I am logged in as a rules engine reader     => @login
+  Given I am logged in as a rules engine editor     => @login
+
+##########################################################
+# RE_MODEL_STEPS
+#
+  Given there is a "[model]"
+  Given there is a "[model]" with "[field]" set to "[value]"
+  Given the "[model]" has the "[field]" set to "[value]"
+
+  Given the "[model]" is deleted
+  Given there are no "[models]" with "[field]" set to "[value]"
+  Given there are no "[models]"
+
+  Given there are "[size]" "[models]"
+
+  Then the "[model]" should be assigned
+  Then the "[model]" should be assigned with "[field]" set to "[field_value]"
+
+##########################################################
+# RE_VIEW_STEPS
+#
+  Then I should see the view "[template]"
+  Then I should see the "[link title]" link
+  Then I should see the "[link title]" link to [link|the link page]
+  Then I should see the "[title]" button
+
+  Then I should see the "[model]" "[field]" value
+
+##########################################################
+# RE_FORM_STEPS
+#
+  Then the "[form field]" field should be required
+  Then the "[form field]" field should be blank
+  Then the "[form field]" field should be "[model]" "[field]"
+  When I enter "[model]" "[field]" as the "[form_field]"
+
+
+##########################################################
+# RE_ERROR_STEPS
+# 
+  Then the form error message should be "[message]"
+  Then the "([^\"]*)" field should be an error
+
+  Then the error message should not be blank
+  Then the error message should be "[message]"
+  Then the success message should not be blank
+  Then the success message should be "[message]"
+  Then the warning message should not be blank
+  Then the warning message should be "[message]"
+
