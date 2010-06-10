@@ -1,13 +1,13 @@
 <% position = 0 %>
-<% (@rule.words || []).each do | word | %>  
+<% (@re_rule.rule.words || []).each do | word | %>  
   <% f.fields_for :rule_data, {:first => false} do |frd| %>
-    <%= render :partial => '/re_rule_definitions/complex/word', :locals => { :f => frd, :position => position, :word => word} %>
+    <%= render :partial => '/re_rule_definitions/complex_rule/word', :locals => { :f => frd, :position => position, :word => word} %>
     <% position += 1 %>        
   <% end %>
 <% end %>  
 <% if position == 0 %>
   <% f.fields_for :rule_data, {:first => false} do |frd| %>
-    <%= render :partial => '/re_rule_definitions/complex/word', :locals => { :f => frd, :position => position} %>      
+    <%= render :partial => '/re_rule_definitions/complex_rule/word', :locals => { :f => frd, :position => position} %>      
   <% end %>
 <% end %>
 

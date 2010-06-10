@@ -1,6 +1,7 @@
 directories :
-  - app/views/re_rule_definitions/complex
+  - app/views/re_rule_definitions/complex_rule
   
 
 files :  
-  - app/rules/complex.rb 
+  - app/rules/complex_rule.rb 
+  - spec/lib/rules/complex_rule_spec.rb 

@@ -1,6 +1,7 @@
 directories :
-  - app/views/re_rule_definitions/simple
+  - app/views/re_rule_definitions/simple_rule
   
 
 files :  
   - app/rules/simple_rule.rb 
+  - spec/lib/rules/simple_rule_spec.rb 

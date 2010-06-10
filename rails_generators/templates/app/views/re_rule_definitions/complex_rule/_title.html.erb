@@ -1,0 +1,7 @@
+<%= re_text_field "Rule Title", 
+                        "complex_title", 
+                        params[:complex_title] || @re_rule.title || @re_rule.rule.options[:display_name],
+                        :size => 30, 
+                        :required => true, 
+												:error => @re_rule.rule.errors[:title],
+                        :span => '4x14' %>
