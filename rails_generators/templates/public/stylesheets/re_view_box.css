@@ -3,7 +3,7 @@
 	border-left: 1px solid #b5b5b5;
 	border-right: 1px solid #b5b5b5;
 	border-bottom: 1px solid #b5b5b5;
-	background: #FFFFFF url("re_view_box/whitebox.jpg") no-repeat top left;
+	background: #FFFFFF url("./re_view_box/whitebox.jpg") no-repeat top left;
 	height: 1%  
 }
 html>body .re-whitebox {
@@ -21,7 +21,7 @@ html>body .re-whitebox {
 
 .re-shadowbox-outer{
   padding-bottom: 12px;
-  background: #FFFFFF url("re_view_box/shadowbox.png") no-repeat bottom left;
+  background: #FFFFFF url("./re_view_box/shadowbox.png") no-repeat bottom left;
 }
 
 .re-shadowbox-inner{

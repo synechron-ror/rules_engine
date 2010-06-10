@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe RePipeline do
   def valid_attributes
     {
-      :code => "AA-MOCK",
+      :code => "AA_MOCK",
       :title => "Mock Title"
     }
   end

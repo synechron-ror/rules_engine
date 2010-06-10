@@ -25,9 +25,7 @@ class CreateRePipelines < ActiveRecord::Migration
 
       t.string  :title
       t.string  :summary      
-      t.integer :data_version
-      t.text    :data      
-      t.string  :error
+      t.text    :data
       
       t.datetime :created_at
       t.datetime :updated_at

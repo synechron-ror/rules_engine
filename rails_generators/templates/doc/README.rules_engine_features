@@ -37,12 +37,18 @@
 
   Then I should see the "[model]" "[field]" value
 
+  Then I should see the breadcrumb "[title]" link to [link|the link page]
+  Then I should see the breadcrumb "[title]"
+
 ##########################################################
 # RE_FORM_STEPS
 #
   Then the "[form field]" field should be required
   Then the "[form field]" field should be blank
+  Then the "[form field]" field should be "[value]"
+  Then the "[form field]" select field should be "[value]"
   Then the "[form field]" field should be "[model]" "[field]"
+  Then the "[form field]" select field should be "[model]" "[field]"
   When I enter "[model]" "[field]" as the "[form_field]"
 
 

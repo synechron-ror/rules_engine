@@ -9,7 +9,7 @@
         <% rule_classes.each do |rule_class| %>
  					<div class="re-yellowbox">
 						<h5>
-							<%= rule_class.options[:name] %>          
+							<%= rule_class.options[:display_name] %>          
 						</h5>
 						<a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
 						<a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
@@ -24,7 +24,7 @@
     	<% RulesEngine::Discovery.rule_classes.each do |rule_class| %>    
 	      <div class="re-yellowbox">
 	        <h5>
-	          <%= rule_class.options[:name] %>          
+	          <%= rule_class.options[:display_name] %>          
 	        </h5>
 	        <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
 	        <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>

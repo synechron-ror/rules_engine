@@ -3,7 +3,7 @@ class RulesEngineSimpleManifest
 
     %w(
       app/rules
-      app/views/re_rule_definitions/simple
+      app/views/re_rule_definitions/simple_rule
     ).each do |dirname|
       m.directory dirname
     end

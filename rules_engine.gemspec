@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-06-07}
+  s.date = %q{2010-06-10}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -61,7 +61,6 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/models/re_rule_expected_outcome.rb",
      "rails_generators/templates/app/models/re_rule_outcome.rb",
      "rails_generators/templates/app/rules/complex.rb",
-     "rails_generators/templates/app/rules/simple.rb",
      "rails_generators/templates/app/rules/template.rb",
      "rails_generators/templates/app/views/layouts/rules_engine.html.erb",
      "rails_generators/templates/app/views/re_jobs/_empty.html.erb",
@@ -102,9 +101,6 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_rule_definitions/complex/_title.html.erb",
      "rails_generators/templates/app/views/re_rule_definitions/complex/_word.html.erb",
      "rails_generators/templates/app/views/re_rule_definitions/complex/_words.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/simple/_edit.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/simple/_help.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/simple/_new.html.erb",
      "rails_generators/templates/app/views/re_rule_definitions/template/_edit.html.erb",
      "rails_generators/templates/app/views/re_rule_definitions/template/_help.html.erb",
      "rails_generators/templates/app/views/re_rule_definitions/template/_new.html.erb",
@@ -130,13 +126,14 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_rules/update.js.erb",
      "rails_generators/templates/db/migrate/20100308225008_create_re_pipelines.rb",
      "rails_generators/templates/doc/README.rules_engine",
+     "rails_generators/templates/doc/README.rules_engine_features",
      "rails_generators/templates/doc/README.rules_engine_view",
      "rails_generators/templates/features/re_pipeline/lookup.feature",
      "rails_generators/templates/features/step_definitions/common/re_debug_steps.rb",
      "rails_generators/templates/features/step_definitions/common/re_error_steps.rb",
      "rails_generators/templates/features/step_definitions/common/re_form_steps.rb",
      "rails_generators/templates/features/step_definitions/common/re_model_steps.rb",
-     "rails_generators/templates/features/step_definitions/common/re_pagination_steps.rb",
+     "rails_generators/templates/features/step_definitions/common/re_user_steps.rb",
      "rails_generators/templates/features/step_definitions/common/re_view_steps.rb",
      "rails_generators/templates/features/support/blueprint_re_pipelines.rb",
      "rails_generators/templates/features/support/rules_engine.rb",

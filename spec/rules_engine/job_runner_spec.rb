@@ -60,29 +60,28 @@ describe "RulesEngine::JobRunner" do
       @re_pipeline = mock("RePipeline")
       @re_pipeline.stub!(:id)
       @re_pipeline_activated.stub!(:re_pipeline).and_return(@re_pipeline)
-      
-      @rule_1 = mock("ReRule")
-      @rule_1.stub!(:title).and_return('rule 1')
-      @rule_1.stub!(:rule_class_name).and_return('rule_1')
-      @rule_1.stub!(:new).and_return(@rule_1)
-      @rule_1.stub!(:load).and_return(true)
+            
+      @rule_1 = mock("Rule")
       @rule_1.stub!(:process).and_return(nil)      
       
-      @rule_2 = mock("ReRule")
-      @rule_2.stub!(:title).and_return('rule 2')
-      @rule_2.stub!(:rule_class_name).and_return('rule_2')
-      @rule_2.stub!(:new).and_return(@rule_2)
-      @rule_2.stub!(:load).and_return(true)
+      @re_rule_1 = mock("ReRule")
+      @re_rule_1.stub!(:title).and_return('rule 1')
+      @re_rule_1.stub!(:rule_class_name).and_return('rule_1')
+      @re_rule_1.stub!(:rule).and_return(@rule_1)
+
+      
+      @rule_2 = mock("Rule")
       @rule_2.stub!(:process).and_return(nil)
+
+      @re_rule_2 = mock("ReRule")
+      @re_rule_2.stub!(:title).and_return('rule 2')
+      @re_rule_2.stub!(:rule_class_name).and_return('rule_2')
+      @re_rule_2.stub!(:rule).and_return(@rule_2)
+      
             
-      @re_pipeline_activated.stub!(:re_rules).and_return([@rule_1, @rule_2])
-                  
-      RulesEngine::Discovery.stub!(:rule_class).with('rule_1').and_return(@rule_1)
-      RulesEngine::Discovery.stub!(:rule_class).with('rule_2').and_return(@rule_2)
+      @re_pipeline_activated.stub!(:re_rules).and_return([@re_rule_1, @re_rule_2])
       
       ReJobAudit.stub!(:create)
-      # RulesEngine::JobRunner.stub!(:audit_pipeline)
-      # RulesEngine::JobRunner.stub!(:audit_rule)
     end
       
     it "should load the job" do
@@ -112,13 +111,7 @@ describe "RulesEngine::JobRunner" do
     end
 
     it "should fail if the Rules Engine does not know about the rule" do
-      RulesEngine::Discovery.should_receive(:rule_class).and_return(nil)
-      run_pipeline.should == false
-    end
-
-    it "should fail if the rule cannot be loaded" do
-      @rule_1.should_receive(:load).and_return(false)
-      
+      @re_rule_1.should_receive(:rule).and_return(nil)
       run_pipeline.should == false
     end
 

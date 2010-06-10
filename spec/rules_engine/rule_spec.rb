@@ -8,52 +8,55 @@ describe "RulesEngine::Rule" do
     MockRule.methods.should include("rule_class_name")
   end
   
-  it "should return the class name as the rule class" do
+  it "should return the class name as the rule class" do    
     MockRule.rule_class_name.should == "MockRule"
   end
 
-  it "should be valid by default" do
-    MockRule.new.should be_valid
-  end
-  
-  it "should return an empty array of errors" do
-    MockRule.new.errors.should be_empty
-    MockRule.new.errors.should be_instance_of(Array)
-  end
-  
-  describe "loading a re_rule" do
-    it "should be successful be default" do
-      rule = mock('rule')
-      MockRule.new.load(rule).should == true
-    end
+  it "should be able to get the attribute 'title'" do
+    RulesEngine::Rule.new.methods.should include("title")    
   end
 
-  describe "saveing a re_rule" do
-    it "should be successful be default" do
-      rule = mock('rule')
-      rule.stub!(:rule_class_name=)
-      MockRule.new.save(rule).should == true
-    end
-
-    it "should set the rule class" do
-      rule = mock('rule')
-      rule.should_receive(:rule_class_name=).with("MockRule")
-      MockRule.new.save(rule).should == true
-    end
+  it "should be able to get the attribute 'summary'" do
+    RulesEngine::Rule.new.methods.should include("summary")
   end
-  
-  describe "notifications" do
-    it "should call after_create when the re_rule is created" do
-      MockRule.new.methods.should include("after_create")
-    end
 
-    it "should call after_update when the re_rule is updated" do
-      MockRule.new.methods.should include("after_update")
-    end
+  it "should be able to get the attribute 'data'" do
+    RulesEngine::Rule.new.methods.should include("data")
+  end
 
-    it "should call before_destroy before  the re_rule is destroyed" do
-      MockRule.new.methods.should include("before_destroy")
+  it "should be able to set the attribute 'data'" do
+    RulesEngine::Rule.new.methods.should include("data=")
+  end
+
+  it "should be able to get the attribute 'expected_outcomes'" do
+    RulesEngine::Rule.new.methods.should include("expected_outcomes")
+  end
+
+  it "should be set the default 'expected_outcomes' as NEXT" do
+    RulesEngine::Rule.new.expected_outcomes.should be_instance_of(Array)
+    RulesEngine::Rule.new.expected_outcomes[0][:outcome].should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+    RulesEngine::Rule.new.expected_outcomes[0][:pipeline_code].should be_nil
+  end
+
+  describe "valid?" do
+    it "should be valid by default" do
+      MockRule.new.valid?.should be_true
     end    
+  end
+
+  describe "errors" do
+    it "should be a hash" do
+      RulesEngine::Rule.new.errors.should be_instance_of(Hash)
+      rule = RulesEngine::Rule.new 
+    end    
+  end
+
+  it "should have the helper function 'after_create' to tell the rule has been created" do
+    RulesEngine::Rule.new.methods.should include("after_create")
+  end
+
+  it "should have the helper function 'before_destroy' to tell the rule is about to be destroyed" do
+    RulesEngine::Rule.new.methods.should include("before_destroy")
   end
   
   describe "processing a rule" do

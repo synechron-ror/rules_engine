@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe RePipelineBase do
   def valid_attributes
     {
-      :code => "AA-MOCK",
+      :code => "AA MOCK",
       :title => "Mock Title"
     }
   end
@@ -23,25 +23,32 @@ describe RePipelineBase do
     should_validate_uniqueness_of :code, :scope => :parent_re_pipeline_id, :case_sensitive => false, :message=>"alread taken."    
   end  
 
+  it "should replace any nonprint cahracters with an _" do
+    src = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
+    src.save!
+    src.code.should == "my_code"
+  end
+    
+
   it "should change the code to lower case when creating" do
     src = RePipelineBase.new(valid_attributes.merge(:code => "My code"))
     src.save!
-    src.code.should == "my code"
+    src.code.should == "my_code"
   end
     
   describe "code cannot be changed after creation" do
     it "should save the code with a new record" do
       src = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
       src.save!
-      src.code.should == "my code"
+      src.code.should == "my_code"
     end
     
     it "should ignore the code attribute for an existing record" do
       src = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
       src.save!
-      src.code = "new code"
+      src.code = "new_code"
       src.save!
-      src.code.should == "my code"
+      src.code.should == "my_code"
     end            
   end
 
@@ -49,10 +56,10 @@ describe RePipelineBase do
     
     %W(code title description).each do |key|
       it "should copy the attribute #{key}" do
-        src = RePipelineBase.new(valid_attributes.merge(key.to_sym => "mock source value"))
-        dest = RePipelineBase.new(valid_attributes.merge(key.to_sym => "mock dest value"))
+        src = RePipelineBase.new(valid_attributes.merge(key.to_sym => "mock_source_value"))
+        dest = RePipelineBase.new(valid_attributes.merge(key.to_sym => "mock_dest_value"))
         dest.copy!(src)
-        dest.read_attribute(key).should == "mock source value"
+        dest.read_attribute(key).should == "mock_source_value"
       end
       
       it "should copy the rules" do
@@ -123,35 +130,35 @@ describe RePipelineBase do
     end
   end  
   
-  describe "verify the pipeline" do
-    it "should return a failed message if there are no rules" do
-      src = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
-      src.verify.should_not be_blank
-      src.verify.should =~ /rules required/
+  describe "checking for pipeline errors" do
+    before(:each) do
+      @re_rule1 = mock_model(ReRule, :title => "rule 1", :rule_class_name => "rule_class_1")
+      @re_rule1.stub!(:rule_error).and_return(nil)
+      
+      @re_rule2 = mock_model(ReRule, :title => "rule 2", :rule_class_name => "rule_class_2")
+      @re_rule2.stub!(:rule_error).and_return(nil)
+
+      @re_pipeline = RePipelineBase.new
+      @re_pipeline.stub!(:re_rules).and_return([@re_rule1, @re_rule2])
     end
     
-    it "should verify each rule" do
-      rule1 = mock_model(ReRule)
-      rule2 = mock_model(ReRule)
-      re_pipeline = RePipelineBase.new
-      re_pipeline.stub!(:re_rules).and_return([rule1, rule2])
+    it "should return a failed message if there are no rules" do
+      src = RePipelineBase.new(valid_attributes)
+      src.pipeline_error.should == "rules required"
+    end
+    
+    it "should validate each rule" do
+      @re_rule1.should_receive(:rule_error).at_least(:once).and_return(nil)
+      @re_rule2.should_receive(:rule_error).at_least(:once).and_return(nil)
       
-      rule1.should_receive(:verify).at_least(:once).and_return(nil)
-      rule2.should_receive(:verify).at_least(:once).and_return(nil)
-      
-      re_pipeline.verify.should be_nil
+      @re_pipeline.pipeline_error.should be_nil
     end
 
-    it "should stop on the first verify error" do
-      rule1 = mock_model(ReRule)
-      rule2 = mock_model(ReRule)
-      re_pipeline = RePipelineBase.new
-      re_pipeline.stub!(:re_rules).and_return([rule1, rule2])
+    it "should stop on the first rule error" do
+      @re_rule1.should_receive(:rule_error).at_least(:once).and_return("invalid rule")
+      @re_rule2.should_not_receive(:rule)
       
-      rule1.should_receive(:verify).at_least(:once).and_return('failed rule 1')
-      rule2.should_not_receive(:verify)
-      
-      re_pipeline.verify.should == 'failed rule 1'
+      @re_pipeline.pipeline_error.should == "invalid rule"
     end
   end
 end

@@ -30,14 +30,14 @@ end
 Then /^the error message should not be blank$/ do
   error = flash[:error] || (flash.respond_to?(:now) && flash.now[:error])
   if (error.blank?)
-    response.should have_tag('div.error')
+    response.should have_tag('div.error > span')
   end  
 end
 
 Then /^the error message should be "([^\"]*)"$/ do |msg|
   error = flash[:error] || (flash.respond_to?(:now) && flash.now[:error])
   if (error.blank?)
-    response.should have_tag('div.error', :text => msg)
+    response.should have_tag('div.error > span', :text => msg)
   else  
     error.should == msg
   end  
@@ -46,14 +46,14 @@ end
 Then /^the success message should not be blank$/ do
   success = flash[:success] || (flash.respond_to?(:now) && flash.now[:success])
   if (success.blank?)
-    response.should have_tag('div.success')
+    response.should have_tag('div.success > span')
   end  
 end
 
 Then /^the success message should be "([^\"]*)"$/ do |msg|
   success = flash[:success] || (flash.respond_to?(:now) && flash.now[:success])
   if (success.blank?)
-    response.should have_tag('div.success', :text => msg)
+    response.should have_tag('div.success > span', :text => msg)
   else
     success.should == msg  
   end  
@@ -62,14 +62,14 @@ end
 Then /^the warning message should not be blank$/ do
   warning = flash[:warning] || (flash.respond_to?(:now) && flash.now[:warning])
   if (warning.blank?)
-    response.should have_tag('div.notice')
+    response.should have_tag('div.notice > span')
   end  
 end
 
 Then /^the warning message shold be "([^\"]*)"$/ do |msg|
   warning = flash[:warning] || (flash.respond_to?(:now) && flash.now[:warning])
   if (warning.blank?)
-    response.should have_tag('div.notice', :text => msg)
+    response.should have_tag('div.notice > span', :text => msg)
   else
     warning.should == msg
   end  

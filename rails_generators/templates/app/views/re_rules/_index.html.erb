@@ -1,4 +1,4 @@
-<% re_rule_verify = re_rule.verify %>
+<% re_rule_error = re_rule.rule_error %>
 <% local_new_row = local_assigns[:new_row] && new_row  %>
 <% local_last_rule = local_assigns[:last_rule] && last_rule  %>
 
@@ -8,8 +8,8 @@
 <% end %>
 
 <div class="span-6 <%= local_new_row ? 'left-20' : '' %> re-rule-show">
-  <div class="<%= re_rule_verify.blank? ? 're-bluebox' : 're-redbox' %> re-rule-status-<%= re_rule_verify.blank? ? 'valid' : 'verify' %>"><%= re_rule.title %></div>
-  <div class="<%= re_rule_verify.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
+  <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> re-rule-status-<%= re_rule_error.blank? ? 'valid' : 'verify' %>"><%= re_rule.title %></div>
+  <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
       <p class="top-5"><%= re_rule.summary %></p>
 
       <div class="top-10 float-right">
@@ -20,7 +20,7 @@
           <div class="re-rule-continue">Continue</div>
         <% end %>  
         <% re_rule.re_rule_expected_outcomes_start_pipeline.each do |re_rule_expected_outcome| %>
-          <div class="re-rule-goto-pipeline"><%= re_rule_expected_outcome.pipeline_code %></div>
+          <div class="re-rule-goto-pipeline">Start : <%= re_rule_expected_outcome.pipeline_code %></div>
         <% end %>  
         <% unless re_rule.re_rule_expected_outcome_failure.nil? %>
           <div class="re-rule-stop-failure">Stop Failure</div>

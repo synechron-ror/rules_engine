@@ -1,4 +1,4 @@
-<% set_re_subnav "Help #{@rule_class.options[:name]}", 
+<% set_re_subnav "Help #{@rule_class.options[:display_name]}", 
               link_to("All Pipelines", re_pipelines_path, :class => "re-pipeline-list"), 
               link_to("Edit Pipeline", change_re_pipeline_path(@re_pipeline), :class => "re-pipeline-change") %>
 

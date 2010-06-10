@@ -1,21 +1,12 @@
 <div class="clear prepend-1 span-18">
-  <h2 class="re-rule-class-new"> New : <%= @rule_class.options[:name] %></h2>
+  <h2 class="re-rule-class-new"> New : <%= @re_rule.rule.options[:display_name] %></h2>
   <div class="clear top-10"></div>
 
-  <% re_form_for(@re_rule, :url => re_pipeline_re_rules_path(@re_pipeline), :method => :post, :span => "3x13", :html => {:id => "re_rule_new_form"}) do |f| %>
-    <%= hidden_field_tag('rule_class_name', @rule_class.rule_class_name) %>
-    <%= f.error_messages :message => "Unable To Create Rule : #{@rule_class.options[:name]}" %>
-    <% unless @rule.errors.empty? %>
-      <div id="errorExplanation" class="errorExplanation">
-        <% @rule.errors.each do |error| %>
-          <p><%= error %></p>
-        <% end %>  
-      </div>
-    <% end %>  
-    
-    <% re_whitebox do %>    
-    
-      <%= render(@rule_class.options[:new_template], :f => f) %>
+  <% re_form_for(@re_rule, :url => re_pipeline_re_rules_path(@re_pipeline), :method => :post, :span => "3x15", :html => {:id => "re_rule_new_form"}) do |f| %>
+    <%= hidden_field_tag('rule_class_name', @re_rule.rule_class_name) %>
+    <%= f.error_messages :message => "Unable To Create Rule : #{@re_rule.rule.options[:display_name]}" %>
+    <% re_whitebox do %>        
+      <%= render(@re_rule.rule.options[:new_partial], :f => f) %>
       
       <div class="clear"></div>
   	  <%= re_button_submit_green('Create', :id => "re_rule_new_insert") %>

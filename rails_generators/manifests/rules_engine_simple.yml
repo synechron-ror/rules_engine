@@ -3,4 +3,4 @@ directories :
   
 
 files :  
-  - app/rules/simple.rb 
+  - app/rules/simple_rule.rb 

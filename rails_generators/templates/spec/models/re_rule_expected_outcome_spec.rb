@@ -70,28 +70,4 @@ describe ReRuleExpectedOutcome do
     
   end
   
-  describe "verify the rule outcome" do
-    it "should be nil if the outcome is OUTCOME_NEXT" do
-      ReRuleExpectedOutcome.new(valid_attributes.merge(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)).verify.should be_nil
-    end
-
-    it "should be nil if the outcome is OUTCOME_STOP_SUCCESS" do
-      ReRuleExpectedOutcome.new(valid_attributes.merge(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)).verify.should be_nil
-    end
-
-    it "should be nil if the outcome is OUTCOME_STOP_FAILURE" do
-      ReRuleExpectedOutcome.new(valid_attributes.merge(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)).verify.should be_nil
-    end
-
-    it "should be valid if the outcome is OUTCOME_START_PIPELINE and the pipleine exists" do
-      RePipeline.should_receive(:find).with(:first, {:conditions=>["code = ?", "value 2"]}).and_return(true)
-      ReRuleExpectedOutcome.new(valid_attributes.merge(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, :pipeline_code => "value 2")).verify.should be_nil
-    end
-
-    it "should be invalid if the outcome is OUTCOME_START_PIPELINE and the pipleine does not exist" do
-      RePipeline.should_receive(:find).with(:first, {:conditions=>["code = ?", "value 2"]}).and_return(nil)
-      ReRuleExpectedOutcome.new(valid_attributes.merge(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, :pipeline_code => "value 2")).verify.should == "outcome pipeline missing"
-    end
-  end
-  
 end

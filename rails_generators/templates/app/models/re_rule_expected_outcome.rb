@@ -27,14 +27,4 @@ class ReRuleExpectedOutcome < ActiveRecord::Base
     
     return true    
   end
-
-  def verify
-    if outcome == RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
-      return "pipeline code required" if pipeline_code.blank?
-      return "outcome pipeline missing" unless RePipeline.find(:first, :conditions => ["code = ?", pipeline_code])
-    end
-    
-    return nil
-  end
-  
 end

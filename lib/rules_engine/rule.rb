@@ -12,36 +12,47 @@ module RulesEngine
         self.name.classify
       end
     end
-      
+            
+    ##################################################################
+    def title
+      return nil
+    end
+    
+    def summary
+      return nil
+    end
+    
+    def data
+      return nil
+    end
+    
+    def data= data
+      return nil
+    end
+
+    def expected_outcomes
+      return [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT, :pipeline_code => nil]
+    end
+    
     ##################################################################
     def attributes=(params)
     end
-    
+
+    ##################################################################
     def valid?
       true
     end
 
     def errors
-      @errors ||= []
+      @errors ||= {}
       return @errors
-    end
-
-    def load(re_rule)
-      true
-    end
-
-    def save(re_rule)
-      re_rule.rule_class_name = self.class.rule_class_name
-      true
     end    
-    
-    def after_create(re_rule)
+
+    ##################################################################
+    def after_create(rule_id)
     end
     
-    def after_update(re_rule)
-    end
-    
-    def before_destroy(re_rule)
+    def before_destroy(rule_id)
     end
     
     ##################################################################

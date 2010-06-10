@@ -18,7 +18,7 @@ class RePipelineBase < ActiveRecord::Base
   named_scope :order_title, :order => 're_pipelines.title ASC'
 
   def code=(new_code)
-    self[:code] = new_code.downcase if new_code && new_record?
+    self[:code] = new_code.downcase.gsub(/[^a-zA-Z0-9]+/i, '_') if new_code && new_record?
   end
   
   def copy! re_pipeline
@@ -50,12 +50,12 @@ class RePipelineBase < ActiveRecord::Base
     true
   end
   
-  def verify
+  def pipeline_error
     return 'rules required' if re_rules.empty?
     
-    re_rules.each do |rule|
-      result = rule.verify
-      return result unless result.blank?
+    re_rules.each do |re_rule|
+      error = re_rule.rule_error
+      return error unless error.blank?
     end
     
     nil

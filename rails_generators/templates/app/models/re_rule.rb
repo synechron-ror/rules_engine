@@ -6,14 +6,22 @@ class ReRule < ActiveRecord::Base
   has_many  :re_job_audits
     
   validates_associated  :re_pipeline
-  validates_presence_of :title
   validates_presence_of :rule_class_name
-  validates_presence_of :summary
-  validates_presence_of :data_version
-  validates_presence_of :data
 
   default_scope :order => 're_rules.position ASC'
   
+  before_save :before_save_rule
+  after_create :after_create_rule
+  before_destroy :before_destroy_rule
+
+  def validate
+    if self.rule.nil?
+      errors.add("rule_class", "not found") 
+    elsif !self.rule.valid?
+      errors.add(self.rule_class_name, "not valid") 
+    end
+  end
+    
   def copy! re_rule
     activated_attrs = re_rule.attributes
     ignore_attributes.each{|key| activated_attrs.delete(key)}
@@ -43,17 +51,52 @@ class ReRule < ActiveRecord::Base
     true
   end
 
-  def verify
-    return self.error unless self.error.blank?
-
-    self.re_rule_expected_outcomes.each do |rule_expected_outcome|
-      result = rule_expected_outcome.verify
-      return result unless result.blank?
-    end
-    
-    nil
+  def rule
+    return @rule unless @rule.nil?
+    rule_class = RulesEngine::Discovery.rule_class(self.rule_class_name)
+    return nil if rule_class.nil?
+    @rule = rule_class.new
+    @rule.data = self.data
+    @rule
+  end
+  
+  def rule_attributes=params
+    raise 'rule class not found' if rule.nil?
+    rule.attributes = params
   end
 
+  def before_save_rule
+    raise 'rule class not found' if rule.nil?
+    self.title = rule.title
+    self.summary = rule.summary
+    self.data = rule.data
+    
+    self.re_rule_expected_outcomes = rule.expected_outcomes.map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
+  end
+
+  def after_create_rule
+    # raise 'rule class not found' if rule.nil?
+    rule.after_create(self.id)
+  end
+
+  def before_destroy_rule
+    # raise 'rule class not found' if rule.nil?
+    rule.before_destroy(self.id)
+  end
+
+  def rule_error
+    return "#{title} class #{rule_class_name} invalid" if rule.nil?
+    return "#{title} invalid" unless rule.valid?
+      
+    re_rule_expected_outcomes.each do |re_rule_expected_outcome|
+      unless re_rule_expected_outcome.pipeline_code.nil?
+        return "#{re_rule_expected_outcome.pipeline_code} not created" unless RePipeline.find_by_code(re_rule_expected_outcome.pipeline_code)
+        return "#{re_rule_expected_outcome.pipeline_code} not activated" unless RePipelineActivated.find_by_code(re_rule_expected_outcome.pipeline_code)
+      end  
+    end
+    nil
+  end
+  
   def re_rule_expected_outcome_next
     re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_NEXT }
   end
