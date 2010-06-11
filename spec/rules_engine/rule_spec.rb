@@ -12,6 +12,10 @@ describe "RulesEngine::Rule" do
     MockRule.rule_class_name.should == "MockRule"
   end
 
+  it "should be able to set the attribute 'data'" do
+    RulesEngine::Rule.new.methods.should include("data=")
+  end
+
   it "should be able to get the attribute 'title'" do
     RulesEngine::Rule.new.methods.should include("title")    
   end
@@ -22,10 +26,6 @@ describe "RulesEngine::Rule" do
 
   it "should be able to get the attribute 'data'" do
     RulesEngine::Rule.new.methods.should include("data")
-  end
-
-  it "should be able to set the attribute 'data'" do
-    RulesEngine::Rule.new.methods.should include("data=")
   end
 
   it "should be able to get the attribute 'expected_outcomes'" do
@@ -51,12 +51,12 @@ describe "RulesEngine::Rule" do
     end    
   end
 
-  it "should have the helper function 'after_create' to tell the rule has been created" do
-    RulesEngine::Rule.new.methods.should include("after_create")
+  it "should have the helper function 'after_add_to_pipeline' to tell the rule has been added to a pipeline" do
+    RulesEngine::Rule.new.methods.should include("after_add_to_pipeline")
   end
 
-  it "should have the helper function 'before_destroy' to tell the rule is about to be destroyed" do
-    RulesEngine::Rule.new.methods.should include("before_destroy")
+  it "should have the helper function 'before_remove_from_pipeline' to tell the rule is about to be removed from a pipeline" do
+    RulesEngine::Rule.new.methods.should include("before_remove_from_pipeline")
   end
   
   describe "processing a rule" do

@@ -15,8 +15,8 @@ describe ReRule do
     @rule.stub!(:title=)
     @rule.stub!(:summary=)
     @rule.stub!(:data=)
-    @rule.stub!(:before_save)
-    @rule.stub!(:after_create)
+    @rule.stub!(:after_add_to_pipeline)
+    @rule.stub!(:before_remove_from_pipeline)
     @rule.stub!(:expected_outcomes).and_return([])
     @rule.stub!(:valid?).and_return(true)
     @rule_class = mock("MockRuleClass")
@@ -241,11 +241,14 @@ describe ReRule do
   describe "after saving a re_rule" do
     it "should notify the rule" do
       @re_rule = ReRule.new(valid_attributes)
+      @re_pipeline_id = nil
       @re_rule_id = nil
-      @rule.should_receive(:after_create) do |id|
-        @re_rule_id = id
+      @rule.should_receive(:after_add_to_pipeline) do |re_pipeline_id, re_rule_id|
+        @re_pipeline_id = re_pipeline_id
+        @re_rule_id = re_rule_id
       end
       @re_rule.save
+      @re_rule.re_pipeline_id.should == @re_pipeline_id
       @re_rule.id.should == @re_rule_id
     end  
   end
@@ -253,7 +256,7 @@ describe ReRule do
   describe "before destroying a re_rule" do
     it "should notify the rule" do
       @re_rule = ReRule.create(valid_attributes)
-      @rule.should_receive(:before_destroy).with(@re_rule.id)
+      @rule.should_receive(:before_remove_from_pipeline).with(@re_rule.re_pipeline_id, @re_rule.id)
       @re_rule.destroy
     end  
   end
@@ -317,26 +320,32 @@ describe ReRule do
 
     it "should validate the rule is present and activated" do
       re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :pipeline_code => "mock_pipeline_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
-      RePipeline.should_receive(:find_by_code).and_return("RePipeline")
-      RePipelineActivated.should_receive(:find_by_code).and_return("RePipelineActivated")      
+      RePipelineActivated.should_receive(:find_by_code).and_return(mock("RePipelineActivated", :pipeline_error => nil))      
       @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
       @re_rule.rule_error.should be_nil
     end
       
-    it "should return '[pipeline_code] not created' if the required pipeline is missing" do
+    it "should return '[pipeline_code] not activated' if the required pipeline is missing" do
       re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :pipeline_code => "mock_pipeline_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
-      RePipeline.should_receive(:find_by_code).and_return(nil)
-      @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
-      @re_rule.rule_error.should == "mock_pipeline_code not created"
-    end
-    
-    it "should return '[pipeline_code] not activated' if the required pipeline has not been activated" do
-      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :pipeline_code => "mock_pipeline_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
-      RePipeline.stub!(:find_by_code).and_return("RePipeline")
       RePipelineActivated.should_receive(:find_by_code).and_return(nil)
       @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
       @re_rule.rule_error.should == "mock_pipeline_code not activated"
     end
+    
+    it "should return '[pipeline_code] not activated' if the required pipeline has not been activated" do
+      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :pipeline_code => "mock_pipeline_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
+      RePipelineActivated.should_receive(:find_by_code).and_return(nil)
+      @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
+      @re_rule.rule_error.should == "mock_pipeline_code not activated"
+    end
+    
+    it "should return '[pipeline_code] invalid' if the required pipeline has errors" do
+      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :pipeline_code => "mock_pipeline_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
+      RePipelineActivated.should_receive(:find_by_code).and_return(mock("RePipelineActivated", :pipeline_error => "pipeline error"))      
+      @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
+      @re_rule.rule_error.should == "mock_pipeline_code invalid"
+    end
+    
   end
   
   describe "moving items in a list" do

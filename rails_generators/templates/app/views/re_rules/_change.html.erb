@@ -14,13 +14,13 @@
     <div class="clear"></div>    
   </div>
   <div class="<%= rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
-      <div class="span-10">
+      <div class="span-9">
         <p class="top-5 left-10">
           <%= re_rule.summary %>
         </p>
       </div>
       
-      <div class="prepend-10 top-10">
+      <div class="prepend-9 top-10">
         <% if re_rule.re_rule_expected_outcomes.empty? %>
           <div class="re-rule-continue">Continue</div>
         <% end %>        

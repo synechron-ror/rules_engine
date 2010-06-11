@@ -20,7 +20,6 @@ class RulesEngineManifest
       spec/controllers
       public/stylesheets/blueprint/plugins/fancy-type
       public/stylesheets/blueprint
-      lib/tasks
       db/migrate
       public/stylesheets/re_view_box
       public/stylesheets/blueprint/plugins/buttons
@@ -265,7 +264,6 @@ class RulesEngineManifest
       app/views/re_pipelines/create.js.erb
       features/support/rules_engine.rb
       public/javascripts/re_jobs.js
-      lib/tasks/re_runner.rake
       public/stylesheets/re_view_button/checked-on.gif
       public/images/re_pipeline/show-25.png
       app/views/re_rules/edit.js.erb

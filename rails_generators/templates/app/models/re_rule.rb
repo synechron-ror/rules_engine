@@ -76,24 +76,28 @@ class ReRule < ActiveRecord::Base
 
   def after_create_rule
     # raise 'rule class not found' if rule.nil?
-    rule.after_create(self.id)
+    rule.after_add_to_pipeline(self.re_pipeline_id, self.id)
   end
 
   def before_destroy_rule
     # raise 'rule class not found' if rule.nil?
-    rule.before_destroy(self.id)
+    rule.before_remove_from_pipeline(self.re_pipeline_id, self.id)
   end
 
   def rule_error
     return "#{title} class #{rule_class_name} invalid" if rule.nil?
     return "#{title} invalid" unless rule.valid?
-      
+
     re_rule_expected_outcomes.each do |re_rule_expected_outcome|
-      unless re_rule_expected_outcome.pipeline_code.nil?
-        return "#{re_rule_expected_outcome.pipeline_code} not created" unless RePipeline.find_by_code(re_rule_expected_outcome.pipeline_code)
-        return "#{re_rule_expected_outcome.pipeline_code} not activated" unless RePipelineActivated.find_by_code(re_rule_expected_outcome.pipeline_code)
-      end  
+      next if re_rule_expected_outcome.pipeline_code.blank?      
+
+      re_pipeline_activated = RePipelineActivated.find_by_code(re_rule_expected_outcome.pipeline_code)
+      return "#{re_rule_expected_outcome.pipeline_code} not activated" if re_pipeline_activated.nil?
+      
+      pipeline_error = re_pipeline_activated.pipeline_error
+      return "#{re_rule_expected_outcome.pipeline_code} invalid" unless re_pipeline_activated.pipeline_error.blank?
     end
+    
     nil
   end
   

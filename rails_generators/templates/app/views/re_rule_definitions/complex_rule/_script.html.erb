@@ -14,7 +14,7 @@
 
   $(document).ready(function() {	
     $('#rule_title').focus();	
-    $("#complex_pipeline").autocomplete('/re_pipelines/lookup?t=title', { multiple: false });
+    $("#complex_pipeline").autocomplete('/re_pipelines/lookup?t=code', { multiple: false });
     
     $('#complex_pipeline_action').change(function() {
       updatePipelineAction();

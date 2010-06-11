@@ -1,12 +1,12 @@
 <% id = local_assigns[:position] ? position : 'NEW_RECORD'  %>
 
 <div id="complex_<%=id%>">
-  <%= re_text_field "Words to blacklist", "complex[#{id}][word]",  
+  <%= re_text_field "Words to blacklist", "complex_words[#{id}][word]",  
                                             local_assigns[:word] ? word : '',
                                             :size => 25, 
                                             :required => id == 0, 
                                             :span => '4x14', 
-																						:error => id == 0 ? @re_rule.rule.errors[:words] : nil,
+																						:error => id == 0 ? @re_rule.rule.errors[:complex_words] : nil,
                                             :hint => re_remove_link("Remove", "complex[#{id}]", id) %>
         
   <%= re_remove_field("complex[#{id}]", id) %>      

@@ -223,32 +223,32 @@ h2.re-rule-edit {
   height: 54px;  
 }
 .re-rule-continue {
-  width: 145px;
-	background: #fffef0 url('/images/re_rule/next-show-18.png') no-repeat 155px 2px;
+  width: 185px;
+	background: #fffef0 url('/images/re_rule/next-show-18.png') no-repeat 195px 2px;
 	font-weight: bold;
 	border: 1px #92b83c solid; 
 	padding: 3px 24px 3px 6px;
 	margin: 0 2px 4px 2px;  
 }
 .re-rule-stop-failure {
-  width: 145px;
-	background: #FBE3E4 url('/images/re_rule/stop-failure-18.png') no-repeat 155px 2px;
+  width: 185px;
+	background: #FBE3E4 url('/images/re_rule/stop-failure-18.png') no-repeat 195px 2px;
 	font-weight: bold;
 	border: 1px #7c1e1e solid; 
 	padding: 3px 24px 3px 6px;
 	margin: 0 2px 4px 2px;  
 }
 .re-rule-stop-success {
-  width: 145px;
-	background: #fffef0 url('/images/re_rule/stop-success-18.png') no-repeat 155px 2px;
+  width: 185px;
+	background: #fffef0 url('/images/re_rule/stop-success-18.png') no-repeat 195px 2px;
 	font-weight: bold;
 	border: 1px #7c1e1e solid; 
 	padding: 3px 24px 3px 6px;
 	margin: 0 2px 4px 2px;  
 }
 .re-rule-goto-pipeline {
-  width: 145px;
-	background: #fffef0 url('/images/re_rule/goto-pipeline-18.png') no-repeat 155px 2px;
+  width: 185px;
+	background: #fffef0 url('/images/re_rule/goto-pipeline-18.png') no-repeat 195px 2px;
 	font-weight: bold;
 	border: 1px #92b83c solid; 
 	padding: 3px 24px 3px 6px;

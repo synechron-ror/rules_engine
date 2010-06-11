@@ -5,11 +5,13 @@ class RulesEngineComplexManifest
       app/rules
       app/views/re_rule_definitions/complex_rule
       spec/lib/rules
+      lib/tasks
     ).each do |dirname|
       m.directory dirname
     end
 
     %w(
+      lib/tasks/re_complex_rule.rake
       app/views/re_rule_definitions/complex_rule/_title.html.erb
       app/rules/complex_rule.rb
       app/views/re_rule_definitions/complex_rule/_pipeline.html.erb

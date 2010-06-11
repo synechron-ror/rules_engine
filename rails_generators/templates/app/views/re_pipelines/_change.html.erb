@@ -3,10 +3,10 @@
 
 <div class="span-16">
   <div class="re-infobox">
-    <div class="span-10" id="re_pipeline_code">
+    <div class="span-9" id="re_pipeline_code">
       <h3 class="re-pipeline-status-<%= @pipeline_error.blank? ? re_pipeline_status : 'verify' %>"><%=h @re_pipeline.code%></h3>
     </div>  
-    <div class="span-5 last">      
+    <div class="span-6 last">      
       <% if pipeline_error.blank? %>
         <em class="float-right re-pipeline-status-<%= re_pipeline_status %>" id="pipeline_status"><%= re_pipeline_status.titleize %></em>
       <% else %>

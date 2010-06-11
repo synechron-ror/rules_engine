@@ -7,7 +7,6 @@ module RulesEngine
     OUTCOME_START_PIPELINE  =  3
 
     attr_accessor :outcome
-    attr_accessor :pipeline_code
-        
+    attr_accessor :pipeline_code    
   end
 end

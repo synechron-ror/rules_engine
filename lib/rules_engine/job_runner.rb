@@ -48,19 +48,19 @@ module RulesEngine
           audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_INFO, true, "Rule #{re_rule.title} finished")
           
           if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
-            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, true, "Pipeline #{pipeline_code} complete")
+            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, true, "Pipeline #{pipeline_code} stop success")
             done = true 
             break
           end
         
           if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
-            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, false, "Pipeline #{pipeline_code} complete")
+            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, false, "Pipeline #{pipeline_code} stop failure")
             error = done = true 
             break
           end
         
           if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
-            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, true, "Pipeline #{pipeline_code} complete")
+            audit_pipeline(re_job_id, re_pipeline_id, ReJobAudit::AUDIT_PIPELINE_END, true, "Pipeline #{pipeline_code} start pipeline #{rule_outcome.pipeline_code}")
             pipeline_code = rule_outcome.pipeline_code
             break
           end

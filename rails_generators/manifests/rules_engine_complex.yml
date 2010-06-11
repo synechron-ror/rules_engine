@@ -4,4 +4,7 @@ directories :
 
 files :  
   - app/rules/complex_rule.rb 
+
   - spec/lib/rules/complex_rule_spec.rb 
+
+  - lib/tasks/re_complex_rule.rake

@@ -1,34 +1,25 @@
 class ComplexRule < RulesEngine::Rule
 
-  self.options = 
-    {
-      :group => 'Sample Rules',
-      :display_name => 'Complex Rule',    
-      :help_partial => '/re_rule_definitions/complex_rule/help',
-      :new_partial => '/re_rule_definitions/complex_rule/new',
-      :edit_partial => '/re_rule_definitions/complex_rule/edit'
-    } 
-  
   attr_reader :words
   attr_reader :pipeline_action
   attr_reader :pipeline
 
   ##################################################################
-  def title
-    @title
-  end
-
-  def summary
-    "Complex #{@words.size} #{@words.size == 1 ? 'word' : 'words'}"
-  end
+  # class options
+  self.options = 
+    {
+      :group => 'Sample Rules',
+      :display_name => 'Find Matching Words',    
+      :help_partial => '/re_rule_definitions/complex_rule/help',
+      :new_partial => '/re_rule_definitions/complex_rule/new',
+      :edit_partial => '/re_rule_definitions/complex_rule/edit'
+    } 
   
-  def data
-    [@title, @words, @pipeline_action, @pipeline].to_json
-  end
-  
+  ##################################################################
+  # set the rule data
   def data= data
     if data.nil?
-      @title = ''
+      @title = nil
       @words = nil
       @pipeline_action = 'continue'
       @pipeline = nil
@@ -37,64 +28,105 @@ class ComplexRule < RulesEngine::Rule
     end  
   end
   
+  ##################################################################
+  # get the rule attributes
+  def title
+    @title
+  end
+
+  def summary
+    word_size = self.words.size
+    "Look for #{word_size} matching #{word_size == 1 ? 'word' : 'words'}"
+  end
+  
+  def data
+    [self.title, self.words, self.pipeline_action, self.pipeline].to_json
+  end
+  
   def expected_outcomes
-    if @pipeline_action == 'next'
+    case self.pipeline_action    
+    when 'next'
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]
-    elsif @pipeline_action == 'stop_success'
+    when 'stop_success'
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS]
-    elsif @pipeline_action == 'stop_failure'
+    when 'stop_failure'
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE]
-    else # if @pipeline_action == 'start_pipeline'
-      [:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, :pipeline_code => @pipeline]
+    when 'start_pipeline'
+      [:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, :pipeline_code => self.pipeline]
+    else
+      [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]  
     end
   end
   
   ##################################################################
+  # set the rule attributes
   def attributes=(params)
-    @words = []
-    @title = params['complex_title']
+    param_hash = params.symbolize_keys
+
+    @title = param_hash[:complex_title]
     
-    return if params['complex'].nil?
-    params['complex'].each do |key, value| 
-      @words << value['word'].downcase unless value['word'].blank? || value['_delete'] == '1'
+    @words = []
+    return if param_hash[:complex_words].nil?
+    param_hash[:complex_words].each do |key, values| 
+      if values.is_a?(Hash)
+        word_hash = values.symbolize_keys
+        @words << word_hash[:word].downcase unless word_hash[:word].blank? || word_hash[:_delete] == '1'
+      end  
     end
     
-    @pipeline_action = params['complex_pipeline_action'] || 'continue'
-    @pipeline = params['complex_pipeline'] || ''    
+    @pipeline_action = param_hash[:complex_pipeline_action] || 'continue'
+    @pipeline = param_hash[:complex_pipeline] || ''
   end
   
   ##################################################################
+  # validation and errors
   def valid?
     @errors = {}
-    self.errors[:words] = "At least one word must be defined" if @words.nil? || @words.empty?
-    self.errors[:title] = "Title required" if @title.blank?    
-    self.errors[:pipeline] = "Pipeline required" if @pipeline_action == 'start_pipeline' && @pipeline.blank?
+    self.errors[:complex_words] = "At least one word must be defined" if self.words.nil? || self.words.empty?
+    self.errors[:complex_title] = "Title required" if self.title.blank?    
+    self.errors[:complex_pipeline] = "Pipeline required" if self.pipeline_action == 'start_pipeline' && self.pipeline.blank?
     return self.errors.empty?
   end
 
   ##################################################################
-  def after_create(rule_id)
+  # callbacks when the rule is added and removed from a pipeline
+  def after_add_to_pipeline(re_pipeline_id, re_rule_id)
   end
   
-  def before_destroy(rule_id)
+  def before_remove_from_pipeline(re_pipeline_id, re_rule_id)
   end
   
   ##################################################################
+  # execute the rule
+  # if a match is found procees to the expected outcome
+  # it gets the data parameter :sentence
+  # it sets the data parameter :match
   def process(job_id, data)
-    rule_outcome = RulesEngine::RuleOutcome.new
-  
-    if @pipeline_action == 'next'
-      rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_NEXT
-    elsif @pipeline_action == 'stop_success'
-      rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
-    elsif @pipeline_action == 'stop_failure'
-      rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
-    else # if @pipeline_action == 'start_pipeline'
-      rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
-      rule_outcome.pipeline_code = @pipeline  
-    end
+    sentence = data[:sentence]
+    return nil if sentence.blank?
     
-    rule_outcome
+    self.words.each do |word|
+      if /#{word}/i =~ sentence
+        data[:match] = word
+        rule_outcome = RulesEngine::RuleOutcome.new        
+        
+        case self.pipeline_action
+        when 'stop_success'
+          rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
+        when 'stop_failure'
+          rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
+        when 'start_pipeline'
+          rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
+          rule_outcome.pipeline_code = self.pipeline  
+        else #'next'
+          rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_NEXT
+        end
+        
+        return rule_outcome
+      end
+    end
+        
+    nil
   end  
     
 end

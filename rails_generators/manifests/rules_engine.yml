@@ -41,8 +41,6 @@ files :
   - app/views/layouts/rules_engine.html.erb
   
   - db/migrate/20100308225008_create_re_pipelines.rb
-
-  - lib/tasks/re_runner.rake
                 
   - public/images/loadingAnimation.gif
   
