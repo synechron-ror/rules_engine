@@ -33,20 +33,30 @@ describe ReRulesController do
       assigns[:re_pipeline].should == @re_pipeline
     end      
     
-    it "should call load_rule_class_from_rule_class_name" do
+    it "should call load discover the rule" do
       RulesEngine::Discovery.should_receive(:rule_class).with("mock_rule_class").and_return(@rule_class)
       get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
     end
-    
-    it "should assign the rule_class" do
-      get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
-      assigns[:rule_class].should == @rule_class
-    end      
 
-    it "should assign the rule" do
-      get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
-      assigns[:rule].should == @rule
-    end      
+    describe "rule class not found" do
+      it "should render the 'error' template" do
+        RulesEngine::Discovery.should_receive(:rule_class).with("mock_rule_class").and_return(nil)
+        get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
+        response.should render_template(:error)
+      end
+    end  
+    
+    describe "rule class found" do        
+      it "should assign the rule_class" do
+        get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
+        assigns[:rule_class].should == @rule_class
+      end      
+
+      it "should assign the rule" do
+        get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
+        assigns[:rule].should == @rule
+      end      
+    end  
   end
 
   describe "error" do
@@ -118,7 +128,7 @@ describe ReRulesController do
     describe "rule class not found" do
       it "should render the 'error' template" do
         @re_rule.should_receive(:rule).and_return(nil)
-        get :new, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class"
+        post :create, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class", :re_rule => { :key => "value" }
         response.should render_template(:error)
       end
     end  
