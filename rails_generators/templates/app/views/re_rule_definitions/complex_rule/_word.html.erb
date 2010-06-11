@@ -1,7 +1,7 @@
 <% id = local_assigns[:position] ? position : 'NEW_RECORD'  %>
 
 <div id="complex_<%=id%>">
-  <%= re_text_field "Words to blacklist", "complex_words[#{id}][word]",  
+  <%= re_text_field "Words to match", "complex_words[#{id}][word]",  
                                             local_assigns[:word] ? word : '',
                                             :size => 25, 
                                             :required => id == 0, 

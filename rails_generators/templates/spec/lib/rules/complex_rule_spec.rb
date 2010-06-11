@@ -57,10 +57,6 @@ describe ComplexRule do
         @complex_rule.title.should == "Rule Title"        
       end
 
-      it "should set the title" do
-        @complex_rule.title.should == "Rule Title"        
-      end
-
       it "should set the words" do
         @complex_rule.words.should == ["one", "two"]
       end
@@ -179,8 +175,7 @@ describe ComplexRule do
       it "should not be valid if the 'complex_title' attribute is missing" do
         @complex_rule.attributes = valid_attributes.except(:complex_title)
         @complex_rule.should_not be_valid
-        @complex_rule.errors.should include(:complex_title)
-      
+        @complex_rule.errors.should include(:complex_title)      
       end            
     
       it "should not be valid if the 'complex_title' attribute is blank" do
@@ -199,8 +194,7 @@ describe ComplexRule do
       it "should not be valid if the 'complex_words' attribute is missing" do
         @complex_rule.attributes = valid_attributes.except(:complex_words)
         @complex_rule.should_not be_valid
-        @complex_rule.errors.should include(:complex_words)
-      
+        @complex_rule.errors.should include(:complex_words)      
       end            
     
       it "should not be valid if the 'complex_words' is not a hash" do

@@ -1,6 +1,1 @@
-<%= re_text_field "Rule Title", 
-                        "simple_title", 
-                        params[:simple_title] || @re_rule.title || @re_rule.rule.options[:display_name],
-                        :size => 30, 
-                        :required => true, 
-                        :span => '4x12' %>
+<%= render :partial => '/re_rule_definitions/simple_rule/title' %>

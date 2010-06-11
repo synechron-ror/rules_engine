@@ -11,6 +11,7 @@ class RulesEngineSimpleManifest
 
     %w(
       app/views/re_rule_definitions/simple_rule/_edit.html.erb
+      app/views/re_rule_definitions/simple_rule/_title.html.erb
       spec/lib/rules/simple_rule_spec.rb
       app/views/re_rule_definitions/simple_rule/_new.html.erb
       app/rules/simple_rule.rb
