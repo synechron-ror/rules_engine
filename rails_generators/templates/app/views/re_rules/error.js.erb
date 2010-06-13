@@ -1,3 +1,7 @@
 <%= re_alert_js %>
 
-$('#tb_temp_container').html('<%=escape_javascript(render(:partial => 'error'))%>');
+$('#re_content').html('<%=escape_javascript(render(:partial => 'error'))%>');
+
+$.re_unblock();
+$.fancybox({ href: '#re_content'});          
+

@@ -7,7 +7,7 @@ re_pipeline_action_confirm = function(id, title, action) {
   $('#re_pipeline_action_ok').attr('href', '#re_pipeline_' + id + '_form');
   $('#re_pipeline_action_ok').html("<span>" + action + "</span>")
   
-  tb_show("", '#?TB_inline=true&inlineId=re_pipeline_action_confirm&height=160&width=600', false);
+  $.fancybox({ href: '#re_pipeline_action_confirm'});
 }
 
 
@@ -16,20 +16,19 @@ $(document).ready(function() {
   $('a.re-pipeline-action-edit').live('click', function() {    
     var pipeline = $(this).attr('href').replace('#', '');
       
-    tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=800', false);
-    block_thickbox();
-    $.get('/re_pipelines/' + pipeline + '/edit', null, unblock_thickbox, 'script');
+    $.re_block();
+    $.get('/re_pipelines/' + pipeline + '/edit', null, null, 'script');
   	return false;  
   });  
 
   $("#re_pipeline_edit_cancel").live('click', function() {
-    self.parent.tb_remove();
+    $.fancybox.close();
     return false;
   });  
 
   $('#re_pipeline_edit_update').live('click', function() {
-    block_thickbox();    
-    $.post($('#re_pipeline_edit_form').attr('action'), $('#re_pipeline_edit_form').serialize(), unblock_thickbox, 'script');    
+    $.re_block();
+    $.post($('#re_pipeline_edit_form').attr('action'), $('#re_pipeline_edit_form').serialize(), null, 'script');    
     return false;
   });
 
@@ -54,13 +53,15 @@ $(document).ready(function() {
   });  
 
   $("#re_pipeline_action_cancel").live('click', function() {
-    self.parent.tb_remove();
+    $.fancybox.close();
     return false;
   });  
 
   $('#re_pipeline_action_ok').live('click', function() {
     var form_id = $(this).attr('href');
-    $.post($(form_id).attr('action'), $(form_id).serialize(), unblock_thickbox, 'script');    
+
+    $.re_block();
+    $.post($(form_id).attr('action'), $(form_id).serialize(), null, 'script');    
     return false;
   });
 
@@ -70,20 +71,19 @@ $(document).ready(function() {
     if (values.length != 2)
       return false;
 
-    tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=780', false);
-    block_thickbox();
-    $.get('/re_pipelines/' + values[0] + '/re_rules/new?rule_class_name=' + values[1], null, unblock_thickbox, 'script');
+    $.re_block();
+    $.get('/re_pipelines/' + values[0] + '/re_rules/new?rule_class_name=' + values[1], null, null, 'script');
   	return false;  
   });  
 
   $("#re_rule_new_cancel").live('click', function() {
-    self.parent.tb_remove();
+    $.fancybox.close();
     return false;
   });  
 
   $('#re_rule_new_insert').live('click', function() {
-    block_thickbox();    
-    $.post($('#re_rule_new_form').attr('action'), $('#re_rule_new_form').serialize(), unblock_thickbox, 'script');    
+    $.re_block();
+    $.post($('#re_rule_new_form').attr('action'), $('#re_rule_new_form').serialize(), null, 'script');    
     return false;
   });
 
@@ -93,20 +93,19 @@ $(document).ready(function() {
     if (values.length != 2)
       return false;
 
-    tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=780', false);
-    block_thickbox();
-    $.get('/re_pipelines/' + values[0] + '/re_rules/' + values[1] + '/edit', null, unblock_thickbox, 'script');
+    $.re_block();
+    $.get('/re_pipelines/' + values[0] + '/re_rules/' + values[1] + '/edit', null, null, 'script');
   	return false;  
   });  
 
   $("#re_rule_edit_cancel").live('click', function() {
-    self.parent.tb_remove();
+    $.fancybox.close();
     return false;
   });  
 
   $('#re_rule_edit_update').live('click', function() {
-    block_thickbox();    
-    $.post($('#re_rule_edit_form').attr('action'), $('#re_rule_edit_form').serialize(), unblock_thickbox, 'script');    
+    $.re_block();
+    $.post($('#re_rule_edit_form').attr('action'), $('#re_rule_edit_form').serialize(), null, 'script');    
     return false;
   });
 
@@ -117,18 +116,23 @@ $(document).ready(function() {
       return false;
       
     $('#re_rule_delete_ok').attr('href', '#re_rule_delete_form_' + values[1])  
-    tb_show("", '#?TB_inline=true&inlineId=re_rule_delete_confirm&height=160&width=500', false);
+    $.fancybox({ 'href': '#re_rule_delete_confirm' });          
   	return false;  
   });  
 
   $("#re_rule_delete_cancel").live('click', function() {
-    self.parent.tb_remove();
+    $.fancybox.close();  
     return false;
   });  
 
   $('#re_rule_delete_ok').live('click', function() {
     var form_id = $(this).attr('href');
-    $.post($(form_id).attr('action'), $(form_id).serialize(), unblock_thickbox, 'script');    
+
+    $.re_block();
+    $.post($(form_id).attr('action'), $(form_id).serialize(), function() { 
+      $.fancybox.close();
+      $.re_unblock(); 
+    }, 'script');    
     return false;
   });
 
@@ -138,6 +142,7 @@ $(document).ready(function() {
     if (values.length != 2)
       return false;
       
+    $.re_block();
     $(this).removeClass('re-rule-move-up');
     $(this).addClass('re-rule-move-up-off');
     
@@ -150,6 +155,7 @@ $(document).ready(function() {
     if (values.length != 2)
       return false;
       
+    $.re_block();
     $(this).removeClass('re-rule-move-down');
     $(this).addClass('re-rule-move-down-off');
     
@@ -162,18 +168,18 @@ $(document).ready(function() {
     var values = $(this).attr('href').replace('#', '').split('|');
     if (values.length != 2)
       return false;
-      
-    tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=800', false);
-    block_thickbox();
-    $.get('/re_pipelines/' + values[0] + '/re_rules/help?rule_class_name=' + values[1], null, unblock_thickbox, 'script');
-  	return false;  
+    
+    $.re_block();
+    $.get('/re_pipelines/' + values[0] + '/re_rules/help?rule_class_name=' + values[1], null, null, 'script');
+   return false;  
   });  
 
   $("#re_rule_help_cancel").live('click', function() {
-    self.parent.tb_remove();
+    $.fancybox.close();    
     return false;
   });  
 
+  // RULE GROUPS  
   $('select#re_rule_class_list').live('change', function() {
     var name = $("select#re_rule_class_list option:selected").val().replace(" ", "_")
     $('.re-rule-class-list').each(function() {

@@ -9,6 +9,7 @@ directories :
   - public/images/re_rule_class
   - public/images/re_job
 
+  - public/stylesheets/fancybox
   - public/stylesheets/blueprint
   - public/stylesheets/re_view_box
   - public/stylesheets/re_view_button
@@ -41,21 +42,21 @@ files :
   - app/views/layouts/rules_engine.html.erb
   
   - db/migrate/20100308225008_create_re_pipelines.rb
-                
-  - public/images/loadingAnimation.gif
   
-  - public/javascripts/jquery-1.3.2.min.js
+  - public/javascripts/jquery-1.4.2.min.js
   - public/javascripts/jquery.autocomplete.pack.js
   - public/javascripts/jquery.blockUI.js
+  - public/javascripts/jquery.fancybox-1.3.1.js
+  
   - public/javascripts/re_jobs.js    
   - public/javascripts/re_pipeline_change.js 
   - public/javascripts/re_pipeline_index.js  
   - public/javascripts/re_pipeline_jobs.js
   - public/javascripts/re_pipeline_new.js
   - public/javascripts/re_view.js
-  - public/javascripts/thickbox.js
+  
   - public/stylesheets/jquery.autocomplete.css
-  - public/stylesheets/macFFBgHack.png
+  
   - public/stylesheets/rules_engine.css
   - public/stylesheets/re_view_box.css
   - public/stylesheets/re_view_button.css
@@ -63,8 +64,7 @@ files :
   - public/stylesheets/re_view_form.css
   - public/stylesheets/re_view_navigate.css
   - public/stylesheets/re_view_table.css          
-  - public/stylesheets/re_view.css        
-  - public/stylesheets/thickbox.css
+  - public/stylesheets/re_view.css          
     
   - spec/controllers/re_jobs_controller_spec.rb
   - spec/controllers/re_pipeline_jobs_controller_spec.rb

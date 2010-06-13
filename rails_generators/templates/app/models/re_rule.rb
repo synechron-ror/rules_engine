@@ -71,7 +71,7 @@ class ReRule < ActiveRecord::Base
     self.summary = rule.summary
     self.data = rule.data
     
-    self.re_rule_expected_outcomes = rule.expected_outcomes.map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
+    self.re_rule_expected_outcomes = (rule.expected_outcomes).map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
   end
 
   def after_create_rule

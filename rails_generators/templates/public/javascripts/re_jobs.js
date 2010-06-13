@@ -2,15 +2,16 @@ get_job_list = function(page) {
   $.get('/re_jobs?page=' + page, null, null, 'script');
 }
 
-
 $(document).ready(function() {	  
   
   $('a.re-job-detail').live('click', function() {    
     var job = $(this).attr('href').replace('#', '');
       
-    tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=450&width=800', false);
-    block_thickbox();
-    $.get('/re_jobs/' + job, null, unblock_thickbox, 'script');
+    $.re_block();
+    $.get('/re_jobs/' + job, null, function() {
+        $.re_unblock();
+        $.fancybox({ href: '#re_content'});
+      }, 'script');
     
   	return false;  
   });  
@@ -43,9 +44,8 @@ $(document).ready(function() {
 
   $('a.re-job-page-next-disabled').live('click', function() {
     return false;
-  });
+  })
 
-  
   $('a.re-job-page-refresh').live('click', function() {
     var page = $(this).attr('href').replace('#', ''); 
 

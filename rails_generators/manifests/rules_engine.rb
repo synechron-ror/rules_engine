@@ -5,6 +5,7 @@ class RulesEngineManifest
       public/stylesheets
       public/stylesheets/re_view_button
       public/stylesheets/blueprint/plugins
+      public/stylesheets/fancybox
       public/images/re_pipeline
       app/views/re_pipelines
       app/views/re_pipeline_jobs
@@ -37,13 +38,13 @@ class RulesEngineManifest
       spec/support
       app/controllers
       spec/models
-      public/images
       public/stylesheets/re_view_error
     ).each do |dirname|
       m.directory dirname
     end
 
     %w(
+      public/stylesheets/fancybox/fancy_title_main.png
       public/stylesheets/re_view_error.css
       public/stylesheets/re_view_navigate/icon-delete.png
       public/images/re_rule/move-down-48.png
@@ -60,15 +61,16 @@ class RulesEngineManifest
       app/views/re_rules/_menu.html.erb
       public/images/re_job/success-48.png
       public/images/re_pipeline/__destroy-25.png
+      public/stylesheets/blueprint/src/forms.css
       public/images/re_job/list-18.png
       public/images/re_rule/move-down-14.png
       public/images/re_pipeline/deactivate-25.png
       app/views/re_pipelines/_empty.html.erb
       app/views/re_rules/_empty.html.erb
       public/images/re_rule_class/add-25.png
-      public/stylesheets/blueprint/src/forms.css
       app/models/re_pipeline.rb
       public/stylesheets/re_view_box/shadowbox.jpg
+      public/stylesheets/fancybox/fancy_shadow_s.png
       public/images/re_pipeline/changed-18.png
       app/views/re_pipelines/edit.html.erb
       public/images/re_pipeline/deactivate-18.png
@@ -76,7 +78,9 @@ class RulesEngineManifest
       public/images/re_rule_class/new-48.png
       public/images/re_pipeline/draft-25.png
       public/images/re_pipeline/new-14.png
+      public/javascripts/jquery-1.4.2.min.js
       public/stylesheets/re_view_navigate/delete-icon.png
+      public/stylesheets/fancybox/fancy_shadow_ne.png
       public/images/re_rule/move-up-off-25.png
       public/images/re_rule/valid-18.png
       public/images/re_job/next-disabled-48.png
@@ -85,9 +89,7 @@ class RulesEngineManifest
       public/images/re_rule/goto-pipeline-18.png
       app/views/re_pipelines/show.html.erb
       public/images/re_pipeline/draft-18.png
-      public/stylesheets/thickbox.css
       app/views/re_jobs/_show.html.erb
-      public/stylesheets/macFFBgHack.png
       public/stylesheets/re_view_button/oval-blue-left.gif
       public/stylesheets/re_view_button/oval-green-right.gif
       public/stylesheets/re_view_box/whitebox.jpg
@@ -96,6 +98,7 @@ class RulesEngineManifest
       public/images/re_rule/move-up-48.png
       public/images/re_rule/edit-18.png
       public/images/re_job/error-25.png
+      public/stylesheets/fancybox/jquery.fancybox-1.3.1.css
       app/views/re_rules/update.js.erb
       public/images/re_job/next-disabled-14.png
       app/views/re_jobs/show.html.erb
@@ -105,6 +108,7 @@ class RulesEngineManifest
       public/images/re_rule/stop-success-48.png
       public/images/re_pipeline/list-18.png
       app/views/re_pipeline_jobs/_index.html.erb
+      public/stylesheets/fancybox/fancy_shadow_se.png
       public/images/re_rule/next-change-25.png
       public/images/re_rule/move-up-14.png
       app/models/re_rule_expected_outcome.rb
@@ -116,10 +120,10 @@ class RulesEngineManifest
       public/images/re_rule/next-change-18.png
       public/images/re_rule/next-show-48.png
       public/images/re_pipeline/current-14.png
-      public/images/loadingAnimation.gif
+      public/stylesheets/blueprint/src/ie.css
+      public/stylesheets/fancybox/fancy_loading.png
       public/images/re_pipeline/edit-25.png
       app/views/re_rules/_index.html.erb
-      public/stylesheets/blueprint/src/ie.css
       public/images/re_rule/verify-25.png
       public/images/re_rule/__destroy-25.png
       app/views/re_pipelines/_show_actions.html.erb
@@ -145,11 +149,13 @@ class RulesEngineManifest
       public/images/re_pipeline/__destroy-48.png
       public/images/re_job/prev-disabled-18.png
       app/models/re_job.rb
+      public/stylesheets/blueprint/src/grid.css
       public/images/re_pipeline/deactivate-48.png
       public/images/re_rule_class/add-48.png
       app/views/re_rules/_error.html.erb
-      public/stylesheets/blueprint/src/grid.css
       spec/models/re_rule_expected_outcome_spec.rb
+      public/stylesheets/fancybox/fancy_shadow_n.png
+      public/stylesheets/fancybox/fancy_shadow_nw.png
       public/images/re_rule/stop-failure-18.png
       public/images/re_pipeline/changed-25.png
       public/images/re_pipeline/draft-48.png
@@ -162,28 +168,34 @@ class RulesEngineManifest
       public/images/re_rule/move-up-off-48.png
       public/stylesheets/re_view_button/oval-green-left.gif
       public/stylesheets/blueprint/print.css
-      public/images/re_job/info-25.png
       public/stylesheets/blueprint/src/grid.png
+      public/stylesheets/fancybox/blank.gif
+      public/stylesheets/fancybox/fancy_title_left.png
+      public/images/re_job/info-25.png
       features/step_definitions/common/re_user_steps.rb
       public/javascripts/re_pipeline_new.js
       spec/helpers/re_pipeline_helper_spec.rb
       public/stylesheets/re_view_navigate.css
       public/stylesheets/re_view_box/accept.png
+      public/stylesheets/blueprint/src/reset.css
       public/images/re_rule/move-up-off-14.png
       public/images/re_rule_class/new-14.png
-      public/stylesheets/blueprint/src/reset.css
       app/views/re_rules/destroy.js.erb
       app/views/layouts/rules_engine.html.erb
+      public/stylesheets/fancybox/__jquery.easing-1.3.pack.js
       public/images/re_job/list-25.png
       public/images/re_job/loadingAnimation.gif
       public/images/re_job/error-48.png
+      public/stylesheets/fancybox/fancy_shadow_sw.png
       public/images/re_job/next-disabled-25.png
       app/views/re_pipelines/template.html.erb
       features/step_definitions/common/re_error_steps.rb
       public/stylesheets/re_view_navigate/subnavitems-bg.jpg
       public/stylesheets/blueprint/plugins/fancy-type/readme.txt
+      public/stylesheets/fancybox/fancybox.png
       public/images/re_pipeline/verify-14.png
       public/images/re_rule/next-change-48.png
+      public/stylesheets/fancybox/fancy_title_right.png
       public/images/re_job/error-14.png
       app/views/re_pipelines/_change_actions.html.erb
       public/images/re_rule/move-down-off-14.png
@@ -196,9 +208,9 @@ class RulesEngineManifest
       public/images/re_pipeline/show-18.png
       public/images/re_pipeline/edit-48.png
       features/step_definitions/common/re_view_steps.rb
+      public/stylesheets/blueprint/src/print.css
       public/images/re_rule_class/list-right.png
       public/images/re_pipeline/verify-48.png
-      public/stylesheets/blueprint/src/print.css
       public/images/re_pipeline/current-18.png
       public/images/re_rule/edit-25.png
       public/stylesheets/blueprint/plugins/buttons/icons/key.png
@@ -227,6 +239,7 @@ class RulesEngineManifest
       public/images/re_pipeline/revert-18.png
       spec/controllers/re_jobs_controller_spec.rb
       public/images/re_job/info-48.png
+      public/stylesheets/fancybox/fancy_title_over.png
       public/javascripts/jquery.blockUI.js
       db/migrate/20100308225008_create_re_pipelines.rb
       public/stylesheets/re_view_button/oval-orange-left.gif
@@ -239,9 +252,11 @@ class RulesEngineManifest
       public/images/re_rule_class/add-14.png
       public/images/re_rule_class/help-14.png
       spec/models/re_job_spec.rb
+      public/javascripts/jquery.fancybox-1.3.1.js
       public/stylesheets/re_view_button/oval-gray-left.gif
       public/stylesheets/re_view_button/oval-gray-right.gif
       public/stylesheets/re_view_box/exclamation.png
+      public/stylesheets/fancybox/fancy_shadow_w.png
       public/images/re_pipeline/draft-14.png
       app/views/re_rules/_empty.js.erb
       public/images/re_rule/valid-14.png
@@ -257,14 +272,17 @@ class RulesEngineManifest
       features/step_definitions/common/re_debug_steps.rb
       public/stylesheets/re_view_button/oval-red-right.gif
       public/stylesheets/blueprint/plugins/link-icons/icons/im.png
+      public/stylesheets/fancybox/fancy_shadow_e.png
       public/images/re_pipeline/list-down.png
       app/views/re_rules/_change.html.erb
       public/stylesheets/blueprint/plugins/fancy-type/screen.css
       app/views/re_pipelines/update.js.erb
       app/views/re_pipelines/create.js.erb
+      public/stylesheets/fancybox/fancybox-x.png
       features/support/rules_engine.rb
       public/javascripts/re_jobs.js
       public/stylesheets/re_view_button/checked-on.gif
+      public/stylesheets/fancybox/fancy_nav_left.png
       public/images/re_pipeline/show-25.png
       app/views/re_rules/edit.js.erb
       app/controllers/re_jobs_controller.rb
@@ -275,13 +293,13 @@ class RulesEngineManifest
       app/views/re_pipelines/_confirm.html.erb
       public/images/re_rule/move-down-off-25.png
       public/images/re_pipeline/list-14.png
-      public/javascripts/jquery-1.3.2.min.js
       app/controllers/re_pipeline_jobs_controller.rb
       public/stylesheets/blueprint/plugins/link-icons/icons/visited.png
       app/views/re_pipelines/change.html.erb
       public/images/re_rule/edit-48.png
       features/step_definitions/common/re_form_steps.rb
       public/javascripts/re_view.js
+      public/stylesheets/fancybox/fancy_nav_right.png
       app/views/re_pipelines/edit.js.erb
       public/images/re_rule/move-up-18.png
       public/images/re_pipeline/destroy-14.png
@@ -302,10 +320,10 @@ class RulesEngineManifest
       public/stylesheets/blueprint/plugins/link-icons/icons/email.png
       public/images/re_pipeline/__destroy-18.png
       app/helpers/re_pipeline_helper.rb
+      public/stylesheets/blueprint/src/typography.css
       app/views/re_pipelines/_new.html.erb
       public/images/re_rule/stop-failure-48.png
       public/images/re_rule/next-show-18.png
-      public/stylesheets/blueprint/src/typography.css
       public/images/re_rule/destroy-48.png
       public/stylesheets/re_view_button/checked-off.gif
       public/stylesheets/blueprint/plugins/link-icons/readme.txt
@@ -318,14 +336,15 @@ class RulesEngineManifest
       app/views/re_pipelines/new.js.erb
       app/views/re_pipeline_jobs/_empty.html.erb
       spec/models/re_rule_spec.rb
+      public/stylesheets/blueprint/screen.css
       app/views/re_rules/new.html.erb
       public/images/re_rule/destroy-14.png
       public/images/re_rule/move-down-25.png
-      public/stylesheets/blueprint/screen.css
+      public/stylesheets/fancybox/fancybox-y.png
       public/images/re_rule/stop-failure-14.png
-      public/javascripts/thickbox.js
       public/stylesheets/blueprint/plugins/link-icons/icons/doc.png
       public/stylesheets/blueprint/plugins/link-icons/icons/feed.png
+      public/stylesheets/fancybox/fancy_close.png
       public/images/re_rule_class/help-25.png
       public/images/re_job/list-14.png
       public/images/re_job/next-enabled-25.png

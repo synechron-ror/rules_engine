@@ -1,22 +1,27 @@
 $(document).ready(function() {	  
   
   $('a.re-pipeline-new').live('click', function() {    
-    tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=300&width=800', false);
-    block_thickbox();
-    $.get('/re_pipelines/new', null, unblock_thickbox, 'script');
+    
+  $.re_block();
+  $.get('/re_pipelines/new', null, function() {
+        $.re_unblock();
+        $.fancybox({ href: '#re_content'});
+      }, 'script');
   	return false;  
   });  
 
 
   $("#re_pipeline_new_cancel").live('click', function() {
-    self.parent.tb_remove();
+    $.fancybox.close();
     return false;
   });  
 
   $('#re_pipeline_new_insert').live('click', function() {
-    block_thickbox();
-    
-    $.post($('#re_pipeline_new_form').attr('action'), $('#re_pipeline_new_form').serialize(), unblock_thickbox, 'script');
+    $.re_block();    
+    $.post($('#re_pipeline_new_form').attr('action'), $('#re_pipeline_new_form').serialize(), function() {
+        $.fancybox.resize();
+        $.re_unblock();
+      }, 'script');
     
     return false;
   });

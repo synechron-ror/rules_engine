@@ -1,12 +1,3 @@
-/* popup windows */
-#tb_temp_frame {
-  margin-top: 10px;
-  display : none;
-}
-#TB_ajaxContent{
-	padding:15px 10px 5px 10px;
-}
-
 /* CHANGE THE RULES MENU */
 /*.re-rule-menu .shadowbox-outer{*/
 /*  padding-bottom: 15px;*/

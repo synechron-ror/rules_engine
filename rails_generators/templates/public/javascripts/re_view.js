@@ -1,3 +1,22 @@
+// Ste the fancybox defaults
+$.extend($.fn.fancybox.defaults, { 
+    hideOnOverlayClick : false,
+    overlayOpacity : 0.6
+   });
+   
+jQuery.re_block = function(){
+  $.fancybox.showActivity();
+  $.blockUI({message: null});
+
+  var loading = $('#fancybox-loading')
+  loading.unbind('click')  
+}
+
+jQuery.re_unblock = function(){
+  $.fancybox.hideActivity();
+  $.unblockUI();
+}
+
 jQuery.re_message = function(style, header, message, timeout){
 	var $m = $('<div class="' + style + '"></div>');
 	$m.append('<strong>' + header + '</strong>');
@@ -36,21 +55,6 @@ jQuery.re_success_message = function(message, timeout){
 }
 jQuery.re_notice_message = function(message, timeout){
 	jQuery.re_message('growl-notice', 'Notice', message, timeout);
-}
-
-// BLOCKING
-block_thickbox = function() {
-  $('#TB_ajaxContent').block({'message' : 'loading'});
-}
-unblock_thickbox = function() {
-  $('#TB_ajaxContent').unblock();
-}
-
-block_page = function() {
-  $('.container').block({'message' : 'loading'});
-}
-block_page = function() {
-  $('.container').unblock();
 }
 
 $(document).ready(function() {	
@@ -140,12 +144,16 @@ $(document).ready(function() {
  	  var $new_content = $($.replace_new_record_ids(value))
  		$("#new_position_" + $(this).attr('id')).append($new_content); 		
  		$new_content.find('input').focus();
+ 		$.fancybox.resize();
  	});	
  	$('a.re-remove-link').live('click', function() { 
 		var id = $(this).attr('id').replace("_remove", "__delete");
 		$('input[id=' + id + ']').attr('value', '1');
 		$('input[id=' + id + ']').parent().hide();
+		$.fancybox.resize();
  	});
-	
+
+  // used by fancybox to create fancy boxes ;)
+  $('body').append('<div id="re_content_frame" style="display:none"><div id="re_content"> </div></div>');  
 });
 

@@ -1,6 +1,7 @@
-<%= re_alert_js %>
+$.fancybox.close();
+$.re_unblock();
 
-self.parent.tb_remove();
+<%= re_alert_js %>
 
 $('#re_pipeline_change').html('<%=escape_javascript(render('/re_pipelines/change'))%>');
 $('#re_pipeline_change_actions').html('<%=escape_javascript(render('/re_pipelines/change_actions'))%>');
@@ -12,9 +13,9 @@ $('#re_rules_change').html('')
   $('#re_rules_change').append('<%=escape_javascript(render('/re_rules/change', :re_rule => re_rule, :first_rule => re_rule == @re_pipeline.re_rules[0], :last_rule => re_rule == @re_pipeline.re_rules[-1]))%>');
 <% end %>
 
-$('#re_rule_change_<%=@re_rule.id%>').attr('style', 'background-color: #fff6bf;');
-$('#re_rule_change_<%=@re_rule.id%>').fadeTo(750, 0.44, function() {
-  $('#re_rule_change_<%=@re_rule.id%>').attr('style', '');
-  $('#re_rule_change_<%=@re_rule.id%>').fadeTo(1000, 1.00, function() {
+$('#re_rule_change_<%=@re_rule.id%> .re-bluebox:first').attr('style', 'background-color: #fff6bf;');
+$('#re_rule_change_<%=@re_rule.id%> .re-bluebox:first').fadeTo(750, 0.85, function() {
+  $('#re_rule_change_<%=@re_rule.id%> .re-bluebox:first').attr('style', '');
+  $('#re_rule_change_<%=@re_rule.id%> .re-bluebox:first').fadeTo(1000, 1.00, function() {
   });
 });

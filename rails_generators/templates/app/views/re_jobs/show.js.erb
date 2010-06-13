@@ -1,1 +1,4 @@
-$('#tb_temp_container').html('<%=escape_javascript(render(:partial => '/re_jobs/show'))%>');
+$('#re_content').html('<%=escape_javascript(render(:partial => '/re_jobs/show'))%>');
+
+$.re_unblock();
+$.fancybox({ href: '#re_content'});

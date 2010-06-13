@@ -10,9 +10,8 @@ $(document).ready(function() {
   $('a.re-job-detail').live('click', function() {    
     var job = $(this).attr('href').replace('#', '');
       
-    tb_show("", '#?TB_inline=true&inlineId=tb_temp_frame&height=450&width=800', false);
-    block_thickbox();
-    $.get('/re_jobs/' + job, null, unblock_thickbox, 'script');
+    $.re_block();
+    $.get('/re_jobs/' + job, null, null, 'script');
     
   	return false;  
   });  

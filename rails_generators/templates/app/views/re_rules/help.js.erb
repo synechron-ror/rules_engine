@@ -1,2 +1,4 @@
-$('#tb_temp_container').html('<%=escape_javascript(render(:partial => 'help'))%>');
+$('#re_content').html('<%=escape_javascript(render(:partial => 'help'))%>');
 
+$.re_unblock();
+$.fancybox({ href: '#re_content'});          

@@ -1,6 +1,7 @@
 <%= re_alert_js %>
 
-self.parent.tb_remove();
+$.fancybox.close();
+$.re_unblock();
 
 $('#re_pipeline_index').after('<%=escape_javascript(render('/re_pipelines/index', :re_pipeline => @re_pipeline, :hide => true))%>');
 

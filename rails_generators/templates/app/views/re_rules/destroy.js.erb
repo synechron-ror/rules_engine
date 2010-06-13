@@ -1,6 +1,7 @@
-<%= re_alert_js %>
+$.re_unblock();
+$.fancybox.close();
 
-self.parent.tb_remove();
+<%= re_alert_js %>
 
 $('#re_pipeline_change').html('<%=escape_javascript(render('/re_pipelines/change'))%>');
 $('#re_pipeline_change_actions').html('<%=escape_javascript(render('/re_pipelines/change_actions'))%>');
