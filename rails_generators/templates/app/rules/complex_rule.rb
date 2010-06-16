@@ -1,4 +1,4 @@
-class ComplexRule < RulesEngine::Rule
+class <%=rule_class%>Rule < RulesEngine::Rule
 
   attr_reader :words
   attr_reader :pipeline_action
@@ -8,11 +8,11 @@ class ComplexRule < RulesEngine::Rule
   # class options
   self.options = 
     {
-      :group => 'Sample Rules',
-      :display_name => 'Find Matching Words',    
-      :help_partial => '/re_rule_definitions/complex_rule/help',
-      :new_partial => '/re_rule_definitions/complex_rule/new',
-      :edit_partial => '/re_rule_definitions/complex_rule/edit'
+      :group => '<%=rule_class%> Rules',
+      :display_name => '<%=rule_class%> Rule',    
+      :help_partial => '/re_rule_definitions/<%=rule_name%>_rule/help',
+      :new_partial => '/re_rule_definitions/<%=rule_name%>_rule/new',
+      :edit_partial => '/re_rule_definitions/<%=rule_name%>_rule/edit'
     } 
   
   ##################################################################
@@ -63,28 +63,28 @@ class ComplexRule < RulesEngine::Rule
   def attributes=(params)
     param_hash = params.symbolize_keys
 
-    @title = param_hash[:complex_title]
+    @title = param_hash[:<%=rule_name%>_title]
     
     @words = []
-    return if param_hash[:complex_words].nil?
-    param_hash[:complex_words].each do |key, values| 
+    return if param_hash[:<%=rule_name%>_words].nil?
+    param_hash[:<%=rule_name%>_words].each do |key, values| 
       if values.is_a?(Hash)
         word_hash = values.symbolize_keys
         @words << word_hash[:word].downcase unless word_hash[:word].blank? || word_hash[:_delete] == '1'
       end  
     end
     
-    @pipeline_action = param_hash[:complex_pipeline_action] || 'continue'
-    @pipeline = param_hash[:complex_pipeline] || ''
+    @pipeline_action = param_hash[:<%=rule_name%>_pipeline_action] || 'continue'
+    @pipeline = param_hash[:<%=rule_name%>_pipeline] || ''
   end
   
   ##################################################################
   # validation and errors
   def valid?
     @errors = {}
-    self.errors[:complex_words] = "At least one word must be defined" if self.words.nil? || self.words.empty?
-    self.errors[:complex_title] = "Title required" if self.title.blank?    
-    self.errors[:complex_pipeline] = "Pipeline required" if self.pipeline_action == 'start_pipeline' && self.pipeline.blank?
+    self.errors[:<%=rule_name%>_words] = "At least one word must be defined" if self.words.nil? || self.words.empty?
+    self.errors[:<%=rule_name%>_title] = "Title required" if self.title.blank?    
+    self.errors[:<%=rule_name%>_pipeline] = "Pipeline required" if self.pipeline_action == 'start_pipeline' && self.pipeline.blank?
     return self.errors.empty?
   end
 

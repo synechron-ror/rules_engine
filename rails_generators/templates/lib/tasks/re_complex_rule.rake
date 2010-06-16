@@ -1,10 +1,10 @@
 namespace :re do
   
-  desc "run a rules pipeline with the complex rule"   
-  task :complex_rule => :environment do
+  desc "run a rules pipeline with the <%=rule_name%> rule"   
+  task :<%=rule_name%>_rule => :environment do
 
     if ENV['pipeline_code'].blank? || ENV['sentence'].blank?
-      raise "usage: rake re:complex_rule pipeline_code=[pipeline code] sentence='[sentence to test]'"
+      raise "usage: rake re:<%=rule_name%>_rule pipeline_code=[pipeline code] sentence='[sentence to test]'"
     end    
     
     puts "test the sentence : #{ENV['sentence']} in the pipeline #{ENV['pipeline_code']}"

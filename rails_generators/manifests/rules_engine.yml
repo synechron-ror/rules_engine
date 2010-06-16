@@ -1,22 +1,23 @@
 directories :
-  - app/views/re_jobs
-  - app/views/re_pipeline_jobs
-  - app/views/re_pipelines
-  - app/views/re_rules
+  list :
+    - app/views/re_jobs
+    - app/views/re_pipeline_jobs
+    - app/views/re_pipelines
+    - app/views/re_rules
 
-  - public/images/re_pipeline
-  - public/images/re_rule
-  - public/images/re_rule_class
-  - public/images/re_job
+    - public/images/re_pipeline
+    - public/images/re_rule
+    - public/images/re_rule_class
+    - public/images/re_job
 
-  - public/stylesheets/fancybox
-  - public/stylesheets/blueprint
-  - public/stylesheets/re_view_box
-  - public/stylesheets/re_view_button
-  - public/stylesheets/re_view_error
-  - public/stylesheets/re_view_navigate
+    - public/stylesheets/fancybox
+    - public/stylesheets/blueprint
+    - public/stylesheets/re_view_box
+    - public/stylesheets/re_view_button
+    - public/stylesheets/re_view_error
+    - public/stylesheets/re_view_navigate
   
-  - features/re_pipeline
+    - features/re_pipeline
   
 files :  
   - doc/README.rules_engine

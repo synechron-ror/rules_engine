@@ -1,7 +1,7 @@
-<%= render :partial => '/re_rule_definitions/complex_rule/script' %>
+<%%= render :partial => '/re_rule_definitions/<%=rule_name%>_rule/script' %>
 
-<%= render :partial => '/re_rule_definitions/complex_rule/title' %>
+<%%= render :partial => '/re_rule_definitions/<%=rule_name%>_rule/title' %>
 
-<%= render :partial => '/re_rule_definitions/complex_rule/words', :locals => { :f => f } %>
+<%%= render :partial => '/re_rule_definitions/<%=rule_name%>_rule/words', :locals => { :f => f } %>
 
-<%= render :partial => '/re_rule_definitions/complex_rule/pipeline' %>
+<%%= render :partial => '/re_rule_definitions/<%=rule_name%>_rule/pipeline' %>

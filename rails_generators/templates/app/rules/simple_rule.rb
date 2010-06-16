@@ -1,14 +1,14 @@
-class SimpleRule < RulesEngine::Rule
+class <%=rule_class%>Rule < RulesEngine::Rule
 
   ##################################################################
   # class options
   self.options = 
     {
-      :group => 'Sample Rules',
-      :display_name => 'Does Nothing',    
-      :help_partial => '/re_rule_definitions/simple_rule/help',
-      :new_partial => '/re_rule_definitions/simple_rule/new',
-      :edit_partial => '/re_rule_definitions/simple_rule/edit'
+      :group => '<%=rule_class%> Rules',
+      :display_name => '<%=rule_class%> Rule',    
+      :help_partial => '/re_rule_definitions/<%=rule_name%>_rule/help',
+      :new_partial => '/re_rule_definitions/<%=rule_name%>_rule/new',
+      :edit_partial => '/re_rule_definitions/<%=rule_name%>_rule/edit'
     } 
   
   ##################################################################
@@ -44,14 +44,14 @@ class SimpleRule < RulesEngine::Rule
   def attributes=(params)
     param_hash = params.symbolize_keys
 
-    @title = param_hash[:simple_title]
+    @title = param_hash[:<%=rule_name%>_title]
   end
   
   ##################################################################
   # validation and errors
   def valid?
     @errors = {}
-    self.errors[:simple_title] = "Title required" if self.title.blank?    
+    self.errors[:<%=rule_name%>_title] = "Title required" if self.title.blank?    
     return self.errors.empty?
   end
 

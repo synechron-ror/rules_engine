@@ -1,26 +1,26 @@
-<% javascript_tag do %>
-  var new_complex = '<%=escape_javascript(render(:partial => "/re_rule_definitions/complex_rule/word"))%>'  
+<%% javascript_tag do %>
+  var new_<%=rule_name%> = '<%%=escape_javascript(render(:partial => "/re_rule_definitions/<%=rule_name%>_rule/word"))%>'  
   
   var updatePipelineAction = function() {
-    if ($('#complex_pipeline_action').attr('value') == "start_pipeline")
+    if ($('#<%=rule_name%>_pipeline_action').attr('value') == "start_pipeline")
     {
-      $('#complex_pipeline').re_form_enable();
-      $('#complex_pipeline').removeAttr("disabled");      
+      $('#<%=rule_name%>_pipeline').re_form_enable();
+      $('#<%=rule_name%>_pipeline').removeAttr("disabled");      
     } else {
-      $('#complex_pipeline').re_form_disable();
-      $('#complex_pipeline').attr("disabled", true); 
+      $('#<%=rule_name%>_pipeline').re_form_disable();
+      $('#<%=rule_name%>_pipeline').attr("disabled", true); 
     }      
   }
 
   $(document).ready(function() {	
     $('#rule_title').focus();	
-    $("#complex_pipeline").autocomplete('/re_pipelines/lookup?t=code', { multiple: false });
+    $("#<%=rule_name%>_pipeline").autocomplete('/re_pipelines/lookup?t=code', { multiple: false });
     
-    $('#complex_pipeline_action').change(function() {
+    $('#<%=rule_name%>_pipeline_action').change(function() {
       updatePipelineAction();
     });    
     
     updatePipelineAction();
   });
 
-<% end %>
+<%% end %>

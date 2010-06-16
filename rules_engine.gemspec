@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-06-16}
+  s.date = %q{2010-06-17}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -42,11 +42,7 @@ Gem::Specification.new do |s|
      "rails_generators/manifests/rules_engine_complex.yml",
      "rails_generators/manifests/rules_engine_simple.rb",
      "rails_generators/manifests/rules_engine_simple.yml",
-     "rails_generators/manifests/rules_engine_template.rb",
-     "rails_generators/rules_engine_complex_generator.rb",
      "rails_generators/rules_engine_generator.rb",
-     "rails_generators/rules_engine_simple_generator.rb",
-     "rails_generators/rules_engine_template_generator.rb",
      "rails_generators/templates/app/controllers/re_jobs_controller.rb",
      "rails_generators/templates/app/controllers/re_pipeline_jobs_controller.rb",
      "rails_generators/templates/app/controllers/re_pipelines_controller.rb",
@@ -62,7 +58,6 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/models/re_rule_expected_outcome.rb",
      "rails_generators/templates/app/rules/complex_rule.rb",
      "rails_generators/templates/app/rules/simple_rule.rb",
-     "rails_generators/templates/app/rules/template_rule.rb",
      "rails_generators/templates/app/views/layouts/rules_engine.html.erb",
      "rails_generators/templates/app/views/re_jobs/_empty.html.erb",
      "rails_generators/templates/app/views/re_jobs/_index_large.html.erb",
@@ -104,10 +99,6 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_rule_definitions/simple_rule/_help.html.erb",
      "rails_generators/templates/app/views/re_rule_definitions/simple_rule/_new.html.erb",
      "rails_generators/templates/app/views/re_rule_definitions/simple_rule/_title.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/template_rule/_edit.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/template_rule/_help.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/template_rule/_new.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/template_rule/_title.html.erb",
      "rails_generators/templates/app/views/re_rules/_change.html.erb",
      "rails_generators/templates/app/views/re_rules/_edit.html.erb",
      "rails_generators/templates/app/views/re_rules/_empty.html.erb",
@@ -405,9 +396,9 @@ Gem::Specification.new do |s|
      "rails_generators/templates/spec/helpers/re_pipeline_helper_spec.rb",
      "rails_generators/templates/spec/lib/rules/complex_rule_spec.rb",
      "rails_generators/templates/spec/lib/rules/simple_rule_spec.rb",
-     "rails_generators/templates/spec/lib/rules/template_rule_spec.rb",
      "rails_generators/templates/spec/models/re_job_audit_spec.rb",
      "rails_generators/templates/spec/models/re_job_spec.rb",
+     "rails_generators/templates/spec/models/re_pipeline_activated_observer_spec.rb",
      "rails_generators/templates/spec/models/re_pipeline_activated_spec.rb",
      "rails_generators/templates/spec/models/re_pipeline_base_spec.rb",
      "rails_generators/templates/spec/models/re_pipeline_spec.rb",
