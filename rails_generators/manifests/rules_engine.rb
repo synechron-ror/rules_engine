@@ -279,6 +279,7 @@ class RulesEngineManifest
       public/stylesheets/fancybox/fancy_nav_left.png
       public/images/re_pipeline/show-25.png
       app/views/re_rules/edit.js.erb
+      spec/models/re_pipeline_activated_observer_spec.rb
       app/controllers/re_jobs_controller.rb
       public/stylesheets/re_view_button/icon-delete.png
       public/stylesheets/blueprint/plugins/buttons/icons/cross.png

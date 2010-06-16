@@ -75,6 +75,7 @@ files :
   - spec/models/re_pipeline_base_spec.rb
   - spec/models/re_pipeline_spec.rb
   - spec/models/re_pipeline_activated_spec.rb
+  - spec/models/re_pipeline_activated_observer_spec.rb
   - spec/models/re_rule_spec.rb
   - spec/models/re_rule_expected_outcome_spec.rb
   - spec/models/re_job_spec.rb

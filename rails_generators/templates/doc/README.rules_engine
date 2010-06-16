@@ -1,9 +1,18 @@
 ***************************************************** 
-*** INSTALL GEMS
+*** install the supporting gems
 
 sudo gem install will_paginate acts_as_list
 
+
 ***************************************************** 
+*** setup the test environment for rspec and cucumber
+
+./script/generate rspec
+./script/generate cucumber --rspec
+
+
+***************************************************** 
+*** add the gems, pipeline observer and add the RulesEngine discovery method
 *** EDIT config/environment.rb
 
 Rails::Initializer.run do |config|
@@ -18,7 +27,9 @@ end
   
 RulesEngine::Discovery.discover!
 
+
 ***************************************************** 
+*** define the cache for the rules engine
 *** EDIT config/environments/production.rb
 *** EDIT config/environments/development.rb
 *** EDIT config/environments/test.rb
@@ -33,6 +44,7 @@ RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
 
 
 ***************************************************** 
+*** setup the test and cucumber environments  
 *** EDIT config/environments/test.rb
 *** EDIT config/environments/cucumber.rb
 
@@ -49,7 +61,9 @@ RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
   require 'faker'
   require 'remarkable_rails'
 
+
 ***************************************************** 
+*** add the rules engine routes
 *** EDIT config/routes.rb
 
 ActionController::Routing::Routes.draw do |map|
@@ -68,34 +82,60 @@ end
 
 
 ***************************************************** 
-*** RUN rake db:migrate
-
-restart app and goto http://localhost:3000/re_pipelines
-
-
-***************************************************** 
-*** INSTALL RULES_ENGINE_USERS
+*** install the rules_engine_users gem
 ***           OR 
-*** DEFINE YOUR OWN USER ACCESS RULES
+*** define the 
 *** EDIT app/controllers/application_controller.rb
 
 class ApplicationController < ActionController::Base
 
-  helper_method :logged_in?, :current_user
+  helper_method :rules_engine_reader?, :rules_engine_editor?
   
-  def current_user
-    Struct.new(:id, :full_name).new('1001', 'Christopher Douglas')
-  end
-  
-  def logged_in?
+  def rules_engine_reader?
     return true
   end  
-  ...
+  
+  def rules_engine_editor?
+    return true
+  end  
+
   def rules_engine_reader_access_required
     # redirect if the current user cannot read the rules
+    redirect(home_path) unless rules_engine_reader?    
   end
   
   def rules_engine_editor_access_required
     # redirect if the current user cannot edit the rules
+    redirect(home_path) unless rules_engine_editor?    
   end
-  
+
+
+***************************************************** 
+*** migrate the database
+
+rake db:migrate
+
+
+***************************************************** 
+*** run the rspec tests
+
+rake spec
+rake spec:rcov
+open coverage/index.html
+
+
+***************************************************** 
+*** run the cucumber tests
+
+rake features
+
+
+***************************************************** 
+*** startup the server
+
+./script/server
+open http://localhost:3000/re_pipelines
+
+
+***************************************************** 
+*** create rules
