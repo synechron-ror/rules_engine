@@ -48,11 +48,12 @@ files :
   - public/javascripts/jquery.blockUI.js
   - public/javascripts/jquery.fancybox-1.3.1.js
   
-  - public/javascripts/re_jobs.js    
-  - public/javascripts/re_pipeline_change.js 
+  - public/javascripts/re_job_index.js
+  - public/javascripts/re_pipeline_change.js   
   - public/javascripts/re_pipeline_index.js  
-  - public/javascripts/re_pipeline_jobs.js
+  - public/javascripts/re_pipeline_index_jobs.js
   - public/javascripts/re_pipeline_new.js
+  - public/javascripts/re_pipeline_show_jobs.js  
   - public/javascripts/re_view.js
   
   - public/stylesheets/jquery.autocomplete.css

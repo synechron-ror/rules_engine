@@ -1,0 +1,7 @@
+<% if re_pipeline.re_rules.empty? %>
+  $('#re_rules_empty').slideDown(150, function() {
+    $('#re_rules_empty').show();
+  });
+<% else %>  
+  $('#re_rules_empty').hide();
+<% end %>  

@@ -1,6 +1,6 @@
 <%= re_alert_js %>
 
-$('#re_job_list').html('<%=escape_javascript(render(:partial => '/re_pipeline_jobs/index'))%>');
+$('#re_job_list').html('<%=escape_javascript(render(:partial => '/re_jobs/index_small'))%>');
 
 $('#re_job_list_pending').hide();
 <% if @re_jobs.empty? %>

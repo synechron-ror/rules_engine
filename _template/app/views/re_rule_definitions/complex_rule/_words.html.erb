@@ -1,0 +1,16 @@
+<% position = 0 %>
+<% (@re_rule.rule.words || []).each do | word | %>  
+  <% f.fields_for :rule_data, {:first => false} do |frd| %>
+    <%= render :partial => '/re_rule_definitions/complex_rule/word', :locals => { :f => frd, :position => position, :word => word} %>
+    <% position += 1 %>        
+  <% end %>
+<% end %>  
+<% if position == 0 %>
+  <% f.fields_for :rule_data, {:first => false} do |frd| %>
+    <%= render :partial => '/re_rule_definitions/complex_rule/word', :locals => { :f => frd, :position => position} %>      
+  <% end %>
+<% end %>
+
+<div id="new_position_complex"></div>
+<%= re_form_text "", re_add_link('Add another word to match', 'complex') %>    
+

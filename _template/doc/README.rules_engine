@@ -1,0 +1,101 @@
+***************************************************** 
+*** INSTALL GEMS
+
+sudo gem install will_paginate acts_as_list
+
+***************************************************** 
+*** EDIT config/environment.rb
+
+Rails::Initializer.run do |config|
+  ...
+  config.gem 'rules_engine'
+  config.gem 'will_paginate'
+  config.gem 'acts_as_list'
+  ...
+  config.active_record.observers = :re_pipeline_activated_observer
+  ...
+end
+  
+RulesEngine::Discovery.discover!
+
+***************************************************** 
+*** EDIT config/environments/production.rb
+*** EDIT config/environments/development.rb
+*** EDIT config/environments/test.rb
+
+RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
+  #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
+  #   RulesEngine::Cache.cache_store = :memory_store
+  #   RulesEngine::Cache.cache_store = :file_store, "/path/to/cache/directory"
+  #   RulesEngine::Cache.cache_store = :drb_store, "druby://localhost:9192"
+  #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost"
+  #   RulesEngine::Cache.cache_store = MyOwnStore.new("parameter")
+
+
+***************************************************** 
+*** EDIT config/environments/test.rb
+*** EDIT config/environments/cucumber.rb
+
+  config.gem "rspec",             :version => '>=1.3.0', :lib => false
+  config.gem "rspec-rails",       :version => '>=1.3.2', :lib => false
+  config.gem "faker",             :version => '>=0.3.1', :lib => false
+
+  config.gem "machinist",         :version => '>=1.0.6', :lib => false
+  config.gem 'rcov',              :version => '>=0.9.8', :lib => false
+  config.gem 'remarkable_rails',  :version => '>=3.1.13', :lib => false
+
+  require 'machinist/active_record'
+  require 'sham'
+  require 'faker'
+  require 'remarkable_rails'
+
+***************************************************** 
+*** EDIT config/routes.rb
+
+ActionController::Routing::Routes.draw do |map|
+
+  ...
+  ### map.root :controller => 're_pipelines', :action => 'template'
+  ### map.preview '/preview', :controller => 're_pipelines', :action => 'template'
+  map.resources :re_pipelines, :collection => {:lookup => :get}, :member => {:change => :get, :activate => :put, :deactivate => :put, :revert => :put} do |re_pipeline|  
+    re_pipeline.resources :re_rules, :collection => {:help => :get, :error => :get}, :member => {:move_up => :put, :move_down => :put}
+    re_pipeline.resources :re_jobs, :controller => :re_pipeline_jobs, :only => [:index]
+  end
+  
+  map.resources :re_jobs, :only => [:index, :show]
+  ...
+end  
+
+
+***************************************************** 
+*** RUN rake db:migrate
+
+restart app and goto http://localhost:3000/re_pipelines
+
+
+***************************************************** 
+*** INSTALL RULES_ENGINE_USERS
+***           OR 
+*** DEFINE YOUR OWN USER ACCESS RULES
+*** EDIT app/controllers/application_controller.rb
+
+class ApplicationController < ActionController::Base
+
+  helper_method :logged_in?, :current_user
+  
+  def current_user
+    Struct.new(:id, :full_name).new('1001', 'Christopher Douglas')
+  end
+  
+  def logged_in?
+    return true
+  end  
+  ...
+  def rules_engine_reader_access_required
+    # redirect if the current user cannot read the rules
+  end
+  
+  def rules_engine_editor_access_required
+    # redirect if the current user cannot edit the rules
+  end
+  

@@ -48,20 +48,3 @@ describe "set_re_breadcrumbs_right", :type => :helper do
     @template.instance_variable_get("@content_for_defer_re_breadcrumbs").should == eval_erb("<%= re_breadcrumbs_right('me') %>")
   end
 end
-
-
-describe "set_re_subnav", :type => :helper do 
-  it "should be accessible to rails apps by default" do 
-    ActionView::Base.new.methods.should include("set_re_subnav")
-  end
-  
-  it "should set defer_re_subnav" do
-    @template.should_receive(:content_for).with(:defer_re_subnav)
-    eval_erb("<% set_re_subnav('me', 'link') %>")
-  end
-
-  it "should set defer_re_subnav variable " do
-    eval_erb("<% set_re_subnav('me', 'link') %>")
-    @template.instance_variable_get("@content_for_defer_re_subnav").should == eval_erb("<%= re_subnav('me', 'link') %>")
-  end
-end

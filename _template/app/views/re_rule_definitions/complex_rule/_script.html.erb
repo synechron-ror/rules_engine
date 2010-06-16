@@ -1,0 +1,26 @@
+<% javascript_tag do %>
+  var new_complex = '<%=escape_javascript(render(:partial => "/re_rule_definitions/complex_rule/word"))%>'  
+  
+  var updatePipelineAction = function() {
+    if ($('#complex_pipeline_action').attr('value') == "start_pipeline")
+    {
+      $('#complex_pipeline').re_form_enable();
+      $('#complex_pipeline').removeAttr("disabled");      
+    } else {
+      $('#complex_pipeline').re_form_disable();
+      $('#complex_pipeline').attr("disabled", true); 
+    }      
+  }
+
+  $(document).ready(function() {	
+    $('#rule_title').focus();	
+    $("#complex_pipeline").autocomplete('/re_pipelines/lookup?t=code', { multiple: false });
+    
+    $('#complex_pipeline_action').change(function() {
+      updatePipelineAction();
+    });    
+    
+    updatePipelineAction();
+  });
+
+<% end %>

@@ -1,0 +1,69 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="data" id="re_job_table">
+	 <tr>
+		<th class="" width="110px">	
+			<span class="left-5">
+				Job Id	
+			</span>									
+		</th>
+		<th class="text-right" width="180px">	
+			<span class="right-20">
+				Start Time	
+			</span>			
+		</th>
+		<th class="text-right" width="180px">	
+			<span class="right-20">
+				Finish Time	
+			</span>						
+		</th>
+		<th colspan="2">	
+			<span class="left-5">
+				Data	
+			</span>						
+		</th>
+	</tr>			
+	<% @re_jobs.each do | re_job | %>
+		<tr class="<%= cycle('', 'odd') %>">
+    	<td>
+<%  
+				case re_job['job_status'].to_i
+					when ReJob::JOB_STATUS_NONE, ReJob::JOB_STATUS_RUNNING
+						job_class = 'job-running' 
+					when ReJob::JOB_STATUS_SUCCESS	
+						job_class = 're-job-success'
+					else	
+						job_class = 're-job-error'
+				end
+%>
+				<div class="<%= job_class %>">
+					<%= re_job['job_id'] %>
+				</div>	
+			</td>	
+			<td class="text-right">
+				<%= re_job['start_date'].strftime('%d %b %Y - %H:%M:%S') %>
+			</td>
+			<td class="text-right">
+				<%= re_job['end_date'] ? re_job['end_date'].strftime('%d %b %Y - %H:%M:%S') : '&nbsp;' %>
+			</td>
+			<td class="no-border-right">
+				<span class="left-5">
+					<%= re_job['end_data'] || re_job['start_data'] %>
+				</span>										
+			</td>
+			<td class="no-border-left text-right">
+				<a class="re-job-detail" href='#<%= re_job['job_id'] %>'>
+				</a>	
+			</td>	
+     </tr>
+   <% end %>
+	<tr class="<%= cycle('', 'odd') %>">
+		<td colspan = "5">
+			<% if @re_pipeline.nil? %>
+				<a class="re-job-page-next-<%= @re_jobs.next_page ? 'enabled' : 'disabled' %>" href='<%= re_jobs_path(:page => (@re_jobs.next_page || '1')) %>'></a>
+				<a class="re-job-page-prev-<%= @re_jobs.previous_page ? 'enabled' : 'disabled' %>" href='<%= re_jobs_path(:page => (@re_jobs.previous_page || '1'))%>'></a>
+			<% else %>	
+				<a class="re-job-page-next-<%= @re_jobs.next_page ? 'enabled' : 'disabled' %>" href='<%= re_pipeline_re_jobs_path(@re_pipeline, :page => (@re_jobs.next_page || '1')) %>'></a>
+				<a class="re-job-page-prev-<%= @re_jobs.previous_page ? 'enabled' : 'disabled' %>" href='<%= re_pipeline_re_jobs_path(@re_pipeline, :page => (@re_jobs.previous_page || '1'))%>'></a>
+			<% end %>
+		</td>
+	</tr>	
+</table>

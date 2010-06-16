@@ -1,0 +1,39 @@
+<div style="display:none">
+  <div id="re_pipeline_action_confirm">
+    <div class="span-14 last">
+      <% re_whitebox do %>    
+        <h2 class="re-pipeline-alert red" id="re_pipeline_action_title"></h2>    
+        <div class="clear top-5"></div>
+        <hr/>
+        <div class="clear top-5"></div>
+  
+        <div class="span-13 last" id="re_pipeline_action_content_code">
+        </div>  
+        <div class="clear"></div>
+
+        <div class="span-12 prepend-1 last">
+          <h5 id="re_pipeline_action_content_title"></h5>
+        </div>    
+        <div class="clear"></div>
+        <%= re_button_link_green('Action', "#", :id => "re_pipeline_action_ok") %>
+        <%= re_button_link_orange('Cancel', "#", :id => "re_pipeline_action_cancel") %>
+      <% end %>  
+    </div>
+  </div>
+  
+  <div id="re_rule_delete_confirm">
+    <div class="span-11 last">
+      <% re_whitebox do %>    
+        <h2 class="re-pipeline-delete red">Confirm Delete</h2>    
+        <div class="clear top-5"></div>
+        <hr/>
+        <h5 class="float-left"><strong>This cannot be undone !!!</strong></h5>
+        <%= re_button_link_green('Delete', "#", :id => "re_rule_delete_ok") %>
+        <%= re_button_link_orange('Cancel', "#", :id => "re_rule_delete_cancel") %>
+        <div class="clear"></div>
+
+      <% end %>  
+    </div>
+  </div>
+  
+</div>

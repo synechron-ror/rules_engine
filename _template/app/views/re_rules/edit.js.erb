@@ -1,0 +1,8 @@
+$('#re_content').html('<%=escape_javascript(render(:partial => 'edit'))%>');
+
+$('#re_rule_edit_update').closest('div.re-form-button').re_form_button(); 
+
+$("#re_rule_edit_form").submit(function() { return false; });
+
+$.re_unblock();
+$.fancybox({ href: '#re_content'});

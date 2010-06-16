@@ -1,0 +1,22 @@
+<div class="clear top-10"></div>
+<hr/>
+
+<div class="span-8">
+  <%= re_select "Match Outcome", 'complex_pipeline_action', 
+                                    options_for_select([
+                                                        ["Continue Next", 'next'], 
+                                                        ["Stop Success", 'stop_success'],
+                                                        ["Stop Failure", 'stop_failure'],
+                                                        ["Start another Pipeline", 'start_pipeline']
+                                                        ], 
+                                                        @re_rule.rule.pipeline_action || params['complex_pipeline_action']),
+																		:required => true %>
+</div>
+<div class="prepend-1 span-7 last">
+  <%= re_text_field "Pipeline Name", "complex_pipeline", @re_rule.rule.pipeline || params[:complex_pipeline] || '', 
+																		:size => 20, 
+																		:required => true, 
+																		:span => '3x5',
+																		:error => @re_rule.rule.errors[:complex_pipeline] %>
+</div>
+
