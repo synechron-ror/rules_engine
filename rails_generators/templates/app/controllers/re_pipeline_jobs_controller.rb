@@ -10,7 +10,7 @@ class RePipelineJobsController < ApplicationController
   end
 
   def index
-    @re_jobs = ReJob.find_jobs_by_pipeline(@re_pipeline.id, :page => params[:page], :per_page => 2)
+    @re_jobs = ReJob.find_jobs_by_pipeline(@re_pipeline.id, :page => params[:page], :per_page => 20)
   end
 
 end
