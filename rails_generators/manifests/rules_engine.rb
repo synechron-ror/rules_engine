@@ -33,7 +33,6 @@ class RulesEngineManifest
       public/stylesheets/fancybox
       public/stylesheets/re_view_box
       public/stylesheets/re_view_button
-      public/stylesheets/re_view_error
       public/stylesheets/re_view_navigate
       spec/controllers
       spec/helpers
@@ -368,8 +367,6 @@ class RulesEngineManifest
       public/stylesheets/re_view_button/oval-red-left.gif
       public/stylesheets/re_view_button/oval-red-right.gif
       public/stylesheets/re_view_error.css
-      public/stylesheets/re_view_error/accept.png
-      public/stylesheets/re_view_error/exclamation.png
       public/stylesheets/re_view_form.css
       public/stylesheets/re_view_navigate.css
       public/stylesheets/re_view_navigate/breadcrumb.png

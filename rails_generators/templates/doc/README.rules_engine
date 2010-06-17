@@ -69,7 +69,7 @@ RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
 ActionController::Routing::Routes.draw do |map|
 
   ...
-  ### map.root :controller => 're_pipelines', :action => 'template'
+  ### map.root :controller => 're_pipelines', :action => 'index'
   ### map.preview '/preview', :controller => 're_pipelines', :action => 'template'
   map.resources :re_pipelines, :collection => {:lookup => :get}, :member => {:change => :get, :activate => :put, :deactivate => :put, :revert => :put} do |re_pipeline|  
     re_pipeline.resources :re_rules, :collection => {:help => :get, :error => :get}, :member => {:move_up => :put, :move_down => :put}

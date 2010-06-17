@@ -1,38 +1,19 @@
-/* @group ALERTS */
-.growl-error {
-	font-size: 1.6em;
-	background: #fff6bf url("./re_view_error/exclamation.png") center no-repeat;
-	background-position: 15px 50%; /* x-pos y-pos */
-	text-align: left;
-	padding: 5px 0px 5px 45px;
-	border-bottom: 2px solid #b43838;
-	margin-left: auto;
-	margin-right: auto;
-	clear: both;
-}	
+.error, .notice, .success {
+  font-size:16px;
+  margin-bottom: 0px;
+  padding: 5px 15px; 
+}
 
-.growl-success {
-	font-size: 1.6em;
-	background: #fff6bf url("./re_view_error/accept.png") center no-repeat;
-	background-position: 15px 50%; /* x-pos y-pos */
-	text-align: left;
-	padding: 5px 0px 5px 45px;
-	border-bottom: 2px solid #92b83c;
-  margin-left: auto;
-  margin-right: auto;
-}	
-
-.growl-notice {
-	font-size: 1.6em;
-	background: #fff6bf url("./re_view_error/exclamation.png") center no-repeat;
-	background-position: 15px 50%; /* x-pos y-pos */
-	text-align: left;
-	padding: 5px 0px 5px 45px;
-	border-bottom: 2px solid #ffd324;
-	margin-left: auto;
-	margin-right: auto;
-}	
-
+a.re-alert-close {
+  float: right;
+  text-decoration: none;
+	background: url('/images/re_rule/stop-failure-18.png') no-repeat 2px 2px;
+  padding-left: 24px;
+}
+a.re-alert-close:hover {
+  color: #000;
+  text-decoration: underline;
+}
 
 /* styling for  rails error messages : error_messages_for(:user, :post, :object_name => "monkey") */
 

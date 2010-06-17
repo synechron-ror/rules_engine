@@ -1,9 +1,0 @@
-<%= re_alert_js %>
-
-$.fancybox.close();
-$.re_unblock();
-
-$('#re_pipeline_index').after('<%=escape_javascript(render('/re_pipelines/index', :re_pipeline => @re_pipeline, :hide => true))%>');
-
-$('#re_pipelines_empty').hide();
-$('#re_pipeline_index_<%=@re_pipeline.id%>').slideDown();

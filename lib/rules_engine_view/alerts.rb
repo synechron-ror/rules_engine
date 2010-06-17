@@ -2,32 +2,34 @@ module RulesEngineView
   module Alerts
     
     def re_alert
+      result = '<div id="re_alert">'
+      
       unless flash[:error].blank?
-        result = '<div class="error"><strong>Error : </strong><span>'
+        result << '<div class="error"><strong>Error : </strong><span>'
         result << flash.delete(:error)
         result << '</span></div>'
 
         flash.delete(:success)
         flash.delete(:notice)
-        return result      
       end
 
       unless flash[:success].blank?
-        result = '<div class="success"><strong>Success : </strong><span>'
+        result << '<div class="success"><strong>Success : </strong><span>'
         result << flash.delete(:success)
         result << '</span></div>'
 
         flash.delete(:notice)
-        return result      
       end      
 
       unless flash[:notice].blank?
-        result = ''
-        result = '<div class="notice"><strong>Warning : </strong><span>'
+        result << '<div class="notice"><strong>Warning : </strong><span>'
         result << flash.delete(:notice)
         result << '</span></div>'
-        return result      
       end      
+
+      result << '</div>'      
+      
+      return result
     end    
     
     def re_alert_js

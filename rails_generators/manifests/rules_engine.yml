@@ -14,7 +14,6 @@ directories :
     - public/stylesheets/blueprint
     - public/stylesheets/re_view_box
     - public/stylesheets/re_view_button
-    - public/stylesheets/re_view_error
     - public/stylesheets/re_view_navigate
   
     - features/re_pipeline

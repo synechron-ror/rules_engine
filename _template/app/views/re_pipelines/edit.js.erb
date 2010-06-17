@@ -1,8 +1,0 @@
-$('#re_content').html('<%=escape_javascript(render(:partial => '/re_pipelines/edit'))%>');
-
-$('#re_pipeline_edit_update').closest('div.re-form-button').re_form_button(); 
-
-$("#re_pipeline_edit_form").submit(function() { return false; });
-
-$.re_unblock();
-$.fancybox({ href: '#re_content'});

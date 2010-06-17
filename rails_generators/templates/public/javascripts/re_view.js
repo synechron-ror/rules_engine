@@ -17,61 +17,30 @@ jQuery.re_unblock = function(){
   $.unblockUI();
 }
 
-jQuery.re_message = function(style, header, message, timeout){
+jQuery.re_message = function(style, header, message) {
 	var $m = $('<div class="' + style + '"></div>');
 	$m.append('<strong>' + header + '</strong>');
 	if (message) $m.append(' : ' + message);
-	if (timeout == undefined) timeout = 1000;
-  $('.container').block({
-		message: $m, 
-		fadeIn: 700, 
-		fadeOut: 2000, 
-		centerY: false,
-		timeout: timeout, 
-		showOverlay: false,
-		css: {
-            width:    '650px',
-            top:      '10px',
-            // left:     '10px',
-            right:    '10px',
-					  border:   'none',
-					  padding:  '5px',
-					  opacity:   0.95,
-						cursor:    null,
-					  color:    '#000',
-					  border:         '1px solid #333',
-					  backgroundColor: '#fff6bf',
-					  '-webkit-border-radius': '10px',
-					  '-moz-border-radius':    '10px'
-					}
-   });
+	$m.append('<a class="re-alert-close" href="#">Close</a>');
+  if ($('#re_alert').is(':visible')) {
+    $('#re_alert').html($m);
+  }
+  else {
+    $('#re_alert').html($m);
+    $('#re_alert').slideDown('fast');      
+  }
+	
 }
 
-jQuery.re_error_message = function(message, timeout){
-	jQuery.re_message('growl-error', 'Error', message, timeout);
+jQuery.re_error_message = function(message) {
+	jQuery.re_message('error', 'Error', message);
 }
-jQuery.re_success_message = function(message, timeout){
-	jQuery.re_message('growl-success', 'Success', message, timeout);
+jQuery.re_success_message = function(message) {
+	jQuery.re_message('success', 'Success', message);
 }
-jQuery.re_notice_message = function(message, timeout){
-	jQuery.re_message('growl-notice', 'Notice', message, timeout);
+jQuery.re_notice_message = function(message) {
+	jQuery.re_message('notice', 'Notice', message);
 }
-
-$(document).ready(function() {	
-	// make success, notice and failure message growl at the user
-	if ($('.error').length) {
-			$.re_error_message($('.error > span').text());
-      // $('.error').hide();      
-	}		
-	else if ($('.success').length) {
-			$.re_success_message($('.success > span').text());
-      // $('.success').hide();      
-	}		
-	else if ($('.notice').length) {
-			$.re_notice_message($('.notice > span').text());
-      // $('.notice').hide();     
-	}			
-});
 
 // Form buttons
 jQuery.fn.re_form_button = function() {
@@ -127,6 +96,10 @@ jQuery.replace_new_record_ids = function(s){
 
 // document ready
 $(document).ready(function() {	
+  $('a.re-alert-close').live('click', function() {
+    $('#re_alert').slideUp('fast');
+ 	});	
+  
   $('div.re-form-button').each(function() { 
    $(this).re_form_button(); 
   });  
