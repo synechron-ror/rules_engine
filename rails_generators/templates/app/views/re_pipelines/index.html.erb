@@ -1,7 +1,10 @@
-<% set_re_javascript_include ['re_pipeline_index', 're_pipeline_new', 're_pipeline_index_jobs'] %>
-<% set_re_breadcrumbs_right link_to("All Pipelines", re_pipelines_path, :class => "re-pipeline-list"),
+<% set_re_javascript_include ['re_pipeline_index', 're_pipeline_new', 're_job_index', 're_pipeline_index_jobs'] %>
+<% if rules_engine_editor? %>
+	<% set_re_breadcrumbs_right link_to("All Pipelines", re_pipelines_path, :class => "re-pipeline-list"),
  														link_to("New Pipeline", new_re_pipeline_path, :class => "re-pipeline-new dkgreen", :id => "re_pipeline_new")%>
-
+<% else %>
+	<% set_re_breadcrumbs link_to("All Pipelines", re_pipelines_path, :class => "re-pipeline-list") %>
+<% end %>
 <div class="prepend-1 span-16 border">      
   <%= render 'empty', :hide => !@re_pipelines.empty? %>
 

@@ -7,7 +7,7 @@
 a.re-alert-close {
   float: right;
   text-decoration: none;
-	background: url('/images/re_rule/stop-failure-18.png') no-repeat 2px 2px;
+	background: url('./re_view_error/re-alert-close.png') no-repeat 2px 2px;
   padding-left: 24px;
 }
 a.re-alert-close:hover {

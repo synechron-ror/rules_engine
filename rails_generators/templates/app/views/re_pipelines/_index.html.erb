@@ -9,7 +9,9 @@
     </div>  
     <div class="span-5 last">
       <div>
-        <h3 class="re-pipeline-change float-right"><%= link_to("Edit", change_re_pipeline_path(re_pipeline)) %></h3>    
+				<% if rules_engine_editor? %>
+        	<h3 class="re-pipeline-change float-right"><%= link_to("Edit", change_re_pipeline_path(re_pipeline)) %></h3>    
+				<% end %>
         <h3 class="re-pipeline-show float-right"><%= link_to("View", re_pipeline_path(re_pipeline)) %></h3>    
       </div>
     </div>  

@@ -5,16 +5,14 @@ directories :
     - app/views/re_pipelines
     - app/views/re_rules
 
-    - public/images/re_pipeline
-    - public/images/re_rule
-    - public/images/re_rule_class
-    - public/images/re_job
-
     - public/stylesheets/fancybox
     - public/stylesheets/blueprint
     - public/stylesheets/re_view_box
     - public/stylesheets/re_view_button
+    - public/stylesheets/re_view_error
     - public/stylesheets/re_view_navigate
+    
+    - public/stylesheets/rules_engine
   
     - features/re_pipeline
   

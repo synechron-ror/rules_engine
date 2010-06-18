@@ -6,10 +6,10 @@
     <div class="span-10">
       <h3 class="re-pipeline-status-<%= re_pipeline_error.blank? ? re_pipeline_status : 'verify' %>"><%=h @re_pipeline.code %></h3>
     </div>  
-    <div class="span-5 last">
-      <div>
-        <h3 class="re-pipeline-change float-right"><%= link_to("Edit", change_re_pipeline_path(@re_pipeline)) %></h3>    
-      </div>
+    <div class="span-5 last">			
+			<% if rules_engine_editor? %>
+       <h3 class="re-pipeline-change float-right"><%= link_to("Edit", change_re_pipeline_path(@re_pipeline)) %></h3>
+			<% end %>
     </div>  
     <div class="clear"></div>
     <div class="span-9 prepend-1">
