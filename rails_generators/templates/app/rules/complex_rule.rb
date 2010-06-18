@@ -35,16 +35,15 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   end
 
   def summary
-    word_size = self.words.size
-    "Look for #{word_size} matching #{word_size == 1 ? 'word' : 'words'}"
+    "Match the #{words.size == 1 ? 'word' : 'words'} #{words.join(', ')}"
   end
   
   def data
-    [self.title, self.words, self.pipeline_action, self.pipeline].to_json
+    [title, words, pipeline_action, pipeline].to_json
   end
   
   def expected_outcomes
-    case self.pipeline_action    
+    case pipeline_action    
     when 'next'
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]
     when 'stop_success'
@@ -52,7 +51,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
     when 'stop_failure'
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE]
     when 'start_pipeline'
-      [:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, :pipeline_code => self.pipeline]
+      [:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, :pipeline_code => pipeline]
     else
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]  
     end
@@ -82,10 +81,10 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   # validation and errors
   def valid?
     @errors = {}
-    self.errors[:<%=rule_name%>_words] = "At least one word must be defined" if self.words.nil? || self.words.empty?
-    self.errors[:<%=rule_name%>_title] = "Title required" if self.title.blank?    
-    self.errors[:<%=rule_name%>_pipeline] = "Pipeline required" if self.pipeline_action == 'start_pipeline' && self.pipeline.blank?
-    return self.errors.empty?
+    @errors[:<%=rule_name%>_words] = "At least one word must be defined" if words.nil? || words.empty?
+    @errors[:<%=rule_name%>_title] = "Title required" if title.blank?    
+    @errors[:<%=rule_name%>_pipeline] = "Pipeline required" if pipeline_action == 'start_pipeline' && pipeline.blank?
+    return @errors.empty?
   end
 
   ##################################################################
@@ -102,22 +101,22 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   # it gets the data parameter :sentence
   # it sets the data parameter :match
   def process(job_id, data)
-    sentence = data[:sentence]
+    sentence = data[:re_sentence] || data["re_sentence"]
     return nil if sentence.blank?
     
-    self.words.each do |word|
+    words.each do |word|
       if /#{word}/i =~ sentence
-        data[:match] = word
+        data[:re_match] = word
         rule_outcome = RulesEngine::RuleOutcome.new        
         
-        case self.pipeline_action
+        case pipeline_action
         when 'stop_success'
           rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
         when 'stop_failure'
           rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
         when 'start_pipeline'
           rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
-          rule_outcome.pipeline_code = self.pipeline  
+          rule_outcome.pipeline_code = pipeline  
         else #'next'
           rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_NEXT
         end

@@ -28,11 +28,11 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   end
   
   def summary
-    "Does Nothing, but called #{self.title}"
+    "Does Nothing, called #{title}"
   end
   
   def data
-    self.title
+    title
   end
   
   def expected_outcomes
@@ -51,8 +51,8 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   # validation and errors
   def valid?
     @errors = {}
-    self.errors[:<%=rule_name%>_title] = "Title required" if self.title.blank?    
-    return self.errors.empty?
+    @errors[:<%=rule_name%>_title] = "Title required" if title.blank?    
+    return @errors.empty?
   end
 
   ##################################################################

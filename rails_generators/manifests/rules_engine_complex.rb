@@ -24,7 +24,6 @@ class RulesEngineComplexManifest
    m.template "app/views/re_rule_definitions/complex_rule/_title.html.erb",  "app/views/re_rule_definitions/#{rule_name}_rule/_title.html.erb"
    m.template "app/views/re_rule_definitions/complex_rule/_word.html.erb",  "app/views/re_rule_definitions/#{rule_name}_rule/_word.html.erb"
    m.template "app/views/re_rule_definitions/complex_rule/_words.html.erb",  "app/views/re_rule_definitions/#{rule_name}_rule/_words.html.erb"
-   m.template "lib/tasks/re_complex_rule.rake",  "lib/tasks/re_#{rule_name}_rule.rake"
    m.template "spec/lib/rules/complex_rule_spec.rb",  "spec/lib/rules/#{rule_name}_rule_spec.rb"
 
   end

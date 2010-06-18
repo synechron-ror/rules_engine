@@ -15,6 +15,7 @@ class RulesEngineManifest
       features/re_pipeline
       features/step_definitions/common
       features/support
+      lib/tasks
       public/images/re_job
       public/images/re_pipeline
       public/images/re_rule
@@ -118,6 +119,7 @@ class RulesEngineManifest
       features/step_definitions/common/re_view_steps.rb
       features/support/blueprint_re_pipelines.rb
       features/support/rules_engine.rb
+      lib/tasks/re_execute.rake
       public/images/re_job/error-14.png
       public/images/re_job/error-18.png
       public/images/re_job/error-25.png

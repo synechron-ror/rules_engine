@@ -382,8 +382,6 @@ Gem::Specification.new do |s|
      "rails_generators/templates/public/stylesheets/re_view_button/oval-red-left.gif",
      "rails_generators/templates/public/stylesheets/re_view_button/oval-red-right.gif",
      "rails_generators/templates/public/stylesheets/re_view_error.css",
-     "rails_generators/templates/public/stylesheets/re_view_error/accept.png",
-     "rails_generators/templates/public/stylesheets/re_view_error/exclamation.png",
      "rails_generators/templates/public/stylesheets/re_view_form.css",
      "rails_generators/templates/public/stylesheets/re_view_navigate.css",
      "rails_generators/templates/public/stylesheets/re_view_navigate/breadcrumb.png",
