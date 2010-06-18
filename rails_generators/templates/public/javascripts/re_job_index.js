@@ -64,7 +64,12 @@ $(document).ready(function() {
   $('a.re-job-page-next-disabled').live('click', function() {
     return false;
   })
-
+  
+  $("#re_jobs_close").live('click', function() {
+    $.fancybox.close();    
+    return false;
+  });  
+  
 });
 
 
