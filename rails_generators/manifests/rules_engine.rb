@@ -83,6 +83,7 @@ class RulesEngineManifest
       app/views/re_pipelines/edit.html.erb
       app/views/re_pipelines/edit.js.erb
       app/views/re_pipelines/index.html.erb
+      app/views/re_pipelines/index.js.erb
       app/views/re_pipelines/new.html.erb
       app/views/re_pipelines/new.js.erb
       app/views/re_pipelines/show.html.erb

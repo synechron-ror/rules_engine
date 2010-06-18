@@ -46,6 +46,10 @@ h2.re-pipeline-change {
 	background: transparent url('./rules_engine/re_pipeline/change-25.png') no-repeat left top;
   padding: 0px 0 0 28px;
 }
+h2.re-pipeline-activate-all {
+	background: transparent url('./rules_engine/re_pipeline/activate-25.png') no-repeat left top;
+  padding: 0px 0 0 28px;
+}
 h2.re-pipeline-activate {
 	background: transparent url('./rules_engine/re_pipeline/activate-25.png') no-repeat left top;
   padding: 0px 0 0 28px;
@@ -155,6 +159,18 @@ h3.re-pipeline-edit a {
   text-decoration: none;
 }
 h3.re-pipeline-edit a:hover {
+  text-decoration: underline;
+}
+h3.re-pipeline-activate-all  {
+  padding: 0 0 4px 0;
+}
+h3.re-pipeline-activate-all a {
+	background: transparent url('./rules_engine/re_pipeline/activate-25.png') no-repeat left -1px;
+  padding: 0px 0 0 28px;
+  color: #218868;
+  text-decoration: none;
+}
+h3.re-pipeline-activate-all a:hover {
   text-decoration: underline;
 }
 h3.re-pipeline-activate  {

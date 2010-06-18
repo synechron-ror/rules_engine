@@ -264,6 +264,45 @@ describe RePipelinesController do
   end
 
   
+  describe "activate_all" do
+    it_should_require_rules_engine_editor_access(:activate_all)
+
+    before do
+      @re_pipeline_1 = mock_model(RePipeline)
+      @re_pipeline_1.stub!(:activate!)
+      @re_pipeline_2 = mock_model(RePipeline)
+      @re_pipeline_2.stub!(:activate!)
+      RePipeline.stub!(:find).and_return([@re_pipeline_1, @re_pipeline_2])
+    end
+
+    it "should get the all of the pipelines" do
+      RePipeline.should_receive(:find).with(:all).and_return([@re_pipeline_1, @re_pipeline_2])
+      put :activate_all
+      assigns[:re_pipelines].should == [@re_pipeline_1, @re_pipeline_2]
+    end
+    
+    it "should activate all of the re_pipeline" do
+      @re_pipeline_1.should_receive(:activate!)
+      @re_pipeline_2.should_receive(:activate!)
+      put :activate_all
+    end
+       
+    it "should display a flash success message" do
+      put :activate_all
+      flash[:success].should_not be_blank
+    end
+    
+    it "should redirect to the re_pipeline index page for HTML" do
+      put :activate_all
+      response.should redirect_to(re_pipelines_path)
+    end
+    
+    it "should render 'index' template for JAVASCRIPT" do
+      xhr :put, :activate_all
+      response.should render_template(:index)
+    end    
+  end
+  
   describe "activate" do
     it_should_require_rules_engine_editor_access(:activate)
 

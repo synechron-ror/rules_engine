@@ -3,7 +3,7 @@ class RePipelinesController < ApplicationController
   layout 'rules_engine'
   
   # before_filter :login_required
-  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :change, :edit, :update, :activate, :deactivate, :revert, :destroy]
+  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :change, :edit, :update, :activate_all, :activate, :deactivate, :revert, :destroy]
   before_filter :rules_engine_reader_access_required,  :only => [:lookup, :index, :show]
 
   before_filter :only => [:show, :change, :edit, :update, :activate, :deactivate, :revert, :destroy] do |controller|
@@ -57,8 +57,7 @@ class RePipelinesController < ApplicationController
       end
     else
       render :action => "new"
-    end
-    
+    end    
   end
 
   def change
@@ -83,10 +82,28 @@ class RePipelinesController < ApplicationController
       end
     else
       render :action => "edit"
-    end
-    
+    end    
   end
 
+  def activate_all
+    klass = RePipeline
+    @re_pipelines = klass.find(:all)
+    
+    @re_pipelines.each do |re_pipeline|
+      re_pipeline.activate!
+    end
+    flash[:success] = 'All Pipelines Activated.'
+
+    respond_to do |format|
+      format.html do
+        redirect_to(re_pipelines_path)
+      end  
+      format.js do
+        render :action => "index"
+      end
+    end    
+  end
+  
   def activate
     @re_pipeline.activate!
     flash[:success] = 'Pipeline Activated.'
