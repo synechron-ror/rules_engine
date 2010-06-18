@@ -1,0 +1,18 @@
+$.fancybox.close();
+$.re_unblock();
+
+<%= re_alert_js %>
+
+<% if @re_pipelines.empty? %>
+  $('#re_pipelines_empty').slideDown(150, function() {
+    $('#re_pipelines_empty').show();
+  });
+<% else %>  
+  $('#re_pipelines_empty').hide();
+<% end %>  
+
+
+$('#re_pipeline_index').empty();
+<% @re_pipelines.each do | re_pipeline | %>
+  $('#re_pipeline_index').append('<%=escape_javascript(render('/re_pipelines/index', :re_pipeline => re_pipeline))%>');  
+<% end %>  
