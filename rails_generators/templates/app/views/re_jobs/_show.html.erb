@@ -1,9 +1,9 @@
 <div class="re-job-show span-18">
 
 		<div class="float-left">
-			<h3>
+			<h4>
 				<span class="blue">Job Id :</span> <%= @re_job.id %>
-			</h3>	
+			</h4>	
 		</div>	
 		<div class="float-right">
 			<h4>
@@ -26,12 +26,12 @@
 						<%= re_job_audit.audit_date.strftime('%H:%M:%S') %>
 					</div>	
 				</td>
-				<td>
+				<td class="no-border-right">
 					<%= re_job_audit.audit_data%>
 				</td>
-				<td class = "text-right">
-					<div class = "right-5">
-						<% if re_job_audit.audit_code == ReJobAudit::AUDIT_PIPELINE_START %>
+				<td class="text-right no-border-left">
+					<div class="right-5">
+						<% if re_job_audit.re_pipeline && re_job_audit.audit_code == ReJobAudit::AUDIT_PIPELINE_START %>
 							<%= link_to(re_job_audit.re_pipeline.code, re_pipeline_path(re_job_audit.re_pipeline_id), :class => "re-job-goto") %>
 						<% end %>	
 					</div>	
