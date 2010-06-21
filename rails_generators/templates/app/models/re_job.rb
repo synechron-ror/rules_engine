@@ -35,19 +35,21 @@ class ReJob < ActiveRecord::Base
       
     ActiveRecord::Base.connection.select_all(query).map do | result |
       job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ?", result['job_id']], :order => "audit_date ASC", :limit => 1).first
-      if (job_audit)
+      if job_audit
         result.merge!({
           'start_date' => job_audit.audit_date,
           'start_data' => job_audit.audit_message, 
         })
       end  
-
-      job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ?", result['job_id']], :order => "audit_date DESC", :limit => 1).first
-      if (job_audit)
-        result.merge!({
-          'end_date' => job_audit.audit_date,
-          'end_data' => job_audit.audit_message, 
-        })
+      
+      if result['job_status'].to_i != ReJob::JOB_STATUS_RUNNING
+        job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ?", result['job_id']], :order => "audit_date DESC", :limit => 1).first
+        if job_audit
+          result.merge!({
+            'end_date' => job_audit.audit_date,
+            'end_data' => job_audit.audit_message, 
+            })
+        end    
       end
   
       result
@@ -59,7 +61,8 @@ class ReJob < ActiveRecord::Base
     sql_count = <<-END_OF_STRING    
         SELECT COUNT(rej.id) AS total
         FROM re_jobs rej 
-        WHERE rej.id IN ( 
+        WHERE rej.job_status != #{ReJob::JOB_STATUS_NONE}
+        AND rej.id IN ( 
           SELECT rejas.re_job_id
             FROM re_job_audits rejas 
             WHERE rejas.re_pipeline_id = #{re_pipeline_id}
@@ -77,7 +80,8 @@ class ReJob < ActiveRecord::Base
                 rej.job_status AS job_status,
                 rej.created_at AS job_date
         FROM re_jobs rej 
-        WHERE rej.id IN ( 
+        WHERE rej.job_status != #{ReJob::JOB_STATUS_NONE}
+        AND rej.id IN ( 
           SELECT rejas.re_job_id
             FROM re_job_audits rejas
             WHERE rejas.re_pipeline_id = #{re_pipeline_id}
@@ -90,21 +94,22 @@ class ReJob < ActiveRecord::Base
     ActiveRecord::Base.connection.select_all(query).map do | result |
       
       job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ? AND re_pipeline_id = ?", result['job_id'], re_pipeline_id], :order => "audit_date ASC", :limit => 1).first
-      if (job_audit)
+      if job_audit
         result.merge!({
           'start_date' => job_audit.audit_date,
           'start_data' => job_audit.audit_message, 
         })
       end  
 
-      job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ? AND re_pipeline_id = ?", result['job_id'], re_pipeline_id], :order => "audit_date DESC", :limit => 1).first
-      if (job_audit)
-        result.merge!({
-          'end_date' => job_audit.audit_date,
-          'end_data' => job_audit.audit_message, 
-        })
-      end
-
+      if result['job_status'].to_i != ReJob::JOB_STATUS_RUNNING
+        job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ? AND re_pipeline_id = ?", result['job_id'], re_pipeline_id], :order => "audit_date DESC", :limit => 1).first
+        if job_audit
+          result.merge!({
+            'end_date' => job_audit.audit_date,
+            'end_data' => job_audit.audit_message, 
+          })
+        end
+      end  
       result
     end
   end

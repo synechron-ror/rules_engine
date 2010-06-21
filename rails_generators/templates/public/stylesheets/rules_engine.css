@@ -469,6 +469,11 @@ a.re-rule-class-help span {
   height: 16px;  
   padding-left: 20px;
 }
+.re-job-info {
+	background: transparent url('./rules_engine/re_job/info-14.png') no-repeat 0px 2px;
+  height: 16px;  
+  padding-left: 20px;
+}
 
 .job-running {
 	background: transparent url('./rules_engine/re_job/info-14.png') no-repeat 0px 2px;

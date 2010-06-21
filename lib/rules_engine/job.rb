@@ -37,56 +37,55 @@ module RulesEngine
         
         activated_pipeline = RePipelineActivated.find_by_code(pipeline_code)
         unless activated_pipeline
-          audit("Activated Pipleine #{pipeline_code} not found", ReJobAudit::AUDIT_FAILURE) 
+          audit("Activated Pipleine : #{pipeline_code} not found", ReJobAudit::AUDIT_FAILURE) 
           error = done = true 
           next
         end  
         
-        @re_pipeline = activated_pipeline.re_pipeline
-        audit("Pipleine #{pipeline_code} started") 
         
         if activated_pipeline.re_rules.empty?
-          audit("Pipleine #{pipeline_code} has no rules", ReJobAudit::AUDIT_FAILURE) 
+          audit("Pipleine : #{pipeline_code} has no rules", ReJobAudit::AUDIT_FAILURE) 
           error = done = true 
           next
         end
 
+        @re_pipeline = activated_pipeline.re_pipeline
+        audit("Pipleine : #{pipeline_code} started", ReJobAudit::AUDIT_SUCCESS)
+        
         activated_pipeline.re_rules.each do | re_rule |
           rule = re_rule.rule
           unless rule
-            audit("Rule #{re_rule.rule_class_name} not found", ReJobAudit::AUDIT_FAILURE) 
+            audit("Rule : #{re_rule.rule_class_name} not found", ReJobAudit::AUDIT_FAILURE) 
             error = done = true 
             break 
           end  
         
           @re_rule = re_rule
-          audit("Rule #{re_rule.title} starting")
-                    
-          rule_outcome = rule.process(self, data)          
-          
-          audit("Rule #{re_rule.title} finished")
+          audit("Rule : #{re_rule.title} starting")                    
+          rule_outcome = rule.process(self, data)
+          audit("Rule : #{re_rule.title} finished")
           @re_rule = nil
           
           if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
-            audit("Pipeline #{pipeline_code} stop success")
+            audit("Pipeline : #{pipeline_code} stop success", ReJobAudit::AUDIT_SUCCESS)
             done = true 
             break
           end
         
           if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
-            audit("Pipeline #{pipeline_code} stop failure")
+            audit("Pipeline : #{pipeline_code} stop failure", ReJobAudit::AUDIT_FAILURE)
             error = done = true 
             break
           end
         
           if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
-            audit("Pipeline #{pipeline_code} start pipeline #{rule_outcome.pipeline_code}")
+            audit("Pipeline : #{pipeline_code} start pipeline #{rule_outcome.pipeline_code}", ReJobAudit::AUDIT_SUCCESS)
             pipeline_code = rule_outcome.pipeline_code
             break
           end
           
           if activated_pipeline.re_rules[-1] == re_rule
-            audit("Pipeline #{pipeline_code} complete")
+            audit("Pipeline : #{pipeline_code} complete", ReJobAudit::AUDIT_SUCCESS)
             done = true 
             break
           end                  

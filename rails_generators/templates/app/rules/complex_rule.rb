@@ -9,7 +9,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   self.options = 
     {
       :group => '<%=rule_class%> Rules',
-      :display_name => 'Find Matching Words',    
+      :display_name => 'Complex Rule',    
       :help_partial => '/re_rule_definitions/<%=rule_name%>_rule/help',
       :new_partial => '/re_rule_definitions/<%=rule_name%>_rule/new',
       :edit_partial => '/re_rule_definitions/<%=rule_name%>_rule/edit'
