@@ -4,12 +4,13 @@ describe <%=rule_class%>Rule do
 
   def valid_attributes
     {
-      :<%=rule_name%>_title => 'Valid Title'
+      :<%=rule_name%>_title => 'Valid Title',
+      :<%=rule_name%>_description => 'Valid Description'
     }
   end
   
-  def valid_data
-    'Rule Title'
+  def valid_json_data
+    '["Valid Title", "Valid Description"]'
   end
   
   it "should be discoverable" do
@@ -41,7 +42,7 @@ describe <%=rule_class%>Rule do
   describe "setting the rule data" do
     before(:each) do
       @<%=rule_name%>_rule = <%=rule_class%>Rule.new
-      @<%=rule_name%>_rule.data = valid_data
+      @<%=rule_name%>_rule.data = valid_json_data
     end  
     
     describe "the data is valid" do
@@ -50,7 +51,11 @@ describe <%=rule_class%>Rule do
       end
             
       it "should set the title" do
-        @<%=rule_name%>_rule.title.should == "Rule Title"        
+        @<%=rule_name%>_rule.title.should == "Valid Title"        
+      end
+
+      it "should set the description" do
+        @<%=rule_name%>_rule.description.should == "Valid Description"        
       end
     end
 
@@ -60,29 +65,36 @@ describe <%=rule_class%>Rule do
         @<%=rule_name%>_rule.data = nil
         @<%=rule_name%>_rule.title.should be_nil
       end
+
+      it "should set the description to nil" do
+        @<%=rule_name%>_rule.title.should_not be_nil
+        @<%=rule_name%>_rule.data = nil
+        @<%=rule_name%>_rule.description.should be_nil
+      end
     end
   end
   
   describe "the summary" do
-    it "should be include the rule title" do
+    it "should be the rule description" do
       <%=rule_name%>_rule = <%=rule_class%>Rule.new
-      <%=rule_name%>_rule.should_receive(:title).and_return("mock title")
-      <%=rule_name%>_rule.summary.should == "Does Nothing, called mock title"
+      <%=rule_name%>_rule.should_receive(:description).and_return("mock description")
+      <%=rule_name%>_rule.summary.should == "mock description"
     end
   end
 
   describe "the data" do
-    it "should be the title" do
+    it "should be converted to a json string" do
       <%=rule_name%>_rule = <%=rule_class%>Rule.new
       <%=rule_name%>_rule.should_receive(:title).and_return("mock title")
-      <%=rule_name%>_rule.data.should == 'mock title'
+      <%=rule_name%>_rule.should_receive(:description).and_return("mock description")
+      <%=rule_name%>_rule.data.should == '["mock title","mock description"]'
     end
   end
   
   describe "the expected_outcomes" do
-    it "should be empty" do
+    it "should be outcome next" do
       <%=rule_name%>_rule = <%=rule_class%>Rule.new
-      <%=rule_name%>_rule.expected_outcomes.should == []
+      <%=rule_name%>_rule.expected_outcomes.should == [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]
     end
   end
   
@@ -112,6 +124,25 @@ describe <%=rule_class%>Rule do
         @<%=rule_name%>_rule.attributes = valid_attributes.merge(:<%=rule_name%>_title => "")
         @<%=rule_name%>_rule.should_not be_valid
         @<%=rule_name%>_rule.errors.should include(:<%=rule_name%>_title)
+      end                
+    end
+
+    describe "setting the <%=rule_name%>_description" do
+      it "should set the title" do
+        @<%=rule_name%>_rule.attributes = valid_attributes
+        @<%=rule_name%>_rule.description.should == 'Valid Description'
+      end            
+    
+      it "should not be valid if the '<%=rule_name%>_description' attribute is missing" do
+        @<%=rule_name%>_rule.attributes = valid_attributes.except(:<%=rule_name%>_description)
+        @<%=rule_name%>_rule.should_not be_valid
+        @<%=rule_name%>_rule.errors.should include(:<%=rule_name%>_description)
+      end            
+    
+      it "should not be valid if the '<%=rule_name%>_description' attribute is blank" do
+        @<%=rule_name%>_rule.attributes = valid_attributes.merge(:<%=rule_name%>_description => "")
+        @<%=rule_name%>_rule.should_not be_valid
+        @<%=rule_name%>_rule.errors.should include(:<%=rule_name%>_description)
       end                
     end
   end

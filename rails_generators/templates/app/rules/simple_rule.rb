@@ -1,5 +1,6 @@
 class <%=rule_class%>Rule < RulesEngine::Rule
 
+  attr_reader :description
   ##################################################################
   # class options
   self.options = 
@@ -16,8 +17,9 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   def data= data
     if data.nil?
       @title = nil
+      @description = nil
     else
-      @title = data
+      @title, @description = ActiveSupport::JSON.decode(data)
     end  
   end
   
@@ -28,15 +30,15 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   end
   
   def summary
-    "Does Nothing, called #{title}"
+    description
   end
   
   def data
-    title
+    [title, description].to_json
   end
   
   def expected_outcomes
-    []
+    [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]
   end
   
   ##################################################################
@@ -45,6 +47,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
     param_hash = params.symbolize_keys
 
     @title = param_hash[:<%=rule_name%>_title]
+    @description = param_hash[:<%=rule_name%>_description]
   end
   
   ##################################################################
@@ -52,6 +55,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   def valid?
     @errors = {}
     @errors[:<%=rule_name%>_title] = "Title required" if title.blank?    
+    @errors[:<%=rule_name%>_description] = "Description required" if description.blank?    
     return @errors.empty?
   end
 
