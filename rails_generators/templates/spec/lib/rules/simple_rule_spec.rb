@@ -17,12 +17,12 @@ describe <%=rule_class%>Rule do
   end
 
   describe "the expected class options" do    
-    it "should be in the 'Sample Rules' group" do
-      <%=rule_class%>Rule.options[:group].should == "Sample Rules"
+    it "should be in the '<%=rule_class%> Rules' group" do
+      <%=rule_class%>Rule.options[:group].should == "<%=rule_class%> Rules"
     end
     
-    it "should have the diplay name of 'Does Nothing'" do
-      <%=rule_class%>Rule.options[:display_name].should == "Does Nothing"
+    it "should have the diplay name of '<%=rule_class%> Rule'" do
+      <%=rule_class%>Rule.options[:display_name].should == "<%=rule_class%> Rule"
     end
 
     it "should have the help template of '/re_rule_definitions/<%=rule_name%>_rule/help'" do
@@ -67,7 +67,7 @@ describe <%=rule_class%>Rule do
     it "should be include the rule title" do
       <%=rule_name%>_rule = <%=rule_class%>Rule.new
       <%=rule_name%>_rule.should_receive(:title).and_return("mock title")
-      <%=rule_name%>_rule.summary.should == "Does Nothing, but called mock title"
+      <%=rule_name%>_rule.summary.should == "Does Nothing, called mock title"
     end
   end
 

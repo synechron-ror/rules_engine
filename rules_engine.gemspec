@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-06-18}
+  s.date = %q{2010-06-21}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -82,6 +82,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_pipelines/edit.html.erb",
      "rails_generators/templates/app/views/re_pipelines/edit.js.erb",
      "rails_generators/templates/app/views/re_pipelines/index.html.erb",
+     "rails_generators/templates/app/views/re_pipelines/index.js.erb",
      "rails_generators/templates/app/views/re_pipelines/new.html.erb",
      "rails_generators/templates/app/views/re_pipelines/new.js.erb",
      "rails_generators/templates/app/views/re_pipelines/show.html.erb",

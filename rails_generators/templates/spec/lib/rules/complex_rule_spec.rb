@@ -21,12 +21,12 @@ describe <%=rule_class%>Rule do
   end
 
   describe "the expected class options" do    
-    it "should be in the 'Sample Rules' group" do
-      <%=rule_class%>Rule.options[:group].should == "Sample Rules"
+    it "should be in the '<%=rule_class%> Rules' group" do
+      <%=rule_class%>Rule.options[:group].should == "<%=rule_class%> Rules"
     end
     
-    it "should have the diplay name of 'Find Matching Words'" do
-      <%=rule_class%>Rule.options[:display_name].should == "Find Matching Words"
+    it "should have the diplay name of '<%=rule_class%> Rule'" do
+      <%=rule_class%>Rule.options[:display_name].should == "<%=rule_class%> Rule"
     end
 
     it "should have the help template of '/re_rule_definitions/<%=rule_name%>_rule/help'" do
@@ -100,14 +100,14 @@ describe <%=rule_class%>Rule do
   describe "the summary" do
     it "should be singluar if there is one word" do
       <%=rule_name%>_rule = <%=rule_class%>Rule.new
-      <%=rule_name%>_rule.should_receive(:words).and_return(["one"])
-      <%=rule_name%>_rule.summary.should == "Look for 1 matching word"
+      <%=rule_name%>_rule.stub!(:words).and_return(["one"])
+      <%=rule_name%>_rule.summary.should == "Match the word one"
     end
 
     it "should be plural if there are multiple words" do
       <%=rule_name%>_rule = <%=rule_class%>Rule.new
-      <%=rule_name%>_rule.should_receive(:words).and_return(["one", "two", "three"])
-      <%=rule_name%>_rule.summary.should == "Look for 3 matching words"
+      <%=rule_name%>_rule.stub!(:words).and_return(["one", "two", "three"])
+      <%=rule_name%>_rule.summary.should == "Match the words one, two, three"
     end        
   end
 
@@ -274,7 +274,7 @@ describe <%=rule_class%>Rule do
     before(:each) do
       @<%=rule_name%>_rule = <%=rule_class%>Rule.new
       @<%=rule_name%>_rule.stub!(:words).and_return(["mock", "words"])      
-      @data = {:sentence => "there was a mock sentence"}
+      @data = {:re_sentence => "there was a mock sentence"}
     end
     
     it "should do nothing if there is no sentance" do
@@ -291,7 +291,7 @@ describe <%=rule_class%>Rule do
     describe "a match found" do
       it "should add the match to the data" do      
         @<%=rule_name%>_rule.process(101, @data)
-        @data[:match].should == "mock"
+        @data[:re_match].should == "mock"
       end        
     
       it "should return next" do
