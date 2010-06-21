@@ -1,6 +1,6 @@
 <%%= re_text_field "<%=rule_class%> Rule Title", 
                         "<%=rule_name%>_title", 
-                        params[:<%=rule_name%>_title] || @re_rule.title,
+                        params[:<%=rule_name%>_title] || @re_rule.rule.title,
                         :size => 30, 
                         :required => true, 
 												:error => @re_rule.rule.errors[:<%=rule_name%>_title],
