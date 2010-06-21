@@ -59,8 +59,7 @@ class CreateRePipelines < ActiveRecord::Migration
             
       t.datetime :audit_date
       t.integer  :audit_code
-      t.boolean  :audit_success
-      t.text     :audit_data            
+      t.string   :audit_message            
     end    
 
     add_index :re_job_audits, [:re_job_id]

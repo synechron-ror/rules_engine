@@ -4,11 +4,11 @@ class MockRule < RulesEngine::Rule
 end
 
 describe "RulesEngine::Rule" do
-  it "should add a class method rule_class" do
+  it "should add a class method rule_class_name" do
     MockRule.methods.should include("rule_class_name")
   end
   
-  it "should return the class name as the rule class" do    
+  it "should return the rule_class_name as the rule class" do    
     MockRule.rule_class_name.should == "MockRule"
   end
 
@@ -16,28 +16,32 @@ describe "RulesEngine::Rule" do
     RulesEngine::Rule.new.methods.should include("data=")
   end
 
-  it "should be able to get the attribute 'title'" do
-    RulesEngine::Rule.new.methods.should include("title")    
+  describe "title" do
+    it "should be nil by default" do
+      RulesEngine::Rule.new.title.should be_nil
+    end
   end
-
-  it "should be able to get the attribute 'summary'" do
-    RulesEngine::Rule.new.methods.should include("summary")
+  
+  describe "summary" do
+    it "should be nil by default" do
+      RulesEngine::Rule.new.summary.should be_nil
+    end
   end
-
-  it "should be able to get the attribute 'data'" do
-    RulesEngine::Rule.new.methods.should include("data")
+  
+  describe "data" do
+    it "should be nil by default" do
+      RulesEngine::Rule.new.data.should be_nil
+    end
   end
-
-  it "should be able to get the attribute 'expected_outcomes'" do
-    RulesEngine::Rule.new.methods.should include("expected_outcomes")
+  
+  describe "expected_outcomes" do
+    it "should be set the default as NEXT" do
+      RulesEngine::Rule.new.expected_outcomes.should be_instance_of(Array)
+      RulesEngine::Rule.new.expected_outcomes[0][:outcome].should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+      RulesEngine::Rule.new.expected_outcomes[0][:pipeline_code].should be_nil
+    end
   end
-
-  it "should be set the default 'expected_outcomes' as NEXT" do
-    RulesEngine::Rule.new.expected_outcomes.should be_instance_of(Array)
-    RulesEngine::Rule.new.expected_outcomes[0][:outcome].should == RulesEngine::RuleOutcome::OUTCOME_NEXT
-    RulesEngine::Rule.new.expected_outcomes[0][:pipeline_code].should be_nil
-  end
-
+  
   describe "valid?" do
     it "should be valid by default" do
       MockRule.new.valid?.should be_true

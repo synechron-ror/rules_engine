@@ -25,7 +25,7 @@
           <div class="re-rule-continue">Continue</div>
         <% end %>  
         <% re_rule.re_rule_expected_outcomes_start_pipeline.each do |re_rule_expected_outcome| %>
-          <div class="re-rule-goto-pipeline">Start : <%= re_rule_expected_outcome.pipeline_code %></div>
+          <div class="re-rule-start-pipeline">Start : <%= re_rule_expected_outcome.pipeline_code %></div>
         <% end %>  
         <% unless re_rule.re_rule_expected_outcome_failure.nil? %>
           <div class="re-rule-stop-failure">Stop Failure</div>

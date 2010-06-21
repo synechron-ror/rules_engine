@@ -18,13 +18,6 @@ module RulesEngineView
         re_breadcrumbs_right(*crumbs)
       end
     end
-
-    def set_re_subnav(heading, *crumbs)
-      content_for :defer_re_subnav do
-        re_subnav(heading, *crumbs)
-      end
-    end
-    
   end    
 end
 

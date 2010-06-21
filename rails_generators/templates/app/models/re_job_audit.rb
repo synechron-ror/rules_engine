@@ -1,11 +1,8 @@
 class ReJobAudit < ActiveRecord::Base
 
-  AUDIT_PIPELINE_START  = 1
-  AUDIT_PIPELINE_END =    2
-  AUDIT_PIPELINE_INFO =   3
-  AUDIT_RULE_START  =     4
-  AUDIT_RULE_END =        5
-  AUDIT_RULE_INFO =       6
+  AUDIT_INFO  =     0
+  AUDIT_SUCCESS =   1
+  AUDIT_FAILURE =   2
   
   belongs_to :re_job
   belongs_to :re_pipeline
@@ -13,7 +10,6 @@ class ReJobAudit < ActiveRecord::Base
   
   validates_presence_of :audit_date
   validates_presence_of :audit_code
-  # validates_presence_of :audit_success
     
   named_scope :by_re_job_id, lambda {|re_job_id| {:conditions => ['re_job_id = ?', re_job_id]} }
   named_scope :order_date, lambda {|order| {:order => "audit_date #{order}"} }

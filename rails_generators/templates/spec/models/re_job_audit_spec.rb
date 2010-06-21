@@ -4,8 +4,7 @@ describe ReJobAudit do
   def valid_attributes
     {
       :audit_date => Date.new,
-      :audit_code => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE,
-      :audit_success => true
+      :audit_code => ReJobAudit::AUDIT_INFO,
     }
   end
   

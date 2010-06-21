@@ -218,7 +218,6 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/re_job/error-18.png
       public/stylesheets/rules_engine/re_job/error-25.png
       public/stylesheets/rules_engine/re_job/error-48.png
-      public/stylesheets/rules_engine/re_job/goto-16.png
       public/stylesheets/rules_engine/re_job/info-14.png
       public/stylesheets/rules_engine/re_job/info-18.png
       public/stylesheets/rules_engine/re_job/info-25.png
@@ -314,8 +313,6 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/re_rule/edit-18.png
       public/stylesheets/rules_engine/re_rule/edit-25.png
       public/stylesheets/rules_engine/re_rule/edit-48.png
-      public/stylesheets/rules_engine/re_rule/goto-pipeline-14.png
-      public/stylesheets/rules_engine/re_rule/goto-pipeline-18.png
       public/stylesheets/rules_engine/re_rule/move-down-14.png
       public/stylesheets/rules_engine/re_rule/move-down-18.png
       public/stylesheets/rules_engine/re_rule/move-down-25.png
@@ -340,6 +337,8 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/re_rule/next-show-18.png
       public/stylesheets/rules_engine/re_rule/next-show-25.png
       public/stylesheets/rules_engine/re_rule/next-show-48.png
+      public/stylesheets/rules_engine/re_rule/start-pipeline-14.png
+      public/stylesheets/rules_engine/re_rule/start-pipeline-18.png
       public/stylesheets/rules_engine/re_rule/stop-failure-14.png
       public/stylesheets/rules_engine/re_rule/stop-failure-18.png
       public/stylesheets/rules_engine/re_rule/stop-failure-25.png

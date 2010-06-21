@@ -10,8 +10,10 @@ namespace :re do
     re_pipeline_code = false
     data = ENV.reject{ |key, value| !(key =~ /^re_/) }
     
-    re_job_id = RulesEngine::JobRunner.create_job          
-    result = RulesEngine::JobRunner.run_pipleine(re_job_id, data['re_pipeline_code'], data)
+    job = RulesEngine::Job.create
+    job = RulesEngine::Job.open(job.re_job.id)
+        
+    result = job.run(data['re_pipeline_code'], data)
     
     puts "rule completed : data = #{data.inspect}"
   end  
