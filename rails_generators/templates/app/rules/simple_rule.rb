@@ -5,8 +5,8 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   # class options
   self.options = 
     {
-      :group => '<%=rule_class%> Rules',
-      :display_name => '<%=rule_class%> Rule',    
+      :group => '<%=rule_class%>',
+      :display_name => '<%=rule_class%>',    
       :help_partial => '/re_rule_definitions/<%=rule_name%>_rule/help',
       :new_partial => '/re_rule_definitions/<%=rule_name%>_rule/new',
       :edit_partial => '/re_rule_definitions/<%=rule_name%>_rule/edit'

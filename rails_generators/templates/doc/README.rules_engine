@@ -1,14 +1,14 @@
 ***************************************************** 
-*** install the supporting gems
+*** Install the gem
 
-sudo gem install will_paginate acts_as_list
+sudo gem install rules_engine
 
 
 ***************************************************** 
-*** setup the test environment for rspec and cucumber
+*** Create Your Rails App
 
-./script/generate rspec
-./script/generate cucumber --rspec
+rails MyCoolNewApp
+cd MyCoolNewApp
 
 
 ***************************************************** 
@@ -32,7 +32,6 @@ RulesEngine::Discovery.discover!
 *** define the cache for the rules engine
 *** EDIT config/environments/production.rb
 *** EDIT config/environments/development.rb
-*** EDIT config/environments/test.rb
 
 RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
   #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
@@ -45,6 +44,10 @@ RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
 
 ***************************************************** 
 *** setup the test and cucumber environments  
+
+./script/generate rspec
+./script/generate cucumber --rspec
+
 *** EDIT config/environments/test.rb
 *** EDIT config/environments/cucumber.rb
 
@@ -61,30 +64,36 @@ RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
   require 'faker'
   require 'remarkable_rails'
 
+*** INSTALL GEMS
+> rake gems:install RAILS_ENV=test  
 
 ***************************************************** 
 *** add the rules engine routes
 *** EDIT config/routes.rb
 
-ActionController::Routing::Routes.draw do |map|
-
-  ...
-  ### map.root :controller => 're_pipelines', :action => 'template'
-  ### map.preview '/preview', :controller => 're_pipelines', :action => 'template'
-  map.resources :re_pipelines, :collection => {:lookup => :get, :activate_all => :put}, :member => {:change => :get, :activate => :put, :deactivate => :put, :revert => :put} do |re_pipeline|  
-    re_pipeline.resources :re_rules, :collection => {:help => :get, :error => :get}, :member => {:move_up => :put, :move_down => :put}
-    re_pipeline.resources :re_jobs, :controller => :re_pipeline_jobs, :only => [:index]
-  end
-  
-  map.resources :re_jobs, :only => [:index, :show]
-  ...
-end  
+  ActionController::Routing::Routes.draw do |map|
+    ...
+    ### map.root :controller => 're_pipelines', :action => 'template'
+    ### map.preview '/preview', :controller => 're_pipelines', :action => 'template'
+    map.resources :re_pipelines, 
+                          :collection => {:lookup => :get, 
+                                          :activate_all => :put}, 
+                          :member => {:change => :get, 
+                                          :activate => :put, 
+                                          :deactivate => :put, 
+                                          :revert => :put} do |re_pipeline|  
+      re_pipeline.resources :re_rules, 
+                          :collection => {:help => :get, :error => :get}, 
+                          :member => {:move_up => :put, :move_down => :put}
+      re_pipeline.resources :re_jobs, :controller => :re_pipeline_jobs, :only => [:index]
+    end
+  	
+    map.resources :re_jobs, :only => [:index, :show]
+    ...
+  end  
 
 
 ***************************************************** 
-*** install the rules_engine_users gem
-***           OR 
-*** define the 
 *** EDIT app/controllers/application_controller.rb
 
 class ApplicationController < ActionController::Base
@@ -116,24 +125,23 @@ class ApplicationController < ActionController::Base
   end
 
 ***************************************************** 
-*** migrate the database
+*** run migrations
 
 rake db:migrate
 
 
 ***************************************************** 
-*** run the rspec tests
+*** run tests
 
 rake spec
 rake spec:rcov
 open coverage/index.html
 
-
-***************************************************** 
-*** run the cucumber tests
-
 rake features
 
+
+***************************************************** 
+*** create a simple rule
 
 ***************************************************** 
 *** startup the server
