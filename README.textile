@@ -1,0 +1,181 @@
+h1. Ruby and Rails Rules Engine Framework
+
+h4. More detailed documentation at "www.r3ef.com":http://www.r3ef.com
+
+h2. Installation Guide
+
+h3. 1. Install the Gem
+
+<pre>
+sudo gem install rules_engine
+sudo gem install rspec cucumber
+</pre>
+
+h3. 2. Create the Rails App
+
+<pre>
+rails MyCoolNewApp	
+cd MyCoolNewApp
+rm ./public/index.html
+
+./script/generate rspec
+./script/generate cucumber --rspec
+
+./script/generate rules_engine
+
+rake db:migrate	
+</pre>
+
+h3. 3. Setup the Rails Environments
+
+./config/environment.rb
+
+<pre>
+Rails::Initializer.run do |config|
+  ...
+  config.gem 'rules_engine'
+  config.gem 'will_paginate'
+  config.gem 'acts_as_list'
+  ...
+  config.active_record.observers = :re_pipeline_activated_observer
+  ...
+end
+
+RulesEngine::Discovery.discover!
+</pre>
+
+./config/environments/production.rb<br/>
+./config/environments/development.rb
+
+<pre>
+RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
+  #   RulesEngine::Cache.cache_store = :memory_store
+  #   RulesEngine::Cache.cache_store = :file_store, "/path/to/cache/directory"
+  #   RulesEngine::Cache.cache_store = :drb_store, "druby://localhost:9192"
+  #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost"
+  #   RulesEngine::Cache.cache_store = MyOwnStore.new("parameter")
+</pre>
+
+./config/environments/test.rb <br/>
+./config/environments/cucumber.rb
+
+<pre>
+  config.gem "rspec",             :version => '>=1.3.0', :lib => false
+  config.gem "rspec-rails",       :version => '>=1.3.2', :lib => false
+  config.gem "faker",             :version => '>=0.3.1', :lib => false
+
+  config.gem "machinist",         :version => '>=1.0.6', :lib => false
+  config.gem 'rcov',              :version => '>=0.9.8', :lib => false
+  config.gem 'remarkable_rails',  :version => '>=3.1.13', :lib => false
+
+  require 'machinist/active_record'
+  require 'sham'
+  require 'faker'
+  require 'remarkable_rails'
+</pre>
+	
+h3. 4. Install the Required Gems
+
+<pre>
+rake gems:install
+rake gems:install RAILS_ENV=test  	
+</pre>
+
+h3. 5. Add the Routes
+
+./config/routes.rb
+
+<pre>
+ActionController::Routing::Routes.draw do |map|
+  ...
+  ### remove map.root if already defined
+  map.root :controller => 're_pipelines', :action => 'template'
+  ### map.preview '/preview', :controller => 're_pipelines', :action => 'template'
+  map.resources :re_pipelines, 
+                        :collection => {:lookup => :get, 
+                                        :activate_all => :put}, 
+                        :member => {:change => :get, 
+                                        :activate => :put, 
+                                        :deactivate => :put, 
+                                        :revert => :put} do |re_pipeline|  
+    re_pipeline.resources :re_rules, 
+                        :collection => {:help => :get, :error => :get}, 
+                        :member => {:move_up => :put, :move_down => :put}
+    re_pipeline.resources :re_jobs, :controller => :re_pipeline_jobs, :only => [:index]
+  end
+  	
+  map.resources :re_jobs, :only => [:index, :show]
+  ...
+end  
+</pre>
+
+h3. 6. Define the Access Levels
+
+./app/controllers/application_controller.rb
+
+<pre>
+class ApplicationController < ActionController::Base
+
+  helper_method :rules_engine_reader?, :rules_engine_editor?
+  
+  def rules_engine_reader?
+    # why cookies[:rules_engine_reader] ? It's a workaround for cucumber testing
+    return cookies[:rules_engine_reader].nil? ? true : 
+                                                cookies[:rules_engine_reader].downcase == 'true'
+  end  
+  
+  def rules_engine_editor?
+    # why cookies[:rules_engine_editor] ? It's a workaround for cucumber testing
+    return cookies[:rules_engine_editor].nil? ? true : 
+                                                cookies[:rules_engine_editor].downcase == 'true'
+  end  
+
+  def rules_engine_reader_access_required
+    unless rules_engine_reader?    
+      redirect_to(root_path) 
+      flash[:success] = 'Rules Engine Access Denied.'
+    end  
+  end
+  
+  def rules_engine_editor_access_required
+    unless rules_engine_editor?    
+      redirect_to(root_path) 
+      flash[:success] = 'Rules Engine Editor Access Denied.'
+    end
+  end
+</pre>
+
+h3. 7. Create a Simple Rule
+
+<pre>
+./script/generate rules_engine simple my_simple_rule
+</pre>
+
+h3. 8. Create a more Complex Rule
+
+<pre>
+./script/generate rules_engine complex another_complex_rule
+</pre>
+
+h3. 9. Run the Tests
+
+<pre>
+rake spec
+rake spec:rcov
+rake cucumber
+open coverage/index.html
+</pre>
+
+h3. 10. Start the Server
+
+<pre>
+./script/server
+open http://localhost:3000/re_pipelines
+</pre>
+
+h3. 11. Create Pipelines and Rules
+
+<pre>
+./script/server
+open http://localhost:3000/re_pipelines
+</pre>
