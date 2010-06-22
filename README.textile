@@ -175,7 +175,4 @@ open http://localhost:3000/re_pipelines
 
 h3. 11. Create Pipelines and Rules
 
-<pre>
-./script/server
-open http://localhost:3000/re_pipelines
-</pre>
+Watch the demo at "TODO":http://www.r3ef.com/
