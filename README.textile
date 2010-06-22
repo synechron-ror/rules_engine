@@ -73,7 +73,7 @@ RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
   require 'faker'
   require 'remarkable_rails'
 </pre>
-	
+
 h3. 4. Install the Required Gems
 
 <pre>
