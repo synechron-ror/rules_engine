@@ -1,56 +1,54 @@
-***************************************************** 
-*** Install the gem
+## Ruby and Rails Rules Engine Framework
+# More detailed documentation at http://www.r3ef.com
 
-sudo gem install rules_engine
+## Installation Guide
+###################################### 
+# 1. Install the Gem
+  sudo gem install rules_engine
+  sudo gem install rspec cucumber
 
+######################################
+# 2. Create the Rails App
+  rails MyCoolNewApp	
+  cd MyCoolNewApp
+  rm ./public/index.html
 
-***************************************************** 
-*** Create Your Rails App
+  ./script/generate rspec
+  ./script/generate cucumber --rspec
 
-rails MyCoolNewApp
-cd MyCoolNewApp
+  ./script/generate rules_engine
 
+  rake db:migrate	
 
-***************************************************** 
-*** add the gems, pipeline observer and add the RulesEngine discovery method
-*** EDIT config/environment.rb
+######################################
+# 3. Setup the Rails Environments
+ - ./config/environment.rb
+ 
+  Rails::Initializer.run do |config|
+    ...
+    config.gem 'rules_engine'
+    config.gem 'will_paginate'
+    config.gem 'acts_as_list'
+    ...
+    config.active_record.observers = :re_pipeline_activated_observer
+    ...
+  end
 
-Rails::Initializer.run do |config|
-  ...
-  config.gem 'rules_engine'
-  config.gem 'will_paginate'
-  config.gem 'acts_as_list'
-  ...
-  config.active_record.observers = :re_pipeline_activated_observer
-  ...
-end
-  
-RulesEngine::Discovery.discover!
+  RulesEngine::Discovery.discover!
 
-
-***************************************************** 
-*** define the cache for the rules engine
-*** EDIT config/environments/production.rb
-*** EDIT config/environments/development.rb
-
-RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
-  #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
+ - ./config/environments/production.rb
+ - ./config/environments/development.rb
+ 
+  RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
   #   RulesEngine::Cache.cache_store = :memory_store
   #   RulesEngine::Cache.cache_store = :file_store, "/path/to/cache/directory"
   #   RulesEngine::Cache.cache_store = :drb_store, "druby://localhost:9192"
   #   RulesEngine::Cache.cache_store = :mem_cache_store, "localhost"
   #   RulesEngine::Cache.cache_store = MyOwnStore.new("parameter")
 
-
-***************************************************** 
-*** setup the test and cucumber environments  
-
-./script/generate rspec
-./script/generate cucumber --rspec
-
-*** EDIT config/environments/test.rb
-*** EDIT config/environments/cucumber.rb
-
+ - ./config/environments/test.rb
+ - ./config/environments/cucumber.rb
+ 
   config.gem "rspec",             :version => '>=1.3.0', :lib => false
   config.gem "rspec-rails",       :version => '>=1.3.2', :lib => false
   config.gem "faker",             :version => '>=0.3.1', :lib => false
@@ -64,16 +62,19 @@ RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
   require 'faker'
   require 'remarkable_rails'
 
-*** INSTALL GEMS
-> rake gems:install RAILS_ENV=test  
+######################################
+# 4. Install the Required Gems
 
-***************************************************** 
-*** add the rules engine routes
-*** EDIT config/routes.rb
+rake gems:install
+rake gems:install RAILS_ENV=test  	
 
+######################################
+# 5. Add the Routes
+ - ./config/routes.rb
   ActionController::Routing::Routes.draw do |map|
     ...
-    ### map.root :controller => 're_pipelines', :action => 'template'
+    ### remove map.root if already defined
+    map.root :controller => 're_pipelines', :action => 'template'
     ### map.preview '/preview', :controller => 're_pipelines', :action => 'template'
     map.resources :re_pipelines, 
                           :collection => {:lookup => :get, 
@@ -92,63 +93,59 @@ RulesEngine::Cache.cache_store = :mem_cache_store, "localhost:11210"
     ...
   end  
 
+######################################
+# 6. Define the Access Levels
+ - ./app/controllers/application_controller.rb
+ class ApplicationController < ActionController::Base
 
-***************************************************** 
-*** EDIT app/controllers/application_controller.rb
-
-class ApplicationController < ActionController::Base
-
-  helper_method :rules_engine_reader?, :rules_engine_editor?
+    helper_method :rules_engine_reader?, :rules_engine_editor?
   
-  def rules_engine_reader?
-    # why cookies[:rules_engine_reader] ? It's a workaround for cucumber testing
-    return cookies[:rules_engine_reader].nil? ? true : cookies[:rules_engine_reader].downcase == 'true'
-  end  
-  
-  def rules_engine_editor?
-    # why cookies[:rules_engine_editor] ? It's a workaround for cucumber testing
-    return cookies[:rules_engine_editor].nil? ? true : cookies[:rules_engine_editor].downcase == 'true'
-  end  
-
-  def rules_engine_reader_access_required
-    unless rules_engine_reader?    
-      redirect_to(root_path) 
-      flash[:success] = 'Rules Engine Access Denied.'
+    def rules_engine_reader?
+      # why cookies[:rules_engine_reader] ? It's a workaround for cucumber testing
+      return cookies[:rules_engine_reader].nil? ? true : 
+                                                  cookies[:rules_engine_reader].downcase == 'true'
     end  
-  end
   
-  def rules_engine_editor_access_required
-    unless rules_engine_editor?    
-      redirect_to(root_path) 
-      flash[:success] = 'Rules Engine Editor Access Denied.'
+    def rules_engine_editor?
+      # why cookies[:rules_engine_editor] ? It's a workaround for cucumber testing
+      return cookies[:rules_engine_editor].nil? ? true : 
+                                                  cookies[:rules_engine_editor].downcase == 'true'
+    end  
+
+    def rules_engine_reader_access_required
+      unless rules_engine_reader?    
+        redirect_to(root_path) 
+        flash[:success] = 'Rules Engine Access Denied.'
+      end  
     end
-  end
+  
+    def rules_engine_editor_access_required
+      unless rules_engine_editor?    
+        redirect_to(root_path) 
+        flash[:success] = 'Rules Engine Editor Access Denied.'
+      end
+    end
 
-***************************************************** 
-*** run migrations
+######################################
+# 7. Create a Simple Rule
+  ./script/generate rules_engine simple my_simple_rule
 
-rake db:migrate
+######################################
+# 8. Create a more Complex Rule
+  ./script/generate rules_engine complex another_complex_rule
 
+######################################
+# 9. Run the Tests
+  rake spec
+  rake spec:rcov
+  rake cucumber
+  open coverage/index.html
 
-***************************************************** 
-*** run tests
+######################################
+# 10. Start the Server
+  ./script/server
+  open http://localhost:3000/re_pipelines
 
-rake spec
-rake spec:rcov
-open coverage/index.html
-
-rake features
-
-
-***************************************************** 
-*** create a simple rule
-
-***************************************************** 
-*** startup the server
-
-./script/server
-open http://localhost:3000/re_pipelines
-
-
-***************************************************** 
-*** create rules
+######################################
+# 11. Create Pipelines and Rules
+  Watch the demo at "TODO":http://www.r3ef.com/
