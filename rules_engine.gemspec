@@ -14,11 +14,10 @@ Gem::Specification.new do |s|
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+     "README.textile"
   ]
   s.files = [
     "LICENSE",
-     "README.rdoc",
      "VERSION",
      "init.rb",
      "lib/rules_engine.rb",
