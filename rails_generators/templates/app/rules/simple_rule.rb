@@ -70,7 +70,8 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   ##################################################################
   # execute the rule
   # this rule does nothing
-  def process(job_id, data)
+  def process(job, data)
+    # job.audit("<%=rule_class%>", ReJobAudit::AUDIT_INFO)                        
     return nil
   end  
 end

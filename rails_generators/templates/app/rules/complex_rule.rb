@@ -100,13 +100,15 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   # if a match is found procees to the expected outcome
   # it gets the data parameter :sentence
   # it sets the data parameter :match
-  def process(job_id, data)
-    sentence = data[:re_sentence] || data["re_sentence"]
+  def process(job, data)
+    sentence = data[:sentence] || data["sentence"]
     return nil if sentence.blank?
     
     words.each do |word|
-      if /#{word}/i =~ sentence
-        data[:re_match] = word
+      if /#{word}/i =~ sentence        
+        job.audit("Match Found #{word}", ReJobAudit::AUDIT_INFO)                        
+        data[:match] = word
+        
         rule_outcome = RulesEngine::RuleOutcome.new        
         
         case pipeline_action

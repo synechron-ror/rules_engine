@@ -274,52 +274,62 @@ describe <%=rule_class%>Rule do
     before(:each) do
       @<%=rule_name%>_rule = <%=rule_class%>Rule.new
       @<%=rule_name%>_rule.stub!(:words).and_return(["mock", "words"])      
-      @data = {:re_sentence => "there was a mock sentence"}
+      @data = {:sentence => "there was a mock sentence"}
+      
+      @job = mock("job")
+      @job.stub!(:audit)      
     end
     
     it "should do nothing if there is no sentance" do
       @<%=rule_name%>_rule = <%=rule_class%>Rule.new
-      @<%=rule_name%>_rule.process(101, {}).should be_nil
+      @<%=rule_name%>_rule.process(@job, {}).should be_nil
     end        
 
     it "should do nothing if there is no match" do
       @<%=rule_name%>_rule = <%=rule_class%>Rule.new
       @<%=rule_name%>_rule.stub!(:words).and_return(["no", "words"])      
-      @<%=rule_name%>_rule.process(101, @data).should be_nil
+      @<%=rule_name%>_rule.process(@job, @data).should be_nil
     end        
     
     describe "a match found" do
       it "should add the match to the data" do      
-        @<%=rule_name%>_rule.process(101, @data)
-        @data[:re_match].should == "mock"
+        @<%=rule_name%>_rule.process(@job, @data)
+        @data[:match].should == "mock"
+      end        
+
+      it "should audit the match" do  
+        @job.should_receive(:audit) do |one, two|
+          one.should =~ /mock$/
+        end
+        @<%=rule_name%>_rule.process(@job, @data)
       end        
     
       it "should return next" do
         @<%=rule_name%>_rule.should_receive(:pipeline_action).and_return('next')
-        @<%=rule_name%>_rule.process(101, @data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+        @<%=rule_name%>_rule.process(@job, @data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
       end
 
       it "should return stop success" do
         @<%=rule_name%>_rule.should_receive(:pipeline_action).and_return('stop_success')
-        @<%=rule_name%>_rule.process(101, @data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
+        @<%=rule_name%>_rule.process(@job, @data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
       end
 
       it "should return stop failure" do
         @<%=rule_name%>_rule.should_receive(:pipeline_action).and_return('stop_failure')
-        @<%=rule_name%>_rule.process(101, @data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
+        @<%=rule_name%>_rule.process(@job, @data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
       end
 
       it "should return start pipeline with the pipeline_code" do
         @<%=rule_name%>_rule.should_receive(:pipeline_action).and_return('start_pipeline')
         @<%=rule_name%>_rule.should_receive(:pipeline).and_return('mock_pipeline')
-        <%=rule_name%>_rule_outcome = @<%=rule_name%>_rule.process(101, @data)
+        <%=rule_name%>_rule_outcome = @<%=rule_name%>_rule.process(@job, @data)
         <%=rule_name%>_rule_outcome.outcome.should == RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
         <%=rule_name%>_rule_outcome.pipeline_code.should == "mock_pipeline"
       end
 
       it "should return nextv for an unknown action" do
         @<%=rule_name%>_rule.should_receive(:pipeline_action).and_return('this is not a valid action')
-        @<%=rule_name%>_rule.process(101, @data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+        @<%=rule_name%>_rule.process(@job, @data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
       end
     end    
   end
