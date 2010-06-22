@@ -18,12 +18,12 @@ describe <%=rule_class%>Rule do
   end
 
   describe "the expected class options" do    
-    it "should be in the '<%=rule_class%> Rules' group" do
-      <%=rule_class%>Rule.options[:group].should == "<%=rule_class%> Rules"
+    it "should be in the '<%=rule_class%>' group" do
+      <%=rule_class%>Rule.options[:group].should == "<%=rule_class%>"
     end
     
-    it "should have the diplay name of '<%=rule_class%> Rule'" do
-      <%=rule_class%>Rule.options[:display_name].should == "<%=rule_class%> Rule"
+    it "should have the diplay name of '<%=rule_class%>'" do
+      <%=rule_class%>Rule.options[:display_name].should == "<%=rule_class%>"
     end
 
     it "should have the help template of '/re_rule_definitions/<%=rule_name%>_rule/help'" do
