@@ -109,7 +109,7 @@ describe RePipelinesController do
   end
   
   describe "show" do
-    it_should_require_rules_engine_reader_access(:show)
+    it_should_require_rules_engine_reader_access(:show, :id => 123)
     
     it "should get the pipeline record with the ID" do
       re_pipeline = mock_model(RePipeline)
@@ -120,7 +120,7 @@ describe RePipelinesController do
   end
 
   describe "new" do
-    it_should_require_rules_engine_editor_access(:new)
+    it_should_require_rules_engine_editor_access(:new, :id => 123)
     
     it "should assign a new pipeline record" do
       re_pipeline = mock_model(RePipeline)
@@ -136,7 +136,7 @@ describe RePipelinesController do
   end
     
   describe "create" do
-    it_should_require_rules_engine_editor_access(:create)
+    it_should_require_rules_engine_editor_access(:create, :re_pipeline => {})
 
     before do
       @re_pipeline = mock_model(RePipeline, :save => false)
@@ -183,7 +183,7 @@ describe RePipelinesController do
   end
     
   describe "change" do
-    it_should_require_rules_engine_editor_access(:change)
+    it_should_require_rules_engine_editor_access(:change, :id => 123)
     
     it "should get the pipeline record with the ID" do
       re_pipeline = mock_model(RePipeline)
@@ -194,7 +194,7 @@ describe RePipelinesController do
   end
 
   describe "edit" do
-    it_should_require_rules_engine_editor_access(:edit)
+    it_should_require_rules_engine_editor_access(:edit, :id => 123)
     
     it "should get the pipeline record with the ID" do
       re_pipeline = mock_model(RePipeline)
@@ -205,7 +205,7 @@ describe RePipelinesController do
   end
 
   describe "update" do
-    it_should_require_rules_engine_editor_access(:update)
+    it_should_require_rules_engine_editor_access(:update, :id => 123, :re_pipeline => {})
 
     before do
       @re_pipeline = mock_model(RePipeline, :save => false)
@@ -304,7 +304,7 @@ describe RePipelinesController do
   end
   
   describe "activate" do
-    it_should_require_rules_engine_editor_access(:activate)
+    it_should_require_rules_engine_editor_access(:activate, :id => 123)
 
     before do
       @re_pipeline = mock_model(RePipeline)
@@ -340,7 +340,7 @@ describe RePipelinesController do
   end
 
   describe "deactivate" do
-    it_should_require_rules_engine_editor_access(:deactivate)
+    it_should_require_rules_engine_editor_access(:deactivate, :id => 123)
 
     before do
       @re_pipeline = mock_model(RePipeline)
@@ -376,7 +376,7 @@ describe RePipelinesController do
   end
 
   describe "revert" do
-    it_should_require_rules_engine_editor_access(:revert)
+    it_should_require_rules_engine_editor_access(:revert, :id => 123)
 
     before do
       @re_pipeline = mock_model(RePipeline)
@@ -412,7 +412,7 @@ describe RePipelinesController do
   end
 
   describe "destroy" do
-    it_should_require_rules_engine_editor_access(:destroy)
+    it_should_require_rules_engine_editor_access(:destroy, :id => 123)
 
     before do
       @re_pipeline = mock_model(RePipeline)

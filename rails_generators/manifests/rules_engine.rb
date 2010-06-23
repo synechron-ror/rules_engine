@@ -8,8 +8,8 @@ class RulesEngineManifest
       app/views/layouts
       app/views/re_jobs
       app/views/re_pipeline_jobs
+      app/views/re_pipeline_rules
       app/views/re_pipelines
-      app/views/re_rules
       db/migrate
       doc
       features/re_pipeline
@@ -48,8 +48,8 @@ class RulesEngineManifest
     %W(
       app/controllers/re_jobs_controller.rb
       app/controllers/re_pipeline_jobs_controller.rb
+      app/controllers/re_pipeline_rules_controller.rb
       app/controllers/re_pipelines_controller.rb
-      app/controllers/re_rules_controller.rb
       app/helpers/re_pipeline_helper.rb
       app/models/re_job.rb
       app/models/re_job_audit.rb
@@ -70,6 +70,26 @@ class RulesEngineManifest
       app/views/re_jobs/show.js.erb
       app/views/re_pipeline_jobs/index.html.erb
       app/views/re_pipeline_jobs/index.js.erb
+      app/views/re_pipeline_rules/_change.html.erb
+      app/views/re_pipeline_rules/_edit.html.erb
+      app/views/re_pipeline_rules/_empty.html.erb
+      app/views/re_pipeline_rules/_empty.js.erb
+      app/views/re_pipeline_rules/_error.html.erb
+      app/views/re_pipeline_rules/_help.html.erb
+      app/views/re_pipeline_rules/_index.html.erb
+      app/views/re_pipeline_rules/_menu.html.erb
+      app/views/re_pipeline_rules/_new.html.erb
+      app/views/re_pipeline_rules/_show.html.erb
+      app/views/re_pipeline_rules/destroy.js.erb
+      app/views/re_pipeline_rules/edit.html.erb
+      app/views/re_pipeline_rules/edit.js.erb
+      app/views/re_pipeline_rules/error.html.erb
+      app/views/re_pipeline_rules/error.js.erb
+      app/views/re_pipeline_rules/help.html.erb
+      app/views/re_pipeline_rules/help.js.erb
+      app/views/re_pipeline_rules/new.html.erb
+      app/views/re_pipeline_rules/new.js.erb
+      app/views/re_pipeline_rules/update.js.erb
       app/views/re_pipelines/_change.html.erb
       app/views/re_pipelines/_change_actions.html.erb
       app/views/re_pipelines/_confirm.html.erb
@@ -89,26 +109,6 @@ class RulesEngineManifest
       app/views/re_pipelines/show.html.erb
       app/views/re_pipelines/template.html.erb
       app/views/re_pipelines/update.js.erb
-      app/views/re_rules/_change.html.erb
-      app/views/re_rules/_edit.html.erb
-      app/views/re_rules/_empty.html.erb
-      app/views/re_rules/_empty.js.erb
-      app/views/re_rules/_error.html.erb
-      app/views/re_rules/_help.html.erb
-      app/views/re_rules/_index.html.erb
-      app/views/re_rules/_menu.html.erb
-      app/views/re_rules/_new.html.erb
-      app/views/re_rules/_show.html.erb
-      app/views/re_rules/destroy.js.erb
-      app/views/re_rules/edit.html.erb
-      app/views/re_rules/edit.js.erb
-      app/views/re_rules/error.html.erb
-      app/views/re_rules/error.js.erb
-      app/views/re_rules/help.html.erb
-      app/views/re_rules/help.js.erb
-      app/views/re_rules/new.html.erb
-      app/views/re_rules/new.js.erb
-      app/views/re_rules/update.js.erb
       db/migrate/20100308225008_create_re_pipelines.rb
       doc/README.rules_engine
       doc/README.rules_engine_features
@@ -371,8 +371,8 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/re_rule_class/new-48.png
       spec/controllers/re_jobs_controller_spec.rb
       spec/controllers/re_pipeline_jobs_controller_spec.rb
+      spec/controllers/re_pipeline_rules_controller_spec.rb
       spec/controllers/re_pipelines_controller_spec.rb
-      spec/controllers/re_rules_controller_spec.rb
       spec/helpers/re_pipeline_helper_spec.rb
       spec/models/re_job_audit_spec.rb
       spec/models/re_job_spec.rb

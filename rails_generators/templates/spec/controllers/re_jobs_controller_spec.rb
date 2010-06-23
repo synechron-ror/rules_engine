@@ -25,7 +25,7 @@ describe ReJobsController do
   end
 
   describe "show" do    
-    it_should_require_rules_engine_reader_access(:show)
+    it_should_require_rules_engine_reader_access(:show, :id => 101)
     
     it "should get the job" do
       re_job = mock_model(ReJob)

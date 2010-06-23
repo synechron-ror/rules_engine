@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe ReRulesController do
+describe RePipelineRulesController do
   extend RulesEngineMacros
   
   before(:each) do
@@ -20,7 +20,7 @@ describe ReRulesController do
   end  
 
   describe "help" do
-    it_should_require_rules_engine_reader_access(:help)
+    it_should_require_rules_engine_reader_access(:help, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class")
     
     before(:each) do
       @rule_class = mock("RuleClass")
@@ -29,47 +29,47 @@ describe ReRulesController do
     end
     
     it "should assign the re_pipeline" do
-      get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
+      get :help, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class"
       assigns[:re_pipeline].should == @re_pipeline
     end      
     
     it "should call load discover the rule" do
       RulesEngine::Discovery.should_receive(:rule_class).with("mock_rule_class").and_return(@rule_class)
-      get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
+      get :help, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class"
     end
-
+  
     describe "rule class not found" do
       it "should render the 'error' template" do
         RulesEngine::Discovery.should_receive(:rule_class).with("mock_rule_class").and_return(nil)
-        get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
+        get :help, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class"
         response.should render_template(:error)
       end
     end  
     
     describe "rule class found" do        
       it "should assign the rule_class" do
-        get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
+        get :help, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class"
         assigns[:rule_class].should == @rule_class
       end      
-
+  
       it "should assign the rule" do
-        get :help, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
+        get :help, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class"
         assigns[:rule].should == @rule
       end      
     end  
   end
-
+  
   describe "error" do
-    it_should_require_rules_engine_reader_access(:error)
+    it_should_require_rules_engine_reader_access(:error, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class")
   
     it "should assign the re_pipeline" do
-      get :error, :re_pipeline => 1001, :rule_class_name => "mock_rule_class"
+      get :error, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class"
       assigns[:re_pipeline].should == @re_pipeline
     end      
   end
   
   describe "new" do
-    it_should_require_rules_engine_editor_access(:new)
+    it_should_require_rules_engine_editor_access(:new, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class")
   
     it "should assign the re_pipeline" do
       get :new, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class"
@@ -106,7 +106,7 @@ describe ReRulesController do
       @re_rule.stub!(:save).and_return(true)      
     end
     
-    it_should_require_rules_engine_editor_access(:create)
+    it_should_require_rules_engine_editor_access(:create, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class", :re_rule => {  })
   
     it "should assign the re_pipeline" do
       post :create, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class", :re_rule => { :key => "value" }
@@ -132,11 +132,11 @@ describe ReRulesController do
         response.should render_template(:error)
       end
     end  
-
+  
     describe "rule class found" do
       it "should assign the rule attributes" do
-        @re_rule.should_receive(:rule_attributes=).with(hash_including("re_pipeline" => "1001", "rule_class_name" => "mock_rule_class", "re_rule" => { "key" => "value" }))
-        post :create, :re_pipeline => 1001, :rule_class_name => "mock_rule_class", :re_rule => { :key => "value" }
+        @re_rule.should_receive(:rule_attributes=).with(hash_including("re_pipeline_id" => "1001", "rule_class_name" => "mock_rule_class", "re_rule" => { "key" => "value" }))
+        post :create, :re_pipeline_id => 1001, :rule_class_name => "mock_rule_class", :re_rule => { :key => "value" }
       end
       
       describe "re_rule invalid" do
@@ -175,7 +175,7 @@ describe ReRulesController do
   end
     
   describe "edit" do
-    it_should_require_rules_engine_editor_access(:edit)
+    it_should_require_rules_engine_editor_access(:edit, :re_pipeline_id => 1001, :re_rule_id => 2002)
   
     it "should assign the re_pipeline" do
       get :edit, :re_pipeline_id => 1001, :re_rule_id => 2002
@@ -195,21 +195,21 @@ describe ReRulesController do
         response.should render_template(:error)
       end
     end  
-
+      
     it "should render the 'edit' template" do
       get :edit, :re_pipeline_id => 1001, :re_rule_id => 2002
       response.should render_template(:edit)
     end
   end
-
+  
   describe "update" do
     before(:each) do
       @re_rule.stub!(:rule_attributes=)
       @re_rule.stub!(:valid?).and_return(true)      
       @re_rule.stub!(:save).and_return(true)      
     end
-
-    it_should_require_rules_engine_editor_access(:update)
+  
+    it_should_require_rules_engine_editor_access(:update, :re_pipeline_id => 1001, :re_rule_id => 2002, :re_rule => { })
   
     it "should assign the re_pipeline" do
       put :update, :re_pipeline_id => 1001, :re_rule_id => 2002, :re_rule => { :key => "value" }
@@ -229,7 +229,7 @@ describe ReRulesController do
         response.should render_template(:error)
       end
     end  
-
+  
     describe "rule class found" do
       it "should assign the rule attributes" do
         @re_rule.should_receive(:rule_attributes=).with(hash_including("re_pipeline_id" => "1001", "re_rule_id" => "2002", "re_rule" => { "key" => "value" }))
@@ -276,7 +276,7 @@ describe ReRulesController do
       @re_rule.stub!(:destroy).and_return(true)      
     end
     
-    it_should_require_rules_engine_editor_access(:destroy)
+    it_should_require_rules_engine_editor_access(:destroy, :re_pipeline_id => 1001, :re_rule_id => 2002)
   
     it "should assign the re_pipeline" do
       delete :destroy, :re_pipeline_id => 1001, :re_rule_id => 2002
@@ -288,7 +288,7 @@ describe ReRulesController do
       delete :destroy, :re_pipeline_id => 1001, :re_rule_id => 2002
       assigns[:re_rule].should == @re_rule
     end
-
+  
     it "should destroy the re_rule" do
       @re_rule.should_receive(:destroy)
       delete :destroy, :re_pipeline_id => 1001, :re_rule_id => 2002
@@ -298,12 +298,12 @@ describe ReRulesController do
       delete :destroy, :re_pipeline_id => 1001, :re_rule_id => 2002
       flash[:success].should_not be_blank
     end
-
+  
     it "should redirect to the change re_pipeline page for HTML" do
       delete :destroy, :re_pipeline_id => 1001, :re_rule_id => 2002
       response.should redirect_to(change_re_pipeline_path(@re_pipeline))
     end
-
+  
     it "should render 'destroy' template for JAVASCRIPT" do
       xhr :delete, :destroy, :re_pipeline_id => 1001, :re_rule_id => 2002
       response.should render_template(:destroy)
@@ -315,7 +315,7 @@ describe ReRulesController do
       @re_rule.stub!(:move_higher).and_return(true)      
     end
     
-    it_should_require_rules_engine_editor_access(:move_up)
+    it_should_require_rules_engine_editor_access(:move_up, :re_pipeline_id => 1001, :re_rule_id => 2002)
   
     it "should assign the re_pipeline" do
       put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
@@ -327,7 +327,7 @@ describe ReRulesController do
       put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
       assigns[:re_rule].should == @re_rule
     end
-
+  
     it "should call move_higher for the re_rule" do
       @re_rule.should_receive(:move_higher)
       put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
@@ -337,24 +337,24 @@ describe ReRulesController do
       put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
       flash[:success].should_not be_blank
     end
-
+  
     it "should redirect to the change re_pipeline page for HTML" do
       put :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
       response.should redirect_to(change_re_pipeline_path(@re_pipeline))
     end
-
+  
     it "should render 'update' template for JAVASCRIPT" do
       xhr :put, :move_up, :re_pipeline_id => 1001, :re_rule_id => 2002
       response.should render_template(:update)
     end          
   end
-
+  
   describe "move_down" do
     before(:each) do
       @re_rule.stub!(:move_lower).and_return(true)      
     end
     
-    it_should_require_rules_engine_editor_access(:move_down)
+    it_should_require_rules_engine_editor_access(:move_down, :re_pipeline_id => 1001, :re_rule_id => 2002)
   
     it "should assign the re_pipeline" do
       put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
@@ -366,7 +366,7 @@ describe ReRulesController do
       put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
       assigns[:re_rule].should == @re_rule
     end
-
+  
     it "should call move_lower for the re_rule" do
       @re_rule.should_receive(:move_lower)
       put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
@@ -376,12 +376,12 @@ describe ReRulesController do
       put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
       flash[:success].should_not be_blank
     end
-
+  
     it "should redirect to the change re_pipeline page for HTML" do
       put :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
       response.should redirect_to(change_re_pipeline_path(@re_pipeline))
     end
-
+  
     it "should render 'update' template for JAVASCRIPT" do
       xhr :put, :move_down, :re_pipeline_id => 1001, :re_rule_id => 2002
       response.should render_template(:update)

@@ -12,7 +12,7 @@ describe RePipelineJobsController do
   end  
 
   describe "index" do    
-    it_should_require_rules_engine_reader_access(:index)
+    it_should_require_rules_engine_reader_access(:index, :re_pipeline_id => "1001")
 
     it "should load the pipeline" do
       RePipeline.should_receive(:find).with("1001").and_return(@re_pipeline)

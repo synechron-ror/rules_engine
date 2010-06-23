@@ -1,4 +1,4 @@
-class ReRulesController < ApplicationController    
+class RePipelineRulesController < ApplicationController    
   helper :re_pipeline 
   layout 'rules_engine'
   
