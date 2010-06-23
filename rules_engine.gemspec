@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rules_engine}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-06-22}
+  s.date = %q{2010-06-23}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -44,8 +44,8 @@ Gem::Specification.new do |s|
      "rails_generators/rules_engine_generator.rb",
      "rails_generators/templates/app/controllers/re_jobs_controller.rb",
      "rails_generators/templates/app/controllers/re_pipeline_jobs_controller.rb",
+     "rails_generators/templates/app/controllers/re_pipeline_rules_controller.rb",
      "rails_generators/templates/app/controllers/re_pipelines_controller.rb",
-     "rails_generators/templates/app/controllers/re_rules_controller.rb",
      "rails_generators/templates/app/helpers/re_pipeline_helper.rb",
      "rails_generators/templates/app/models/re_job.rb",
      "rails_generators/templates/app/models/re_job_audit.rb",
@@ -68,6 +68,26 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_jobs/show.js.erb",
      "rails_generators/templates/app/views/re_pipeline_jobs/index.html.erb",
      "rails_generators/templates/app/views/re_pipeline_jobs/index.js.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_change.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_edit.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_empty.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_empty.js.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_error.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_help.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_index.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_menu.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_new.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/_show.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/destroy.js.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/edit.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/edit.js.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/error.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/error.js.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/help.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/help.js.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/new.html.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/new.js.erb",
+     "rails_generators/templates/app/views/re_pipeline_rules/update.js.erb",
      "rails_generators/templates/app/views/re_pipelines/_change.html.erb",
      "rails_generators/templates/app/views/re_pipelines/_change_actions.html.erb",
      "rails_generators/templates/app/views/re_pipelines/_confirm.html.erb",
@@ -99,26 +119,6 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_rule_definitions/simple_rule/_form.html.erb",
      "rails_generators/templates/app/views/re_rule_definitions/simple_rule/_help.html.erb",
      "rails_generators/templates/app/views/re_rule_definitions/simple_rule/_new.html.erb",
-     "rails_generators/templates/app/views/re_rules/_change.html.erb",
-     "rails_generators/templates/app/views/re_rules/_edit.html.erb",
-     "rails_generators/templates/app/views/re_rules/_empty.html.erb",
-     "rails_generators/templates/app/views/re_rules/_empty.js.erb",
-     "rails_generators/templates/app/views/re_rules/_error.html.erb",
-     "rails_generators/templates/app/views/re_rules/_help.html.erb",
-     "rails_generators/templates/app/views/re_rules/_index.html.erb",
-     "rails_generators/templates/app/views/re_rules/_menu.html.erb",
-     "rails_generators/templates/app/views/re_rules/_new.html.erb",
-     "rails_generators/templates/app/views/re_rules/_show.html.erb",
-     "rails_generators/templates/app/views/re_rules/destroy.js.erb",
-     "rails_generators/templates/app/views/re_rules/edit.html.erb",
-     "rails_generators/templates/app/views/re_rules/edit.js.erb",
-     "rails_generators/templates/app/views/re_rules/error.html.erb",
-     "rails_generators/templates/app/views/re_rules/error.js.erb",
-     "rails_generators/templates/app/views/re_rules/help.html.erb",
-     "rails_generators/templates/app/views/re_rules/help.js.erb",
-     "rails_generators/templates/app/views/re_rules/new.html.erb",
-     "rails_generators/templates/app/views/re_rules/new.js.erb",
-     "rails_generators/templates/app/views/re_rules/update.js.erb",
      "rails_generators/templates/db/migrate/20100308225008_create_re_pipelines.rb",
      "rails_generators/templates/doc/README.rules_engine",
      "rails_generators/templates/doc/README.rules_engine_features",
@@ -381,8 +381,8 @@ Gem::Specification.new do |s|
      "rails_generators/templates/public/stylesheets/rules_engine/re_rule_class/new-48.png",
      "rails_generators/templates/spec/controllers/re_jobs_controller_spec.rb",
      "rails_generators/templates/spec/controllers/re_pipeline_jobs_controller_spec.rb",
+     "rails_generators/templates/spec/controllers/re_pipeline_rules_controller_spec.rb",
      "rails_generators/templates/spec/controllers/re_pipelines_controller_spec.rb",
-     "rails_generators/templates/spec/controllers/re_rules_controller_spec.rb",
      "rails_generators/templates/spec/helpers/re_pipeline_helper_spec.rb",
      "rails_generators/templates/spec/lib/rules/complex_rule_spec.rb",
      "rails_generators/templates/spec/lib/rules/simple_rule_spec.rb",
