@@ -61,26 +61,26 @@ class ReRule < ActiveRecord::Base
   end
   
   def rule_attributes=params
-    raise 'rule class not found' if rule.nil?
+    raise 'rule class not found' if rule.nil?    
     rule.attributes = params
   end
 
   def before_save_rule
-    raise 'rule class not found' if rule.nil?
+    return if rule.nil?
     self.title = rule.title
     self.summary = rule.summary
     self.data = rule.data
     
-    self.re_rule_expected_outcomes = (rule.expected_outcomes).map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
+    self.re_rule_expected_outcomes = (rule.expected_outcomes || []).map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
   end
 
   def after_create_rule
-    # raise 'rule class not found' if rule.nil?
+    return if rule.nil?
     rule.after_add_to_pipeline(self.re_pipeline_id, self.id)
   end
 
   def before_destroy_rule
-    # raise 'rule class not found' if rule.nil?
+    return if rule.nil?
     rule.before_remove_from_pipeline(self.re_pipeline_id, self.id)
   end
 

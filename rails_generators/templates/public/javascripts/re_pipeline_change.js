@@ -72,7 +72,7 @@ $(document).ready(function() {
       return false;
 
     $.re_block();
-    $.get('/re_pipelines/' + values[0] + '/re_pipeline_rules/new?rule_class_name=' + values[1], null, null, 'script');
+    $.get('/re_pipelines/' + values[0] + '/re_rules/new?rule_class_name=' + values[1], null, null, 'script');
   	return false;  
   });  
 
@@ -94,7 +94,7 @@ $(document).ready(function() {
       return false;
 
     $.re_block();
-    $.get('/re_pipelines/' + values[0] + '/re_pipeline_rules/' + values[1] + '/edit', null, null, 'script');
+    $.get('/re_pipelines/' + values[0] + '/re_rules/' + values[1] + '/edit', null, null, 'script');
   	return false;  
   });  
 
@@ -170,7 +170,7 @@ $(document).ready(function() {
       return false;
     
     $.re_block();
-    $.get('/re_pipelines/' + values[0] + '/re_pipeline_rules/help?rule_class_name=' + values[1], null, null, 'script');
+    $.get('/re_pipelines/' + values[0] + '/re_rules/help?rule_class_name=' + values[1], null, null, 'script');
    return false;  
   });  
 

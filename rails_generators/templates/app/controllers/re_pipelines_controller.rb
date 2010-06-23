@@ -89,11 +89,15 @@ class RePipelinesController < ApplicationController
     klass = RePipeline
     @re_pipelines = klass.find(:all)
     
-    @re_pipelines.each do |re_pipeline|
-      re_pipeline.activate!
+    if @re_pipelines.any? { | re_pipeline| !re_pipeline.valid? }
+      flash[:error] = 'Cannot Activate Pipelines.'
+    else
+      @re_pipelines.each do |re_pipeline|
+        re_pipeline.activate!
+      end
+      flash[:success] = 'All Pipelines Activated.'
     end
-    flash[:success] = 'All Pipelines Activated.'
-
+      
     respond_to do |format|
       format.html do
         redirect_to(re_pipelines_path)

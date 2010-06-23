@@ -3,7 +3,8 @@ html, body {
   margin: 0px;
   padding: 0px;
   font-size: 14px;
-  color: #000;
+/*  color: #000;*/
+  color: #222;
   background: #2F323C;
   font-family: "Lucida Grande","Lucida Sans Unicode",verdana,arial,helvetica,sans-serif;
 }
@@ -15,7 +16,8 @@ html, body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight:normal;
-  color:#111;
+/*  color:#111;*/
+  color: #222;
 }
 h1 {
   font-size:36px;

@@ -8,11 +8,11 @@
       <div class="re-rule-class-list hide" id="re_rule_class_name_<%= name.downcase.gsub(/[^a-z0-9]+/i, '_') %>">
         <% rule_classes.each do |rule_class| %>
  					<div class="re-yellowbox">
-						<h5>
-							<%= rule_class.options[:display_name] %>          
-						</h5>
 						<a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
 						<a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
+						<div class="float-left">
+							<%= rule_class.options[:display_name] %>          
+						</div>
 						<div class="clear"></div>
 		      </div>      
 		      <div class="clear top-5"></div>
@@ -23,11 +23,11 @@
 		<div class="re-rule-class-list" id="re_rule_class_name_all">
     	<% RulesEngine::Discovery.rule_classes.each do |rule_class| %>    
 	      <div class="re-yellowbox">
-	        <h5>
+       		<a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
+       		<a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
+	        <div class="float-left">
 	          <%= rule_class.options[:display_name] %>          
-	        </h5>
-	        <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-new"> <span>Add</span> </a>
-	        <a href="#<%=@re_pipeline.id%>|<%= rule_class %>" class="re-rule-class-help"> <span>Help</span> </a>
+	        </div>
 	        <div class="clear"></div>
 	      </div>      
 	      <div class="clear top-5"></div>

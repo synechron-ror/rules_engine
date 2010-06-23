@@ -269,8 +269,10 @@ describe RePipelinesController do
 
     before do
       @re_pipeline_1 = mock_model(RePipeline)
+      @re_pipeline_1.stub!(:valid?).and_return(true)
       @re_pipeline_1.stub!(:activate!)
       @re_pipeline_2 = mock_model(RePipeline)
+      @re_pipeline_2.stub!(:valid?).and_return(true)
       @re_pipeline_2.stub!(:activate!)
       RePipeline.stub!(:find).and_return([@re_pipeline_1, @re_pipeline_2])
     end
@@ -281,15 +283,41 @@ describe RePipelinesController do
       assigns[:re_pipelines].should == [@re_pipeline_1, @re_pipeline_2]
     end
     
-    it "should activate all of the re_pipeline" do
-      @re_pipeline_1.should_receive(:activate!)
-      @re_pipeline_2.should_receive(:activate!)
-      put :activate_all
-    end
+    describe "all of the pipelines are valid" do
+      it "should activate all of the re_pipeline" do
+        @re_pipeline_1.should_receive(:activate!)
+        @re_pipeline_2.should_receive(:activate!)
+        put :activate_all
+      end
        
-    it "should display a flash success message" do
-      put :activate_all
-      flash[:success].should_not be_blank
+      it "should display a flash success message" do
+        put :activate_all
+        flash[:success].should_not be_blank
+      end
+    end
+
+    describe "one of the pipelines is invalid" do
+      before(:each) do
+        @re_pipeline_2.stub!(:valid?).and_return(false)  
+        @re_pipeline_2.stub!(:valid?).and_return(false)  
+      end
+
+      it "should stop checking at the first invalid pipeline" do
+        @re_pipeline_1.should_receive(:valid?).and_return(false)
+        @re_pipeline_2.should_not_receive(:valid?)
+        put :activate_all
+      end
+      
+      it "should not activate the pipelines" do
+        @re_pipeline_1.should_not_receive(:activate!)
+        @re_pipeline_2.should_not_receive(:activate!)
+        put :activate_all
+      end
+       
+      it "should display a flash error message" do
+        put :activate_all
+        flash[:error].should_not be_blank
+      end
     end
     
     it "should redirect to the re_pipeline index page for HTML" do

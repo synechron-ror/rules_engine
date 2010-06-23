@@ -11,7 +11,8 @@ a.re-alert-close {
   padding-left: 24px;
 }
 a.re-alert-close:hover {
-  color: #000;
+/*  color: #000;*/
+  color: #222;
   text-decoration: underline;
 }
 
