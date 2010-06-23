@@ -50,10 +50,10 @@
     
   </div>    
   <div class="re-infobox no-top hide" id="re_pipeline_rule_list_<%= re_pipeline.id %>">        
-    <%= render '/re_rules/empty.html', :re_pipeline => re_pipeline %>
+    <%= render '/re_pipeline_rules/empty.html', :re_pipeline => re_pipeline %>
     
     <% re_pipeline.re_rules.each_with_index do |re_rule, index | %>
-      <%= render '/re_rules/index', :re_rule => re_rule, :new_row => (index != 0 && (index % 2) == 0), :first_rule => re_rule == re_pipeline.re_rules[0], :last_rule => re_rule == re_pipeline.re_rules[-1] %>
+      <%= render '/re_pipeline_rules/index', :re_rule => re_rule, :new_row => (index != 0 && (index % 2) == 0), :first_rule => re_rule == re_pipeline.re_rules[0], :last_rule => re_rule == re_pipeline.re_rules[-1] %>
     <% end %>
     
     <div class="clear"></div>
