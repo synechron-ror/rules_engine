@@ -1,5 +1,10 @@
 module RulesEngine  
   class RuleOutcome
+    
+    def initialize(outcome, pipeline_code = nil)
+      @outcome = outcome
+      @pipeline_code = pipeline_code
+    end
 
     OUTCOME_NEXT  =            0
     OUTCOME_STOP_SUCCESS  =    1

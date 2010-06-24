@@ -106,24 +106,19 @@ class <%=rule_class%>Rule < RulesEngine::Rule
     
     words.each do |word|
       if /#{word}/i =~ sentence        
-        job.audit("Match Found #{word}", ReJobAudit::AUDIT_INFO)                        
+        job.audit("#{title} Found #{word}", ReJobAudit::AUDIT_INFO)
         data[:match] = word
-        
-        rule_outcome = RulesEngine::RuleOutcome.new        
         
         case pipeline_action
         when 'stop_success'
-          rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
+          return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
         when 'stop_failure'
-          rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
+          return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
         when 'start_pipeline'
-          rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
-          rule_outcome.pipeline_code = pipeline  
+          return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, pipeline)
         else #'next'
-          rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_NEXT
+          return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT)
         end
-        
-        return rule_outcome
       end
     end
         
