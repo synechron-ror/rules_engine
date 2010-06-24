@@ -40,7 +40,13 @@ class ReJob < ActiveRecord::Base
           'start_date' => job_audit.audit_date,
           'start_data' => job_audit.audit_message, 
         })
-      end  
+      else
+        result.merge!({
+          'start_date' => Time.parse(result['job_date']).utc,
+          'start_data' => ""
+        })          
+      end
+        
       
       if result['job_status'].to_i != ReJob::JOB_STATUS_RUNNING
         job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ?", result['job_id']], :order => "audit_date DESC", :limit => 1).first

@@ -4,7 +4,6 @@
 	     <tr class="<%= cycle('', 'odd') %>">
 	       <td class="no-border-right">
 <%  
-					job_date =  re_job['start_date']
 					case re_job['job_status'].to_i
 						when ReJob::JOB_STATUS_NONE, ReJob::JOB_STATUS_RUNNING
 							job_class = 'job-running' 
@@ -23,7 +22,7 @@
 				<td  class="no-border-left text-right">
 					<a class="re-job-detail" href='#<%= re_job['job_id'] %>'>
 						<div>
-							<%= job_date.strftime('%d %b %Y - %H:%M:%S') %>
+							<%= re_job['start_date'].strftime('%d %b %Y - %H:%M:%S') %>
 						</div>
 					</a>		
 				</td>

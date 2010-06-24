@@ -37,7 +37,11 @@ module RulesEngine
         
         activated_pipeline = RePipelineActivated.find_by_code(pipeline_code)
         unless activated_pipeline
-          audit("Activated Pipleine : #{pipeline_code} not found", ReJobAudit::AUDIT_FAILURE) 
+          if RePipeline.find_by_code(pipeline_code)
+            audit("Pipleine : #{pipeline_code} not activated", ReJobAudit::AUDIT_FAILURE) 
+          else
+            audit("Pipleine : #{pipeline_code} not found", ReJobAudit::AUDIT_FAILURE) 
+          end  
           error = done = true 
           next
         end  

@@ -4,12 +4,12 @@
   <%= link_to("Edit Pipeline Details", "##{@re_pipeline.id}", :id => "re_pipeline_edit") %>
 </h3>
 
-<% if changed_status == RePipelineBase::CHANGED_STATUS_DRAFT %>
+<% if changed_status == RePipelineBase::CHANGED_STATUS_DRAFT && !@re_pipeline.pipeline_error %>
   <h3 class="re-pipeline-activate float-left clear">
     <%= link_to("Activate Pipeline", "##{@re_pipeline.id}", :id => "re_pipeline_activate") %>
   </h3>    
 <% end %>  
-<% if changed_status == RePipelineBase::CHANGED_STATUS_CHANGED %>
+<% if changed_status == RePipelineBase::CHANGED_STATUS_CHANGED && !@re_pipeline.pipeline_error %>
   <h3 class="re-pipeline-activate float-left clear">
     <%= link_to("Activate Pipeline Changes", "##{@re_pipeline.id}", :id => "re_pipeline_activate") %>
   </h3>    
