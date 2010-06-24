@@ -269,10 +269,10 @@ describe RePipelinesController do
 
     before do
       @re_pipeline_1 = mock_model(RePipeline)
-      @re_pipeline_1.stub!(:valid?).and_return(true)
+      @re_pipeline_1.stub!(:pipeline_error).and_return(nil)
       @re_pipeline_1.stub!(:activate!)
       @re_pipeline_2 = mock_model(RePipeline)
-      @re_pipeline_2.stub!(:valid?).and_return(true)
+      @re_pipeline_2.stub!(:pipeline_error).and_return(nil)
       @re_pipeline_2.stub!(:activate!)
       RePipeline.stub!(:find).and_return([@re_pipeline_1, @re_pipeline_2])
     end
@@ -283,7 +283,7 @@ describe RePipelinesController do
       assigns[:re_pipelines].should == [@re_pipeline_1, @re_pipeline_2]
     end
     
-    describe "all of the pipelines are valid" do
+    describe "no errors in the pipelines" do
       it "should activate all of the re_pipeline" do
         @re_pipeline_1.should_receive(:activate!)
         @re_pipeline_2.should_receive(:activate!)
@@ -296,15 +296,15 @@ describe RePipelinesController do
       end
     end
 
-    describe "one of the pipelines is invalid" do
+    describe "one of the pipelines has errors" do
       before(:each) do
-        @re_pipeline_2.stub!(:valid?).and_return(false)  
-        @re_pipeline_2.stub!(:valid?).and_return(false)  
+        @re_pipeline_2.stub!(:pipeline_error).and_return("you bet")  
+        @re_pipeline_2.stub!(:pipeline_error).and_return("you bet")  
       end
 
       it "should stop checking at the first invalid pipeline" do
-        @re_pipeline_1.should_receive(:valid?).and_return(false)
-        @re_pipeline_2.should_not_receive(:valid?)
+        @re_pipeline_1.should_receive(:pipeline_error).and_return("you bet")
+        @re_pipeline_2.should_not_receive(:pipeline_error)
         put :activate_all
       end
       
@@ -336,7 +336,8 @@ describe RePipelinesController do
 
     before do
       @re_pipeline = mock_model(RePipeline)
-      @re_pipeline.stub!(:activate!)
+      @re_pipeline.stub!(:pipeline_error).and_return(nil)  
+      @re_pipeline.stub!(:activate!)      
       RePipeline.stub!(:find).and_return(@re_pipeline) 
     end
 
@@ -346,14 +347,32 @@ describe RePipelinesController do
       assigns[:re_pipeline].should == @re_pipeline
     end
     
-    it "should activate the re_pipeline" do
-      @re_pipeline.should_receive(:activate!)
-      put :activate, :id => 123
-    end
+    describe "the pipeline is valid" do
+      it "should activate the re_pipeline" do
+        @re_pipeline.should_receive(:activate!)
+        put :activate, :id => 123
+      end
    
-    it "should display a flash success message" do
-      put :activate, :id => 123
-      flash[:success].should_not be_blank
+      it "should display a flash success message" do
+        put :activate, :id => 123
+        flash[:success].should_not be_blank
+      end
+    end
+    
+    describe "the pipeline is invalid" do
+      before(:each) do
+        @re_pipeline.stub!(:pipeline_error).and_return("you bet")  
+      end
+
+      it "should not activate the pipeline" do
+        @re_pipeline.should_not_receive(:activate!)
+        put :activate, :id => 123
+      end
+       
+      it "should display a flash error message" do
+        put :activate, :id => 123
+        flash[:error].should_not be_blank
+      end
     end
     
     it "should redirect to the change re_pipeline page for HTML" do
@@ -475,5 +494,4 @@ describe RePipelinesController do
     end    
   end
 
-  
 end

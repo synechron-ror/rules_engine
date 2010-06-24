@@ -39,7 +39,7 @@ files :
 
   - app/views/layouts/rules_engine.html.erb
   
-  - lib/tasks/re_execute.rake
+  - lib/tasks/rules_engine.rake
       
   - db/migrate/20100308225008_create_re_pipelines.rb
   

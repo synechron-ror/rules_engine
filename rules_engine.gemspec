@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-06-23}
+  s.date = %q{2010-06-24}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -132,7 +132,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/features/step_definitions/common/re_view_steps.rb",
      "rails_generators/templates/features/support/blueprint_re_pipelines.rb",
      "rails_generators/templates/features/support/rules_engine.rb",
-     "rails_generators/templates/lib/tasks/re_execute.rake",
+     "rails_generators/templates/lib/tasks/rules_engine.rake",
      "rails_generators/templates/public/javascripts/jquery-1.4.2.min.js",
      "rails_generators/templates/public/javascripts/jquery.autocomplete.pack.js",
      "rails_generators/templates/public/javascripts/jquery.blockUI.js",

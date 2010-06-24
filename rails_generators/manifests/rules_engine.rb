@@ -122,7 +122,7 @@ class RulesEngineManifest
       features/step_definitions/common/re_view_steps.rb
       features/support/blueprint_re_pipelines.rb
       features/support/rules_engine.rb
-      lib/tasks/re_execute.rake
+      lib/tasks/rules_engine.rake
       public/javascripts/jquery-1.4.2.min.js
       public/javascripts/jquery.autocomplete.pack.js
       public/javascripts/jquery.blockUI.js

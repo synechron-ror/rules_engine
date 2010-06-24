@@ -52,12 +52,7 @@ class RePipelineBase < ActiveRecord::Base
   
   def pipeline_error
     return 'rules required' if re_rules.empty?
-    
-    re_rules.each do |re_rule|
-      error = re_rule.rule_error
-      return error unless error.blank?
-    end
-    
+    return 'error within rules' if re_rules.any? { | re_rule | re_rule.rule_error }    
     nil
   end
 

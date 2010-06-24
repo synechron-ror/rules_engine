@@ -24,31 +24,31 @@ describe RePipelineBase do
   end  
 
   it "should replace any nonprint cahracters with an _" do
-    src = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
-    src.save!
-    src.code.should == "my_code"
+    re_pipeline = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
+    re_pipeline.save!
+    re_pipeline.code.should == "my_code"
   end
     
 
   it "should change the code to lower case when creating" do
-    src = RePipelineBase.new(valid_attributes.merge(:code => "My code"))
-    src.save!
-    src.code.should == "my_code"
+    re_pipeline = RePipelineBase.new(valid_attributes.merge(:code => "My code"))
+    re_pipeline.save!
+    re_pipeline.code.should == "my_code"
   end
     
   describe "code cannot be changed after creation" do
     it "should save the code with a new record" do
-      src = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
-      src.save!
-      src.code.should == "my_code"
+      re_pipeline = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
+      re_pipeline.save!
+      re_pipeline.code.should == "my_code"
     end
     
     it "should ignore the code attribute for an existing record" do
-      src = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
-      src.save!
-      src.code = "new_code"
-      src.save!
-      src.code.should == "my_code"
+      re_pipeline = RePipelineBase.new(valid_attributes.merge(:code => "my code"))
+      re_pipeline.save!
+      re_pipeline.code = "new_code"
+      re_pipeline.save!
+      re_pipeline.code.should == "my_code"
     end            
   end
 
@@ -103,8 +103,8 @@ describe RePipelineBase do
         @re_pipeline_2 = RePipeline.new(valid_attributes)
         @re_pipeline_1.stub!(:re_rules).and_return([@rule_1, @rule_2])
         @re_pipeline_2.stub!(:re_rules).and_return([@rule_1, @rule_2])
-        
       end
+      
       it "should not compare the rules if the the number is different" do
         @re_pipeline_2.stub!(:re_rules).and_return([@rule_1])
       
@@ -155,10 +155,10 @@ describe RePipelineBase do
     end
 
     it "should stop on the first rule error" do
-      @re_rule1.should_receive(:rule_error).at_least(:once).and_return("invalid rule")
+      @re_rule1.should_receive(:rule_error).at_least(:once).and_return("oops")
       @re_rule2.should_not_receive(:rule)
       
-      @re_pipeline.pipeline_error.should == "invalid rule"
+      @re_pipeline.pipeline_error.should == "error within rules"
     end
   end
 end

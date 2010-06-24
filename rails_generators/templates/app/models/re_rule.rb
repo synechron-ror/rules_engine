@@ -4,7 +4,7 @@ class ReRule < ActiveRecord::Base
 
   has_many  :re_rule_expected_outcomes, :dependent => :destroy, :order => "outcome ASC"
   has_many  :re_job_audits
-    
+      
   validates_associated  :re_pipeline
   validates_presence_of :rule_class_name
 
@@ -86,16 +86,16 @@ class ReRule < ActiveRecord::Base
 
   def rule_error
     return "#{title} class #{rule_class_name} invalid" if rule.nil?
-    return "#{title} invalid" unless rule.valid?
+    return "#{rule.errors.values.join(', ')}" unless rule.valid?
 
     re_rule_expected_outcomes.each do |re_rule_expected_outcome|
       next if re_rule_expected_outcome.pipeline_code.blank?      
 
-      re_pipeline_activated = RePipelineActivated.find_by_code(re_rule_expected_outcome.pipeline_code)
-      return "#{re_rule_expected_outcome.pipeline_code} not activated" if re_pipeline_activated.nil?
+      re_pipeline = RePipeline.find_by_code(re_rule_expected_outcome.pipeline_code)
+      return "#{re_rule_expected_outcome.pipeline_code} missing" if re_pipeline.nil?
       
-      pipeline_error = re_pipeline_activated.pipeline_error
-      return "#{re_rule_expected_outcome.pipeline_code} invalid" unless re_pipeline_activated.pipeline_error.blank?
+      pipeline_error = re_pipeline.pipeline_error
+      return "#{re_rule_expected_outcome.pipeline_code} invalid" unless re_pipeline.pipeline_error.blank?
     end
     
     nil

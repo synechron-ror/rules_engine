@@ -4,12 +4,12 @@ class RePipelineActivated < RePipelineBase
   def self.find_by_code(code)
     return find_by_code_without_caching(code) unless RulesEngine::Cache.perform_caching?
 
-    code.gsub!(/[^a-zA-Z0-9]+/i, '_')
-    re_pipeline = RulesEngine::Cache.cache_store.read("activated_pipeline_#{code}")
+    cache_code = code.gsub(/[^a-zA-Z0-9]+/i, '_')
+    re_pipeline = RulesEngine::Cache.cache_store.read("activated_pipeline_#{cache_code}")
     if (re_pipeline.nil?)
-      re_pipeline = find_by_code_without_caching(code)
+      re_pipeline = find_by_code_without_caching(cache_code)
 
-      RulesEngine::Cache.cache_store.write("activated_pipeline_#{code}", re_pipeline)
+      RulesEngine::Cache.cache_store.write("activated_pipeline_#{cache_code}", re_pipeline)
     end    
 
     re_pipeline
@@ -22,8 +22,8 @@ class RePipelineActivated < RePipelineBase
   def self.reset_cache(code)
     return unless RulesEngine::Cache.perform_caching?
 
-    code.gsub!(/[^a-zA-Z0-9]+/i, '_')
-    RulesEngine::Cache.cache_store.delete("activated_pipeline_#{code}")
+    cache_code = code.gsub(/[^a-zA-Z0-9]+/i, '_')
+    RulesEngine::Cache.cache_store.delete("activated_pipeline_#{cache_code}")
   end
 
 end

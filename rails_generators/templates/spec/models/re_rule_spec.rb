@@ -318,30 +318,23 @@ describe ReRule do
       @re_rule.rule_error.should be_nil
     end
 
-    it "should validate the rule is present and activated" do
+    it "should validate the pipeline is present and activated" do
       re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :pipeline_code => "mock_pipeline_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
-      RePipelineActivated.should_receive(:find_by_code).and_return(mock("RePipelineActivated", :pipeline_error => nil))      
+      RePipeline.should_receive(:find_by_code).and_return(mock("RePipeline", :pipeline_error => nil))      
       @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
       @re_rule.rule_error.should be_nil
     end
       
-    it "should return '[pipeline_code] not activated' if the required pipeline is missing" do
+    it "should return '[pipeline_code] missing' if the required pipeline is missing" do
       re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :pipeline_code => "mock_pipeline_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
-      RePipelineActivated.should_receive(:find_by_code).and_return(nil)
+      RePipeline.should_receive(:find_by_code).and_return(nil)
       @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
-      @re_rule.rule_error.should == "mock_pipeline_code not activated"
-    end
-    
-    it "should return '[pipeline_code] not activated' if the required pipeline has not been activated" do
-      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :pipeline_code => "mock_pipeline_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
-      RePipelineActivated.should_receive(:find_by_code).and_return(nil)
-      @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
-      @re_rule.rule_error.should == "mock_pipeline_code not activated"
+      @re_rule.rule_error.should == "mock_pipeline_code missing"
     end
     
     it "should return '[pipeline_code] invalid' if the required pipeline has errors" do
       re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :pipeline_code => "mock_pipeline_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE)
-      RePipelineActivated.should_receive(:find_by_code).and_return(mock("RePipelineActivated", :pipeline_error => "pipeline error"))      
+      RePipeline.should_receive(:find_by_code).and_return(mock("RePipeline", :pipeline_error => "pipeline error"))      
       @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
       @re_rule.rule_error.should == "mock_pipeline_code invalid"
     end
