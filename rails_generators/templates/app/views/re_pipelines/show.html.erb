@@ -18,14 +18,14 @@
 <div class="span-7 last">      
 	<div class="top-5"></div>
 	
-	<h3 class="re-job-list">
+	<h4 class="re-job-list">
 		<%= link_to("Pipeline Job Audit", re_pipeline_re_jobs_path(@re_pipeline)) %>
-	</h3>
+	</h4>
 	
   <%= render '/re_jobs/empty', :hide => true %>
 	
 	<div id="re_job_list_pending" class="re-infobox">
-		<h3 class="left-20">Updating Job List</h3>
+		<h4 class="left-20">Updating Job List</h4>
 		<a id="re_job_list_pipeline" href="#<%= @re_pipeline.id %>"></a>
 	</div>	
 

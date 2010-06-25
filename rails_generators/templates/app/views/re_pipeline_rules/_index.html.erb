@@ -8,9 +8,9 @@
 <% end %>
 
 <div class="span-6 <%= local_new_row ? 'left-20' : 'left-10' %> re-rule-show">
-  <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> re-rule-status-<%= re_rule_error.blank? ? 'valid' : 'verify' %>"><%= re_rule.title %></div>
+  <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> re-rule-status-<%= re_rule_error.blank? ? 'valid' : 'verify' %>"><%=h re_rule.title %></div>
   <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
-      <p class="top-5"><%= re_rule.summary %></p>	
+      <p class="top-5"><%=h re_rule.summary %></p>	
       <div class="top-10 float-right">
         <% if re_rule.re_rule_expected_outcomes.empty? %>
           <div class="re-rule-continue">Continue</div>

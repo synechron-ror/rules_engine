@@ -17,20 +17,20 @@
 </div>
 <div class="span-7 last">      
 	<% if rules_engine_editor? && !@re_pipelines.empty? %>
-	  <h3 class="re-pipeline-activate-all float-left clear">
+	  <h4 class="re-pipeline-activate-all float-left clear">
 	    <%= link_to("Activate All Pipelines", "#", :id => "re_pipeline_activate_all") %>
-	  </h3>    
+	  </h4>    
 		<div class="clear top-50"></div>
 	<% end %>
 	
-	<h3 class="re-job-list">
+	<h4 class="re-job-list">
 		<%= link_to("Pipeline Job Audit", re_jobs_path) %>
-	</h3>
+	</h4>
 	
   <%= render '/re_jobs/empty', :hide => true %>
 	
 	<div id="re_job_list_pending" class="re-infobox">
-		<h3 class="left-20">Updating Job List</h3>
+		<h4 class="left-20">Updating Job List</h4>
 	</div>	
 
 	<div id="re_job_list">
@@ -45,19 +45,10 @@
   <div id="re_pipeline_activate_all_confirm">
     <div class="span-14 last">
       <% re_whitebox do %>    
-        <h2 class="re-pipeline-activate-all red" id="re_pipeline_action_title">Confirm : Activate All Pipelines</h2>    
+        <h3 class="re-pipeline-activate-all red" id="re_pipeline_action_title">Confirm : Activate All Pipelines</h3>
         <div class="clear top-5"></div>
         <hr/>
         <div class="clear top-5"></div>
-  
-        <div class="span-13 last" id="re_pipeline_action_content_code">
-        </div>  
-        <div class="clear"></div>
-
-        <div class="span-12 prepend-1 last">
-          <h5 id="re_pipeline_action_content_title"></h5>
-        </div>    
-        <div class="clear"></div>
         <%= re_button_link_green('Activate All Pipelines', "#", :id => "re_pipeline_activate_all_ok") %>
         <%= re_button_link_orange('Cancel', "#", :id => "re_pipeline_activate_all_cancel") %>
       <% end %>  

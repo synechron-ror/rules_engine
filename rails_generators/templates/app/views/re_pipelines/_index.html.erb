@@ -5,14 +5,14 @@
 <div class="span-16" id="re_pipeline_index_<%= re_pipeline.id %>" style="<%= local_hide ?  'display:none' : '' %>">
   <div class="re-infobox">
     <div class="span-10">
-      <h3 class="re-pipeline-status-<%= re_pipeline_error.blank? ? re_pipeline_status : 'verify' %>"><%=h re_pipeline.code %></h3>
+      <h4 class="re-pipeline-status-<%= re_pipeline_error.blank? ? re_pipeline_status : 'verify' %>"><%=h re_pipeline.code %></h4>
     </div>  
     <div class="span-5 last">
       <div>
 				<% if rules_engine_editor? %>
-        	<h3 class="re-pipeline-change float-right"><%= link_to("Edit", change_re_pipeline_path(re_pipeline)) %></h3>    
+        	<h4 class="re-pipeline-change float-right"><%= link_to("Edit", change_re_pipeline_path(re_pipeline)) %></h4>    
 				<% end %>
-        <h3 class="re-pipeline-show float-right"><%= link_to("View", re_pipeline_path(re_pipeline)) %></h3>    
+        <h4 class="re-pipeline-show float-right"><%= link_to("View", re_pipeline_path(re_pipeline)) %></h4>    
       </div>
     </div>  
     <div class="clear"></div>
@@ -28,7 +28,7 @@
 			</a>	
     </div>
     <div class="span-9">
-      <h5 class="left-20"> <%=h re_pipeline.title%></h5>
+      <h6 class="left-20"> <%=h re_pipeline.title%></h6>
     </div>  
     <div class="span-5 last">
       <% if re_pipeline_error.blank? %>

@@ -4,7 +4,7 @@
 
 <div class="span-15 last re-rule-change" id="re_rule_change_<%= re_rule.id %>">
   <div class="<%= rule_error.blank? ? 're-bluebox' : 're-redbox' %> re-rule-status-<%= rule_error.blank? ? 'valid' : 'verify' %>">
-    <h3 class="float-left"><%= re_rule.title %></h3>
+    <h4 class="float-left"><%=h re_rule.title %></h4>
     <div class="float-right">
       <%= link_to("<span>Edit</span>", "##{@re_pipeline.id}|#{re_rule.id}", :class => "re-rule-edit") %>
       <%= link_to("<span>Delete</span>", "##{@re_pipeline.id}|#{re_rule.id}", :class => "re-rule-delete") %>
@@ -16,7 +16,7 @@
   <div class="<%= rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
       <div class="span-9">
         <p class="top-5 left-10">
-          <%= re_rule.summary %>
+          <%=h re_rule.summary %>
         </p>
       </div>
       

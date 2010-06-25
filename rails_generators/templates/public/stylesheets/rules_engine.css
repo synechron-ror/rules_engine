@@ -21,63 +21,59 @@
 }
 
 /* sub headers*/
-h2.re-pipeline-alert {
-	background: transparent url('./rules_engine/re_pipeline/alert-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+h3.re-pipeline-alert {
+	background: transparent url('./rules_engine/re_pipeline/alert-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;
 }
-h2.re-pipeline-list {
-	background: transparent url('./rules_engine/re_pipeline/list-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+h3.re-pipeline-new {
+	background: transparent url('./rules_engine/re_pipeline/new-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;
 }
-h2.re-pipeline-new {
-	background: transparent url('./rules_engine/re_pipeline/new-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+h3.re-pipeline-edit {
+	background: transparent url('./rules_engine/re_pipeline/edit-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;
 }
-h2.re-pipeline-edit {
-	background: transparent url('./rules_engine/re_pipeline/edit-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+h3.re-pipeline-change {
+	background: transparent url('./rules_engine/re_pipeline/change-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;
 }
-h2.re-pipeline-change {
-	background: transparent url('./rules_engine/re_pipeline/change-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+h3.re-pipeline-activate-all {
+	background: transparent url('./rules_engine/re_pipeline/activate-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;
 }
-h2.re-pipeline-activate-all {
-	background: transparent url('./rules_engine/re_pipeline/activate-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+h3.re-pipeline-activate {
+	background: transparent url('./rules_engine/re_pipeline/activate-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;
 }
-h2.re-pipeline-activate {
-	background: transparent url('./rules_engine/re_pipeline/activate-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+h3.re-pipeline-deactivate {
+	background: transparent url('./rules_engine/re_pipeline/deactivate-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;
 }
-h2.re-pipeline-deactivate {
-	background: transparent url('./rules_engine/re_pipeline/deactivate-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+h3.re-pipeline-revert {
+	background: transparent url('./rules_engine/re_pipeline/revert-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;
 }
-h2.re-pipeline-revert {
-	background: transparent url('./rules_engine/re_pipeline/revert-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
-}
-h2.re-pipeline-delete {
-	background: transparent url('./rules_engine/re_pipeline/destroy-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+h3.re-pipeline-delete {
+	background: transparent url('./rules_engine/re_pipeline/destroy-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;
 }
 
 /* pipeline-status*/
-h3.re-pipeline-status-draft {
+h4.re-pipeline-status-draft {
 	background: transparent url('./rules_engine/re_pipeline/draft-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
 }
-h3.re-pipeline-status-changed {
+h4.re-pipeline-status-changed {
 	background: transparent url('./rules_engine/re_pipeline/changed-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
 }
-h3.re-pipeline-status-current {
+h4.re-pipeline-status-current {
 	background: transparent url('./rules_engine/re_pipeline/current-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
 }
-h3.re-pipeline-status-verify {
+h4.re-pipeline-status-verify {
 	background: transparent url('./rules_engine/re_pipeline/verify-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
 }
 /* pipeline status text  */
 em.re-pipeline-status-draft {
@@ -94,126 +90,126 @@ em.re-pipeline-status-verify {
 }
 
 /* pipeline actions */
-h3.re-pipeline-new  {
+h4.re-pipeline-new  {
   padding: 0 0 4px 0;
 }
-h3.re-pipeline-new a {
+h4.re-pipeline-new a {
 	background: transparent url('./rules_engine/re_pipeline/new-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #218868;
   text-decoration: none;
 }
-h3.re-pipeline-new a:hover {
+h4.re-pipeline-new a:hover {
   text-decoration: underline;
 }
-h3.re-job-list  {
+h4.re-job-list  {
   padding: 0 0 4px 0;
 }
-h3.re-job-list a {
+h4.re-job-list a {
 	background: transparent url('./rules_engine/re_job/list-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #244A9F;
   text-decoration: none;
 }
-h3.re-job-list a:hover {
+h4.re-job-list a:hover {
   text-decoration: underline;
 }
-h3.re-pipeline-show  {
+h4.re-pipeline-show  {
 /*  padding: 0 0 4px 0;*/
   padding: 0;
 }
-h3.re-pipeline-show a {
+h4.re-pipeline-show a {
 	background: transparent url('./rules_engine/re_pipeline/show-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #92b83c;
   text-decoration: none;
 }
-h3.re-pipeline-show a:hover {
+h4.re-pipeline-show a:hover {
   text-decoration: underline;
 }
-h3.re-pipeline-change  {
+h4.re-pipeline-change  {
 /*  padding: 0 0 4px 0;*/
   padding: 0;
 }
-h3.re-pipeline-change a {
+h4.re-pipeline-change a {
 	background: transparent url('./rules_engine/re_pipeline/change-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #218868;
   text-decoration: none;
 }
-h3.re-pipeline-change a:hover {
+h4.re-pipeline-change a:hover {
   text-decoration: underline;
 }
-h3.re-pipeline-edit  {
+h4.re-pipeline-edit  {
   padding: 0 0 4px 0;
 }
-h3.re-pipeline-edit a {
+h4.re-pipeline-edit a {
 	background: transparent url('./rules_engine/re_pipeline/edit-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #218868;
   text-decoration: none;
 }
-h3.re-pipeline-edit a:hover {
+h4.re-pipeline-edit a:hover {
   text-decoration: underline;
 }
-h3.re-pipeline-activate-all  {
+h4.re-pipeline-activate-all  {
   padding: 0 0 4px 0;
 }
-h3.re-pipeline-activate-all a {
+h4.re-pipeline-activate-all a {
 	background: transparent url('./rules_engine/re_pipeline/activate-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #218868;
   text-decoration: none;
 }
-h3.re-pipeline-activate-all a:hover {
+h4.re-pipeline-activate-all a:hover {
   text-decoration: underline;
 }
-h3.re-pipeline-activate  {
+h4.re-pipeline-activate  {
   padding: 0 0 4px 0;
 }
-h3.re-pipeline-activate a {
+h4.re-pipeline-activate a {
 	background: transparent url('./rules_engine/re_pipeline/activate-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #92b83c;
   text-decoration: none;
 }
-h3.re-pipeline-activate a:hover {
+h4.re-pipeline-activate a:hover {
   text-decoration: underline;
 }
-h3.re-pipeline-deactivate {
+h4.re-pipeline-deactivate {
   padding: 0 0 4px 0;
 }
-h3.re-pipeline-deactivate a {
+h4.re-pipeline-deactivate a {
 	background: transparent url('./rules_engine/re_pipeline/deactivate-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #b43838;
   text-decoration: none;
 }
-h3.re-pipeline-deactivate a:hover {
+h4.re-pipeline-deactivate a:hover {
   text-decoration: underline;
 }
-h3.re-pipeline-revert {
+h4.re-pipeline-revert {
   padding: 0 0 4px 0;
 }
-h3.re-pipeline-revert a {
+h4.re-pipeline-revert a {
 	background: transparent url('./rules_engine/re_pipeline/revert-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #b43838;
   text-decoration: none;
 }
-h3.re-pipeline-revert a:hover {
+h4.re-pipeline-revert a:hover {
   text-decoration: underline;
 }
-h3.re-pipeline-delete {
+h4.re-pipeline-delete {
   padding: 0 0 4px 0;
 }
-h3.re-pipeline-delete a {
+h4.re-pipeline-delete a {
 	background: transparent url('./rules_engine/re_pipeline/destroy-25.png') no-repeat left -1px;
-  padding: 0px 0 0 28px;
+  padding: 0 0 0 28px;
   color: #b43838;
   text-decoration: none;
 }
-h3.re-pipeline-delete a:hover {
+h4.re-pipeline-delete a:hover {
   text-decoration: underline;
 }
 
@@ -233,17 +229,17 @@ div.re-pipeline-rule-list-down {
 }
 
 /* rules */
-h2.re-rule-class-new {
-	background: transparent url('./rules_engine/re_rule_class/new-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;  
+h3.re-rule-class-new {
+	background: transparent url('./rules_engine/re_rule_class/new-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;  
 }
-h2.re-rule-class-help {
-	background: transparent url('./rules_engine/re_rule_class/help-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;  
+h3.re-rule-class-help {
+	background: transparent url('./rules_engine/re_rule_class/help-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;  
 }
-h2.re-rule-edit {
-	background: transparent url('./rules_engine/re_rule/edit-25.png') no-repeat left top;
-  padding: 0px 0 0 28px;  
+h3.re-rule-edit {
+	background: transparent url('./rules_engine/re_rule/edit-25.png') no-repeat left 2px;
+  padding: 0 0 0 28px;  
 }
 
 .re-rule-show  p{
@@ -268,7 +264,7 @@ h2.re-rule-edit {
 }
 .re-rule-change div.re-rule-status-valid {
 	background: transparent url('./rules_engine/re_rule/valid-25.png') no-repeat 2px 2px;
-  padding: 2px 0 4px 31px;
+  padding: 2px 0 4px 24px;
 }
 .re-rule-change div.re-rule-status-verify {
 	background: #FBE3E4 url('./rules_engine/re_rule/verify-25.png') no-repeat 2px 2px;
@@ -424,17 +420,17 @@ a.re-rule-class-help span {
 }
 
 /* jobs */
-#re_job_list h3 {
+#re_job_list h4 {
   color: #244A9F;
   background: transparent url('./rules_engine/re_job/list-25.png') no-repeat 0px 4px;
   padding: 5px 0 5px 32px;
 }
-.re-job-show h3 {
+.re-job-show h4 {
   background: transparent url('./rules_engine/re_job/list-25.png') no-repeat 0px 0px;
   padding: 0px 0 5px 32px;
 }
 
-#re_job_list_empty h3 {
+#re_job_list_empty h4 {
   font-size:16px;
   line-height:18px;
   font-weight:normal;
@@ -443,7 +439,7 @@ a.re-rule-class-help span {
   margin: 0px 3px;
 }
 
-#re_job_list_empty h4 {
+#re_job_list_empty h5 {
   font-size:16px;
   line-height:18px;
   font-weight:normal;
@@ -456,7 +452,7 @@ a.re-rule-class-help span {
   background: transparent url('./rules_engine/re_job/loadingAnimation.gif') no-repeat 20px 10px;
   padding : 20px 0px 5px 15px;  
 }
-#re_job_list_pending h3 {
+#re_job_list_pending h4 {
   background: transparent url('./rules_engine/re_job/list-25.png') no-repeat 0px 4px;
   padding: 5px 0 5px 32px;
   color: #bbb;

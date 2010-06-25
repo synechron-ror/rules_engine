@@ -1,34 +1,34 @@
 <% changed_status = @re_pipeline.changed_status %>
 
-<h3 class="re-pipeline-edit clear">
-  <%= link_to("Edit Pipeline Details", "##{@re_pipeline.id}", :id => "re_pipeline_edit") %>
-</h3>
+<h4 class="re-pipeline-edit clear">
+  <%= link_to("Edit Details", "##{@re_pipeline.id}", :id => "re_pipeline_edit") %>
+</h4>
 
 <% if changed_status == RePipelineBase::CHANGED_STATUS_DRAFT && !@re_pipeline.pipeline_error %>
-  <h3 class="re-pipeline-activate float-left clear">
+  <h4 class="re-pipeline-activate float-left clear">
     <%= link_to("Activate Pipeline", "##{@re_pipeline.id}", :id => "re_pipeline_activate") %>
-  </h3>    
+  </h4>    
 <% end %>  
 <% if changed_status == RePipelineBase::CHANGED_STATUS_CHANGED && !@re_pipeline.pipeline_error %>
-  <h3 class="re-pipeline-activate float-left clear">
-    <%= link_to("Activate Pipeline Changes", "##{@re_pipeline.id}", :id => "re_pipeline_activate") %>
-  </h3>    
+  <h4 class="re-pipeline-activate float-left clear">
+    <%= link_to("Activate Changes", "##{@re_pipeline.id}", :id => "re_pipeline_activate") %>
+  </h4>    
 <% end %>  
 
 <% if changed_status != RePipelineBase::CHANGED_STATUS_DRAFT && changed_status != RePipelineBase::CHANGED_STATUS_CHANGED %>
-  <h3 class="re-pipeline-deactivate float-left clear">
+  <h4 class="re-pipeline-deactivate float-left clear">
     <%= link_to("Deactivate Pipeline", "##{@re_pipeline.id}", :id => "re_pipeline_deactivate") %>
-  </h3>    
+  </h4>    
 <% end %>  
 
 <% if changed_status == RePipelineBase::CHANGED_STATUS_CHANGED %>
-  <h3 class="re-pipeline-revert float-left clear">
-    <%= link_to("Discard Pipeline Changes", "##{@re_pipeline.id}", :id => "re_pipeline_revert") %>
-  </h3>    
+  <h4 class="re-pipeline-revert float-left clear">
+    <%= link_to("Discard Changes", "##{@re_pipeline.id}", :id => "re_pipeline_revert") %>
+  </h4>    
 <% end %>  
 
 <% if changed_status == RePipelineBase::CHANGED_STATUS_DRAFT %>
-  <h3 class="re-pipeline-delete float-left clear">
+  <h4 class="re-pipeline-delete float-left clear">
     <%= link_to("Delete Pipeline", "##{@re_pipeline.id}", :id => "re_pipeline_delete") %>
-  </h3>    
+  </h4>    
 <% end %>  

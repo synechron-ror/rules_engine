@@ -10,7 +10,8 @@ task :rules_engine => :environment do
   job = RulesEngine::Job.create
   # job = RulesEngine::Job.open(job.re_job.id)
       
-  result = job.run(data[:pipeline_code], data)
+  success = job.run(data[:pipeline_code], data)
   
-  puts "rule completed : data = #{data.inspect}"
-end  
+  puts "rule #{success ? 'succeeded' : 'failed'} : data = #{data.inspect}"
+end
+
