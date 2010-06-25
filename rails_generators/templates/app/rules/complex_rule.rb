@@ -101,8 +101,10 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   # it gets the data parameter :sentence
   # it sets the data parameter :match
   def process(job, data)
-    sentence = data[:sentence] || data["sentence"]
-    return nil if sentence.blank?
+    sentence = data[:sentence] || data["sentence"]    
+    if sentence.blank?
+      return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT) 
+    end
     
     words.each do |word|
       if /#{word}/i =~ sentence        
@@ -122,7 +124,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
       end
     end
         
-    nil
+    RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT)
   end  
     
 end

@@ -158,11 +158,14 @@ describe <%=rule_class%>Rule do
   describe "processing the rule" do
     before(:each) do
       @<%=rule_name%>_rule = <%=rule_class%>Rule.new
+
+      @job = mock("job")
+      @job.stub!(:audit)
     end
     
     it "should do nothing" do
       @<%=rule_name%>_rule = <%=rule_class%>Rule.new
-      @<%=rule_name%>_rule.process(101, {}).should be_nil
+      @<%=rule_name%>_rule.process(@job, {}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
     end        
   end
 end

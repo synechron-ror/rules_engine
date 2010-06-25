@@ -282,13 +282,13 @@ describe <%=rule_class%>Rule do
     
     it "should do nothing if there is no sentance" do
       @<%=rule_name%>_rule = <%=rule_class%>Rule.new
-      @<%=rule_name%>_rule.process(@job, {}).should be_nil
+      @<%=rule_name%>_rule.process(@job, {}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
     end        
 
     it "should do nothing if there is no match" do
       @<%=rule_name%>_rule = <%=rule_class%>Rule.new
       @<%=rule_name%>_rule.stub!(:words).and_return(["no", "words"])      
-      @<%=rule_name%>_rule.process(@job, @data).should be_nil
+      @<%=rule_name%>_rule.process(@job, @data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
     end        
     
     describe "a match found" do

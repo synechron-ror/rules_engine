@@ -1,8 +1,7 @@
 directories :
-  raw:
-    - app/rules
-    - spec/lib/rules
-    - lib/tasks
+  - app/rules
+  - spec/lib/rules
+  - lib/tasks
 
 templates :
   replacements :
