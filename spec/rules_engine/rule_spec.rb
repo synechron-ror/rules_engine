@@ -64,12 +64,16 @@ describe "RulesEngine::Rule" do
   end
   
   describe "processing a rule" do
+    before(:each) do
+      @job = mock("job")
+      @job.stub(:audit)
+    end
     it "should return a rule_outcome" do
-      MockRule.new.process(1, {}).should be_instance_of(RulesEngine::RuleOutcome)
+      MockRule.new.process(@job, {}).should be_instance_of(RulesEngine::RuleOutcome)
     end
 
     it "should set the outcome to OUTCOME_NEXT by default" do
-      MockRule.new.process(1, {}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+      MockRule.new.process(@job, {}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
     end        
   end
   

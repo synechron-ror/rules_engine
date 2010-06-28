@@ -1,11 +1,13 @@
 module RulesEngine  
   class Job
-    
+          
     @@max_rules = 500
-    attr_reader :re_job, :re_pipeline, :re_rule
+    attr_reader :re_job, :re_pipeline, :re_rule    
+    attr_accessor :audit_level
   
     def initialize(re_job)
       @re_job = re_job
+      @audit_level = ReJobAudit::AUDIT_INFO
     end
     
     def self.create()
@@ -109,6 +111,7 @@ module RulesEngine
     end
 
     def audit(message, code=ReJobAudit::AUDIT_INFO)
+      if audit_level != ReJobAudit::AUDIT_NONE && code >= audit_level
         ReJobAudit.create({
           :re_job_id => re_job ? re_job.id : nil,
           :re_pipeline_id => re_pipeline ? re_pipeline.id : nil, 
@@ -116,7 +119,7 @@ module RulesEngine
           :audit_date => Time.now,  
           :audit_code => code,
           :audit_message => message});
-      
+      end
       # puts "#{'*' * 5} #{re_job ? re_job.id : nil}, #{re_pipeline ? re_pipeline.id : nil}, #{re_rule ? re_rule.id : nil}, #{code}, #{message}"
     end
         

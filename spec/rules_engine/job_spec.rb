@@ -7,10 +7,14 @@ class ReJob
   JOB_STATUS_FAILURE =  4567
 end
 
+class RePipeline
+end
+
 class RePipelineActivated
 end
 
 class ReJobAudit
+  AUDIT_NONE =      -1
   AUDIT_INFO =      1234
   AUDIT_SUCCESS =   2345
   AUDIT_FAILURE =   3456
@@ -70,10 +74,7 @@ describe "RulesEngine::Job" do
   end
   
   describe "run" do
-#     def run_pipeline
-#       RulesEngine::JobRunner.run_pipleine(1001, 'mock pipeline code',{:data_key => "data value"})
-#     end
-#     
+
     before(:each) do
       @re_job = ReJob.new
       @re_job.stub!(:id).and_return(1001)
@@ -83,6 +84,7 @@ describe "RulesEngine::Job" do
       @re_pipeline_activated = RePipelineActivated.new
       @re_pipeline_activated.stub!(:id)
       RePipelineActivated.stub!(:find_by_code).and_return(@re_pipeline_activated)
+      RePipeline.stub!(:find_by_code).and_return(@re_pipeline_activated)
       
       @re_pipeline = mock("RePipeline")
       @re_pipeline.stub!(:id).and_return(2001)
@@ -145,8 +147,7 @@ describe "RulesEngine::Job" do
     end
 
     it "should process all of the rules if the outcome is OUTCOME_NEXT" do
-      rule_outcome = RulesEngine::RuleOutcome.new
-      rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_NEXT
+      rule_outcome = RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT)
       
       @rule_1.should_receive(:process).and_return(rule_outcome)
       @rule_2.should_receive(:process).and_return(rule_outcome)
@@ -155,8 +156,7 @@ describe "RulesEngine::Job" do
     end
 
     it "should not process rule 2 if rule 1 is OUTCOME_STOP_FAILURE" do
-      rule_outcome = RulesEngine::RuleOutcome.new
-      rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
+      rule_outcome = RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
       
       @rule_1.should_receive(:process).and_return(rule_outcome)
       @rule_2.should_not_receive(:process)
@@ -165,8 +165,7 @@ describe "RulesEngine::Job" do
     end
 
     it "should not process rule 2 if rule 1 is OUTCOME_STOP_SUCCESS" do
-      rule_outcome = RulesEngine::RuleOutcome.new
-      rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
+      rule_outcome = RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
       
       @rule_1.should_receive(:process).and_return(rule_outcome)
       @rule_2.should_not_receive(:process)
@@ -175,26 +174,17 @@ describe "RulesEngine::Job" do
     end
 
     it "should start a new pipeline if rule 1 is OUTCOME_START_PIPELINE" do
-      rule_outcome_pipeline = RulesEngine::RuleOutcome.new
-      rule_outcome_pipeline.outcome = RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
-      rule_outcome_pipeline.pipeline_code = "next pipeline"
+      rule_outcome_pipeline = RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, "next pipeline")      
+      rule_outcome_stop = RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
       
-      rule_outcome_stop = RulesEngine::RuleOutcome.new
-      rule_outcome_stop.outcome = RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
-      
-      RePipelineActivated.should_receive(:find_by_code).with("next pipeline").and_return(@re_pipeline_activated)
-      
+      RePipelineActivated.should_receive(:find_by_code).with("next pipeline").and_return(@re_pipeline_activated)      
       @rule_1.should_receive(:process).and_return(rule_outcome_pipeline, rule_outcome_stop)
-      @rule_2.should_not_receive(:process)
       
       RulesEngine::Job.create.run("test").should == true
     end
 
     it "should stop if we are starting too many pipelines" do
-      rule_outcome = RulesEngine::RuleOutcome.new
-      rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
-      rule_outcome.pipeline_code = "next pipeline"
-      
+      rule_outcome = RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, "next pipeline")
       @rule_1.stub!(:process).and_return(rule_outcome)
       @rule_2.should_not_receive(:process)
       
@@ -206,7 +196,6 @@ describe "RulesEngine::Job" do
     before(:each) do
       @re_job = ReJob.new
       @re_job.stub!(:id).and_return(1001)
-      # @re_job.stub(:update_attributes)
       ReJob.stub!(:create).and_return(@re_job)
     end
     
@@ -219,12 +208,12 @@ describe "RulesEngine::Job" do
         :re_pipeline_id => nil, 
         :re_rule_id => nil,
         :audit_date => now,  
-        :audit_code => "mock_code",
+        :audit_code => ReJobAudit::AUDIT_INFO,
         :audit_message => "mock_message"
       ))
       
       job = RulesEngine::Job.create
-      job.audit("mock_message", "mock_code")
+      job.audit("mock_message", ReJobAudit::AUDIT_INFO)
     end
 
     it "should set the re_pipeline_id" do
@@ -236,13 +225,13 @@ describe "RulesEngine::Job" do
         :re_pipeline_id => 2001, 
         :re_rule_id => nil,
         :audit_date => now,  
-        :audit_code => "mock_code",
+        :audit_code => ReJobAudit::AUDIT_INFO,
         :audit_message => "mock_message"
       ))
       
       job = RulesEngine::Job.create
       job.stub!(:re_pipeline).and_return(mock("RePipeline", :id => 2001))
-      job.audit("mock_message", "mock_code")
+      job.audit("mock_message", ReJobAudit::AUDIT_INFO)
     end
     
     it "should set the re_rule_id" do
@@ -254,13 +243,81 @@ describe "RulesEngine::Job" do
         :re_pipeline_id => nil, 
         :re_rule_id => 3001,
         :audit_date => now,  
-        :audit_code => "mock_code",
+        :audit_code => ReJobAudit::AUDIT_INFO,
         :audit_message => "mock_message"
       ))
       
       job = RulesEngine::Job.create
       job.stub!(:re_rule).and_return(mock("ReRule", :id => 3001))
-      job.audit("mock_message", "mock_code")
+      job.audit("mock_message", ReJobAudit::AUDIT_INFO)
     end
+  
+    describe "audit levels" do
+      describe "job audit level ReJobAudit::AUDIT_INFO" do
+        before(:each) do
+          @job = RulesEngine::Job.create
+          @job.audit_level = ReJobAudit::AUDIT_INFO        
+        end
+      
+        it "should audit the at level AUDIT_INFO" do
+          ReJobAudit.should_receive(:create)
+          @job.audit("mock_message", ReJobAudit::AUDIT_INFO)
+        end
+
+        it "should audit the at level AUDIT_SUCCESS" do
+          ReJobAudit.should_receive(:create)
+          @job.audit("mock_message", ReJobAudit::AUDIT_SUCCESS)
+        end
+
+        it "should audit the at level AUDIT_FAILURE" do
+          ReJobAudit.should_receive(:create)
+          @job.audit("mock_message", ReJobAudit::AUDIT_FAILURE)
+        end
+      end
+
+      describe "job audit level ReJobAudit::AUDIT_SUCCESS" do
+        before(:each) do
+          @job = RulesEngine::Job.create
+          @job.audit_level = ReJobAudit::AUDIT_SUCCESS        
+        end
+      
+        it "should not audit the at level AUDIT_INFO" do
+          ReJobAudit.should_not_receive(:create)
+          @job.audit("mock_message", ReJobAudit::AUDIT_INFO)
+        end
+
+        it "should audit the at level AUDIT_SUCCESS" do
+          ReJobAudit.should_receive(:create)
+          @job.audit("mock_message", ReJobAudit::AUDIT_SUCCESS)
+        end
+
+        it "should audit the at level AUDIT_FAILURE" do
+          ReJobAudit.should_receive(:create)
+          @job.audit("mock_message", ReJobAudit::AUDIT_FAILURE)
+        end
+      end
+
+      describe "job audit level ReJobAudit::AUDIT_FAILURE" do
+        before(:each) do
+          @job = RulesEngine::Job.create
+          @job.audit_level = ReJobAudit::AUDIT_FAILURE
+        end
+      
+        it "should not audit the at level AUDIT_INFO" do
+          ReJobAudit.should_not_receive(:create)
+          @job.audit("mock_message", ReJobAudit::AUDIT_INFO)
+        end
+
+        it "should not audit the at level AUDIT_FAILURE" do
+          ReJobAudit.should_not_receive(:create)
+          @job.audit("mock_message", ReJobAudit::AUDIT_SUCCESS)
+        end
+
+        it "should audit the at level AUDIT_FAILURE" do
+          ReJobAudit.should_receive(:create)
+          @job.audit("mock_message", ReJobAudit::AUDIT_FAILURE)
+        end
+      end
+    end  
   end
 end

@@ -1,6 +1,7 @@
 class ReJobAudit < ActiveRecord::Base
-
-  AUDIT_INFO  =     0
+  
+  AUDIT_NONE    =   -1
+  AUDIT_INFO    =   0
   AUDIT_SUCCESS =   1
   AUDIT_FAILURE =   2
   

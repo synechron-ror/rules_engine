@@ -41,7 +41,7 @@ module RulesEngine
     end
     
     def expected_outcomes
-      return [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT, :pipeline_code => nil]
+      [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]
     end
     
     ##################################################################
@@ -72,13 +72,12 @@ module RulesEngine
     # execute the rule
     # return an RulesEngine::RuleOutcome object to define what to do next
     # if nil to continue to the next rule
-    def process(job_id, data)
-      rule_outcome = RulesEngine::RuleOutcome.new
-      
-      rule_outcome.outcome = RulesEngine::RuleOutcome::OUTCOME_NEXT
-      # rule_outcome.pipeline_code = 
-      
-      rule_outcome
+    def process(job, data)
+      job.audit("process #{title}", ReJobAudit::AUDIT_INFO)                        
+      # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
+      # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
+      # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, 'next_pipeline')
+      RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT)
     end  
     
   end
