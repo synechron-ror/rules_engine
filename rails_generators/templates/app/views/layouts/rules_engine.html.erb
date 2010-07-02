@@ -11,14 +11,11 @@
   <![endif]-->
 
   <%= javascript_include_tag 'jquery-1.4.2.min', 'jquery.blockUI', 'jquery.autocomplete.pack', 'jquery.fancybox-1.3.1',
-															're_view', 
+															'rules_engine/re_view', 
 															#'application', 
 															:cache => true %>
 
-  <%= stylesheet_link_tag 're_view', 're_view_form', 're_view_button', 
-                          're_view_error', 're_view_box', 're_view_navigate', 're_view_table', 
-													'rules_engine',  
-													'jquery.autocomplete', 'fancybox/jquery.fancybox-1.3.1',
+  <%= stylesheet_link_tag 'rules_engine/screen',  'jquery.autocomplete', 'fancybox/jquery.fancybox-1.3.1',
 													#'application', 
 													:cache => true %>    
                         

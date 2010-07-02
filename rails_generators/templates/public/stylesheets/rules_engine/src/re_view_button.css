@@ -63,17 +63,17 @@ a.re-form-button-red:hover span
 	color: black;
 }
 
-a.re-form-button-gray{ background: transparent url('re_view_button/oval-gray-left.gif') no-repeat top left;}
-a.re-form-button-blue{ background: transparent url('re_view_button/oval-blue-left.gif') no-repeat top left;}
-a.re-form-button-green{ background: transparent url('re_view_button/oval-green-left.gif') no-repeat top left;}
-a.re-form-button-orange{ background: transparent url('re_view_button/oval-orange-left.gif') no-repeat top left;}
-a.re-form-button-red{ background: transparent url('re_view_button/oval-red-left.gif') no-repeat top left;}
+a.re-form-button-gray{ background: transparent url('./re_view_button/oval-gray-left.gif') no-repeat top left;}
+a.re-form-button-blue{ background: transparent url('./re_view_button/oval-blue-left.gif') no-repeat top left;}
+a.re-form-button-green{ background: transparent url('./re_view_button/oval-green-left.gif') no-repeat top left;}
+a.re-form-button-orange{ background: transparent url('./re_view_button/oval-orange-left.gif') no-repeat top left;}
+a.re-form-button-red{ background: transparent url('./re_view_button/oval-red-left.gif') no-repeat top left;}
 
-a.re-form-button-gray span{ background: transparent url('re_view_button/oval-gray-right.gif') no-repeat top right;}
-a.re-form-button-blue span{ background: transparent url('re_view_button/oval-blue-right.gif') no-repeat top right;}
-a.re-form-button-green span{ background: transparent url('re_view_button/oval-green-right.gif') no-repeat top right;}
-a.re-form-button-orange span{ background: transparent url('re_view_button/oval-orange-right.gif') no-repeat top right;}
-a.re-form-button-red span{ background: transparent url('re_view_button/oval-red-right.gif') no-repeat top right;}
+a.re-form-button-gray span{ background: transparent url('./re_view_button/oval-gray-right.gif') no-repeat top right;}
+a.re-form-button-blue span{ background: transparent url('./re_view_button/oval-blue-right.gif') no-repeat top right;}
+a.re-form-button-green span{ background: transparent url('./re_view_button/oval-green-right.gif') no-repeat top right;}
+a.re-form-button-orange span{ background: transparent url('./re_view_button/oval-orange-right.gif') no-repeat top right;}
+a.re-form-button-red span{ background: transparent url('./re_view_button/oval-red-right.gif') no-repeat top right;}
 
 a.button-checked{
 	background: transparent url('./re_view_button/checked-on.gif') no-repeat 1px 1px;
