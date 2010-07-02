@@ -4,8 +4,8 @@ describe <%=rule_class%>Rule do
 
   def valid_attributes
     {
-      :<%=rule_name%>_title => 'Valid Title',
-      :<%=rule_name%>_description => 'Valid Description'
+      :<%=rule_name%>_title => 'Valid Title'
+      # :<%=rule_name%>_description => 'Valid Description'
     }
   end
   
@@ -75,10 +75,19 @@ describe <%=rule_class%>Rule do
   end
   
   describe "the summary" do
-    it "should be the rule description" do
-      <%=rule_name%>_rule = <%=rule_class%>Rule.new
-      <%=rule_name%>_rule.should_receive(:description).and_return("mock description")
-      <%=rule_name%>_rule.summary.should == "mock description"
+    describe "description set" do
+      it "should be the rule description" do
+        <%=rule_name%>_rule = <%=rule_class%>Rule.new
+        <%=rule_name%>_rule.should_receive(:description).and_return("mock description")
+        <%=rule_name%>_rule.summary.should == "mock description"
+      end
+    end
+    describe "description not set" do
+      it "should be Does Nothing" do
+        <%=rule_name%>_rule = <%=rule_class%>Rule.new
+        <%=rule_name%>_rule.should_receive(:description).and_return(nil)
+        <%=rule_name%>_rule.summary.should == "Does Nothing"
+      end
     end
   end
 
@@ -128,21 +137,21 @@ describe <%=rule_class%>Rule do
     end
 
     describe "setting the <%=rule_name%>_description" do
-      it "should set the title" do
-        @<%=rule_name%>_rule.attributes = valid_attributes
+      it "should set the description" do
+        @<%=rule_name%>_rule.attributes = valid_attributes.merge(:<%=rule_name%>_description => 'Valid Description')
         @<%=rule_name%>_rule.description.should == 'Valid Description'
       end            
     
-      it "should not be valid if the '<%=rule_name%>_description' attribute is missing" do
+      it "should be valid if the '<%=rule_name%>_description' attribute is missing" do
         @<%=rule_name%>_rule.attributes = valid_attributes.except(:<%=rule_name%>_description)
-        @<%=rule_name%>_rule.should_not be_valid
-        @<%=rule_name%>_rule.errors.should include(:<%=rule_name%>_description)
+        @<%=rule_name%>_rule.should be_valid
+        # @<%=rule_name%>_rule.errors.should_not include(:<%=rule_name%>_description)
       end            
     
-      it "should not be valid if the '<%=rule_name%>_description' attribute is blank" do
+      it "should be valid if the '<%=rule_name%>_description' attribute is blank" do
         @<%=rule_name%>_rule.attributes = valid_attributes.merge(:<%=rule_name%>_description => "")
-        @<%=rule_name%>_rule.should_not be_valid
-        @<%=rule_name%>_rule.errors.should include(:<%=rule_name%>_description)
+        @<%=rule_name%>_rule.should be_valid
+        # @<%=rule_name%>_rule.errors.should_not include(:<%=rule_name%>_description)
       end                
     end
   end

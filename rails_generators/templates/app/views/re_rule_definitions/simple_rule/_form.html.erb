@@ -11,6 +11,6 @@
                         "<%=rule_name%>_description", 
                         params[:<%=rule_name%>_description] || @re_rule.rule.description,
                         :size => 40, 
-                        :required => true, 
+                        :required => false, 
 												:error => @re_rule.rule.errors[:<%=rule_name%>_description],
                         :span => '4x13' %>

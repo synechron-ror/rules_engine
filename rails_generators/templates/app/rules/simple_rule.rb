@@ -30,7 +30,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   end
   
   def summary
-    description
+    description || "Does Nothing"
   end
   
   def data
@@ -55,7 +55,6 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   def valid?
     @errors = {}
     @errors[:<%=rule_name%>_title] = "Title required" if title.blank?    
-    @errors[:<%=rule_name%>_description] = "Description required" if description.blank?    
     return @errors.empty?
   end
 
