@@ -16,9 +16,9 @@
 	     <tr class="<%= cycle('', 'odd') %>">
 	       <td width="150px">
 	<%  
-					if re_job_audit.audit_code == ReJobAudit::AUDIT_INFO
+					if re_job_audit.audit_code == RulesEngine::Audit::AUDIT_INFO
 						job_class = 're-job-info'
-					elsif re_job_audit.audit_code == ReJobAudit::AUDIT_FAILURE
+					elsif re_job_audit.audit_code == RulesEngine::Audit::AUDIT_FAILURE
 						job_class = 're-job-error'
 					else
 						job_class = 're-job-success'

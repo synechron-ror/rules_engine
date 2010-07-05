@@ -15,6 +15,6 @@ RePipelineActivated.blueprint do
 end
 
 # ReJob.blueprint do
-#   job_status   { ReJob::JOB_STATUS_NONE }
+#   job_status   { RulesEngine::Job::JOB_STATUS_NONE }
 #   created_at   { Time.now }
 # end

@@ -33,7 +33,7 @@ describe "RulesEngine::Job" do
     end
     
     it "should set the job status as none" do
-      ReJob.should_receive(:create).with(:job_status => ReJob::JOB_STATUS_NONE)
+      ReJob.should_receive(:create).with(:job_status => RulesEngine::Job::JOB_STATUS_NONE)
       RulesEngine::Job.create
     end
         
@@ -63,7 +63,7 @@ describe "RulesEngine::Job" do
     end
         
     it "should set the job status as none" do
-      @re_job.should_receive(:update_attributes).with(:job_status => ReJob::JOB_STATUS_NONE)
+      @re_job.should_receive(:update_attributes).with(:job_status => RulesEngine::Job::JOB_STATUS_NONE)
       RulesEngine::Job.open(1001)
     end
         
@@ -120,7 +120,7 @@ describe "RulesEngine::Job" do
     end
 
     it "should set the job as running" do
-      @re_job.should_receive(:update_attributes).at_least(:once).with(:job_status => ReJob::JOB_STATUS_RUNNING)
+      @re_job.should_receive(:update_attributes).at_least(:once).with(:job_status => RulesEngine::Job::JOB_STATUS_RUNNING)
       RulesEngine::Job.create.run("test")
     end
 
@@ -208,12 +208,12 @@ describe "RulesEngine::Job" do
         :re_pipeline_id => nil, 
         :re_rule_id => nil,
         :audit_date => now,  
-        :audit_code => ReJobAudit::AUDIT_INFO,
+        :audit_code => RulesEngine::Audit::AUDIT_INFO,
         :audit_message => "mock_message"
       ))
       
       job = RulesEngine::Job.create
-      job.audit("mock_message", ReJobAudit::AUDIT_INFO)
+      job.audit("mock_message", RulesEngine::Audit::AUDIT_INFO)
     end
 
     it "should set the re_pipeline_id" do
@@ -225,13 +225,13 @@ describe "RulesEngine::Job" do
         :re_pipeline_id => 2001, 
         :re_rule_id => nil,
         :audit_date => now,  
-        :audit_code => ReJobAudit::AUDIT_INFO,
+        :audit_code => RulesEngine::Audit::AUDIT_INFO,
         :audit_message => "mock_message"
       ))
       
       job = RulesEngine::Job.create
       job.stub!(:re_pipeline).and_return(mock("RePipeline", :id => 2001))
-      job.audit("mock_message", ReJobAudit::AUDIT_INFO)
+      job.audit("mock_message", RulesEngine::Audit::AUDIT_INFO)
     end
     
     it "should set the re_rule_id" do
@@ -243,79 +243,79 @@ describe "RulesEngine::Job" do
         :re_pipeline_id => nil, 
         :re_rule_id => 3001,
         :audit_date => now,  
-        :audit_code => ReJobAudit::AUDIT_INFO,
+        :audit_code => RulesEngine::Audit::AUDIT_INFO,
         :audit_message => "mock_message"
       ))
       
       job = RulesEngine::Job.create
       job.stub!(:re_rule).and_return(mock("ReRule", :id => 3001))
-      job.audit("mock_message", ReJobAudit::AUDIT_INFO)
+      job.audit("mock_message", RulesEngine::Audit::AUDIT_INFO)
     end
   
     describe "audit levels" do
-      describe "job audit level ReJobAudit::AUDIT_INFO" do
+      describe "job audit level RulesEngine::Audit::AUDIT_INFO" do
         before(:each) do
           @job = RulesEngine::Job.create
-          @job.audit_level = ReJobAudit::AUDIT_INFO        
+          @job.audit_level = RulesEngine::Audit::AUDIT_INFO        
         end
       
         it "should audit the at level AUDIT_INFO" do
           ReJobAudit.should_receive(:create)
-          @job.audit("mock_message", ReJobAudit::AUDIT_INFO)
+          @job.audit("mock_message", RulesEngine::Audit::AUDIT_INFO)
         end
 
         it "should audit the at level AUDIT_SUCCESS" do
           ReJobAudit.should_receive(:create)
-          @job.audit("mock_message", ReJobAudit::AUDIT_SUCCESS)
+          @job.audit("mock_message", RulesEngine::Audit::AUDIT_SUCCESS)
         end
 
         it "should audit the at level AUDIT_FAILURE" do
           ReJobAudit.should_receive(:create)
-          @job.audit("mock_message", ReJobAudit::AUDIT_FAILURE)
+          @job.audit("mock_message", RulesEngine::Audit::AUDIT_FAILURE)
         end
       end
 
-      describe "job audit level ReJobAudit::AUDIT_SUCCESS" do
+      describe "job audit level RulesEngine::Audit::AUDIT_SUCCESS" do
         before(:each) do
           @job = RulesEngine::Job.create
-          @job.audit_level = ReJobAudit::AUDIT_SUCCESS        
+          @job.audit_level = RulesEngine::Audit::AUDIT_SUCCESS        
         end
       
         it "should not audit the at level AUDIT_INFO" do
           ReJobAudit.should_not_receive(:create)
-          @job.audit("mock_message", ReJobAudit::AUDIT_INFO)
+          @job.audit("mock_message", RulesEngine::Audit::AUDIT_INFO)
         end
 
         it "should audit the at level AUDIT_SUCCESS" do
           ReJobAudit.should_receive(:create)
-          @job.audit("mock_message", ReJobAudit::AUDIT_SUCCESS)
+          @job.audit("mock_message", RulesEngine::Audit::AUDIT_SUCCESS)
         end
 
         it "should audit the at level AUDIT_FAILURE" do
           ReJobAudit.should_receive(:create)
-          @job.audit("mock_message", ReJobAudit::AUDIT_FAILURE)
+          @job.audit("mock_message", RulesEngine::Audit::AUDIT_FAILURE)
         end
       end
 
-      describe "job audit level ReJobAudit::AUDIT_FAILURE" do
+      describe "job audit level RulesEngine::Audit::AUDIT_FAILURE" do
         before(:each) do
           @job = RulesEngine::Job.create
-          @job.audit_level = ReJobAudit::AUDIT_FAILURE
+          @job.audit_level = RulesEngine::Audit::AUDIT_FAILURE
         end
       
         it "should not audit the at level AUDIT_INFO" do
           ReJobAudit.should_not_receive(:create)
-          @job.audit("mock_message", ReJobAudit::AUDIT_INFO)
+          @job.audit("mock_message", RulesEngine::Audit::AUDIT_INFO)
         end
 
         it "should not audit the at level AUDIT_FAILURE" do
           ReJobAudit.should_not_receive(:create)
-          @job.audit("mock_message", ReJobAudit::AUDIT_SUCCESS)
+          @job.audit("mock_message", RulesEngine::Audit::AUDIT_SUCCESS)
         end
 
         it "should audit the at level AUDIT_FAILURE" do
           ReJobAudit.should_receive(:create)
-          @job.audit("mock_message", ReJobAudit::AUDIT_FAILURE)
+          @job.audit("mock_message", RulesEngine::Audit::AUDIT_FAILURE)
         end
       end
     end  

@@ -13,7 +13,7 @@ class ReJob < ActiveRecord::Base
     sql_count = <<-END_OF_STRING    
         SELECT COUNT(rej.id) AS total
         FROM re_jobs rej 
-        WHERE rej.job_status != #{ReJob::JOB_STATUS_NONE}
+        WHERE rej.job_status != #{RulesEngine::Job::JOB_STATUS_NONE}
     END_OF_STRING
                                   
     total_entries = find_by_sql(sql_count).first.total
@@ -27,7 +27,7 @@ class ReJob < ActiveRecord::Base
                 rej.job_status AS job_status,
                 rej.created_at AS job_date                
         FROM re_jobs rej 
-        WHERE rej.job_status != #{ReJob::JOB_STATUS_NONE}
+        WHERE rej.job_status != #{RulesEngine::Job::JOB_STATUS_NONE}
         ORDER BY job_id DESC
     END_OF_STRING
     
@@ -48,7 +48,7 @@ class ReJob < ActiveRecord::Base
       end
         
       
-      if result['job_status'].to_i != ReJob::JOB_STATUS_RUNNING
+      if result['job_status'].to_i != RulesEngine::Job::JOB_STATUS_RUNNING
         job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ?", result['job_id']], :order => "audit_date DESC", :limit => 1).first
         if job_audit
           result.merge!({
@@ -67,7 +67,7 @@ class ReJob < ActiveRecord::Base
     sql_count = <<-END_OF_STRING    
         SELECT COUNT(rej.id) AS total
         FROM re_jobs rej 
-        WHERE rej.job_status != #{ReJob::JOB_STATUS_NONE}
+        WHERE rej.job_status != #{RulesEngine::Job::JOB_STATUS_NONE}
         AND rej.id IN ( 
           SELECT rejas.re_job_id
             FROM re_job_audits rejas 
@@ -86,7 +86,7 @@ class ReJob < ActiveRecord::Base
                 rej.job_status AS job_status,
                 rej.created_at AS job_date
         FROM re_jobs rej 
-        WHERE rej.job_status != #{ReJob::JOB_STATUS_NONE}
+        WHERE rej.job_status != #{RulesEngine::Job::JOB_STATUS_NONE}
         AND rej.id IN ( 
           SELECT rejas.re_job_id
             FROM re_job_audits rejas
@@ -107,7 +107,7 @@ class ReJob < ActiveRecord::Base
         })
       end  
 
-      if result['job_status'].to_i != ReJob::JOB_STATUS_RUNNING
+      if result['job_status'].to_i != RulesEngine::Job::JOB_STATUS_RUNNING
         job_audit = ReJobAudit.find(:all, :conditions => ["re_job_id = ? AND re_pipeline_id = ?", result['job_id'], re_pipeline_id], :order => "audit_date DESC", :limit => 1).first
         if job_audit
           result.merge!({

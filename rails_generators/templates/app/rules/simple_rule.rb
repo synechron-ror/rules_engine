@@ -70,7 +70,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   # execute the rule
   # this rule does nothing
   def process(job, data)
-    job.audit("Inside Rule #{title}", ReJobAudit::AUDIT_INFO)                        
+    job.audit("Inside Rule #{title}", RulesEngine::Audit::AUDIT_INFO)                        
     # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
     # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
     # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, 'next_pipeline')

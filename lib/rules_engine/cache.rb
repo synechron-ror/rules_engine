@@ -19,7 +19,7 @@ module RulesEngine
 
       def cache_store
         @cache_store 
-      end      
+      end
     end
     
   end

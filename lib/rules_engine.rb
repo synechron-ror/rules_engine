@@ -1,8 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + "/rules_engine/discovery")
 require File.expand_path(File.dirname(__FILE__) + "/rules_engine/rule")
 require File.expand_path(File.dirname(__FILE__) + "/rules_engine/cache")
-require File.expand_path(File.dirname(__FILE__) + "/rules_engine/job")
+# require File.expand_path(File.dirname(__FILE__) + "/rules_engine/job")
 require File.expand_path(File.dirname(__FILE__) + "/rules_engine/rule_outcome")
+
+require File.expand_path(File.dirname(__FILE__) + "/rules_engine/map/publisher")
+require File.expand_path(File.dirname(__FILE__) + "/rules_engine/job/runner")
+require File.expand_path(File.dirname(__FILE__) + "/rules_engine/job/auditor")
+
 
 require File.expand_path(File.dirname(__FILE__) + "/rules_engine_view/form_styles")
 require File.expand_path(File.dirname(__FILE__) + "/rules_engine_view/form_fields")

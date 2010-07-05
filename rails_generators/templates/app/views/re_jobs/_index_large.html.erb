@@ -26,9 +26,9 @@
     	<td>
 <%  
 				case re_job['job_status'].to_i
-					when ReJob::JOB_STATUS_NONE, ReJob::JOB_STATUS_RUNNING
+					when RulesEngine::Job::JOB_STATUS_NONE, RulesEngine::Job::JOB_STATUS_RUNNING
 						job_class = 'job-running' 
-					when ReJob::JOB_STATUS_SUCCESS	
+					when RulesEngine::Job::JOB_STATUS_SUCCESS	
 						job_class = 're-job-success'
 					else	
 						job_class = 're-job-error'

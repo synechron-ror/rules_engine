@@ -108,7 +108,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
     
     words.each do |word|
       if /#{word}/i =~ sentence        
-        job.audit("#{title} Found #{word}", ReJobAudit::AUDIT_INFO)
+        job.audit("#{title} Found #{word}", RulesEngine::Audit::AUDIT_INFO)
         data[:match] = word
         
         case pipeline_action
