@@ -1,11 +1,10 @@
 class ReRule < ActiveRecord::Base
-  belongs_to :re_pipeline
-  acts_as_list :scope => :re_pipeline
+  belongs_to :re_workflow
+  acts_as_list :scope => :re_workflow
 
   has_many  :re_rule_expected_outcomes, :dependent => :destroy, :order => "outcome ASC"
-  has_many  :re_job_audits
       
-  validates_associated  :re_pipeline
+  validates_associated  :re_workflow
   validates_presence_of :rule_class_name
 
   default_scope :order => 're_rules.position ASC'
@@ -76,12 +75,12 @@ class ReRule < ActiveRecord::Base
 
   def after_create_rule
     return if rule.nil?
-    rule.after_add_to_pipeline(self.re_pipeline_id, self.id)
+    rule.after_add_to_workflow(self.re_workflow.code)
   end
 
   def before_destroy_rule
     return if rule.nil?
-    rule.before_remove_from_pipeline(self.re_pipeline_id, self.id)
+    rule.before_remove_from_workflow(self.re_workflow.code)
   end
 
   def rule_error
@@ -89,13 +88,13 @@ class ReRule < ActiveRecord::Base
     return "#{rule.errors.values.join(', ')}" unless rule.valid?
 
     re_rule_expected_outcomes.each do |re_rule_expected_outcome|
-      next if re_rule_expected_outcome.pipeline_code.blank?      
+      next if re_rule_expected_outcome.workflow_code.blank?      
 
-      re_pipeline = RePipeline.find_by_code(re_rule_expected_outcome.pipeline_code)
-      return "#{re_rule_expected_outcome.pipeline_code} missing" if re_pipeline.nil?
+      re_workflow = ReWorkflow.find_by_code(re_rule_expected_outcome.workflow_code)
+      return "#{re_rule_expected_outcome.workflow_code} missing" if re_workflow.nil?
       
-      pipeline_error = re_pipeline.pipeline_error
-      return "#{re_rule_expected_outcome.pipeline_code} invalid" unless re_pipeline.pipeline_error.blank?
+      workflow_error = re_workflow.workflow_error
+      return "#{re_rule_expected_outcome.workflow_code} invalid" unless re_workflow.workflow_error.blank?
     end
     
     nil
@@ -113,13 +112,13 @@ class ReRule < ActiveRecord::Base
     re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE }
   end
 
-  def re_rule_expected_outcomes_start_pipeline
-    re_rule_expected_outcomes.select{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE }
+  def re_rule_expected_outcomes_start_workflow
+    re_rule_expected_outcomes.select{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW }
   end
 
   protected
     def ignore_attributes 
-      [self.class.primary_key, self.class.inheritance_column, "re_pipeline_id", "created_at", "updated_at"]
+      [self.class.primary_key, self.class.inheritance_column, "re_workflow_id", "created_at", "updated_at"]
     end
 
 end

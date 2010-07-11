@@ -23,7 +23,7 @@
 </head>
 <body>
   <div class="container re_container"> 
-		<%#= render :partial => '/layouts/header'  %>
+		<%#= render '/layouts/header'  %>
 
 		<%= yield :defer_re_breadcrumbs %>
 		<%= re_alert %>
@@ -31,7 +31,7 @@
 		<%= yield %>
 		
 		<div class="clear top-10"></div>
-		<%#= render :partial => '/layouts/footer'  %>		
+		<%#= render '/layouts/footer'  %>		
 	</div>		
 </body>
 </html>

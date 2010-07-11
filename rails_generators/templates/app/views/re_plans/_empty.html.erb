@@ -1,0 +1,12 @@
+<% local_hide = local_assigns[:hide] && hide  %>
+
+<div class="span-16" id="re_plan_empty" style="<%= local_hide ?  'display:none' : '' %>">
+  <div class="re-redbox-header"><h4 class="white">No Plans Defined</h4></div>   
+  <div class="re-redbox no-top">
+    <div class="clear top-5">
+      <h5>Create a new plan and define the rules.</h5>
+			<p class="left-10">Plans are groups of rules that are executed in succession.</p> 
+    </div>  
+  </div>    
+</div>
+<div class="clear"></div>  

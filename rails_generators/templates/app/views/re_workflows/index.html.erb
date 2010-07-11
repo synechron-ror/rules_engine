@@ -1,0 +1,36 @@
+<%# set_re_javascript_include ['rules_engine/re_workflow_index', 'rules_engine/re_workflow_new', 'rules_engine/re_process_index', 'rules_engine/re_workflow_index_processs'] %>
+<% set_re_javascript_include ['rules_engine/re_workflow_index', 'rules_engine/re_workflow_new'] %>
+<% set_re_breadcrumbs_right link_to("All Workflows", re_workflows_path, :class => "re-bc-workflow-list"),
+														link_to("<em>All Plans</em>", re_plans_path, :class => "re-bc-plan-list blue")%>
+
+<div class="span-2">
+ 	<div class="re-xtra-workflow-title-plural"><span>Workflows</span></div>
+</div>
+<div class="span-15 border">
+  <%= render '/re_workflows/empty', :hide => !@re_workflows.empty? %>
+
+  <div id="re_workflow_index">
+	  <% @re_workflows.each do | re_workflow | %>
+	    <%= render '/re_workflows/index', :re_workflow => re_workflow %>	  	
+	  <% end %>  
+	</div>
+</div>  
+
+<div class="span-7 last">      
+	<div class="clear top-5"></div>
+	
+	<% if rules_engine_editor?%>
+		<h4>
+			<%= link_to("New Workflow", new_re_workflow_path, :id => "re_workflow_new", :class => "re-menu-workflow-new") %>
+		</h4>	
+
+		<div class="clear top-20"></div>
+		<hr/>
+		<div class="clear top-5"></div>
+	<% end %>
+	
+	<h4>
+		<div class="re-menu-process-list">Process History</div>		
+	</h4>
+	<div class="clear top-5"></div>    
+</div>  

@@ -1,0 +1,73 @@
+<% set_re_javascript_include ['rules_engine/re_plan_change'] %>
+<% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
+											'<span class="re-bc-plan-change">Edit Plan</span>' %>
+
+<div class="span-17 border">      
+	<div class="span-1">
+		<div class="re-xtra-plan-title-single"><span>Plans</span></div>
+	</div>	
+	<div class="span-16 last">      
+		<div id="re_plan_change">
+  		<%= render '/re_plans/change' %>    
+		</div>
+		<div class="span-2 pull-1">
+		 	<div class="re-xtra-workflow-title-plural"><span>Workflow</span></div>
+		</div>
+		<div class="span-15 last">
+	 		<div class="re-infobox no-top" id="re_workflow_change">
+				<%= render '/re_plans/workflow_empty', :re_plan => @re_plan %>    
+
+		    <% @re_plan.re_workflows.each do |re_workflow | %>
+		    	<%= render '/re_plans/workflow_change', :re_workflow => re_workflow %>
+		    <% end %>
+			</div>	
+		</div>	
+		
+	</div>
+</div>  
+<div class="span-7 last">      
+	<div class="clear top-5"></div>
+
+	<div id="re_plan_menu">
+	 	<%= render '/re_plans/menu' %>
+	</div>
+</div>  
+
+<div style="display:none">
+  <div id="re_plan_action_confirm">
+    <div class="span-14 last">
+      <% re_whitebox do %>    
+        <h3 class="re-hdr-plan-alert"><span class="red">Confirm :</span> <span  id="re_plan_action_title"></span></h3>
+        <div class="clear top-5"></div>
+        <hr/>
+        <div class="clear top-5"></div>
+  
+        <div class="span-13 last" id="re_plan_action_content_code">
+        </div>  
+        <div class="clear"></div>
+
+        <div class="span-12 prepend-1 last">
+          <h6 id="re_plan_action_content_title"></h6>
+        </div>    
+        <div class="clear"></div>
+        <%= re_button_link_green('Action', "#", :id => "re_plan_action_ok") %>
+        <%= re_button_link_orange('Cancel', "#", :id => "re_plan_action_cancel") %>
+      <% end %>  
+    </div>
+  </div>
+  
+  <div id="re_workflow_remove_confirm">
+    <div class="span-11 last">
+      <% re_whitebox do %>    
+        <h3 class="re-hdr-workflow-alert"><span class="red">Confirm :</span> Remove Workflow</h3>
+        <div class="clear top-5"></div>
+        <hr/>
+        <%= re_button_link_green('Remove', "#", :id => "re_workflow_remove_ok") %>
+        <%= re_button_link_orange('Cancel', "#", :id => "re_workflow_remove_cancel") %>
+        <div class="clear"></div>
+
+      <% end %>  
+    </div>
+  </div>  
+</div>
+

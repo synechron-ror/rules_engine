@@ -1,0 +1,7 @@
+<%= re_alert_js %>
+
+$('#re_content').html('<%=escape_javascript(render('/re_workflow_rules/error'))%>');
+
+$.re_unblock();
+$.fancybox({ href: '#re_content'});          
+

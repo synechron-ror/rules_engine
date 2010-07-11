@@ -77,9 +77,9 @@ describe "RulesEngineView::ModelLoader", :type => :controller  do
       controller.instance_variable_get('@target').should == @target
     end
     
-    it "should use the parent param instead of id if set" do
-      @target.should_receive(:mock_id).and_return('101')
-      controller.re_load_model('target', :parent_param => "mock_id", :parents => ['parent'])
+    it "should use the :validate method if set" do
+      @target.should_receive(:validate_method).with(@parent).and_return(true)
+      controller.re_load_model('target', :validate => "validate_method", :parents => ['parent'])
       controller.instance_variable_get('@target').should == @target
     end
         

@@ -3,15 +3,16 @@ class ReRuleExpectedOutcome < ActiveRecord::Base
 
   validates_associated  :re_rule
   validates_presence_of :outcome  
+
   def validate    
-    if outcome == RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE && pipeline_code.blank?
-      errors.add(:pipeline_code, "pipeline code required")
+    if outcome == RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW && workflow_code.blank?
+      errors.add(:workflow_code, "workflow code required")
     end
   end
 
   def copy! re_rule_expected_outcome    
     self.outcome = re_rule_expected_outcome.outcome
-    self.pipeline_code = re_rule_expected_outcome.pipeline_code
+    self.workflow_code = re_rule_expected_outcome.workflow_code
     self
   end
 
@@ -20,9 +21,9 @@ class ReRuleExpectedOutcome < ActiveRecord::Base
       return false
     end
       
-    if outcome == RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE
-      return false unless pipeline_code == re_rule_expected_outcome.pipeline_code
-      #TODO check the pipeline equals the pipeline code
+    if outcome == RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW
+      return false unless workflow_code == re_rule_expected_outcome.workflow_code
+      #TODO check the workflow equals the workflow code
     end  
     
     return true    

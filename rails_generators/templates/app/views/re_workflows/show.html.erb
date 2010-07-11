@@ -1,0 +1,50 @@
+<% set_re_breadcrumbs link_to("All Workflows", re_workflows_path, :class => "re-bc-workflow-list"), 
+											'<span class="re-bc-workflow-show">View Workflow</span>' %>
+
+<div class="span-2">
+ 	<div class="re-xtra-workflow-title-single"><span>Workflow</span></div>
+</div>
+<div class="span-15 border">  
+	<div class="re-infobox">
+		<%= render '/re_workflows/show', :edit_path => change_re_workflow_path(@re_workflow)  %>    
+		<div class="clear"></div>
+	</div>	
+
+	<div class="span-2 pull-1">
+	 	<div class="re-xtra-rule-title-plural"><span>Workflow</span></div>
+	</div>	
+	<div class="span-14 last">
+ 		<div class="re-infobox no-top">    	
+			<%= render '/re_workflows/rule_empty', :re_workflow => @re_workflow %>
+
+    	<% @re_workflow.re_rules.each do |re_rule | %>
+      	<%= render '/re_workflows/rule_show', :re_rule => re_rule, 
+																							:last_rule => re_rule == @re_workflow.re_rules[-1] %>
+      <% end %>
+   		<div class="clear"></div>
+		</div>	
+  </div>
+</div>  
+<div class="span-7 last">      
+	<div class="top-5"></div>
+	
+	<% if rules_engine_editor? %>
+		<h4>
+			<%= link_to("Edit Workflow", change_re_workflow_path(@re_workflow), :class => "re-menu-workflow-change") %>
+		</h4>
+		<div class="clear top-5"></div>
+	<% end %>
+	
+	<div class="clear top-5"></div>
+	<hr/>
+
+	<h4>
+		<div class="re-menu-workflow-plans">
+			Plans Using Workflow
+		</div>	
+	</h4>
+		
+	<div class="clear"></div>    
+</div>
+
+<div class="clear"></div>

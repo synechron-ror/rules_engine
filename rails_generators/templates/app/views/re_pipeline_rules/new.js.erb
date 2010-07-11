@@ -1,9 +1,0 @@
-$('#re_content').html('<%=escape_javascript(render(:partial => 'new'))%>');
-
-$('#re_rule_new_insert').closest('div.re-form-button').re_form_button(); 
-
-$("#re_rule_new_form").submit(function() { return false; });
-
-$.re_unblock();
-$.fancybox({ href: '#re_content'});
-$.fancybox.resize();

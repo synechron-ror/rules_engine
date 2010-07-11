@@ -1,0 +1,12 @@
+<% set_re_breadcrumbs link_to("All Workflows", re_workflows_path, :class => "re-bc-workflow-list"), 
+											link_to("View Workflows", re_workflow_path(@re_workflow), :class => "re-bc-workflow-show"), 
+											link_to("Edit Workflow", change_re_workflow_path(@re_workflow), :class => "re-bc-workflow-change"), 
+											'<span class="re-bc-rule-help">Rule Help</span>' %>
+
+<div class="prepend-3 span-13 append-1">      
+  <div class="re-infobox">
+    <%= render '/re_workflow_rules/help', :cancel_path => change_re_workflow_path(@re_workflow) %>
+    <div class="clear"></div>
+  </div>  
+</div>  
+<div class="clear"></div>

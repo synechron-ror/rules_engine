@@ -1,0 +1,19 @@
+<%#= :update_path => re_workflow_rule_path(@re_workflow, @re_rule) %>
+<%#= :cancel_path => change_re_workflow_path(@re_workflow) %>
+
+<div class="clear prepend-1 span-18">
+  <h3 class="re-hdr-rule-edit"> Edit <%= @re_rule.rule.options[:display_name] %></h3>
+  <div class="clear top-10"></div>
+
+  <% re_form_for(@re_rule, :url => update_path, :method => :post, :span => "3x13", :html => {:id => "re_rule_edit_form"}) do |f| %>
+    <%= f.error_messages :message => "Unable To Update Rule : #{@re_rule.rule.options[:display_name]}" %>
+    <% re_whitebox do %>    
+      <%= render(@re_rule.rule.options[:edit_partial], :f => f) %>
+      
+      <div class="clear"></div>
+  	  <%= re_button_submit_green('Update', :id => "re_rule_edit_update") %>
+  	  <%= re_button_link_orange('Cancel', cancel_path, :id => "re_rule_edit_cancel") %>
+    <% end %>
+  <% end %>
+</div>  
+<div class="clear"></div>

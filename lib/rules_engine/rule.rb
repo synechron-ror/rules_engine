@@ -61,22 +61,22 @@ module RulesEngine
     end    
 
     ##################################################################
-    # callbacks when the rule is added and removed from a pipeline
-    def after_add_to_pipeline(pipeline_code)
+    # callbacks when the rule is added and removed from a workflow
+    def after_add_to_workflow(workflow_code)
     end
     
-    def before_remove_from_pipeline(pipeline_code)
+    def before_remove_from_workflow(workflow_code)
     end
     
     ##################################################################
     # execute the rule
     # return an RulesEngine::RuleOutcome object to define what to do next
     # if nil to continue to the next rule
-    def process(job_id, data)
-      # job.audit("process #{title}", RulesEngine::Audit::AUDIT_INFO)                        
+    def process(process_id, data)
+      # process.audit("process #{title}", RulesEngine::Audit::AUDIT_INFO)                        
       # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
       # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
-      # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, 'next_pipeline')
+      # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW, 'next_workflow')
       RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT)
     end  
     

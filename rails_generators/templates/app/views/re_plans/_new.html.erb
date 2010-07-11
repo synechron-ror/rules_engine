@@ -1,0 +1,18 @@
+<div class="clear prepend-1 span-18">
+  <h3 class="re-hdr-plan-new"> New Plan</h3>
+  <div class="clear top-10"></div>
+  
+  <% re_form_for(@re_plan, :url => re_plans_path, :method => :post, :span => "3x13", :html => {:id => "re_plan_new_form"}) do |f| %>
+    <%= f.error_messages :message => "Unable To Create Plan" %>
+    <% re_whitebox do %>    
+      <%= f.text_field(:code, :required => true, :hint => "must be unique") %>
+      <%= f.text_field(:title, :required => true) %>
+      <%= f.text_area(:description) %>
+    
+      <div class="clear"></div>
+  	  <%= re_button_submit_green('Insert', :id => "re_plan_new_insert") %>
+  	  <%= re_button_link_orange('Cancel', re_plans_path, :id => "re_plan_new_cancel") %>
+    <% end %>
+  <% end %>
+</div>  
+<div class="clear"></div>

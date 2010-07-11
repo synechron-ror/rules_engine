@@ -1,0 +1,23 @@
+<%#= :update_path => re_plan_workflow_path(@re_plan, @re_workflow) %>
+<%#= :cancel_path => change_re_plan_workflow_path(@re_plan, @re_workflow) %>
+
+<div class="clear prepend-1 span-18">
+  <h3 class="re-hdr-workflow-edit">Edit Workflow Details</h3>
+  <div class="clear top-10"></div>
+  
+  <% re_form_for(@re_workflow, :url => update_path, :method => :post, :span => "3x13", :html => {:id => "re_workflow_edit_form"}) do |f| %>
+    <%= f.error_messages :message => "Unable To Update Workflow" %>
+    <% re_whitebox do %>    
+      <%= re_form_text("Code", @re_workflow.code, :span => "3x13", :hint => "<strong>NOTE :</strong> the workflow code cannot be changed") %>
+      <div class="clear top-5"></div>
+      
+      <%= f.text_field(:title, :required => true) %>
+      <%= f.text_area(:description) %>
+    
+      <div class="clear"></div>
+  	  <%= re_button_submit_green('Update', :id => "re_workflow_edit_update") %>
+  	  <%= re_button_link_orange('Cancel', cancel_path, :id => "re_workflow_edit_cancel") %>
+    <% end %>
+  <% end %>
+</div>  
+<div class="clear"></div>

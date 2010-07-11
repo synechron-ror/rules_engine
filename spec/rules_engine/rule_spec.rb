@@ -38,7 +38,7 @@ describe "RulesEngine::Rule" do
     it "should be set the default as NEXT" do
       RulesEngine::Rule.new.expected_outcomes.should be_instance_of(Array)
       RulesEngine::Rule.new.expected_outcomes[0][:outcome].should == RulesEngine::RuleOutcome::OUTCOME_NEXT
-      RulesEngine::Rule.new.expected_outcomes[0][:pipeline_code].should be_nil
+      RulesEngine::Rule.new.expected_outcomes[0][:workflow_code].should be_nil
     end
   end
   
@@ -55,25 +55,21 @@ describe "RulesEngine::Rule" do
     end    
   end
 
-  it "should have the helper function 'after_add_to_pipeline' to tell the rule has been added to a pipeline" do
-    RulesEngine::Rule.new.methods.should include("after_add_to_pipeline")
+  it "should have the helper function 'after_add_to_workflow' to tell the rule has been added to a workflow" do
+    RulesEngine::Rule.new.methods.should include("after_add_to_workflow")
   end
 
-  it "should have the helper function 'before_remove_from_pipeline' to tell the rule is about to be removed from a pipeline" do
-    RulesEngine::Rule.new.methods.should include("before_remove_from_pipeline")
+  it "should have the helper function 'before_remove_from_workflow' to tell the rule is about to be removed from a workflow" do
+    RulesEngine::Rule.new.methods.should include("before_remove_from_workflow")
   end
   
   describe "processing a rule" do
-    before(:each) do
-      @job = mock("job")
-      @job.stub(:audit)
-    end
     it "should return a rule_outcome" do
-      MockRule.new.process(@job, {}).should be_instance_of(RulesEngine::RuleOutcome)
+      MockRule.new.process(101, {}).should be_instance_of(RulesEngine::RuleOutcome)
     end
 
     it "should set the outcome to OUTCOME_NEXT by default" do
-      MockRule.new.process(@job, {}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+      MockRule.new.process(101, {}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
     end        
   end
   

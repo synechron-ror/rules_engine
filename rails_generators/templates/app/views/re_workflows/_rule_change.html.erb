@@ -1,0 +1,61 @@
+<%#= :re_plan_id => @re_plan.id || 0 %>
+<%#= :delete_path => re_workflow_rule_path(@re_workflow, re_rule) %>
+<%#= :move_up_path => move_up_re_workflow_rule_path(@re_workflow, re_rule) %>
+<%#= :move_down_path => move_down_re_workflow_rule_path(@re_workflow, re_rule) %>
+
+<% rule_error = re_rule.rule_error %>
+<% local_first_rule = local_assigns[:first_rule] && first_rule  %>
+<% local_last_rule = local_assigns[:last_rule] && last_rule  %>
+
+<div class="<%= rule_error.blank? ? 're-bluebox' : 're-redbox' %>">
+	<h4 class="float-left  re-sts-rule-<%= rule_error.blank? ? 'valid' : 'verify' %>"><%=h re_rule.title %></h4>
+	<div class="float-right">
+		<%= link_to("<span>Edit</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "re-list-rule-edit") %>
+		<%= link_to("<span>Delete</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "re-list-rule-delete") %>
+		<%= link_to("<span>Move Down</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "#{local_last_rule ? 're-list-rule-move-down-off' : 're-list-rule-move-down'}") %>
+		<%= link_to("<span>Move Up</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "#{local_first_rule ? 're-list-rule-move-up-off' : 're-list-rule-move-up'}") %>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="<%= rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
+	<div class="span-8">
+		<p class="top-5 left-10">
+			<%=h re_rule.summary %>
+		</p>
+	</div>
+	<div class="prepend-8 top-10">
+		<% if re_rule.re_rule_expected_outcomes.empty? %>
+			<div class="re-xtra-rule-continue">Continue</div>
+		<% end %>        
+		<% unless re_rule.re_rule_expected_outcome_next.nil? %>
+			<div class="re-xtra-rule-continue">Continue</div>
+		<% end %>  
+		<% re_rule.re_rule_expected_outcomes_start_workflow.each do |re_rule_expected_outcome| %>
+			<div class="re-xtra-rule-start-workflow">Start : <%= re_rule_expected_outcome.workflow_code %></div>
+		<% end %>  
+		<% unless re_rule.re_rule_expected_outcome_failure.nil? %>
+			<div class="re-xtra-rule-stop-failure">Stop Failure</div>
+		<% end %>  
+		<% unless re_rule.re_rule_expected_outcome_success.nil? %>
+			<div class="re-xtra-rule-stop-success">Stop Success</div>
+		<% end %>  
+	</div>
+	<div class="clear"></div>  
+</div>          
+
+
+<% unless local_last_rule %>
+  <div class="prepend-7 span-2"><div class="re-rule-next-change"></div></div>
+	<div class="clear"></div>
+<% end %>
+
+<div style="display:none">
+  <% re_form_for(re_rule, :url => delete_path, :html => {:method => :delete, :id => "re_rule_delete_form_#{re_rule.id}"}) do |f| %>
+  <% end %>  
+  
+  <% re_form_for(re_rule, :url => move_up_path, :html => {:method => :put, :id => "re_rule_move_up_form_#{re_rule.id}"}) do |f| %>
+  <% end %>  
+  
+  <% re_form_for(re_rule, :url => move_down_path, :html => {:method => :put, :id => "re_rule_move_down_form_#{re_rule.id}"}) do |f| %>
+  <% end %>  
+</div>  

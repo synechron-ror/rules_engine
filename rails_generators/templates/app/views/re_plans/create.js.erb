@@ -1,0 +1,9 @@
+<%= re_alert_js %>
+
+$.fancybox.close();
+$.re_unblock();
+
+$('#re_plan_index').prepend('<%=escape_javascript(render('/re_plans/index', :re_plan => @re_plan, :hide => true))%>');
+
+$('#re_plan_empty').hide();
+$('#re_plan_index_<%=@re_plan.id%>').slideDown();

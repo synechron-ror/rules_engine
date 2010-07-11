@@ -1,261 +1,668 @@
+.re-code{
+  font-size: 14px;
+  line-height: 16px;
+  font-family:'andale mono', 'lucida console', monospace;
+  padding-top: 6px;
+}
 
-/* generated from src/rules_engine.css */
-/* breadcrumb title items */
-.re-breadcrumbs .re-pipeline-list {
-	background: transparent url('./images/rules_engine/re_pipeline/list-25.png') no-repeat 0 6px;
+
+/* ************************************* */
+/* MAPS */
+/* ************************************* */
+/* breadcrumbs */
+.re-breadcrumbs .re-bc-plan-list {
+	background: transparent url('./images/rules_engine/re_plan/list-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+.re-breadcrumbs .re-bc-plan-new {
+	background: transparent url('./images/rules_engine/re_plan/new-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+.re-breadcrumbs .re-bc-plan-show {
+	background: transparent url('./images/rules_engine/re_plan/show-25.png') no-repeat 0 4px;
 	padding: 0 0 0 28px;
 }
-.re-breadcrumbs .re-pipeline-new {
-	background: transparent url('./images/rules_engine/re_pipeline/new-25.png') no-repeat 0 6px;
-	padding: 0 0 0 28px;
+.re-breadcrumbs .re-bc-plan-edit {
+	background: transparent url('./images/rules_engine/re_plan/edit-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
 }
-.re-breadcrumbs .re-pipeline-show {
-	background: transparent url('./images/rules_engine/re_pipeline/show-25.png') no-repeat 0 6px;
-	padding: 0 0 0 28px;
-}
-.re-breadcrumbs .re-pipeline-change {
-	background: transparent url('./images/rules_engine/re_pipeline/change-25.png') no-repeat 0 6px;
-	padding: 0 0 0 28px;
-}
-.re-breadcrumbs .re-job-list {
-	background: transparent url('./images/rules_engine/re_job/list-25.png') no-repeat 0 6px;
-	padding: 0 0 0 28px;
+.re-breadcrumbs .re-bc-plan-change {
+	background: transparent url('./images/rules_engine/re_plan/change-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
 }
 
 /* sub headers*/
-h3.re-pipeline-alert {
-	background: transparent url('./images/rules_engine/re_pipeline/alert-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;
+h3.re-hdr-plan-alert {
+	background: transparent url('./images/rules_engine/re_plan/alert-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
 }
-h3.re-pipeline-new {
-	background: transparent url('./images/rules_engine/re_pipeline/new-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;
+h3.re-hdr-plan-new {
+	background: transparent url('./images/rules_engine/re_plan/new-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
 }
-h3.re-pipeline-edit {
-	background: transparent url('./images/rules_engine/re_pipeline/edit-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;
+h3.re-hdr-plan-edit {
+	background: transparent url('./images/rules_engine/re_plan/edit-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
 }
-h3.re-pipeline-change {
-	background: transparent url('./images/rules_engine/re_pipeline/change-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;
-}
-h3.re-pipeline-activate-all {
-	background: transparent url('./images/rules_engine/re_pipeline/activate-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;
-}
-h3.re-pipeline-activate {
-	background: transparent url('./images/rules_engine/re_pipeline/activate-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;
-}
-h3.re-pipeline-deactivate {
-	background: transparent url('./images/rules_engine/re_pipeline/deactivate-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;
-}
-h3.re-pipeline-revert {
-	background: transparent url('./images/rules_engine/re_pipeline/revert-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;
-}
-h3.re-pipeline-delete {
-	background: transparent url('./images/rules_engine/re_pipeline/destroy-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;
+h3.re-hdr-plan-delete {
+	background: transparent url('./images/rules_engine/re_plan/delete-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
 }
 
-/* pipeline-status*/
-h4.re-pipeline-status-draft {
-	background: transparent url('./images/rules_engine/re_pipeline/draft-25.png') no-repeat left top;
-  padding: 0 0 0 28px;
+/* status */
+h4.re-sts-plan-draft {
+	background: transparent url('./images/rules_engine/re_plan/status-draft-18.png') no-repeat left 4px;
+  padding: 0 0 0 22px;
 }
-h4.re-pipeline-status-changed {
-	background: transparent url('./images/rules_engine/re_pipeline/changed-25.png') no-repeat left top;
-  padding: 0 0 0 28px;
+h4.re-sts-plan-changed {
+	background: transparent url('./images/rules_engine/re_plan/status-changed-18.png') no-repeat left 4px;
+  padding: 0 0 0 22px;
 }
-h4.re-pipeline-status-current {
-	background: transparent url('./images/rules_engine/re_pipeline/current-25.png') no-repeat left top;
-  padding: 0 0 0 28px;
+h4.re-sts-plan-published {
+	background: transparent url('./images/rules_engine/re_plan/status-published-18.png') no-repeat left 4px;
+  padding: 0 0 0 22px;
 }
-h4.re-pipeline-status-verify {
-	background: transparent url('./images/rules_engine/re_pipeline/verify-25.png') no-repeat left top;
-  padding: 0 0 0 28px;
+h4.re-sts-plan-verify {
+	background: transparent url('./images/rules_engine/re_plan/status-verify-18.png') no-repeat left 4px;
+  padding: 0 0 0 22px;
 }
-/* pipeline status text  */
-em.re-pipeline-status-draft {
+em.re-sts-plan-draft {
   color: #696969;
 }
-em.re-pipeline-status-changed {
+em.re-sts-plan-changed {
   color: #92b83c;
 }
-em.re-pipeline-status-current {
+em.re-sts-plan-current {
   color: #218868;
 }
-em.re-pipeline-status-verify {
+em.re-sts-plan-verify {
   color: #b43838;
 }
 
-/* pipeline actions */
-h4.re-pipeline-new  {
-  padding: 0 0 4px 0;
+/* menu  */
+a.re-menu-plan-new {
+	background: transparent url('./images/rules_engine/re_plan/new-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
 }
-h4.re-pipeline-new a {
-	background: transparent url('./images/rules_engine/re_pipeline/new-25.png') no-repeat left -1px;
+a.re-menu-plan-new:hover {
+  text-decoration: underline;
+}
+a.re-menu-plan-show {
+	background: transparent url('./images/rules_engine/re_plan/show-25.png') no-repeat left -1px;
   padding: 0 0 0 28px;
   color: #218868;
   text-decoration: none;
 }
-h4.re-pipeline-new a:hover {
+a.re-menu-plan-show:hover {
   text-decoration: underline;
 }
-h4.re-job-list  {
-  padding: 0 0 4px 0;
+a.re-menu-plan-change {
+	background: transparent url('./images/rules_engine/re_plan/change-25.png') no-repeat left -2px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
 }
-h4.re-job-list a {
-	background: transparent url('./images/rules_engine/re_job/list-25.png') no-repeat left -1px;
+a.re-menu-plan-change:hover {
+  text-decoration: underline;
+}
+a.re-menu-plan-edit {
+	background: transparent url('./images/rules_engine/re_plan/edit-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-plan-edit a:hover {
+  text-decoration: underline;
+}
+a.re-menu-plan-delete {
+	background: transparent url('./images/rules_engine/re_plan/delete-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-plan-delete:hover {
+  text-decoration: underline;
+}
+a.re-menu-plan-publish-all {
+	background: transparent url('./images/rules_engine/re_plan/publish-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-plan-publish-all:hover {
+  text-decoration: underline;
+}
+a.re-menu-plan-publish {
+	background: transparent url('./images/rules_engine/re_plan/publish-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-plan-publish:hover {
+  text-decoration: underline;
+}
+a.re-menu-plan-deactivate {
+	background: transparent url('./images/rules_engine/re_plan/deactivate-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-plan-deactivate:hover {
+  text-decoration: underline;
+}
+a.re-menu-plan-revert {
+	background: transparent url('./images/rules_engine/re_plan/revert-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-plan-revert:hover {
+  text-decoration: underline;
+}
+
+div.re-menu-plan-history {
+	background: transparent url('./images/rules_engine/re_plan/history-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #222;
+  text-decoration: none;
+}
+
+/* list  */
+
+/* extra */
+div.re-xtra-plan-title-plural {
+  background: transparent url('./images/rules_engine/re_plan/title-plural.png') no-repeat 0px 15px;
+  width: 50px;
+  height: 45px;  
+}
+div.re-xtra-plan-title-plural span {
+  display: none;
+}
+div.re-xtra-plan-title-single {
+  background: transparent url('./images/rules_engine/re_plan/title-single.png') no-repeat 0px 15px;
+  width: 50px;
+  height: 45px;  
+}
+div.re-xtra-plan-title-single span {
+  display: none;
+}
+div.re-xtra-plan-preview {
+  background: transparent url('./images/rules_engine/re_plan/preview-18.png') no-repeat 8px 4px;
+  width: 25px;
+  height: 22px;  
+}
+
+
+/* ************************************* */
+/* WORKFLOW */
+/* ************************************* */
+/* breadcrumbs */
+.re-breadcrumbs .re-bc-workflow-list {
+	background: transparent url('./images/rules_engine/re_workflow/list-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+.re-breadcrumbs .re-bc-workflow-new {
+	background: transparent url('./images/rules_engine/re_workflow/new-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+.re-breadcrumbs .re-bc-workflow-show {
+	background: transparent url('./images/rules_engine/re_workflow/show-25.png') no-repeat 0 4px;
+	padding: 0 0 0 28px;
+}
+.re-breadcrumbs .re-bc-workflow-change {
+	background: transparent url('./images/rules_engine/re_workflow/change-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+.re-breadcrumbs .re-bc-workflow-edit {
+	background: transparent url('./images/rules_engine/re_workflow/edit-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+
+/* sub headers*/
+h3.re-hdr-workflow-alert {
+	background: transparent url('./images/rules_engine/re_workflow/alert-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
+}
+h3.re-hdr-workflow-new {
+	background: transparent url('./images/rules_engine/re_workflow/new-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
+}
+h3.re-hdr-workflow-add {
+	background: transparent url('./images/rules_engine/re_workflow/add-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
+}
+h3.re-hdr-workflow-edit {
+	background: transparent url('./images/rules_engine/re_workflow/edit-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
+}
+h3.re-hdr-workflow-change {
+	background: transparent url('./images/rules_engine/re_workflow/change-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
+}
+h3.re-hdr-workflow-delete {
+	background: transparent url('./images/rules_engine/re_workflow/destroy-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
+}
+
+/* status */
+h4.re-sts-workflow-valid {
+	background: transparent url('./images/rules_engine/re_workflow/status-valid-18.png') no-repeat left 4px;
+  padding: 0 0 0 22px;
+}
+h4.re-sts-workflow-verify {
+	background: transparent url('./images/rules_engine/re_workflow/status-verify-18.png') no-repeat left 4px;
+  padding: 0 0 0 22px;
+}
+em.re-sts-workflow-valid {
+  color: #218868;
+}
+em.re-sts-workflow-verify {
+  color: #b43838;
+}
+
+/* menu  */
+a.re-menu-workflow-new {
+	background: transparent url('./images/rules_engine/re_workflow/new-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-workflow-new:hover {
+  text-decoration: underline;
+}
+a.re-menu-workflow-change {
+	background: transparent url('./images/rules_engine/re_workflow/change-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-workflow-change a:hover {
+  text-decoration: underline;
+}
+div.re-menu-workflow-lookup {
+	background: transparent url('./images/rules_engine/re_workflow/lookup-25.png') no-repeat left 0px;
+  padding: 0 0 0 30px;
+  color: #222;
+}
+a.re-menu-workflow-add {
+  float:left;
+	background: transparent url('./images/rules_engine/re_workflow/add-14.png') no-repeat left 4px;
+  padding: 0px 0 0 20px;
+  margin: 0 8px 0 0;
+  color: #222;
+  line-height: 19px;
+  text-decoration: none;
+}
+a.re-menu-workflow-add:hover {
+  text-decoration: underline;
+}
+a.re-menu-workflow-add-off {
+  float:left;
+	background: transparent url('./images/rules_engine/re_workflow/add-off-14.png') no-repeat left 4px;
+  padding: 0px 0 0 20px;
+  margin: 0 8px 0 0;
+  color: #696969;
+  line-height: 19px;
+  text-decoration: none;
+}
+a.re-menu-workflow-add-off:hover {
+  text-decoration: none;
+}
+div.re-menu-workflow-plans {
+	background: transparent url('./images/rules_engine/re_workflow/maps-25.png') no-repeat left 0px;
+  padding: 0 0 0 30px;
+  color: #696969;
+}
+a.re-menu-workflow-show {
+	background: transparent url('./images/rules_engine/re_workflow/show-25.png') no-repeat left -1px;
   padding: 0 0 0 28px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-workflow-show:hover {
+  text-decoration: underline;
+}
+a.re-menu-workflow-edit {
+	background: transparent url('./images/rules_engine/re_workflow/edit-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-workflow-edit:hover {
+  text-decoration: underline;
+}
+a.re-menu-workflow-delete {
+	background: transparent url('./images/rules_engine/re_workflow/delete-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-workflow-delete:hover {
+  text-decoration: underline;
+}
+
+/* list  */
+div.re-list-workflow-is-default {
+  float: right;
+	background: transparent url('./images/rules_engine/re_workflow/is-default-18.png') no-repeat left 4px;
+  width: 25px;
+  height: 22px;  
+}
+div.re-list-workflow-is-default span {
+  display: none;
+}
+div.re-list-workflow-is-default-off {
+/*  background: transparent url('./images/rules_engine/re_workflow/is-default-off-18.png') no-repeat left 4px;*/
+  width: 25px;
+  height: 22px;  
+}
+div.re-list-workflow-is-default-off span {
+  display: none;
+}
+a.re-list-workflow-show {
+  float: right;
+	background: transparent url('./images/rules_engine/re_workflow/show-18.png') no-repeat left 2px;
+  width: 25px;
+  height: 22px;  
+}
+a.re-list-workflow-show span {
+  display: none;
+}
+a.re-list-workflow-make-default {
+  float: right;
+	background: transparent url('./images/rules_engine/re_workflow/make-default-18.png') no-repeat left 2px;
+  width: 25px;
+  height: 22px;  
+}
+a.re-list-workflow-make-default span {
+  display: none;
+}
+a.re-list-workflow-make-default-off {
+  float: right;
+	background: transparent url('./images/rules_engine/re_workflow/make-default-off-18.png') no-repeat left 2px;
+  width: 25px;
+  height: 22px;  
+}
+a.re-list-workflow-make-default-off span {
+  display: none;
+}
+a.re-list-workflow-change {
+  float: right;
+	background: transparent url('./images/rules_engine/re_workflow/change-18.png') no-repeat left 2px;
+  width: 25px;
+  height: 22px;  
+}
+a.re-list-workflow-change span {
+  display: none;
+}
+a.re-list-workflow-remove {
+  float: right;
+	background: transparent url('./images/rules_engine/re_workflow/remove-18.png') no-repeat left 2px;
+  width: 25px;
+  height: 22px;  
+}
+a.re-list-workflow-remove span {
+  display: none;
+}
+
+/* workflow actions */
+
+/* extra */
+div.re-xtra-workflow-title-plural {
+  background: transparent url('./images/rules_engine/re_workflow/title-plural.png') no-repeat 5px 15px;
+  width: 95px;
+  height: 60px;
+}
+div.re-xtra-workflow-title-plural span {
+  display: none;
+}
+div.re-xtra-workflow-title-single {
+  background: transparent url('./images/rules_engine/re_workflow/title-single.png') no-repeat 5px 15px;
+  width: 90px;
+  height: 60px;
+}
+div.re-xtra-workflow-title-single span {
+  display: none;
+}
+div.re-xtra-workflow-preview {
+  background: transparent url('./images/rules_engine/re_workflow/preview-18.png') no-repeat 8px 4px;
+  width: 25px;
+  height: 22px;  
+}
+
+
+/* ************************************* */
+/* RULES */
+/* ************************************* */
+
+/* breadcrumbs */
+.re-breadcrumbs .re-bc-rule-new {
+	background: transparent url('./images/rules_engine/re_rule/new-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+.re-breadcrumbs .re-bc-rule-help {
+	background: transparent url('./images/rules_engine/re_rule/help-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+.re-breadcrumbs .re-bc-rule-edit {
+	background: transparent url('./images/rules_engine/re_rule/edit-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+.re-breadcrumbs .re-bc-rule-error {
+	background: transparent url('./images/rules_engine/re_rule/error-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+
+/* sub headers*/
+h3.re-hdr-rule-new {
+	background: transparent url('./images/rules_engine/re_rule/new-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;  
+}
+h3.re-hdr-rule-help {
+	background: transparent url('./images/rules_engine/re_rule/help-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;  
+}
+h3.re-hdr-rule-edit {
+	background: transparent url('./images/rules_engine/re_rule/edit-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;  
+}
+h3.re-hdr-rule-alert {
+	background: transparent url('./images/rules_engine/re_rule/alert-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;  
+}
+
+/* status */
+h4.re-sts-rule-valid {
+	background: transparent url('./images/rules_engine/re_rule/status-valid-18.png') no-repeat left 4px;
+  padding: 0 0 0 20px;
+}
+h4.re-sts-rule-verify {
+	background: transparent url('./images/rules_engine/re_rule/status-verify-18.png') no-repeat left 4px;
+  padding: 0 0 0 20px;
+}
+
+h6.re-sts-rule-valid {
+	background: transparent url('./images/rules_engine/re_rule/status-valid-14.png') no-repeat left 4px;
+  padding: 0 0 0 18px;
+}
+h6.re-sts-rule-verify {
+	background: transparent url('./images/rules_engine/re_rule/status-verify-14.png') no-repeat left 4px;
+  padding: 0 0 0 18px;
+}
+
+/* menu  */
+a.re-menu-rule-new {
+  float: left;
+	background: transparent url('./images/rules_engine/re_rule/add-14.png') no-repeat 4px 6px;
+  width: 20px;
+  height: 20px;
+}
+a.re-menu-rule-new span {
+  display: none;
+}
+a.re-menu-rule-help {
+  float: left;
+	background: transparent url('./images/rules_engine/re_rule/help-14.png') no-repeat 4px 6px;
+  width: 20px;
+  height: 20px;
+}
+a.re-menu-rule-help span {
+  display: none;
+}
+
+/* list  */
+a.re-list-rule-edit {
+  float:right;
+	background: transparent url('./images/rules_engine/re_rule/edit-25.png') no-repeat 0px 0px;
+  width: 25px;
+  height: 25px;  
+  margin: 0px 3px 0 0;
+}
+a.re-list-rule-edit span {
+  display: none;
+}
+a.re-list-rule-delete {
+  float:right;
+	background: transparent url('./images/rules_engine/re_rule/destroy-25.png') no-repeat 0px 0px;
+  width: 25px;
+  height: 25px;  
+  margin: 0px 3px 0 0;
+}
+a.re-list-rule-delete span {
+  display: none;
+}
+a.re-list-rule-move-down {
+  float:right;
+	background: transparent url('./images/rules_engine/re_rule/move-down-25.png') no-repeat 0px 0px;
+  width: 25px;
+  height: 25px;  
+  margin: 0px 10px 0 0;
+}
+a.re-list-rule-move-down span {
+  display: none;
+}
+a.re-list-rule-move-down-off {
+  float:right;
+	background: transparent url('./images/rules_engine/re_rule/move-down-off-25.png') no-repeat 0px 0px;
+  width: 25px;
+  height: 25px;  
+  margin: 0px 10px 0 0;
+}
+a.re-list-rule-move-down-off span {
+  display: none;
+}
+a.re-list-rule-move-up {
+  float:right;
+	background: transparent url('./images/rules_engine/re_rule/move-up-25.png') no-repeat 0px 0px;
+  width: 25px;
+  height: 25px;  
+  margin: 0px 3px 0 0;
+}
+a.re-list-rule-move-up span {
+  display: none;
+}
+a.re-list-rule-move-up-off {
+  float:right;
+	background: transparent url('./images/rules_engine/re_rule/move-up-off-25.png') no-repeat 0px 0px;
+  width: 25px;
+  height: 25px;  
+  margin: 0px 3px 0 0;
+}
+a.re-list-rule-move-up-off span {
+  display: none;
+}
+
+/* extra */
+/* extra */
+div.re-xtra-rule-title-plural {
+  background: transparent url('./images/rules_engine/re_rule/title-plural.png') no-repeat 40px 20px;
+  width: 90px;
+  height: 50px;
+}
+div.re-xtra-rule-title-plural span {
+  display: none;
+}
+div.re-xtra-rule-title-single {
+  background: transparent url('./images/rules_engine/re_rule/title-single.png') no-repeat 40px 20px;
+  width: 90px;
+  height: 50px;
+}
+div.re-xtra-rule-title-single span {
+  display: none;
+}
+
+.re-xtra-rule-continue {
+  width: 155px;
+	background: #fffef0 url('./images/rules_engine/re_rule/next-show-18.png') no-repeat 165px 2px;
+	font-weight: bold;
+	border: 1px #92b83c solid; 
+	padding: 3px 24px 3px 6px;
+	margin: 0 2px 4px 2px;  
+}
+.re-xtra-rule-stop-failure {
+  width: 155px;
+	background: #FBE3E4 url('./images/rules_engine/re_rule/stop-failure-18.png') no-repeat 165px 2px;
+	font-weight: bold;
+	border: 1px #7c1e1e solid; 
+	padding: 3px 24px 3px 6px;
+	margin: 0 2px 4px 2px;  
+}
+.re-xtra-rule-stop-success {
+  width: 155px;
+	background: #fffef0 url('./images/rules_engine/re_rule/stop-success-18.png') no-repeat 165px 2px;
+	font-weight: bold;
+	border: 1px #7c1e1e solid; 
+	padding: 3px 24px 3px 6px;
+	margin: 0 2px 4px 2px;  
+}
+.re-xtra-rule-start-workflow {
+  width: 155px;
+	background: #fffef0 url('./images/rules_engine/re_rule/start-workflow-18.png') no-repeat 165px 2px;
+	font-weight: bold;
+	border: 1px #92b83c solid; 
+	padding: 3px 24px 3px 6px;
+	margin: 0 2px 4px 2px;  
+}
+select#re_rule_class_list {
+  width: 240px;
+  height: 30px;
+  font: 18px/24px arial,sans-serif;
+  background-color: #FFF;
+  overflow: hidden;
+}
+.re-xtra-rule-list p {
+  float: left;
+  font-size: 120%;
+}
+
+/* ************************************* */
+/* JOBS */
+/* ************************************* */
+
+div.re-menu-process-list  {
+	background: transparent url('./images/rules_engine/re_process/list-25.png') no-repeat left -1px;
+  padding: 0 0 0 30px;
   color: #244A9F;
   text-decoration: none;
 }
-h4.re-job-list a:hover {
-  text-decoration: underline;
-}
-h4.re-pipeline-show  {
-/*  padding: 0 0 4px 0;*/
-  padding: 0;
-}
-h4.re-pipeline-show a {
-	background: transparent url('./images/rules_engine/re_pipeline/show-25.png') no-repeat left -1px;
-  padding: 0 0 0 28px;
-  color: #92b83c;
-  text-decoration: none;
-}
-h4.re-pipeline-show a:hover {
-  text-decoration: underline;
-}
-h4.re-pipeline-change  {
-/*  padding: 0 0 4px 0;*/
-  padding: 0;
-}
-h4.re-pipeline-change a {
-	background: transparent url('./images/rules_engine/re_pipeline/change-25.png') no-repeat left -1px;
-  padding: 0 0 0 28px;
-  color: #218868;
-  text-decoration: none;
-}
-h4.re-pipeline-change a:hover {
-  text-decoration: underline;
-}
-h4.re-pipeline-edit  {
-  padding: 0 0 4px 0;
-}
-h4.re-pipeline-edit a {
-	background: transparent url('./images/rules_engine/re_pipeline/edit-25.png') no-repeat left -1px;
-  padding: 0 0 0 28px;
-  color: #218868;
-  text-decoration: none;
-}
-h4.re-pipeline-edit a:hover {
-  text-decoration: underline;
-}
-h4.re-pipeline-activate-all  {
-  padding: 0 0 4px 0;
-}
-h4.re-pipeline-activate-all a {
-	background: transparent url('./images/rules_engine/re_pipeline/activate-25.png') no-repeat left -1px;
-  padding: 0 0 0 28px;
-  color: #218868;
-  text-decoration: none;
-}
-h4.re-pipeline-activate-all a:hover {
-  text-decoration: underline;
-}
-h4.re-pipeline-activate  {
-  padding: 0 0 4px 0;
-}
-h4.re-pipeline-activate a {
-	background: transparent url('./images/rules_engine/re_pipeline/activate-25.png') no-repeat left -1px;
-  padding: 0 0 0 28px;
-  color: #92b83c;
-  text-decoration: none;
-}
-h4.re-pipeline-activate a:hover {
-  text-decoration: underline;
-}
-h4.re-pipeline-deactivate {
-  padding: 0 0 4px 0;
-}
-h4.re-pipeline-deactivate a {
-	background: transparent url('./images/rules_engine/re_pipeline/deactivate-25.png') no-repeat left -1px;
-  padding: 0 0 0 28px;
-  color: #b43838;
-  text-decoration: none;
-}
-h4.re-pipeline-deactivate a:hover {
-  text-decoration: underline;
-}
-h4.re-pipeline-revert {
-  padding: 0 0 4px 0;
-}
-h4.re-pipeline-revert a {
-	background: transparent url('./images/rules_engine/re_pipeline/revert-25.png') no-repeat left -1px;
-  padding: 0 0 0 28px;
-  color: #b43838;
-  text-decoration: none;
-}
-h4.re-pipeline-revert a:hover {
-  text-decoration: underline;
-}
-h4.re-pipeline-delete {
-  padding: 0 0 4px 0;
-}
-h4.re-pipeline-delete a {
-	background: transparent url('./images/rules_engine/re_pipeline/destroy-25.png') no-repeat left -1px;
-  padding: 0 0 0 28px;
-  color: #b43838;
-  text-decoration: none;
-}
-h4.re-pipeline-delete a:hover {
-  text-decoration: underline;
-}
 
-/* rule list */
-a.re-pipeline-rule-list-toggle {
-  text-decoration: none;
-}
-div.re-pipeline-rule-list-right {
-	background: transparent url('./images/rules_engine/re_pipeline/list-right.png') no-repeat 0px 6px;
-  padding: 2px 0 4px 12px;
-  color: #696969;
-}
-div.re-pipeline-rule-list-down {
-	background: transparent url('./images/rules_engine/re_pipeline/list-down.png') no-repeat 0px 6px;
-  padding: 2px 0 4px 12px;
-  color: #696969;
-}
-
-/* rules */
 h3.re-rule-class-new {
 	background: transparent url('./images/rules_engine/re_rule_class/new-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;  
+  padding: 0 0 0 30px;  
 }
 h3.re-rule-class-help {
 	background: transparent url('./images/rules_engine/re_rule_class/help-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;  
+  padding: 0 0 0 30px;  
 }
 h3.re-rule-edit {
 	background: transparent url('./images/rules_engine/re_rule/edit-25.png') no-repeat left 2px;
-  padding: 0 0 0 28px;  
+  padding: 0 0 0 30px;  
 }
 
 .re-rule-show  p{
   font-size: 13px;
-}
-.re-rule-show div.re-rule-status-valid {
-	background: transparent url('./images/rules_engine/re_rule/valid-18.png') no-repeat 2px 2px;
-  padding: 2px 0 4px 24px;
-  font-weight: bold;
-}
-.re-rule-show div.re-rule-status-verify {
-	background: #FBE3E4 url('./images/rules_engine/re_rule/verify-18.png') no-repeat 2px 2px;
-  padding: 2px 0 4px 24px;
-  font-weight: bold;
 }
 .re-rule-change h3 { 
   margin: 0;
@@ -263,14 +670,6 @@ h3.re-rule-edit {
 }
 .re-rule-change  p{
   font-size: 13px;
-}
-.re-rule-change div.re-rule-status-valid {
-	background: transparent url('./images/rules_engine/re_rule/valid-25.png') no-repeat 2px 2px;
-  padding: 2px 0 4px 24px;
-}
-.re-rule-change div.re-rule-status-verify {
-	background: #FBE3E4 url('./images/rules_engine/re_rule/verify-25.png') no-repeat 2px 2px;
-  padding: 2px 0 4px 31px;
 }
 .re-rule-next-change {
 	background: transparent url('./images/rules_engine/re_rule/next-change-25.png') no-repeat 0px 7px;
@@ -282,157 +681,19 @@ h3.re-rule-edit {
   width: 24px;
   height: 54px;  
 }
-.re-rule-continue {
-  width: 185px;
-	background: #fffef0 url('./images/rules_engine/re_rule/next-show-18.png') no-repeat 195px 2px;
-	font-weight: bold;
-	border: 1px #92b83c solid; 
-	padding: 3px 24px 3px 6px;
-	margin: 0 2px 4px 2px;  
-}
-.re-rule-stop-failure {
-  width: 185px;
-	background: #FBE3E4 url('./images/rules_engine/re_rule/stop-failure-18.png') no-repeat 195px 2px;
-	font-weight: bold;
-	border: 1px #7c1e1e solid; 
-	padding: 3px 24px 3px 6px;
-	margin: 0 2px 4px 2px;  
-}
-.re-rule-stop-success {
-  width: 185px;
-	background: #fffef0 url('./images/rules_engine/re_rule/stop-success-18.png') no-repeat 195px 2px;
-	font-weight: bold;
-	border: 1px #7c1e1e solid; 
-	padding: 3px 24px 3px 6px;
-	margin: 0 2px 4px 2px;  
-}
-.re-rule-start-pipeline {
-  width: 185px;
-	background: #fffef0 url('./images/rules_engine/re_rule/start-pipeline-18.png') no-repeat 195px 2px;
-	font-weight: bold;
-	border: 1px #92b83c solid; 
-	padding: 3px 24px 3px 6px;
-	margin: 0 2px 4px 2px;  
-}
-a.re-rule-edit {
-  float:right;
-	background: transparent url('./images/rules_engine/re_rule/edit-25.png') no-repeat 0px 0px;
-  width: 25px;
-  height: 25px;  
-}
-a.re-rule-edit span {
-  display: none;
-}
-a.re-rule-delete {
-  float:right;
-	background: transparent url('./images/rules_engine/re_rule/destroy-25.png') no-repeat 0px 0px;
-  width: 25px;
-  height: 25px;  
-}
-a.re-rule-delete span {
-  display: none;
-}
-a.re-rule-move-down {
-  float:right;
-	background: transparent url('./images/rules_engine/re_rule/move-down-25.png') no-repeat 0px 0px;
-  width: 25px;
-  height: 25px;  
-  margin-right: 20px;
-}
-a.re-rule-move-down span {
-  display: none;
-}
-a.re-rule-move-down-off {
-  float:right;
-	background: transparent url('./images/rules_engine/re_rule/move-down-off-25.png') no-repeat 0px 0px;
-  width: 25px;
-  height: 25px;  
-  margin-right: 20px;
-}
-a.re-rule-move-down-off span {
-  display: none;
-}
-a.re-rule-move-up {
-  float:right;
-	background: transparent url('./images/rules_engine/re_rule/move-up-25.png') no-repeat 0px 0px;
-  width: 25px;
-  height: 25px;  
-  margin-right: 3px;
-}
-a.re-rule-move-up span {
-  display: none;
-}
-a.re-rule-move-up-off {
-  float:right;
-	background: transparent url('./images/rules_engine/re_rule/move-up-off-25.png') no-repeat 0px 0px;
-  width: 25px;
-  height: 25px;  
-  margin-right: 3px;
-}
-a.re-rule-move-up-off span {
-  display: none;
-}
 
-
-/* rule-classes */
-/*a.re-rule-class-list-toggle {
-  text-decoration: none;
-}
-h5.re-rule-class-list-right {
-  background: transparent url('./images/rules_engine/re_rule_class/list-right.png') no-repeat 0px 6px;
-  padding: 2px 0 4px 12px;
-}
-h5.re-rule-class-list-down {
-  background: transparent url('./images/rules_engine/re_rule_class/list-down.png') no-repeat 0px 6px;
-  padding: 2px 0 4px 12px;
-}
-*/
-select#re_rule_class_list {
-  width: 240px;
-  height: 28px;
-  font: 18px/24px arial,sans-serif;
-  background-color: #FFF;
-  overflow: hidden;
-}
-.re-rule-class-list h5 {
-  float: left;
-  font-size: 120%;
-}
-a.re-rule-class-new {
-  float: right;
-	background: transparent url('./images/rules_engine/re_rule_class/add-14.png') no-repeat 4px 6px;
-  width: 20px;
-  height: 20px;
-}
-a.re-rule-class-new span {
-  display: none;
-}
-a.re-rule-class-help {
-  float: right;
-	background: transparent url('./images/rules_engine/re_rule_class/help-14.png') no-repeat 4px 6px;
-  width: 20px;
-  height: 20px;
-}
-a.re-rule-class-help span {
-  display: none;
-}
-.re-rule-class-list p {
-  clear: both;
-  padding-left: 12px;
-}
-
-/* jobs */
-#re_job_list h4 {
+/* processs */
+#re_process_list h4 {
   color: #244A9F;
-  background: transparent url('./images/rules_engine/re_job/list-25.png') no-repeat 0px 4px;
-  padding: 5px 0 5px 32px;
+  background: transparent url('./images/rules_engine/re_process/list-25.png') no-repeat 0px 4px;
+  padding: 5px 0 5px 30px;
 }
-.re-job-show h4 {
-  background: transparent url('./images/rules_engine/re_job/list-25.png') no-repeat 0px 0px;
-  padding: 0px 0 5px 32px;
+.re-process-show h4 {
+  background: transparent url('./images/rules_engine/re_process/list-25.png') no-repeat 0px 0px;
+  padding: 0px 0 5px 30px;
 }
 
-#re_job_list_empty h4 {
+#re_process_list_empty h4 {
   font-size:16px;
   line-height:18px;
   font-weight:normal;
@@ -441,7 +702,7 @@ a.re-rule-class-help span {
   margin: 0px 3px;
 }
 
-#re_job_list_empty h5 {
+#re_process_list_empty h5 {
   font-size:16px;
   line-height:18px;
   font-weight:normal;
@@ -450,74 +711,74 @@ a.re-rule-class-help span {
   margin: 0px 3px;
 }
 
-#re_job_list_pending {
-  background: transparent url('./images/rules_engine/re_job/loadingAnimation.gif') no-repeat 20px 10px;
+#re_process_list_pending {
+  background: transparent url('./images/rules_engine/re_process/loadingAnimation.gif') no-repeat 20px 10px;
   padding : 20px 0px 5px 15px;  
 }
-#re_job_list_pending h4 {
-  background: transparent url('./images/rules_engine/re_job/list-25.png') no-repeat 0px 4px;
-  padding: 5px 0 5px 32px;
+#re_process_list_pending h4 {
+  background: transparent url('./images/rules_engine/re_process/list-25.png') no-repeat 0px 4px;
+  padding: 5px 0 5px 30px;
   color: #bbb;
 }
-.re-job-success {
-	background: transparent url('./images/rules_engine/re_job/success-14.png') no-repeat 0px 2px;
+.re-process-success {
+	background: transparent url('./images/rules_engine/re_process/success-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }
 
-.re-job-error {
-	background: transparent url('./images/rules_engine/re_job/error-14.png') no-repeat 0px 2px;
+.re-process-error {
+	background: transparent url('./images/rules_engine/re_process/error-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }
-.re-job-info {
-	background: transparent url('./images/rules_engine/re_job/info-14.png') no-repeat 0px 2px;
-  height: 16px;  
-  padding-left: 20px;
-}
-
-.job-running {
-	background: transparent url('./images/rules_engine/re_job/info-14.png') no-repeat 0px 2px;
+.re-process-info {
+	background: transparent url('./images/rules_engine/re_process/info-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }
 
-.re-job-page-next-enabled {
+.process-running {
+	background: transparent url('./images/rules_engine/re_process/info-14.png') no-repeat 0px 2px;
+  height: 16px;  
+  padding-left: 20px;
+}
+
+.re-process-page-next-enabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_job/next-enabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/rules_engine/re_process/next-enabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 5px 0 2px;
 }
-.re-job-page-next-disabled {
+.re-process-page-next-disabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_job/next-disabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/rules_engine/re_process/next-disabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 5px 0 2px;
 }
-.re-job-page-prev-enabled {
+.re-process-page-prev-enabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_job/prev-enabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/rules_engine/re_process/prev-enabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 2px 0 5px;
 }
-.re-job-page-prev-disabled {
+.re-process-page-prev-disabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_job/prev-disabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/rules_engine/re_process/prev-disabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 2px 0 5px;
 }
 
-a.re-job-detail {
+a.re-process-detail {
 /*  color: #000;*/
   color: #222;
   text-decoration: none;
   background-color: #222;
 }
-tr.re-job-row td, tr.re-job-row-odd td {
+tr.re-process-row td, tr.re-process-row-odd td {
   background-color: #FFEBCD;
 }
 
@@ -666,14 +927,14 @@ table.data-line tr.odd td {
 .re-breadcrumbs {
 	margin:0 0 5px 0;
 	padding:0 10px;
-	height:40px;
-	line-height:40px;
-	border:1px solid #eee;
+	height:35px;
+	line-height:35px;
+	border-bottom:2px solid #ddd;
 	color: #222;
 }
 .re-breadcrumbs a {
 	float:left;
-	height:40px;
+	height:35px;
 	color: #222;
 	font-size: 18px;	
   text-decoration: none;
@@ -683,7 +944,7 @@ table.data-line tr.odd td {
 }
 .re-breadcrumbs em {
 	float:left;
-	height:40px;
+	height:35px;
 	font-weight: normal;
 	font-size: 18px;	
 }
@@ -694,11 +955,11 @@ table.data-line tr.odd td {
 	background:url(./images/re_view_navigate/breadcrumb.png) no-repeat 5px center;
 	float:left;
 	overflow:hidden;
-	height:40px;
+	height:35px;
   padding:0 0 0 20px;
 	width:0px;
-	filter:alpha(opacity=40);
-	opacity:0.4;
+	filter:alpha(opacity=90);
+	opacity:0.9;
 }
 
 .re-breadcrumbs .re-breadcrumb-right {
@@ -732,7 +993,8 @@ table.data-line tr.odd td {
 .re-form-data, .re-form-data-error{
 	color: #305267;
 	font-size: 14px;
-	margin-top: 0px;
+	margin: 0;
+	padding: 0;
 }
 .re-form-data-error{
  color:#933;
@@ -740,32 +1002,24 @@ table.data-line tr.odd td {
 .re-form-data .form-hint,
 .re-form-data-error .form-hint
 {
-	display:block;
-	float: left;
+	display:inline-block;
 	font-size: 12px;
   color: #305267;
-	padding-top: 6px;
-  padding-left: 5px;
+  padding: 3px 5px 0 5px;
 }
 .re-form-data .form-text{
-  display:block;
-  float:left;
-	font-size: 16px;
-	/*color: #000;*/
+  display:inline-block;
+	font-size: 18px;
 	color: #222;
-	margin-top: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 0 5px;
 }
 
 .re-form-data .form-error-message,
 .re-form-data-error .form-error-message {
-	display:block;
-	float: left;
+	display:inline-block;
 	font-size: 12px;
   color:#933;
-  padding-top: 6px;
-  padding-left: 5px;
+  padding: 3px 5px 0 5px;
 }
 
 .re-form-disabled{
@@ -999,18 +1253,20 @@ a.button-unchecked{
 a.button-unchecked:hover	{ background-color: #696969; }
 
 a.re-add-link {
+  display: block;
 	background: url(./images/re_view_button/icon-add.png) top left no-repeat;
 	text-decoration: none;
 	font-weight: normal;	
-	padding: 1px 0 2px 24px;
+	padding: 2px 0 2px 24px;
   margin: 0;
 }
 
 a.re-remove-link {
+  display: block;
 	background: url(./images/re_view_button/icon-delete.png) top left no-repeat;
 	text-decoration: none;
 	font-weight: normal;
-	padding: 1px 0 2px 24px;
+	padding: 2px 0 2px 24px;
   margin: 0;
 }
 /* generated from src/re_view_box.css */
@@ -1050,52 +1306,52 @@ html>body .re-whitebox {
 	color: #fff;
 	background: #5b93ba;
 	border: 1px #335871 solid; 
-	padding: 3px 2px 3px 4px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 .re-bluebox {
   border: 1px #4983a5 solid;
-	padding: 0px 2px 3px 2px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 
 .re-greenbox-header {
 	color: #fff;
 	background: #92b83c;
 	border: 1px #92b83c solid; 
-	padding: 3px 2px 3px 4px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 .re-greenbox {
 	border: 1px #92b83c solid;
-	padding: 0px 2px 3px 2px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 
 .re-redbox-header {
 	color: #fff;
 	background: #b43838;
 	border: 1px #7c1e1e solid; 
-	padding: 3px 2px 3px 4px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 .re-redbox {
 	border: 1px #7c1e1e solid;
-	padding: 0px 2px 3px 2px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 
 .re-dkgreenbox-header {
 	color: #fff;
 	background: #218868;
 	border: 1px #548B54 solid; 
-	padding: 3px 2px 3px 4px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 .re-dkgreenbox {
 	border: 1px #548B54 solid;
-	padding: 0px 2px 3px 2px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 
 .re-brownbox-header {
@@ -1103,35 +1359,35 @@ html>body .re-whitebox {
   border-top: 1px solid #989377;
   border-right: 1px solid #989377;
   border-left: 1px solid #989377;
-	padding: 3px 0px 3px 4px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 .re-brownbox {
 	background: #ece9da;
 	border: 1px #d5d1ba solid;
-	padding: 0px 2px 3px 2px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 
 .re-yellowbox-header {
   background: #f3f1b1;
   border: 1px solid #f3f1b1;
-	padding: 3px 2px 3px 4px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 .re-yellowbox{
 	background: #fffef0;
 	border: 1px #f3f1b1 solid;
-	padding: 0px 2px 3px 2px;
-	margin: 0 2px;
+	padding: 2px;
+	margin: 0;
 }
 
 .re-infobox {
 	font-size: 13px;
 	line-height: 16px;
-	padding: 5px 3px 5px 5px;
-  margin: 0 2px;
-	border: solid #ddd 10px;
+	padding: 5px 3px;
+  margin: 0 2px 0 15px;
+	border: solid #ddd 5px;
 }
 
 /* generated from src/re_view.css */
@@ -1255,3 +1511,4 @@ a.no-line, .no-line a {text-decoration:none;}
 .bottom-20 { padding-bottom: 20px; }
 .bottom-50 { padding-bottom: 50px; }
 .bottom-100{ padding-bottom: 100px; }
+

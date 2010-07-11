@@ -59,21 +59,21 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   end
 
   ##################################################################
-  # callbacks when the rule is added and removed from a pipeline
-  def after_add_to_pipeline(re_pipeline_id, re_rule_id)
+  # callbacks when the rule is added and removed from a workflow
+  def after_add_to_workflow(workflow_code)
   end
   
-  def before_remove_from_pipeline(re_pipeline_id, re_rule_id)
+  def before_remove_from_workflow(workflow_code)
   end
   
   ##################################################################
   # execute the rule
   # this rule does nothing
-  def process(job, data)
-    job.audit("Inside Rule #{title}", RulesEngine::Audit::AUDIT_INFO)                        
+  def process(process, data)
+    process.audit("Inside Rule #{title}", RulesEngine::Audit::AUDIT_INFO)                        
     # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
     # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
-    # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, 'next_pipeline')
+    # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW, 'next_workflow')
     RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT)
   end  
 end

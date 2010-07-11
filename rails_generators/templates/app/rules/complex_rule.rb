@@ -1,8 +1,8 @@
 class <%=rule_class%>Rule < RulesEngine::Rule
 
   attr_reader :words
-  attr_reader :pipeline_action
-  attr_reader :pipeline
+  attr_reader :workflow_action
+  attr_reader :workflow
 
   ##################################################################
   # class options
@@ -21,10 +21,10 @@ class <%=rule_class%>Rule < RulesEngine::Rule
     if data.nil?
       @title = nil
       @words = nil
-      @pipeline_action = 'continue'
-      @pipeline = nil
+      @workflow_action = 'continue'
+      @workflow = nil
     else
-      @title, @words, @pipeline_action, @pipeline = ActiveSupport::JSON.decode(data)
+      @title, @words, @workflow_action, @workflow = ActiveSupport::JSON.decode(data)
     end  
   end
   
@@ -39,19 +39,19 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   end
   
   def data
-    [title, words, pipeline_action, pipeline].to_json
+    [title, words, workflow_action, workflow].to_json
   end
   
   def expected_outcomes
-    case pipeline_action    
+    case workflow_action    
     when 'next'
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]
     when 'stop_success'
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS]
     when 'stop_failure'
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE]
-    when 'start_pipeline'
-      [:outcome => RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, :pipeline_code => pipeline]
+    when 'start_workflow'
+      [:outcome => RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW, :workflow_code => workflow]
     else
       [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]  
     end
@@ -73,8 +73,8 @@ class <%=rule_class%>Rule < RulesEngine::Rule
       end  
     end
     
-    @pipeline_action = param_hash[:<%=rule_name%>_pipeline_action] || 'continue'
-    @pipeline = param_hash[:<%=rule_name%>_pipeline] || ''
+    @workflow_action = param_hash[:<%=rule_name%>_workflow_action] || 'continue'
+    @workflow = param_hash[:<%=rule_name%>_workflow] || ''
   end
   
   ##################################################################
@@ -83,16 +83,16 @@ class <%=rule_class%>Rule < RulesEngine::Rule
     @errors = {}
     @errors[:<%=rule_name%>_words] = "At least one word must be defined" if words.nil? || words.empty?
     @errors[:<%=rule_name%>_title] = "Title required" if title.blank?    
-    @errors[:<%=rule_name%>_pipeline] = "Pipeline required" if pipeline_action == 'start_pipeline' && pipeline.blank?
+    @errors[:<%=rule_name%>_workflow] = "Workflow required" if workflow_action == 'start_workflow' && workflow.blank?
     return @errors.empty?
   end
 
   ##################################################################
-  # callbacks when the rule is added and removed from a pipeline
-  def after_add_to_pipeline(re_pipeline_id, re_rule_id)
+  # callbacks when the rule is added and removed from a workflow
+  def after_add_to_workflow(workflow_code)
   end
   
-  def before_remove_from_pipeline(re_pipeline_id, re_rule_id)
+  def before_remove_from_workflow(workflow_code)
   end
   
   ##################################################################
@@ -100,7 +100,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   # if a match is found procees to the expected outcome
   # it gets the data parameter :sentence
   # it sets the data parameter :match
-  def process(job, data)
+  def process(process, data)
     sentence = data[:sentence] || data["sentence"]    
     if sentence.blank?
       return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT) 
@@ -108,16 +108,16 @@ class <%=rule_class%>Rule < RulesEngine::Rule
     
     words.each do |word|
       if /#{word}/i =~ sentence        
-        job.audit("#{title} Found #{word}", RulesEngine::Audit::AUDIT_INFO)
+        process.audit("#{title} Found #{word}", RulesEngine::Audit::AUDIT_INFO)
         data[:match] = word
         
-        case pipeline_action
+        case workflow_action
         when 'stop_success'
           return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
         when 'stop_failure'
           return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
-        when 'start_pipeline'
-          return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_PIPELINE, pipeline)
+        when 'start_workflow'
+          return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW, workflow)
         else #'next'
           return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT)
         end

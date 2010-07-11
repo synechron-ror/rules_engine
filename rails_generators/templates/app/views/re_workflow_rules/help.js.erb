@@ -1,0 +1,4 @@
+$('#re_content').html('<%=escape_javascript(render('/re_workflow_rules/help', :cancel_path => change_re_workflow_path(@re_workflow)))%>');
+
+$.re_unblock();
+$.fancybox({ href: '#re_content'});          

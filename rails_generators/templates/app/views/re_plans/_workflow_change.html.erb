@@ -1,0 +1,44 @@
+<% local_hide = local_assigns[:hide] && hide  %>
+<% re_workflow_error = re_workflow.workflow_error %>
+<% default_workflow = re_workflow == @re_plan.default_workflow %>
+<% last_workflow = re_workflow == @re_plan.re_workflows[-1]  %>
+
+<div class="re-list-workflow-change" id="re_workflow_change_<%= re_workflow.id %>" style="<%= local_hide ?  'display:none' : '' %>">
+  <div class="<%= re_workflow_error.blank? ? 're-bluebox' : 're-redbox' %>">
+		<div class="clear top-2"></div>    
+    <h4 class="float-left re-sts-workflow-<%= re_workflow_error.blank? ? 'valid' : 'verify' %>">
+			<%=h re_workflow.title %>
+			<span class="re-code blue">(<%=h re_workflow.code%>)</span>
+		</h4>
+    <div class="float-right">
+			<!-- NO ACTIONS ON THE RULE	 -->
+			<%= link_to("<span>Default</span>", "##{@re_plan.id}|#{re_workflow.id}", :class => "#{default_workflow ? 're-list-workflow-make-default-off' : 're-list-workflow-make-default'}") %>
+      <%= link_to("<span>Edit</span>", change_re_plan_workflow_path(@re_plan, re_workflow), :class => "re-list-workflow-change") %>
+      <%= link_to("<span>Remove</span>", "##{@re_plan.id}|#{re_workflow.id}", :class => "re-list-workflow-remove") %>
+    </div>
+    <div class="clear top-2"></div>    
+		<hr/>
+		<a href="#<%= re_workflow.id %>" id="re_workflow_preview" class="float-left">
+			<div class="re-xtra-workflow-preview"></div>
+		</a>	
+		<p class="float-left left-5">
+			<%=h re_workflow.description %>&nbsp;
+		</p>
+		<em class="float-right top-2 right-5 re-sts-workflow-<%= re_workflow_error.blank? ? 'valid' : 'verify' %>"><%= re_workflow_error.blank? ? 'Valid' : re_workflow_error %></em>
+    <div class="clear"></div>    	
+	</div>          
+</div>
+
+<% unless last_workflow %>
+  <div class="clear top-5"></div>
+	<hr/>
+	<div class="clear top-5"></div>
+<% end %>
+
+<div style="display:none">
+  <% re_form_for(re_workflow, :url => remove_re_plan_workflow_path(@re_plan, re_workflow), :html => {:method => :put, :id => "re_workflow_remove_form_#{re_workflow.id}"}) do |f| %>
+  <% end %>  
+  
+  <% re_form_for(re_workflow, :url => default_re_plan_workflow_path(@re_plan, re_workflow), :html => {:method => :put, :id => "re_workflow_default_form_#{re_workflow.id}"}) do |f| %>
+  <% end %>  
+</div>  

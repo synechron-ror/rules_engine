@@ -1,0 +1,5 @@
+$('#re_content').html('<%=escape_javascript(render('/re_plans/new'))%>');
+
+$('#re_plan_new_insert').closest('div.re-form-button').re_form_button(); 
+
+$("#re_plan_new_form").submit(function() { return false; });

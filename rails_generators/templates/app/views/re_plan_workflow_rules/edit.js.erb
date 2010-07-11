@@ -1,0 +1,9 @@
+$('#re_content').html('<%=escape_javascript(render('/re_workflow_rules/edit', :update_path => re_plan_workflow_rule_path(@re_plan, @re_workflow, @re_rule),
+ 											 																												:cancel_path => change_re_plan_workflow_path(@re_plan, @re_workflow)))%>');
+
+$('#re_rule_edit_update').closest('div.re-form-button').re_form_button(); 
+
+$("#re_rule_edit_form").submit(function() { return false; });
+
+$.re_unblock();
+$.fancybox({ href: '#re_content'});

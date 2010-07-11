@@ -79,12 +79,12 @@
                               :controller => :re_pipeline_rules, 
                               :collection => {:help => :get, :error => :get}, 
                               :member => {:move_up => :put, :move_down => :put}
-      re_pipeline.resources :re_jobs, 
-                              :controller => :re_pipeline_jobs, 
+      re_pipeline.resources :re_processs, 
+                              :controller => :re_pipeline_processs, 
                               :only => [:index]
     end
 
-    map.resources :re_jobs, :only => [:index, :show]
+    map.resources :re_processs, :only => [:index, :show]
     ...
   end  
 

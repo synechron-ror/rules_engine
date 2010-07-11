@@ -1,0 +1,5 @@
+$('#re_content').html('<%=escape_javascript(render('/re_workflows/new', :create_path => re_plan_workflows_path(@re_plan), :cancel_path => change_re_plan_path(@re_plan)))%>');
+
+$('#re_workflow_new_insert').closest('div.re-form-button').re_form_button(); 
+
+$("#re_workflow_new_form").submit(function() { return false; });

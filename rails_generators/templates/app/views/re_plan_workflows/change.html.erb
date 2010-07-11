@@ -1,0 +1,59 @@
+<% set_re_javascript_include 'rules_engine/re_workflow_change' %>
+<% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
+											link_to("Edit Plan", change_re_plan_path(@re_plan), :class => "re-bc-plan-change"),
+											'<span class="re-bc-workflow-change">Edit Workflow</span>' %>
+
+<div class="span-17 border">      
+	<div class="span-1">
+		<div class="re-xtra-plan-title-single"><span>Plan</span></div>
+	</div>	
+	<div class="span-16 last">
+		<div id="re_plan_change">
+ 			<%= render '/re_plans/show' %>
+		</div>	
+		
+		<div class="span-2 pull-1">
+		 	<div class="re-xtra-workflow-title-single"><span>Workflow</span></div>
+		</div>
+		<div class="span-15 last">
+			<div class="re-infobox no-top">
+				<div id="re_workflow_change">
+	  			<%= render '/re_workflows/show' %>			
+				</div>		
+				<div class="clear"></div>
+			</div>	
+			
+			<div class="span-2 pull-1">
+			 	<div class="re-xtra-rule-title-plural"><span>Workflow</span></div>
+			</div>	
+			<div class="span-14 last">
+				<div class="re-infobox no-top">
+					<div id="re_rule_change">
+						<%= render '/re_workflows/rule_empty', :re_workflow => @re_workflow %>    
+
+			      <% @re_workflow.re_rules.each do |re_rule | %>
+			        <%= render '/re_workflows/rule_change', :re_rule => re_rule, 
+																												:re_plan_id => @re_plan.id,
+																												:delete_path => re_plan_workflow_rule_path(@re_plan, @re_workflow, re_rule),
+																												:move_up_path => move_up_re_plan_workflow_rule_path(@re_plan, @re_workflow, re_rule),
+																												:move_down_path => move_down_re_plan_workflow_rule_path(@re_plan, @re_workflow, re_rule),
+																												:first_rule => re_rule == @re_workflow.re_rules[0], 
+																												:last_rule => re_rule == @re_workflow.re_rules[-1] %>
+			      <% end %>
+					</div>
+					<div class="clear"></div>
+		    </div>    
+			</div>
+			
+		</div>
+	</div>	
+</div>
+<div class="span-7 last">      
+	<div class="clear top-5"></div>
+		
+  <%= render '/re_workflows/menu', :re_plan_id => @re_plan.id,
+ 																		:view_path => re_plan_workflow_path(@re_plan, @re_workflow),
+																		:delete_path => re_plan_workflow_path(@re_plan, @re_workflow) %>
+</div>  
+<div class="clear"></div>
+

@@ -2,6 +2,7 @@ module RulesEngineView
   module ModelLoader
   # options
   # => :parents array of required parent objects
+  # => :validate method on the model to validate against the parent
   # => :param_id (default = id)
   # => :find_by (default = find)
   # => :redirect_path
@@ -10,8 +11,11 @@ module RulesEngineView
     
     parent = options[:parents] == nil ? nil : options[:parents].last
     if (model != nil && parent != nil)
-      parent_param = options[:parent_param] ? options[:parent_param] : "#{parent}_id"
-      model = nil if (instance_variable_get("@#{parent}") == nil || (instance_variable_get("@#{parent}").id != model.send(parent_param)))
+      if options[:validate]
+        model = nil if (instance_variable_get("@#{parent}") == nil || !model.send(options[:validate], instance_variable_get("@#{parent}")))
+      else  
+        model = nil if (instance_variable_get("@#{parent}") == nil || (instance_variable_get("@#{parent}").id != model.send("#{parent}_id")))
+      end  
     end
 
     instance_variable_set("@#{model_name}", model) 

@@ -1,0 +1,12 @@
+<% local_hide = local_assigns[:hide] && hide  %>
+
+<div id="re_workflow_empty" style="<%= local_hide ?  'display:none' : '' %>">
+  <div class="re-redbox-header"><h4 class="white">No Workflows Defined</h4></div>   
+  <div class="re-redbox no-top">
+    <div class="clear top-5">
+      <h5>Create a new workflow and define the rules.</h5>
+			<p class="left-10">Workflows contain the rules.</p> 
+    </div>  
+  </div>    
+	<div class="clear"></div>  
+</div>

@@ -1,0 +1,42 @@
+<% local_hide = local_assigns[:hide] && hide  %>
+<% re_plan_status = re_plan_status(re_plan) %>
+<% re_plan_error = re_plan.plan_error %>
+
+<div id="re_plan_index_<%= re_plan.id %>" style="<%= local_hide ?  'display:none' : '' %>">
+	<div class="re-infobox">
+    <div class="span-10">
+      <h4 class="re-sts-plan-<%= re_plan_error.blank? ? re_plan_status : 'verify' %>">
+				<%=h re_plan.title %>
+				<span class="re-code blue">(<%=h re_plan.code%>)</span>
+			</h4>
+    </div>  
+    <div class="span-5 last">
+			<% if rules_engine_editor? %>
+       	<h4 class="float-right"><%= link_to("Edit", change_re_plan_path(re_plan), :class => "re-menu-plan-change") %></h4>    
+			<% end %>
+			<h4 class="float-right"><%= link_to("View", re_plan_path(re_plan), :class => "re-menu-plan-show") %></h4>    
+    </div>  
+
+	  <div class="clear top-5"></div>
+		<hr/>
+
+    <div class="span-1">
+			<a href="#<%= re_plan.id %>" class="re_plan_preview">
+				<div class="re-xtra-plan-preview"></div>
+			</a>	
+		</div>	
+    <div class="span-10">
+			<p><%=h re_plan.description%></p>
+    </div>
+		<div class="span-4 last">
+      <% if re_plan_error.blank? %>
+				<em class="float-right top-2 re-sts-plan-<%= re_plan_status %>"><%= re_plan_status.titleize %></em>
+      <% else %>
+        <em class="float-right top-2 red"><%= re_plan_error %></em>
+      <% end %>
+		</div>
+    <div class="clear"></div>    
+  </div>    
+</div>
+<div class="clear top-5"></div>  
+

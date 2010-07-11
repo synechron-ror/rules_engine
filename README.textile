@@ -37,7 +37,7 @@ Rails::Initializer.run do |config|
   config.gem 'will_paginate'
   config.gem 'acts_as_list'
   ...
-  config.active_record.observers = :re_pipeline_activated_observer
+  config.active_record.observers = :re_workflow_activated_observer
   ...
 end
 
@@ -89,25 +89,25 @@ h3. 5. Add the Routes
 ActionController::Routing::Routes.draw do |map|
   ...
   ### remove map.root if already defined
-  map.root :controller => 're_pipelines', :action => 'template'
-  ### map.preview '/preview', :controller => 're_pipelines', :action => 'template'
-  map.resources :re_pipelines, 
+  map.root :controller => 're_workflows', :action => 'template'
+  ### map.preview '/preview', :controller => 're_workflows', :action => 'template'
+  map.resources :re_workflows, 
                         :collection => {:lookup => :get, 
                                         :activate_all => :put}, 
                         :member => {:change => :get, 
                                         :activate => :put, 
                                         :deactivate => :put, 
-                                        :revert => :put} do |re_pipeline|  
-  re_pipeline.resources :re_rules, 
-                            :controller => :re_pipeline_rules, 
+                                        :revert => :put} do |re_workflow|  
+  re_workflow.resources :re_rules, 
+                            :controller => :re_workflow_rules, 
                             :collection => {:help => :get, :error => :get}, 
                             :member => {:move_up => :put, :move_down => :put}
-    re_pipeline.resources :re_jobs, 
-                            :controller => :re_pipeline_jobs, 
+    re_workflow.resources :re_processs, 
+                            :controller => :re_workflow_processs, 
                             :only => [:index]
   end
 
-  map.resources :re_jobs, :only => [:index, :show]
+  map.resources :re_processs, :only => [:index, :show]
   ...
 end  
 </pre>
@@ -173,9 +173,9 @@ h3. 10. Start the Server
 
 <pre>
 ./script/server
-open http://localhost:3000/re_pipelines
+open http://localhost:3000/re_workflows
 </pre>
 
-h3. 11. Create Pipelines and Rules
+h3. 11. Create Workflows and Rules
 
 Watch the demo at "TODO":http://www.r3ef.com/

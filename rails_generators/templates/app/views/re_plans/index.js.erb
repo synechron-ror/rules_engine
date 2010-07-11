@@ -1,0 +1,18 @@
+$.fancybox.close();
+$.re_unblock();
+
+<%= re_alert_js %>
+
+<% if @re_plans.empty? %>
+  $('#re_plan_empty').slideDown(150, function() {
+    $('#re_plan_empty').show();
+  });
+<% else %>  
+  $('#re_plan_empty').hide();
+<% end %>  
+
+
+$('#re_plan_index').empty();
+<% @re_plans.each do | re_plan | %>
+  $('#re_plan_index').append('<%=escape_javascript(render('/re_plans/index', :re_plan => re_plan))%>');  
+<% end %>  

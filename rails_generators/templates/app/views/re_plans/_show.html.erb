@@ -1,0 +1,27 @@
+<% re_plan_status = re_plan_status(@re_plan) %>
+<% re_plan_error = @re_plan.plan_error %>
+
+<div class="re-infobox">
+	<div class="span-10">
+  	<h4 class="re-sts-plan-<%= re_plan_error.blank? ? re_plan_status : 'verify' %>">
+			<%=h @re_plan.title %>
+			<span class="re-code blue">(<%=h @re_plan.code%>)</span>
+		</h4>
+	</div>  
+  <div class="span-5 last">
+  </div>  
+  <div class="clear top-5"></div>
+	<hr/>
+
+  <div class="span-10 prepend-1">
+		<p><%=h @re_plan.description%></p>
+  </div>  
+	<div class="span-4 last">
+		<% if re_plan_error.blank? %>
+			<em class="float-right top-2 re-sts-plan-<%= re_plan_status %>"><%= re_plan_status.titleize %></em>
+    <% else %>
+    	<em class="float-right top-2 red"><%= re_plan_error %></em>
+    <% end %>
+	</div>
+	<div class="clear"></div>
+</div> 

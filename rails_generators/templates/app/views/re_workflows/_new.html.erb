@@ -1,0 +1,21 @@
+<%#= :create_path => re_plan_workflows_path(@re_plan) %>
+<%#= :cancel_path => change_re_plan_path(@re_plan) %>
+
+<div class="clear prepend-1 span-18">
+  <h3 class="re-hdr-workflow-new">New Workflow</h3>
+  <div class="clear top-10"></div>
+  
+  <% re_form_for(@re_workflow, :url => create_path, :method => :post, :span => "3x13", :html => {:id => "re_workflow_new_form"}) do |f| %>
+    <%= f.error_messages :message => "Unable To Create Workflow" %>
+    <% re_whitebox do %>    
+      <%= f.text_field(:code, :required => true, :hint => "must be unique") %>
+      <%= f.text_field(:title, :required => true) %>
+      <%= f.text_area(:description) %>
+    
+      <div class="clear"></div>
+  	  <%= re_button_submit_green('Insert', :id => "re_workflow_new_insert") %>
+  	  <%= re_button_link_orange('Cancel', cancel_path, :id => "re_workflow_new_cancel") %>
+    <% end %>
+  <% end %>
+</div>  
+<div class="clear"></div>

@@ -1,0 +1,15 @@
+<%#= :cancel_path => change_re_workflow_path(@re_workflow) %>
+
+<div class="clear span-12">
+  <h3 class="re-hdr-rule-help"> Help : <%= @rule_class.options[:display_name] %></h3>
+  <div class="clear top-10"></div>
+
+  <% re_whitebox do %>      
+  
+    <%= render(@rule_class.options[:help_partial]) %>    
+    
+    <div class="clear"></div>
+	  <%= re_button_link_red('Close', cancel_path, :id => "re_rule_help_cancel") %>
+  <% end %>
+</div>  
+<div class="clear"></div>

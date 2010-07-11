@@ -1,0 +1,132 @@
+class RePlanWorkflowsController < ApplicationController    
+  helper :rules_engine 
+  layout 'rules_engine'
+  
+  # before_filter :login_required
+  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :default, :add, :remove]
+  before_filter :rules_engine_reader_access_required,  :only => [:show]
+
+  before_filter do |controller|
+    controller.re_load_model :re_plan, {:param_id => :re_plan_id, :redirect_path => :re_plans_path}    
+  end
+  
+  before_filter :only => [:show, :edit, :update, :destroy, :change, :default, :remove] do |controller|
+    controller.re_load_model :re_workflow, {:parents => [:re_plan], :redirect_path => :re_plan_path, :validate => :has_plan?}
+  end    
+  before_filter :only => [:add] do |controller|
+    controller.re_load_model :re_workflow, {:redirect_path => :change_re_plan_path}
+  end    
+
+  def index    
+    klass = ReWorkflow
+    @re_workflows = klass.find(:all)
+  end
+  
+  def show
+  end
+
+  def new
+    @re_workflow = ReWorkflow.new()
+  end
+  
+  def create
+    @re_workflow = ReWorkflow.new(params[:re_workflow])
+    @re_workflow.re_plans << @re_plan
+    
+    if @re_workflow.save
+      flash[:success] = 'Workflow Created.'
+      
+      respond_to do |format|
+        format.html do
+          redirect_to(change_re_plan_path(@re_plan))
+        end  
+        format.js do
+          render :template => "re_plans/update"
+        end
+      end
+    else
+      render :action => "new"
+    end    
+  end
+
+  def edit    
+  end
+
+  def update
+    update_params = params[:re_workflow] || {}
+    @re_workflow.attributes = update_params.except(:code)
+    if @re_workflow.save
+      flash[:success] = 'Workflow Updated.'
+      
+      respond_to do |format|
+        format.html do          
+          redirect_to(change_re_workflow_path(@re_workflow))
+        end  
+        format.js do
+          render :action => "update"
+        end
+      end
+    else
+      render :action => "edit"
+    end    
+  end
+
+  def destroy
+    @re_workflow.destroy
+    flash[:success] = 'Workflow Deleted.'
+    
+    respond_to do |format|
+      format.html do
+        redirect_to(change_re_plan_path(@re_plan))
+      end  
+      format.js do
+        render :inline => "window.location.href = '#{change_re_plan_path(@re_plan)}';"
+      end
+    end
+  end
+
+  def change
+  end
+  
+  def default
+    @re_plan.default_workflow = @re_workflow
+    
+    flash[:success] = 'Workflow Default Set.'
+    respond_to do |format|
+      format.html do
+        redirect_to(change_re_plan_path(@re_plan))
+      end  
+      format.js do
+        render :template => "re_plans/update"
+      end
+    end
+  end
+
+  def add
+    @re_plan.re_workflows << @re_workflow unless @re_plan.re_workflows.include?(@re_workflow)
+    
+    flash[:success] = 'Workflow Added.'
+    respond_to do |format|
+      format.html do
+        redirect_to(change_re_plan_path(@re_plan))
+      end  
+      format.js do
+        render :template => "re_plans/update"
+      end
+    end
+  end
+
+  def remove
+    @re_plan.re_workflows.delete(@re_workflow)
+    
+    flash[:success] = 'Workflow Removed.'
+    respond_to do |format|
+      format.html do
+        redirect_to(change_re_plan_path(@re_plan))
+      end  
+      format.js do
+        render :template => "re_plans/update"
+      end
+    end
+  end
+end

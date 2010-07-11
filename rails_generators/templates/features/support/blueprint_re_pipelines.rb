@@ -14,7 +14,7 @@ RePipelineActivated.blueprint do
   description   { Faker::Lorem.sentence }
 end
 
-# ReJob.blueprint do
-#   job_status   { RulesEngine::Job::JOB_STATUS_NONE }
+# ReProcess.blueprint do
+#   process_status   { RulesEngine::Process::PROCESS_STATUS_NONE }
 #   created_at   { Time.now }
 # end

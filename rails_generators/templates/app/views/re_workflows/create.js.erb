@@ -1,0 +1,9 @@
+<%= re_alert_js %>
+
+$.fancybox.close();
+$.re_unblock();
+
+$('#re_workflow_index').prepend('<%=escape_javascript(render('/re_workflows/index', :re_workflow => @re_workflow, :hide => true))%>');
+
+$('#re_workflow_empty').hide();
+$('#re_workflow_index_<%=@re_workflow.id%>').slideDown();
