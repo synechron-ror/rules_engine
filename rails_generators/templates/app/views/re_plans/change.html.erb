@@ -1,5 +1,6 @@
-<% set_re_javascript_include ['rules_engine/re_plan_change'] %>
+<% set_re_javascript_include ['rules_engine/re_workflow_preview', 'rules_engine/re_plan_change'] %>
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
+											link_to("View Plan", re_plan_path(@re_plan), :class => "re-bc-plan-show"),
 											'<span class="re-bc-plan-change">Edit Plan</span>' %>
 
 <div class="span-17 border">      
@@ -14,12 +15,15 @@
 		 	<div class="re-xtra-workflow-title-plural"><span>Workflow</span></div>
 		</div>
 		<div class="span-15 last">
-	 		<div class="re-infobox no-top" id="re_workflow_change">
-				<%= render '/re_plans/workflow_empty', :re_plan => @re_plan %>    
+	 		<div class="re-infobox no-top">
+				<div id="re_workflow_change">
+					<%= render '/re_workflows/empty', :hide => !@re_plan.re_workflows.empty? %>    
 
-		    <% @re_plan.re_workflows.each do |re_workflow | %>
-		    	<%= render '/re_plans/workflow_change', :re_workflow => re_workflow %>
-		    <% end %>
+			    <% @re_plan.re_workflows.each do |re_workflow | %>
+			    	<%= render '/re_plans/workflow_change', :re_workflow => re_workflow %>
+			    <% end %>
+				</div>
+				<div class="clear"></div>  
 			</div>	
 		</div>	
 		
@@ -27,6 +31,20 @@
 </div>  
 <div class="span-7 last">      
 	<div class="clear top-5"></div>
+
+	<h4>
+		<%= link_to("View Plan", re_plan_path(@re_plan), :class => "re-menu-plan-show") %>
+	</h4>    
+
+	<div class="clear top-5"></div>
+	<hr/>
+	<div class="clear top-5"></div>
+
+	<h4>
+	  <%= link_to("Edit Plan Details", "##{@re_plan.id}", :id => "re_plan_edit", :class => "re-menu-plan-edit") %>
+	</h4>
+	<div class="clear top-5"></div>
+
 
 	<div id="re_plan_menu">
 	 	<%= render '/re_plans/menu' %>

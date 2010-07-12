@@ -10,8 +10,8 @@ describe "RulesEngine::Plan::Publisher" do
     end
 
     it "should set the publisher to the database plan publisher" do
-      RulesEngine::Plan.publisher = :db_plan_publisher
-      RulesEngine::Plan.publisher.should be_instance_of(RulesEngine::Plan::DbPlanPublisher)
+      RulesEngine::Plan.publisher = :db_publisher
+      RulesEngine::Plan.publisher.should be_instance_of(RulesEngine::Plan::DbPublisher)
     end
   end
   
@@ -44,6 +44,19 @@ describe "RulesEngine::Plan::Publisher" do
       lambda {
         RulesEngine::Plan::Publisher.new.versions('code')
       }.should raise_error
+    end
+  end
+  
+  describe "removing a plan" do
+    it "should throw an error if not overwritten" do
+      lambda {
+        RulesEngine::Plan::Publisher.new.remove('code')
+      }.should raise_error
+      
+      lambda {
+        RulesEngine::Plan::Publisher.new.remove('code', 1)
+      }.should raise_error
+      
     end
   end
 end

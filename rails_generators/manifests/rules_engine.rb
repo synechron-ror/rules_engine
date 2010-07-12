@@ -14,6 +14,7 @@ class RulesEngineManifest
       app/views/re_rule_definitions/simple_rule
       app/views/re_workflow_rules
       app/views/re_workflows
+      config/initializers
       db/migrate
       doc
       features/re_pipeline
@@ -86,9 +87,10 @@ class RulesEngineManifest
       app/views/re_plans/_index.html.erb
       app/views/re_plans/_menu.html.erb
       app/views/re_plans/_new.html.erb
+      app/views/re_plans/_preview.html.erb
       app/views/re_plans/_show.html.erb
       app/views/re_plans/_workflow_change.html.erb
-      app/views/re_plans/_workflow_empty.html.erb
+      app/views/re_plans/_workflow_preview.html.erb
       app/views/re_plans/_workflow_show.html.erb
       app/views/re_plans/change.html.erb
       app/views/re_plans/create.js.erb
@@ -98,6 +100,8 @@ class RulesEngineManifest
       app/views/re_plans/index.js.erb
       app/views/re_plans/new.html.erb
       app/views/re_plans/new.js.erb
+      app/views/re_plans/preview.html.erb
+      app/views/re_plans/preview.js.erb
       app/views/re_plans/show.html.erb
       app/views/re_plans/template.html.erb
       app/views/re_plans/update.js.erb
@@ -131,8 +135,11 @@ class RulesEngineManifest
       app/views/re_workflows/_index.html.erb
       app/views/re_workflows/_menu.html.erb
       app/views/re_workflows/_new.html.erb
+      app/views/re_workflows/_plan_index.html.erb
+      app/views/re_workflows/_preview.html.erb
       app/views/re_workflows/_rule_change.html.erb
       app/views/re_workflows/_rule_empty.html.erb
+      app/views/re_workflows/_rule_preview.html.erb
       app/views/re_workflows/_rule_show.html.erb
       app/views/re_workflows/_show.html.erb
       app/views/re_workflows/change.html.erb
@@ -142,8 +149,11 @@ class RulesEngineManifest
       app/views/re_workflows/index.html.erb
       app/views/re_workflows/new.html.erb
       app/views/re_workflows/new.js.erb
+      app/views/re_workflows/preview.html.erb
+      app/views/re_workflows/preview.js.erb
       app/views/re_workflows/show.html.erb
       app/views/re_workflows/update.js.erb
+      config/initializers/rules_engine.rb
       db/migrate/20100308225008_create_rules_engine.rb
       doc/README.rules_engine
       doc/README.rules_engine_features
@@ -163,12 +173,12 @@ class RulesEngineManifest
       public/javascripts/jquery.blockUI.js
       public/javascripts/jquery.fancybox-1.3.1.js
       public/javascripts/rules_engine/re_plan_change.js
-      public/javascripts/rules_engine/re_plan_index.js
       public/javascripts/rules_engine/re_plan_new.js
+      public/javascripts/rules_engine/re_plan_preview.js
       public/javascripts/rules_engine/re_view.js
       public/javascripts/rules_engine/re_workflow_change.js
-      public/javascripts/rules_engine/re_workflow_index.js
       public/javascripts/rules_engine/re_workflow_new.js
+      public/javascripts/rules_engine/re_workflow_preview.js
       public/stylesheets/blueprint/ie.css
       public/stylesheets/blueprint/plugins/buttons/icons/cross.png
       public/stylesheets/blueprint/plugins/buttons/icons/key.png
@@ -240,7 +250,6 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/re_view_navigate/breadcrumb.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/alert-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/change-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/deactivate-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/delete-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/edit-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/history-25.png

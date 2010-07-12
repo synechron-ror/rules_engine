@@ -18,9 +18,9 @@
   </div>  
 	<div class="span-4 last">
     <% if re_plan_error.blank? %>
-			<em class="float-right top-2 re-sts-plan-<%= re_plan_status %>"><%= re_plan_status.titleize %></em>
+			<em class="float-right top-2 re-sts-plan-<%= re_plan_status %>"><%= re_plan_status.titleize %>  <%= re_plan_version(@re_plan) %></em>
     <% else %>
-      <em class="float-right top-2 red"><%= re_plan_error %></em>
+      <em class="float-right top-2 red"><%= re_plan_error %> <%= re_plan_version(@re_plan) %></em>
     <% end %>
 	</div>
   <div class="clear"></div>
@@ -28,9 +28,6 @@
 
 <div style="display:none">
   <% re_form_for(@re_plan, :url => publish_re_plan_path(@re_plan), :html => {:method => :put, :id => "re_plan_publish_form"}) do |f| %>
-  <% end %>  
-
-  <% re_form_for(@re_plan, :url => deactivate_re_plan_path(@re_plan), :html => {:method => :put, :id => "re_plan_deactivate_form"}) do |f| %>
   <% end %>  
 
   <% re_form_for(@re_plan, :url => revert_re_plan_path(@re_plan), :html => {:method => :put, :id => "re_plan_revert_form"}) do |f| %>

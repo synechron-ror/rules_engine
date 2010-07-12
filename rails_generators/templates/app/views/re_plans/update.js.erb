@@ -5,7 +5,7 @@ $.re_unblock();
 
 $('#re_plan_change').html('<%=escape_javascript(render('/re_plans/change'))%>');
 
-$('#re_workflow_change').html('<%=escape_javascript(render('/re_plans/workflow_empty', :re_plan => @re_plan))%>');
+$('#re_workflow_change').html('<%=escape_javascript(render('/re_workflows/empty', :hide => !@re_plan.re_workflows.empty?))%>');
 <% @re_plan.re_workflows.each do |re_workflow | %>
   $('#re_workflow_change').append('<%=escape_javascript(render('/re_plans/workflow_change', :re_workflow => re_workflow))%>');
 <% end %>

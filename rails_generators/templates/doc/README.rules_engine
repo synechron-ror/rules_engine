@@ -73,7 +73,6 @@
                                           :activate_all => :put}, 
                           :member => {:change => :get, 
                                           :activate => :put, 
-                                          :deactivate => :put, 
                                           :revert => :put} do |re_pipeline|  
     re_pipeline.resources :re_rules, 
                               :controller => :re_pipeline_rules, 

@@ -143,15 +143,6 @@ a.re-menu-plan-publish {
 a.re-menu-plan-publish:hover {
   text-decoration: underline;
 }
-a.re-menu-plan-deactivate {
-	background: transparent url('./images/rules_engine/re_plan/deactivate-25.png') no-repeat left -1px;
-  padding: 0 0 0 30px;
-  color: #218868;
-  text-decoration: none;
-}
-a.re-menu-plan-deactivate:hover {
-  text-decoration: underline;
-}
 a.re-menu-plan-revert {
 	background: transparent url('./images/rules_engine/re_plan/revert-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
@@ -575,7 +566,6 @@ a.re-list-rule-move-up-off span {
 }
 
 /* extra */
-/* extra */
 div.re-xtra-rule-title-plural {
   background: transparent url('./images/rules_engine/re_rule/title-plural.png') no-repeat 40px 20px;
   width: 90px;
@@ -592,7 +582,22 @@ div.re-xtra-rule-title-single {
 div.re-xtra-rule-title-single span {
   display: none;
 }
-
+.re-xtra-rule-preview {
+  float:left;
+  width: 210px;  
+}
+.re-xtra-rule-preview p {
+  font-size: 13px;
+  line-height: 14px;
+  margin: 0;
+  padding: 1px 2px;
+}
+.re-xtra-rule-preview-next {
+  float:left;
+	background: transparent url('./images/rules_engine/re_rule/next-show-18.png') no-repeat 10px 30px;
+  width: 40px;
+  height: 54px;  
+}
 .re-xtra-rule-continue {
   width: 155px;
 	background: #fffef0 url('./images/rules_engine/re_rule/next-show-18.png') no-repeat 165px 2px;
@@ -661,9 +666,6 @@ h3.re-rule-edit {
   padding: 0 0 0 30px;  
 }
 
-.re-rule-show  p{
-  font-size: 13px;
-}
 .re-rule-change h3 { 
   margin: 0;
   padding: 0;
@@ -675,11 +677,6 @@ h3.re-rule-edit {
 	background: transparent url('./images/rules_engine/re_rule/next-change-25.png') no-repeat 0px 7px;
   width: 40px;
   height: 40px;  
-}
-.re-rule-next-show {
-	background: transparent url('./images/rules_engine/re_rule/next-show-18.png') no-repeat 0px 30px;
-  width: 24px;
-  height: 54px;  
 }
 
 /* processs */

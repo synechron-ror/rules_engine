@@ -35,11 +35,6 @@ $(document).ready(function() {
   	return false;  
   });  
 
-  $('a#re_plan_deactivate').live('click', function() {    
-    re_plan_action_confirm('deactivate', "Deactivate Plan", "Deactivate")
-  	return false;  
-  });  
-
   $('a#re_plan_revert').live('click', function() {    
     re_plan_action_confirm('revert', "Discard Plan Changed", "Discard Changes")
   	return false;  

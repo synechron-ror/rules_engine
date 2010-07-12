@@ -37,11 +37,20 @@ class RePlan < ActiveRecord::Base
   end  
 
   def revert!(rule_data)
-    self.code = rule_data[:code]
-    self.title = rule_data[:title]
-    self.description = rule_data[:description]
+    rule_data_hash = rule_data.symbolize_keys
     
-    self.re_workflows = (rule_data[:workflows] || []).map { |workflow| ReWorkflow.new.revert!(workflow) }
+    self.code = rule_data_hash[:code]
+    self.title = rule_data_hash[:title]
+    self.description = rule_data_hash[:description]
+    
+    self.re_workflows = (rule_data_hash[:workflows] || []).map do |workflow| 
+      re_workflow = ReWorkflow.find_by_code(workflow[:code] || workflow["code"])
+      if (workflow)
+        re_workflow.revert!(workflow)
+      else  
+        ReWorkflow.new.revert!(workflow)
+      end  
+    end  
     self
   end  
 
@@ -56,8 +65,8 @@ class RePlan < ActiveRecord::Base
   end
   
   def plan_error
-    return 'workflows required' if re_workflows.empty?
-    return 'error within workflows' if re_workflows.any? { | re_workflow | re_workflow.workflow_error }    
+    return 'workflows req\'d' if re_workflows.empty?
+    return 'workflow error' if re_workflows.any? { | re_workflow | re_workflow.workflow_error }    
     nil
   end
 
@@ -75,6 +84,6 @@ class RePlan < ActiveRecord::Base
   
   protected
     def ignore_attributes 
-      [self.class.primary_key, self.class.inheritance_column, "status", "created_at", "updated_at"]
+      [self.class.primary_key, self.class.inheritance_column, "status", "version", "created_at", "updated_at"]
     end
 end

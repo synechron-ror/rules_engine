@@ -14,4 +14,9 @@ module RulesEngineHelper
   def re_workflow_list
     @re_workflows ||= ReWorkflow.order_title.find(:all)
   end
+  
+  def re_plan_version re_plan
+    return '' if re_plan.nil? || re_plan.version.nil?
+    "Ver.#{re_plan.version}"    
+  end
 end

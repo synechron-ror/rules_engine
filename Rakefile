@@ -8,7 +8,7 @@ begin
     gem.summary = %Q{Rules engine}
     gem.description = %Q{Rules engine}
     gem.email = "dougo.chris@gmail.com"
-    gem.homepage = "http://dougochris.github.com"
+    gem.homepage = "http://github.com/dougochris/rules_engine_view"
     gem.authors = ["Chris Douglas"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
@@ -45,7 +45,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "re_rules_engine #{version}"
+  rdoc.title = "rules_engine #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

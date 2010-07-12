@@ -1,0 +1,39 @@
+<% re_rule_error = re_rule.rule_error %>
+<% local_new_row = local_assigns[:new_row] && new_row  %>
+<% local_last_rule = local_assigns[:last_rule] && last_rule  %>
+
+<% if local_new_row  %>
+  <div class="clear top-5"><hr/></div>
+  <div class="clear top-5"></div>
+<% end %>
+
+<div class="<%= local_new_row ? 'left-10' : '' %> re-xtra-rule-preview">
+  <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %>"><%=h re_rule.title %></div>
+  <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
+      <p class="top-5">Test <%=h re_rule.summary %></p>	
+      <div class="top-5 float-right">
+        <% if re_rule.re_rule_expected_outcomes.empty? %>
+          <div class="re-xtra-rule-continue">Continue</div>
+        <% end %>        
+        <% unless re_rule.re_rule_expected_outcome_next.nil? %>
+          <div class="re-xtra-rule-continue">Continue</div>
+        <% end %>  
+        <% re_rule.re_rule_expected_outcomes_start_workflow.each do |re_rule_expected_outcome| %>
+          <div class="re-xtra-rule-start-pipeline">Start : <%= re_rule_expected_outcome.pipeline_code %></div>
+        <% end %>  
+        <% unless re_rule.re_rule_expected_outcome_failure.nil? %>
+          <div class="re-xtra-rule-stop-failure">Stop Failure</div>
+        <% end %>  
+        <% unless re_rule.re_rule_expected_outcome_success.nil? %>
+          <div class="re-xtra-rule-stop-success">Stop Success</div>
+        <% end %>  
+      </div>
+      <div class="clear"></div>  
+    </div>          
+</div>
+
+<% unless local_last_rule %>
+	<div class="re-xtra-rule-preview-next"></div>
+<% end %>
+
+

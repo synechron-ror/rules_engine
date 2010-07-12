@@ -1,19 +1,5 @@
 <% plan_status = @re_plan.status %>
 
-<h4>
-	<%= link_to("View Plan", re_plan_path(@re_plan), :class => "re-menu-plan-show") %>
-</h4>    
-
-<div class="clear top-5"></div>
-<hr/>
-<div class="clear top-5"></div>
-
-
-<h4>
-  <%= link_to("Edit Plan Details", "##{@re_plan.id}", :id => "re_plan_edit", :class => "re-menu-plan-edit") %>
-</h4>
-<div class="clear top-5"></div>
-
 <% if plan_status == RePlan::PLAN_STATUS_DRAFT && !@re_plan.plan_error %>
   <h4>
     <%= link_to("Publish Plan", "##{@re_plan.id}", :id => "re_plan_publish", :class => "re-menu-plan-publish") %>
@@ -27,13 +13,6 @@
 	<div class="clear top-5"></div>
 <% end %>  
 
-<% if plan_status != RePlan::PLAN_STATUS_DRAFT && plan_status != RePlan::PLAN_STATUS_CHANGED %>
-  <h4>
-    <%= link_to("Deactivate Workflow", "##{@re_plan.id}", :id => "re_plan_deactivate", :class => "re-menu-plan-deactivate") %>
-  </h4>    
-	<div class="clear top-5"></div>
-<% end %>  
-
 <% if plan_status == RePlan::PLAN_STATUS_CHANGED %>
   <h4>
     <%= link_to("Discard Changes", "##{@re_plan.id}", :id => "re_plan_revert", :class => "re-menu-plan-revert") %>
@@ -41,32 +20,32 @@
 	<div class="clear top-5"></div>
 <% end %>  
 
-<% if plan_status == RePlan::PLAN_STATUS_DRAFT %>
-  <h4>
-    <%= link_to("Delete Plan", "##{@re_plan.id}", :id => "re_plan_delete", :class => "re-menu-plan-delete") %>
-  </h4>    
-	<div class="clear top-5"></div>
-<% end %>
-
-
+<h4>
+  <%= link_to("Delete Plan", "##{@re_plan.id}", :id => "re_plan_delete", :class => "re-menu-plan-delete") %>
+</h4>    
 <div class="clear top-5"></div>
+
+
 <hr/>
-<div class="clear top-5"></div>	
+<div class="clear top-10"></div>	
 
 <h4>
   <%= link_to("Add New Workflow", "##{@re_plan.id}", :id => "re_workflow_new", :class => "re-menu-workflow-new") %>
 </h4>    
-<div class="clear top-5">		
+<div class="clear top-5"></div>
 <h4>
 	<div class="re-menu-workflow-lookup ">Add Existing Workflow</div>
 </h4>    
-<div class="clear top-5">		
+<div class="clear top-5"></div>
 
 <% re_workflow_list.each do |re_workflow| %>
 
 	<div class="clear top-2"></div>
 	<h6>	
 		<%= link_to(re_workflow.title, "##{@re_plan.id}|#{re_workflow.id}", :class => "re-menu-workflow-add#{@re_plan.re_workflows.include?(re_workflow) ? '-off' : ''}") %>
+		<a href="#<%= re_workflow.id %>" class="re-workflow-preview float-right">
+			<div class="re-xtra-workflow-preview"></div>
+		</a>	
 	</h6>	
 	<div class="clear top-2"></div>
 

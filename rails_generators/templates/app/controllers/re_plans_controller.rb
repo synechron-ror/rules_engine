@@ -3,10 +3,10 @@ class RePlansController < ApplicationController
   layout 'rules_engine'
 
   # before_filter :login_required
-  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :publish_all, :publish, :deactivate, :revert]
-  before_filter :rules_engine_reader_access_required,  :only => [:index, :show]
+  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :publish, :revert]
+  before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview]
 
-  before_filter :only => [:show, :edit, :update, :destroy, :change, :publish, :deactivate, :revert] do |controller|
+  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :publish, :revert] do |controller|
     controller.re_load_model :re_plan
   end    
 
@@ -64,6 +64,7 @@ class RePlansController < ApplicationController
   end
 
   def destroy
+    RulesEngine::Plan.publisher.remove(@re_plan.code)
     @re_plan.destroy
     flash[:success] = 'Plan Deleted.'
     
@@ -80,34 +81,16 @@ class RePlansController < ApplicationController
   def change
   end
   
-  def publish_all
-    klass = RePlan
-    @re_plans = klass.find(:all)
-    
-    if @re_plans.any? { | re_plan| re_plan.plan_error }
-      flash[:error] = 'Cannot Publish Plans.'
-    else
-      @re_plans.each do |re_plan|
-        re_plan.publish!
-      end
-      flash[:success] = 'All Plans Published.'
-    end
-      
-    respond_to do |format|
-      format.html do
-        redirect_to(re_plans_path)
-      end  
-      format.js do
-        render :action => "index"
-      end
-    end    
+  def preview
   end
   
   def publish
     if @re_plan.plan_error
       flash[:error] = 'Cannot Publish Plan.'
     else  
-      @re_plan.publish!
+      @re_plan.version = RulesEngine::Plan.publisher.publish(@re_plan.code, @re_plan.publish)
+      @re_plan.status = RePlan::PLAN_STATUS_PUBLISHED
+      @re_plan.save
       flash[:success] = 'Plan Published.'
     end  
   
@@ -121,23 +104,15 @@ class RePlansController < ApplicationController
     end
   end
 
-  def deactivate
-    @re_plan.deactivate!
-    flash[:success] = 'Plan Deactivated.'
-  
-    respond_to do |format|
-      format.html do
-        redirect_to(change_re_plan_path(@re_plan))
-      end  
-      format.js do
-        render :action => "update"
-      end
-    end
-  end
-
   def revert
-    @re_plan.revert!
-    flash[:success] = 'Plan Changes Removed.'
+    plan = RulesEngine::Plan.publisher.get(@re_plan.code)    
+    if plan.nil?
+      flash[:error] = 'Cannot Find Published Plan.'
+    else
+      @re_plan.revert!(plan)
+      @re_plan.update_attributes(:status => RePlan::PLAN_STATUS_PUBLISHED)        
+      flash[:success] = 'Changes Discarded.'
+    end  
     
     respond_to do |format|
       format.html do

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-07-11}
+  s.date = %q{2010-07-12}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -24,13 +24,14 @@ Gem::Specification.new do |s|
      "lib/rules_engine/cache.rb",
      "lib/rules_engine/discovery.rb",
      "lib/rules_engine/plan/publisher.rb",
-     "lib/rules_engine/plan/publisher/db_plan_publisher.rb",
+     "lib/rules_engine/plan/publisher/db_publisher.rb",
      "lib/rules_engine/process/auditor.rb",
      "lib/rules_engine/process/auditor/db_process_auditor.rb",
      "lib/rules_engine/process/runner.rb",
      "lib/rules_engine/process/runner/db_process_runner.rb",
      "lib/rules_engine/rule.rb",
      "lib/rules_engine/rule_outcome.rb",
+     "lib/rules_engine_view.rb",
      "lib/rules_engine_view/alerts.rb",
      "lib/rules_engine_view/boxes.rb",
      "lib/rules_engine_view/buttons.rb",
@@ -83,9 +84,10 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_plans/_index.html.erb",
      "rails_generators/templates/app/views/re_plans/_menu.html.erb",
      "rails_generators/templates/app/views/re_plans/_new.html.erb",
+     "rails_generators/templates/app/views/re_plans/_preview.html.erb",
      "rails_generators/templates/app/views/re_plans/_show.html.erb",
      "rails_generators/templates/app/views/re_plans/_workflow_change.html.erb",
-     "rails_generators/templates/app/views/re_plans/_workflow_empty.html.erb",
+     "rails_generators/templates/app/views/re_plans/_workflow_preview.html.erb",
      "rails_generators/templates/app/views/re_plans/_workflow_show.html.erb",
      "rails_generators/templates/app/views/re_plans/change.html.erb",
      "rails_generators/templates/app/views/re_plans/create.js.erb",
@@ -95,6 +97,8 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_plans/index.js.erb",
      "rails_generators/templates/app/views/re_plans/new.html.erb",
      "rails_generators/templates/app/views/re_plans/new.js.erb",
+     "rails_generators/templates/app/views/re_plans/preview.html.erb",
+     "rails_generators/templates/app/views/re_plans/preview.js.erb",
      "rails_generators/templates/app/views/re_plans/show.html.erb",
      "rails_generators/templates/app/views/re_plans/template.html.erb",
      "rails_generators/templates/app/views/re_plans/update.js.erb",
@@ -128,8 +132,11 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_workflows/_index.html.erb",
      "rails_generators/templates/app/views/re_workflows/_menu.html.erb",
      "rails_generators/templates/app/views/re_workflows/_new.html.erb",
+     "rails_generators/templates/app/views/re_workflows/_plan_index.html.erb",
+     "rails_generators/templates/app/views/re_workflows/_preview.html.erb",
      "rails_generators/templates/app/views/re_workflows/_rule_change.html.erb",
      "rails_generators/templates/app/views/re_workflows/_rule_empty.html.erb",
+     "rails_generators/templates/app/views/re_workflows/_rule_preview.html.erb",
      "rails_generators/templates/app/views/re_workflows/_rule_show.html.erb",
      "rails_generators/templates/app/views/re_workflows/_show.html.erb",
      "rails_generators/templates/app/views/re_workflows/change.html.erb",
@@ -139,6 +146,8 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_workflows/index.html.erb",
      "rails_generators/templates/app/views/re_workflows/new.html.erb",
      "rails_generators/templates/app/views/re_workflows/new.js.erb",
+     "rails_generators/templates/app/views/re_workflows/preview.html.erb",
+     "rails_generators/templates/app/views/re_workflows/preview.js.erb",
      "rails_generators/templates/app/views/re_workflows/show.html.erb",
      "rails_generators/templates/app/views/re_workflows/update.js.erb",
      "rails_generators/templates/db/migrate/20100308225008_create_rules_engine.rb",
@@ -160,12 +169,12 @@ Gem::Specification.new do |s|
      "rails_generators/templates/public/javascripts/jquery.blockUI.js",
      "rails_generators/templates/public/javascripts/jquery.fancybox-1.3.1.js",
      "rails_generators/templates/public/javascripts/rules_engine/re_plan_change.js",
-     "rails_generators/templates/public/javascripts/rules_engine/re_plan_index.js",
      "rails_generators/templates/public/javascripts/rules_engine/re_plan_new.js",
+     "rails_generators/templates/public/javascripts/rules_engine/re_plan_preview.js",
      "rails_generators/templates/public/javascripts/rules_engine/re_view.js",
      "rails_generators/templates/public/javascripts/rules_engine/re_workflow_change.js",
-     "rails_generators/templates/public/javascripts/rules_engine/re_workflow_index.js",
      "rails_generators/templates/public/javascripts/rules_engine/re_workflow_new.js",
+     "rails_generators/templates/public/javascripts/rules_engine/re_workflow_preview.js",
      "rails_generators/templates/public/stylesheets/blueprint/ie.css",
      "rails_generators/templates/public/stylesheets/blueprint/plugins/buttons/icons/cross.png",
      "rails_generators/templates/public/stylesheets/blueprint/plugins/buttons/icons/key.png",
@@ -237,7 +246,6 @@ Gem::Specification.new do |s|
      "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_navigate/breadcrumb.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/alert-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/change-25.png",
-     "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/deactivate-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/delete-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/edit-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/history-25.png",
@@ -319,6 +327,11 @@ Gem::Specification.new do |s|
      "rails_generators/templates/spec/helpers/rules_engine_helper_spec.rb",
      "rails_generators/templates/spec/lib/rules/complex_rule_spec.rb",
      "rails_generators/templates/spec/lib/rules/simple_rule_spec.rb",
+     "rails_generators/templates/spec/models/re_plan_spec.rb",
+     "rails_generators/templates/spec/models/re_plan_workflow_spec.rb",
+     "rails_generators/templates/spec/models/re_rule_expected_outcome_spec.rb",
+     "rails_generators/templates/spec/models/re_rule_spec.rb",
+     "rails_generators/templates/spec/models/re_workflow_spec.rb",
      "rails_generators/templates/spec/support/rules_engine_macros.rb",
      "spec/railsenv/app/controllers/application_controller.rb",
      "spec/railsenv/app/rules/mock_rule.rb",
@@ -341,22 +354,14 @@ Gem::Specification.new do |s|
      "spec/rcov.opts",
      "spec/rules_engine/cache_spec.rb",
      "spec/rules_engine/discovery_spec.rb",
+     "spec/rules_engine/plan/publisher/db_publisher_spec.rb",
+     "spec/rules_engine/plan/publisher_spec.rb",
      "spec/rules_engine/rule_spec.rb",
-     "spec/rules_engine_view/alerts_spec.rb",
-     "spec/rules_engine_view/boxes_spec.rb",
-     "spec/rules_engine_view/buttons_spec.rb",
-     "spec/rules_engine_view/defer_spec.rb",
-     "spec/rules_engine_view/form_builder_fields_spec.rb",
-     "spec/rules_engine_view/form_builder_spec.rb",
-     "spec/rules_engine_view/form_fields_spec.rb",
-     "spec/rules_engine_view/form_styles_spec.rb",
-     "spec/rules_engine_view/model_loader_spec.rb",
-     "spec/rules_engine_view/navigate_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
      "tasks/rspec.rake"
   ]
-  s.homepage = %q{http://dougochris.github.com}
+  s.homepage = %q{http://github.com/dougochris/rules_engine_view}
   s.post_install_message = %q{
       *** RUN script/generate rules_engine
     }
@@ -380,17 +385,9 @@ Gem::Specification.new do |s|
      "spec/railsenv/config/routes.rb",
      "spec/rules_engine/cache_spec.rb",
      "spec/rules_engine/discovery_spec.rb",
+     "spec/rules_engine/plan/publisher/db_publisher_spec.rb",
+     "spec/rules_engine/plan/publisher_spec.rb",
      "spec/rules_engine/rule_spec.rb",
-     "spec/rules_engine_view/alerts_spec.rb",
-     "spec/rules_engine_view/boxes_spec.rb",
-     "spec/rules_engine_view/buttons_spec.rb",
-     "spec/rules_engine_view/defer_spec.rb",
-     "spec/rules_engine_view/form_builder_fields_spec.rb",
-     "spec/rules_engine_view/form_builder_spec.rb",
-     "spec/rules_engine_view/form_fields_spec.rb",
-     "spec/rules_engine_view/form_styles_spec.rb",
-     "spec/rules_engine_view/model_loader_spec.rb",
-     "spec/rules_engine_view/navigate_spec.rb",
      "spec/spec_helper.rb"
   ]
 

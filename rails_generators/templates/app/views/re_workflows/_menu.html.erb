@@ -1,14 +1,5 @@
 <%#= :re_plan_id => 0 %>
-<%#= :view_path => re_workflow_path(@re_workflow) %>
 <%#= :delete_path => re_workflow_path(@re_workflow) %>
-
-<h4>
-	<%= link_to("View Workflow", view_path, :class => "re-menu-workflow-show") %>
-</h4>
-
-<div class="clear top-5"></div>
-<hr/>
-<div class="clear top-5"></div>
 
 <h4>
   <%= link_to("Edit Workflow Details", "#{re_plan_id}|#{@re_workflow.id}", :id => "re_workflow_edit", :class => "re-menu-workflow-edit") %>

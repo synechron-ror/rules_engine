@@ -1,5 +1,4 @@
-<%# set_re_javascript_include ['rules_engine/re_plan_index', 'rules_engine/re_plan_new', 'rules_engine/re_process_index', 'rules_engine/re_plan_index_processs'] %>
-<% set_re_javascript_include ['rules_engine/re_plan_index', 'rules_engine/re_plan_new'] %>
+<% set_re_javascript_include ['rules_engine/re_plan_preview', 'rules_engine/re_plan_new'] %>
 <% set_re_breadcrumbs_right link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
 														link_to("<em>All Workflows</em>", re_workflows_path, :class => "re-bc-workflow-list blue")%>
 
@@ -24,14 +23,6 @@
 		</h4>	
 		<div class="clear top-5"></div>
 
-		<% if !@re_plans.empty? %>  <!-- #TODO CHECK plans for errors -->
-		  <h4>
-		    <%= link_to("Publish All Plans", "#", :id => "re_plan_publish_all", :class => "re-menu-plan-publish-all") %>
-		  </h4>    
-			<div class="clear top-5"></div>
-
-		<% end %>
-
 		<div class="clear top-20"></div>
 		<hr/>
 		<div class="clear top-5"></div>
@@ -42,21 +33,3 @@
 	</h4>
 	<div class="clear"></div>    
 </div>  
-
-<div style="display:none">
-  <div id="re_plan_publish_all_confirm">
-    <div class="span-14 last">
-      <% re_whitebox do %>    
-        <h3 class="re-plan-alert"><span class="red">Confirm :</span> Publish All Plans</h3>
-        <div class="clear top-5"></div>
-        <hr/>
-        <div class="clear top-5"></div>
-        <%= re_button_link_green('Publish All Plans', "#", :id => "re_plan_publish_all_ok") %>
-        <%= re_button_link_orange('Cancel', "#", :id => "re_plan_publish_all_cancel") %>
-      <% end %>  
-    </div>
-  </div>
-
-  <% re_form_for(:re_plan, :url => publish_all_re_plans_path, :html => {:method => :put, :id => "re_plan_publish_all_form"}) do |f| %>
-  <% end %>  
-</div>

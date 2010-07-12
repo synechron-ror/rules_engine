@@ -34,6 +34,8 @@ files :
   - app/models/re_workflow.rb        
 
   - app/views/layouts/rules_engine.html.erb
+
+  - config/initializers/rules_engine.rb
   
   - lib/tasks/rules_engine.rake
       

@@ -3,9 +3,11 @@ $.re_unblock();
 
 <%= re_alert_js %>
 
+$('#re_plan_change').html('<%=escape_javascript(render('/re_plans/show'))%>');
+
 $('#re_workflow_change').html('<%=escape_javascript(render('/re_workflows/show'))%>');
 
-$('#re_rule_change').html('<%=escape_javascript(render('/re_workflows/rule_empty', :re_workflow => @re_workflow))%>');
+$('#re_rule_change').html('<%=escape_javascript(render('/re_workflows/rule_empty', :hide => !@re_workflow.re_rules.empty?))%>');
 <% @re_workflow.re_rules.each do |re_rule | %>
   $('#re_rule_change').append('<%=escape_javascript(render('/re_workflows/rule_change', :re_rule => re_rule, 
 																																													:re_plan_id => @re_plan.id,

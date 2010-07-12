@@ -1,0 +1,4 @@
+$('#re_content').html('<%=escape_javascript(render('/re_workflows/preview'))%>');
+
+$.re_unblock();
+$.fancybox({ href: '#re_content'});

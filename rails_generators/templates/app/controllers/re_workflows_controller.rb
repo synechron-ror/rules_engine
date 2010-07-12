@@ -4,9 +4,9 @@ class ReWorkflowsController < ApplicationController
   
   # before_filter :login_required
   before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change]
-  before_filter :rules_engine_reader_access_required,  :only => [:index, :show]
+  before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview]
 
-  before_filter :only => [:show, :edit, :update, :destroy, :change] do |controller|
+  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview] do |controller|
     controller.re_load_model :re_workflow
   end    
 
@@ -79,5 +79,7 @@ class ReWorkflowsController < ApplicationController
   def change
   end
   
-
+  def preview
+    
+  end
 end

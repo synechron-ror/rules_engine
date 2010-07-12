@@ -29,11 +29,13 @@ class ReWorkflow < ActiveRecord::Base
   end  
 
   def revert!(rule_data)
-    self.code = rule_data[:code]
-    self.title = rule_data[:title]
-    self.description = rule_data[:description]
+    rule_data_hash = rule_data.symbolize_keys
     
-    self.re_rules = (rule_data[:rules] || []).map { |rule| ReRule.new.revert!(rule) }
+    self.code = rule_data_hash[:code]
+    self.title = rule_data_hash[:title]
+    self.description = rule_data_hash[:description]
+    
+    self.re_rules = (rule_data_hash[:rules] || []).map { |rule| ReRule.new.revert!(rule) }
     self
   end  
 

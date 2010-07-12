@@ -1,4 +1,6 @@
-<div id="re_rule_empty" style="<%= re_workflow.re_rules.empty? ?  '' : 'display:none' %>">
+<% local_hide = local_assigns[:hide] && hide  %>
+
+<div id="re_rule_empty" style="<%= local_hide ?  'display:none' : '' %>">
   <div class="re-redbox-header"><h4 class="white">No Workflow Rules</h4></div>   
   <div class="re-redbox no-top">
     <div class="clear top-5">

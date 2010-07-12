@@ -18,9 +18,9 @@
   </div>  
 	<div class="span-4 last">
 		<% if re_plan_error.blank? %>
-			<em class="float-right top-2 re-sts-plan-<%= re_plan_status %>"><%= re_plan_status.titleize %></em>
+			<em class="float-right top-2 re-sts-plan-<%= re_plan_status %>"><%= re_plan_status.titleize %> <%= re_plan_version(@re_plan) %></em>
     <% else %>
-    	<em class="float-right top-2 red"><%= re_plan_error %></em>
+    	<em class="float-right top-2 red"><%= re_plan_error %> <%= re_plan_version(@re_plan) %></em>
     <% end %>
 	</div>
 	<div class="clear"></div>
