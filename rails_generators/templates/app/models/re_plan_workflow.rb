@@ -3,4 +3,5 @@ class RePlanWorkflow < ActiveRecord::Base
   belongs_to :re_plan
   belongs_to :re_workflow
   acts_as_list :scope => :re_plan 
+  
 end

@@ -6,8 +6,7 @@ module RulesEngine
     AUDIT_SUCCESS =   1
     AUDIT_FAILURE =   2
 
-    # autoload :DBAuditor, 'rules_engine/process/auditor/db_auditor'
-    autoload :DbProcessAuditor, 'rules_engine/process/auditor/db_process_auditor'
+    autoload :DbAuditor, 'rules_engine/process/auditor/db_auditor'
     
     class << self
       def perform_auditing?
@@ -37,9 +36,18 @@ module RulesEngine
     class Auditor
       attr_accessor :audit_level
 
-      def audit(process_id, message, code = RulesEngine::Audit::AUDIT_INFO)
+      def audit(process_id, message, code = RulesEngine::Process::AUDIT_INFO)
         if perform_audit?(code)
-          logger.debug("#{'*' * 5} #{re_process_id}, #{re_workflow_id}, #{re_rule_id}, #{code}, #{message}")
+          if defined?(Rails) && Rails.logger 
+            case code
+            when RulesEngine::Process::AUDIT_INFO, RulesEngine::Process::AUDIT_SUCCESS
+              Rails.logger.info("#{'*' * 5} #{process_id}, #{code}, #{message}")
+            when RulesEngine::Process::AUDIT_FAILURE
+              Rails.logger.error("#{'*' * 5} #{process_id}, #{code}, #{message}")
+            end
+          else  
+            $stderr.puts("#{'*' * 5} #{process_id}, #{code}, #{message}")
+          end
         end   
       end
     
@@ -48,7 +56,7 @@ module RulesEngine
       end
     
       def perform_audit?(code)
-        audit_level.nil? || (audit_level != RulesEngine::Audit::AUDIT_NONE && code >= audit_level)
+        audit_level.nil? || (audit_level != RulesEngine::Process::AUDIT_NONE && code >= audit_level)
       end
     end  
   end

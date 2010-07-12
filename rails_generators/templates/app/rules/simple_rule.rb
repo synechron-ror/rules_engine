@@ -69,8 +69,8 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   ##################################################################
   # execute the rule
   # this rule does nothing
-  def process(process, data)
-    process.audit("Inside Rule #{title}", RulesEngine::Audit::AUDIT_INFO)                        
+  def process(process_id, data)
+    RulesEngine::Process.auditor.audit(process_id, "Inside Rule #{title}", RulesEngine::Process::AUDIT_INFO)                        
     # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
     # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
     # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW, 'next_workflow')

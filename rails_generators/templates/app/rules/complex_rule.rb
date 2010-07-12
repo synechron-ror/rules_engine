@@ -100,7 +100,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   # if a match is found procees to the expected outcome
   # it gets the data parameter :sentence
   # it sets the data parameter :match
-  def process(process, data)
+  def process(process_id, data)
     sentence = data[:sentence] || data["sentence"]    
     if sentence.blank?
       return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT) 
@@ -108,7 +108,7 @@ class <%=rule_class%>Rule < RulesEngine::Rule
     
     words.each do |word|
       if /#{word}/i =~ sentence        
-        process.audit("#{title} Found #{word}", RulesEngine::Audit::AUDIT_INFO)
+        RulesEngine::Process.auditor.audit(process_id, "#{title} Found #{word}", RulesEngine::Process::AUDIT_INFO)
         data[:match] = word
         
         case workflow_action

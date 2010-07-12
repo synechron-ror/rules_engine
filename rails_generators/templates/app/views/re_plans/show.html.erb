@@ -45,7 +45,7 @@
 		<div class="re-menu-plan-history">Published History</div>	
 	</h4>
 	
-	<% RulesEngine::Plan.publisher.versions(@re_plan.code).each do |version| %>
+	<% RulesEngine::Publish.publisher.versions(@re_plan.code).each do |version| %>
 		<div class="clear top-2"></div>
 		<h6 class="float-left left-5">	
 			<%= version[:version] %>

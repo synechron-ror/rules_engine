@@ -73,7 +73,7 @@ module RulesEngine
     # return an RulesEngine::RuleOutcome object to define what to do next
     # if nil to continue to the next rule
     def process(process_id, data)
-      # process.audit("process #{title}", RulesEngine::Audit::AUDIT_INFO)                        
+      # process.audit("process #{title}", RulesEngine::Process::AUDIT_INFO)                        
       # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
       # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
       # RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW, 'next_workflow')

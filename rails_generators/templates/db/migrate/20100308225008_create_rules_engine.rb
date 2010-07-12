@@ -6,8 +6,8 @@ class CreateRulesEngine < ActiveRecord::Migration
       t.string  :title
       t.text    :description
       
-      t.integer :status
-      t.integer :version
+      t.integer :plan_status
+      t.integer :plan_version
       
       t.integer :default_workflow_id
       

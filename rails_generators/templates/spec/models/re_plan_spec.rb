@@ -29,7 +29,7 @@ describe RePlan do
   describe "creating a plan" do
     it "should set the status to draft" do
       re_plan = RePlan.create!(valid_attributes.except(:status))
-      re_plan.status.should == RePlan::PLAN_STATUS_DRAFT
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_DRAFT
     end        
   end  
   
@@ -180,48 +180,48 @@ describe RePlan do
   describe "published!" do
     it "should update the status to PLAN_STATUS_PUBLISHED" do
       re_plan = RePlan.create!(valid_attributes)
-      re_plan.status.should == RePlan::PLAN_STATUS_DRAFT
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_DRAFT
       re_plan.published!
-      re_plan.status.should == RePlan::PLAN_STATUS_PUBLISHED
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_PUBLISHED
     end
   end
 
   describe "changed!" do
     it "should not update the status when PLAN_STATUS_DRAFT" do
       re_plan = RePlan.create!(valid_attributes)
-      re_plan.status.should == RePlan::PLAN_STATUS_DRAFT
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_DRAFT
       re_plan.should_not_receive(:save!)
       re_plan.changed!
-      re_plan.status.should == RePlan::PLAN_STATUS_DRAFT
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_DRAFT
     end
 
     it "should not update the status when PLAN_STATUS_CHANGED" do
       re_plan = RePlan.create!(valid_attributes)
       re_plan.published!
-      re_plan.status.should == RePlan::PLAN_STATUS_PUBLISHED
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_PUBLISHED
       re_plan.update_attributes({:title => "new title"})
-      re_plan.status.should == RePlan::PLAN_STATUS_CHANGED
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_CHANGED
       re_plan.should_not_receive(:save!)
       re_plan.changed!
-      re_plan.status.should == RePlan::PLAN_STATUS_CHANGED
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_CHANGED
     end
 
     it "should update the status to PLAN_STATUS_CHANGED changed when PLAN_STATUS_PUBLISHED" do
       re_plan = RePlan.create!(valid_attributes)
       re_plan.published!
-      re_plan.status.should == RePlan::PLAN_STATUS_PUBLISHED
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_PUBLISHED
       re_plan.should_receive(:save!)
       re_plan.changed!
-      re_plan.status.should == RePlan::PLAN_STATUS_CHANGED
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_CHANGED
     end
 
     it "should not save the plan whe the save flag is false" do
       re_plan = RePlan.create!(valid_attributes)
       re_plan.published!
-      re_plan.status.should == RePlan::PLAN_STATUS_PUBLISHED
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_PUBLISHED
       re_plan.should_not_receive(:save!)
       re_plan.changed!(false)
-      re_plan.status.should == RePlan::PLAN_STATUS_CHANGED
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_CHANGED
     end
   end
   

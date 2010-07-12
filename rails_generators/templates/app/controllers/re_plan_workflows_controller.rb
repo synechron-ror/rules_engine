@@ -31,7 +31,7 @@ class RePlanWorkflowsController < ApplicationController
   
   def create
     @re_workflow = ReWorkflow.new(params[:re_workflow])
-    @re_workflow.re_plans << @re_plan
+    @re_plan.add_workflow(@re_workflow)
     
     if @re_workflow.save
       flash[:success] = 'Workflow Created.'
@@ -103,7 +103,7 @@ class RePlanWorkflowsController < ApplicationController
   end
 
   def add
-    @re_plan.re_workflows << @re_workflow unless @re_plan.re_workflows.include?(@re_workflow)
+    @re_plan.add_workflow(@re_workflow)
     
     flash[:success] = 'Workflow Added.'
     respond_to do |format|
@@ -117,7 +117,7 @@ class RePlanWorkflowsController < ApplicationController
   end
 
   def remove
-    @re_plan.re_workflows.delete(@re_workflow)
+    @re_plan.remove_workflow(@re_workflow)
     
     flash[:success] = 'Workflow Removed.'
     respond_to do |format|

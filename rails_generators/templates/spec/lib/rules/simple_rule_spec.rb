@@ -164,17 +164,17 @@ describe <%=rule_class%>Rule do
     # xit "There is nothing to do here"
   end
   
-  describe "processing the rule" do
-    before(:each) do
-      @<%=rule_name%>_rule = <%=rule_class%>Rule.new
-
-      @job = mock("job")
-      @job.stub!(:audit)
-    end
-    
-    it "should do nothing" do
-      @<%=rule_name%>_rule = <%=rule_class%>Rule.new
-      @<%=rule_name%>_rule.process(@job, {}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
-    end        
-  end
+  # describe "processing the rule" do
+  #   before(:each) do
+  #     @<%=rule_name%>_rule = <%=rule_class%>Rule.new
+  # 
+  #     @job = mock("job")
+  #     @job.stub!(:audit)
+  #   end
+  #   
+  #   it "should do nothing" do
+  #     @<%=rule_name%>_rule = <%=rule_class%>Rule.new
+  #     @<%=rule_name%>_rule.process(@job, {}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+  #   end        
+  # end
 end

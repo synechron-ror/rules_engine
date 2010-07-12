@@ -12,7 +12,7 @@ module RulesEngine
     end
     
       
-    class DbProcessRunner < Runner
+    class DbRunner < Runner
 
       def initialize(*options)        
       end
@@ -25,7 +25,7 @@ module RulesEngine
         re_process = ReProcessRun.find_by_id(process_id)
 
         if re_process.nil?
-          RulesEngine::process.auditor.audit(process_id, "Process missing", RulesEngine::Audit::AUDIT_FAILURE)
+          RulesEngine::Process.auditor.audit(process_id, "Process missing", RulesEngine::Process::AUDIT_FAILURE)
           return false
         end
         
@@ -33,9 +33,9 @@ module RulesEngine
         
         success = super
         
-        re_process.update_attributes(:status => error ? RulesEngine::Process::PROCESS_STATUS_FAILURE : RulesEngine::Process::PROCESS_STATUS_SUCCESS)
+        re_process.update_attributes(:status => success ? RulesEngine::Process::PROCESS_STATUS_SUCCESS : RulesEngine::Process::PROCESS_STATUS_FAILURE)
       
-        !error
+        success
       end
       
       def status(process_id)

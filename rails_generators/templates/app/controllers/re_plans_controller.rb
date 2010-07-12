@@ -64,7 +64,7 @@ class RePlansController < ApplicationController
   end
 
   def destroy
-    RulesEngine::Plan.publisher.remove(@re_plan.code)
+    RulesEngine::Publish.publisher.remove(@re_plan.code)
     @re_plan.destroy
     flash[:success] = 'Plan Deleted.'
     
@@ -88,8 +88,8 @@ class RePlansController < ApplicationController
     if @re_plan.plan_error
       flash[:error] = 'Cannot Publish Plan.'
     else  
-      @re_plan.version = RulesEngine::Plan.publisher.publish(@re_plan.code, @re_plan.publish)
-      @re_plan.status = RePlan::PLAN_STATUS_PUBLISHED
+      @re_plan.plan_version = RulesEngine::Publish.publisher.publish(@re_plan.code, @re_plan.publish)
+      @re_plan.plan_status = RePlan::PLAN_STATUS_PUBLISHED
       @re_plan.save
       flash[:success] = 'Plan Published.'
     end  
@@ -105,12 +105,13 @@ class RePlansController < ApplicationController
   end
 
   def revert
-    plan = RulesEngine::Plan.publisher.get(@re_plan.code)    
+    plan = RulesEngine::Publish.publisher.get(@re_plan.code)    
     if plan.nil?
       flash[:error] = 'Cannot Find Published Plan.'
     else
       @re_plan.revert!(plan)
-      @re_plan.update_attributes(:status => RePlan::PLAN_STATUS_PUBLISHED)        
+      @re_plan.plan_status = RePlan::PLAN_STATUS_REVERTED
+      @re_plan.save!
       flash[:success] = 'Changes Discarded.'
     end  
     

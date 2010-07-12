@@ -1,5 +1,5 @@
 module RulesEngine
-  module Plan
+  module Publish
     
     class RePublishedPlan < ActiveRecord::Base
       named_scope :by_plan_code, lambda {|plan_code| {:conditions => ['plan_code = ?', plan_code]} }

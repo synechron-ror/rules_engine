@@ -21,21 +21,19 @@ class ReWorkflow < ActiveRecord::Base
   end
   
   def publish
-    { :code => code, 
-      :title => title, 
-      :description => description,
-      :rules => re_rules.map{ | re_rule | re_rule.publish }
+    { "code" => code, 
+      "title" => title, 
+      "description" => description,
+      "rules" => re_rules.map{ | re_rule | re_rule.publish }
     }
   end  
 
   def revert!(rule_data)
-    rule_data_hash = rule_data.symbolize_keys
+    self.code = rule_data["code"]
+    self.title = rule_data["title"]
+    self.description = rule_data["description"]
     
-    self.code = rule_data_hash[:code]
-    self.title = rule_data_hash[:title]
-    self.description = rule_data_hash[:description]
-    
-    self.re_rules = (rule_data_hash[:rules] || []).map { |rule| ReRule.new.revert!(rule) }
+    self.re_rules = (rule_data["rules"] || []).map { |rule| ReRule.new.revert!(rule) }
     self
   end  
 

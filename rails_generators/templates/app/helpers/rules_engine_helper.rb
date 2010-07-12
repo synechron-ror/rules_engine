@@ -1,7 +1,7 @@
 module RulesEngineHelper
 
   def re_plan_status re_plan
-    case re_plan.status
+    case re_plan.plan_status
     when RePlan::PLAN_STATUS_PUBLISHED
       'published'
     when RePlan::PLAN_STATUS_CHANGED
@@ -16,7 +16,7 @@ module RulesEngineHelper
   end
   
   def re_plan_version re_plan
-    return '' if re_plan.nil? || re_plan.version.nil?
-    "Ver.#{re_plan.version}"    
+    return '' if re_plan.nil? || re_plan.plan_version.nil?
+    "Ver.#{re_plan.plan_version}"    
   end
 end

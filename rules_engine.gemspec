@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-07-12}
+  s.date = %q{2010-07-13}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -23,12 +23,12 @@ Gem::Specification.new do |s|
      "lib/rules_engine.rb",
      "lib/rules_engine/cache.rb",
      "lib/rules_engine/discovery.rb",
-     "lib/rules_engine/plan/publisher.rb",
-     "lib/rules_engine/plan/publisher/db_publisher.rb",
      "lib/rules_engine/process/auditor.rb",
-     "lib/rules_engine/process/auditor/db_process_auditor.rb",
+     "lib/rules_engine/process/auditor/db_auditor.rb",
      "lib/rules_engine/process/runner.rb",
-     "lib/rules_engine/process/runner/db_process_runner.rb",
+     "lib/rules_engine/process/runner/db_runner.rb",
+     "lib/rules_engine/publish/publisher.rb",
+     "lib/rules_engine/publish/publisher/db_publisher.rb",
      "lib/rules_engine/rule.rb",
      "lib/rules_engine/rule_outcome.rb",
      "lib/rules_engine_view.rb",
@@ -150,6 +150,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_workflows/preview.js.erb",
      "rails_generators/templates/app/views/re_workflows/show.html.erb",
      "rails_generators/templates/app/views/re_workflows/update.js.erb",
+     "rails_generators/templates/config/initializers/rules_engine.rb",
      "rails_generators/templates/db/migrate/20100308225008_create_rules_engine.rb",
      "rails_generators/templates/doc/README.rules_engine",
      "rails_generators/templates/doc/README.rules_engine_features",
@@ -354,9 +355,19 @@ Gem::Specification.new do |s|
      "spec/rcov.opts",
      "spec/rules_engine/cache_spec.rb",
      "spec/rules_engine/discovery_spec.rb",
-     "spec/rules_engine/plan/publisher/db_publisher_spec.rb",
-     "spec/rules_engine/plan/publisher_spec.rb",
+     "spec/rules_engine/publish/publisher/db_publisher_spec.rb",
+     "spec/rules_engine/publish/publisher_spec.rb",
      "spec/rules_engine/rule_spec.rb",
+     "spec/rules_engine_view/alerts_spec.rb",
+     "spec/rules_engine_view/boxes_spec.rb",
+     "spec/rules_engine_view/buttons_spec.rb",
+     "spec/rules_engine_view/defer_spec.rb",
+     "spec/rules_engine_view/form_builder_fields_spec.rb",
+     "spec/rules_engine_view/form_builder_spec.rb",
+     "spec/rules_engine_view/form_fields_spec.rb",
+     "spec/rules_engine_view/form_styles_spec.rb",
+     "spec/rules_engine_view/model_loader_spec.rb",
+     "spec/rules_engine_view/navigate_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
      "tasks/rspec.rake"
@@ -385,9 +396,19 @@ Gem::Specification.new do |s|
      "spec/railsenv/config/routes.rb",
      "spec/rules_engine/cache_spec.rb",
      "spec/rules_engine/discovery_spec.rb",
-     "spec/rules_engine/plan/publisher/db_publisher_spec.rb",
-     "spec/rules_engine/plan/publisher_spec.rb",
+     "spec/rules_engine/publish/publisher/db_publisher_spec.rb",
+     "spec/rules_engine/publish/publisher_spec.rb",
      "spec/rules_engine/rule_spec.rb",
+     "spec/rules_engine_view/alerts_spec.rb",
+     "spec/rules_engine_view/boxes_spec.rb",
+     "spec/rules_engine_view/buttons_spec.rb",
+     "spec/rules_engine_view/defer_spec.rb",
+     "spec/rules_engine_view/form_builder_fields_spec.rb",
+     "spec/rules_engine_view/form_builder_spec.rb",
+     "spec/rules_engine_view/form_fields_spec.rb",
+     "spec/rules_engine_view/form_styles_spec.rb",
+     "spec/rules_engine_view/model_loader_spec.rb",
+     "spec/rules_engine_view/navigate_spec.rb",
      "spec/spec_helper.rb"
   ]
 

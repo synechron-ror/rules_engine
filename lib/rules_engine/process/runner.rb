@@ -6,7 +6,7 @@ module RulesEngine
     PROCESS_STATUS_SUCCESS = 2
     PROCESS_STATUS_FAILURE = 3    
   
-    autoload :DbProcessRunner, 'rules_engine/process/runner/db_process_runner'
+    autoload :DbRunner, 'rules_engine/process/runner/db_runner'
     # autoload :FileProcessRunner, 'rules_engine/process/runner/file_process_runner'
     
     class << self
@@ -33,7 +33,7 @@ module RulesEngine
     
     class Runner      
       
-      @@max_rules = 500
+      @@max_workflows = 500
       
       def create
         throw "RulesEngine::Process::Runner required"
@@ -42,62 +42,80 @@ module RulesEngine
       
       def run(process_id, plan, data = {})
         
-        rule_count = 0
+        RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : started", RulesEngine::Process::AUDIT_INFO)
+
+        workflow_count = 0
         done = false
         error = false
         
-        workflow_code = plan['start_workflow_code']
-            
-        while (!done && rule_count < @@max_rules)
-          rule_count += 1 
+        first_workflow = plan['first_workflow']
+        last_workflow = plan['last_workflow']
         
-          RulesEngine::process.auditor.audit(process_id, "Pipleine : #{workflow_code} started", RulesEngine::Audit::AUDIT_SUCCESS)
+        current_workflow = first_workflow
+        next_workflow = ""
+        while (!done && workflow_count < @@max_workflows)
+          workflow_count += 1 
+        
+          RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : started", RulesEngine::Process::AUDIT_INFO)
           
-          plan["workflow_#{workflow_code}"].each do | workflow_rule |
-            rule_class = RulesEngine::Discovery.re_rule.rule_class(workflow_rule["class_name"])
+          workflow = plan["workflow_#{current_workflow}"]
+          if workflow.nil?
+            RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : not found", RulesEngine::Process::AUDIT_FAILURE) 
+            error = done = true 
+            break 
+          end
+          
+          workflow["rules"].each do | workflow_rule |
+            rule_class = RulesEngine::Discovery.rule_class(workflow_rule["rule_class_name"])
             unless rule_class
-              RulesEngine::process.auditor.audit(process_id, "Rule : #{re_rule.rule_class_name} not found", RulesEngine::Audit::AUDIT_FAILURE) 
+              RulesEngine::Process.auditor.audit(process_id, "Rule : #{workflow_rule["rule_class_name"]} : not found", RulesEngine::Process::AUDIT_FAILURE) 
               error = done = true 
               break 
             end  
             rule = rule_class.new
             rule.data = workflow_rule["data"]
             
-            RulesEngine::process.auditor.audit(process_id, "Rule : #{re_rule.title} starting")                    
-            rule_outcome = rule.process(data)
-            RulesEngine::process.auditor.audit(process_id, "Rule : #{re_rule.title} finished")
-          
+            RulesEngine::Process.auditor.audit(process_id, "Rule : #{rule.title} : starting")                    
+            rule_outcome = rule.process(process_id, data)
+            RulesEngine::Process.auditor.audit(process_id, "Rule : #{rule.title} : finished")
+
             if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
-              RulesEngine::process.auditor.audit(process_id, "Workflow : #{workflow_code} stop success", RulesEngine::Audit::AUDIT_SUCCESS)
+              RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : stop success", RulesEngine::Process::AUDIT_SUCCESS)
               done = true 
               break
             end
         
             if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
-              RulesEngine::process.auditor.audit(process_id, "Workflow : #{workflow_code} stop failure", RulesEngine::Audit::AUDIT_FAILURE)
+              RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : stop failure", RulesEngine::Process::AUDIT_FAILURE)
               error = done = true 
               break
             end
         
             if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW
-              RulesEngine::process.auditor.audit(process_id, "Workflow : #{workflow_code} start workflow #{rule_outcome.workflow_code}", RulesEngine::Audit::AUDIT_SUCCESS)
-              workflow_code = rule_outcome.workflow_code
+              RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : start next workflow - #{rule_outcome.workflow_code}", RulesEngine::Process::AUDIT_INFO)
+              next_workflow = rule_outcome.workflow_code
               break
             end
-          
-            # last rule ine the workflow
-            if plan["workflow_#{workflow_code}"][-1] == workflow_rule
-              RulesEngine::process.auditor.audit(process_id, "Workflow : #{workflow_code} complete", RulesEngine::Audit::AUDIT_SUCCESS)
-              done = true 
-              break
-            end                  
           end          
+          
+          if next_workflow.blank?
+            current_workflow = workflow["next_workflow"]
+          else
+            current_workflow = next_workflow  
+          end            
+          
+          if current_workflow.blank?
+            done = true 
+            break
+          end
         end  
 
-        if rule_count >= @@max_rules
-          RulesEngine::process.auditor.audit(process_id, "Maximum workflow depth #{@@max_rules} exceeded", RulesEngine::Process::PROCESS_STATUS_FAILURE)
+        if workflow_count >= @@max_workflows
+          RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : error - Maximum workflow depth #{@@max_workflows} exceeded", RulesEngine::Process::PROCESS_STATUS_FAILURE)
           error = true
         end
+
+        RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : complete", RulesEngine::Process::AUDIT_INFO)
       
         !error
       end

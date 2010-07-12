@@ -9,12 +9,12 @@ module RulesEngine
       named_scope :order_created_at, lambda {|order| {:order => "created_at #{order}"} }
     end
 
-    class DbProcessAuditor < Auditor
+    class DbAuditor < Auditor
 
       def initialize(*options)        
       end
       
-      def audit(process_id, message, code = RulesEngine::Audit::AUDIT_INFO)
+      def audit(process_id, message, code = RulesEngine::Process::AUDIT_INFO)
         if perform_audit?(code)
           ReProcessAudit.create({
             :process_id => process_id,

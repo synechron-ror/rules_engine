@@ -5,6 +5,7 @@ class RePlan < ActiveRecord::Base
   PLAN_STATUS_DRAFT      = 0
   PLAN_STATUS_CHANGED    = 1
   PLAN_STATUS_PUBLISHED  = 2
+  PLAN_STATUS_REVERTED   = 3
   
   validates_presence_of   :code
   validates_presence_of   :title
@@ -17,11 +18,15 @@ class RePlan < ActiveRecord::Base
   before_save :before_save_plan
 
   def before_create_plan
-    self.status = PLAN_STATUS_DRAFT
+    self.plan_status = PLAN_STATUS_DRAFT
   end  
 
   def before_save_plan
-    self.changed!(false) if changes.detect { |change| !ignore_attributes.include?(change[0])}    
+    if (plan_status == PLAN_STATUS_REVERTED)
+      self.plan_status = PLAN_STATUS_PUBLISHED
+    elsif changes.detect { |change| !ignore_attributes.include?(change[0])}  
+      self.changed!(false) 
+    end  
   end  
 
   def code=(new_code)
@@ -29,35 +34,63 @@ class RePlan < ActiveRecord::Base
   end
   
   def publish
-    { :code => code, 
-      :title => title, 
-      :description => description,
-      :workflows => re_workflows.map{ | re_workflow | re_workflow.publish }
+    data = { 
+      "code" => code, 
+      "title" => title, 
+      "description" => description,
+      "first_workflow" => re_workflows.empty? ? '' : re_workflows[0].code,
     }
+    re_workflows.each_with_index do | re_workflow, index | 
+      data["workflow_#{re_workflow.code}"] = re_workflow.publish 
+
+      if re_workflows[-1] == re_workflow
+        data["workflow_#{re_workflow.code}"]["next_workflow"] = ''
+      else  
+        data["workflow_#{re_workflow.code}"]["next_workflow"] = re_workflows[index+1].code
+      end  
+    end  
+    data
   end  
 
   def revert!(rule_data)
-    rule_data_hash = rule_data.symbolize_keys
+    self.code = rule_data["code"]
+    self.title = rule_data["title"]
+    self.description = rule_data["description"]
     
-    self.code = rule_data_hash[:code]
-    self.title = rule_data_hash[:title]
-    self.description = rule_data_hash[:description]
-    
-    self.re_workflows = (rule_data_hash[:workflows] || []).map do |workflow| 
-      re_workflow = ReWorkflow.find_by_code(workflow[:code] || workflow["code"])
-      if (workflow)
-        re_workflow.revert!(workflow)
-      else  
-        ReWorkflow.new.revert!(workflow)
-      end  
+    orig_re_workflows = []
+    workflow_data = rule_data["workflow_#{rule_data["first_workflow"]}"]
+    while (workflow_data && orig_re_workflows.length < 500)
+      workflow_code = workflow_data["code"]
+      re_workflow = ReWorkflow.find_by_code(workflow_code) || ReWorkflow.new
+      re_workflow.revert!(workflow_data)
+      orig_re_workflows << re_workflow
+      
+      next_workflow = workflow_data["next_workflow"]
+      workflow_data = next_workflow.blank? ? nil : workflow_data["workflow_#{next_workflow}"]
     end  
+    
+    self.re_workflows = orig_re_workflows
     self
   end  
 
+  def add_workflow re_workflow
+    return if self.re_workflows.include?(re_workflow)
+    self.re_workflows << re_workflow 
+    changed!
+  end
+
+  def remove_workflow re_workflow
+    return unless self.re_workflows.include?(re_workflow)
+    self.re_workflows.delete(re_workflow)
+    changed!
+  end  
+  
   
   def default_workflow= re_workflow
+    return if self.re_workflows.empty? || self.re_workflows[0] == re_workflow
     re_plan_workflow = re_plan_workflows.detect { | re_plan_workflow | re_plan_workflow.re_workflow_id == re_workflow.id}
     re_plan_workflow.move_to_top if re_plan_workflow
+    changed!
   end
   
   def default_workflow
@@ -71,19 +104,19 @@ class RePlan < ActiveRecord::Base
   end
 
   def published!
-    self.status = PLAN_STATUS_PUBLISHED
+    self.plan_status = PLAN_STATUS_PUBLISHED
     self.save!
   end
 
   def changed!(update = true)
-    if self.status == PLAN_STATUS_PUBLISHED
-      self.status = PLAN_STATUS_CHANGED
+    if self.plan_status == PLAN_STATUS_PUBLISHED
+      self.plan_status = PLAN_STATUS_CHANGED
       self.save! if update
     end  
   end
   
   protected
     def ignore_attributes 
-      [self.class.primary_key, self.class.inheritance_column, "status", "version", "created_at", "updated_at"]
+      [self.class.primary_key, self.class.inheritance_column, "plan_status", "plan_version", "created_at", "updated_at"]
     end
 end

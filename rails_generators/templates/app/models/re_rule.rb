@@ -40,25 +40,22 @@ class ReRule < ActiveRecord::Base
   end
 
   def publish
-    { :rule_class_name => rule_class_name, 
-      :title => title, 
-      :summary => summary,
-      :data => data
+    { "rule_class_name" => rule_class_name, 
+      "title" => title, 
+      "summary" => summary,
+      "data" => data
     }
   end  
 
   def revert!(rule_data)
-    rule_data_hash = rule_data.symbolize_keys
-    
-    self.rule_class_name = rule_data_hash[:rule_class_name]
-    self.title = rule_data_hash[:title]
-    self.summary = rule_data_hash[:summary]
-    self.data = rule_data_hash[:data]
+    self.rule_class_name = rule_data["rule_class_name"]
+    self.title = rule_data["title"]
+    self.summary = rule_data["summary"]
+    self.data = rule_data["data"]
     
     self.re_rule_expected_outcomes = (rule.expected_outcomes || []).map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
     self
   end  
-  
   
   def rule
     return @rule unless @rule.nil?
