@@ -4,7 +4,7 @@ class RePlan < ActiveRecord::Base
   
   PLAN_STATUS_DRAFT      = 0
   PLAN_STATUS_CHANGED    = 1
-  PLAN_STATUS_CURRENT    = 2
+  PLAN_STATUS_PUBLISHED  = 2
   
   validates_presence_of   :code
   validates_presence_of   :title
@@ -21,8 +21,7 @@ class RePlan < ActiveRecord::Base
   end  
 
   def before_save_plan
-    # TODO update the status
-    changes.each { |change| puts change}
+    self.changed!(false) if changes.detect { |change| !ignore_attributes.include?(change[0])}    
   end  
 
   def code=(new_code)
@@ -30,7 +29,8 @@ class RePlan < ActiveRecord::Base
   end
   
   def default_workflow= re_workflow
-    re_plan_workflows.detect { | re_plan_workflow | re_plan_workflow.re_workflow_id == re_workflow.id}.move_to_top
+    re_plan_workflow = re_plan_workflows.detect { | re_plan_workflow | re_plan_workflow.re_workflow_id == re_workflow.id}
+    re_plan_workflow.move_to_top if re_plan_workflow
   end
   
   def default_workflow
@@ -43,6 +43,18 @@ class RePlan < ActiveRecord::Base
     nil
   end
 
+  def published!
+    self.status = PLAN_STATUS_PUBLISHED
+    self.save!
+  end
+
+  def changed!(update = true)
+    if self.status == PLAN_STATUS_PUBLISHED
+      self.status = PLAN_STATUS_CHANGED
+      self.save! if update
+    end  
+  end
+  
   protected
     def ignore_attributes 
       [self.class.primary_key, self.class.inheritance_column, "status", "created_at", "updated_at"]

@@ -1,13 +1,13 @@
-<%% id = local_assigns[:position] ? position : 'NEW_RECORD'  %>
+<% id = local_assigns[:position] ? position : 'NEW_RECORD'  %>
 
-<div id="<%=rule_name%>_<%%=id%>">
-  <%%= re_text_field "Words to match", "<%=rule_name%>_words[#{id}][word]",  
+<div id="complex_<%=id%>">
+  <%= re_text_field "Words to match", "complex_words[#{id}][word]",  
                                             local_assigns[:word] ? word : '',
                                             :size => 25, 
                                             :required => id == 0, 
                                             :span => '4x13', 
-																						:error => id == 0 ? @re_rule.rule.errors[:<%=rule_name%>_words] : nil,
-                                            :hint => re_remove_link("Remove", "<%=rule_name%>[#{id}]", id) %>
+																						:error => id == 0 ? @re_rule.rule.errors[:complex_words] : nil,
+                                            :hint => re_remove_link("Remove", "complex[#{id}]", id) %>
         
-  <%%= re_remove_field("<%=rule_name%>[#{id}]", id) %>      
+  <%= re_remove_field("complex[#{id}]", id) %>      
 </div>

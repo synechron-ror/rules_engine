@@ -1,29 +1,29 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe RePipelineHelper do 
+describe RulesEngineHelper do 
   
   before(:each) do
-    @re_pipeline = mock("RePipeline")
+    @re_plan = mock("RePlan")
   end
   
-  it "should be 'draft' when changed status is CHANGED_STATUS_DRAFT" do
-    @re_pipeline.should_receive(:changed_status).and_return(RePipelineBase::CHANGED_STATUS_DRAFT)
-    helper.re_pipeline_status(@re_pipeline).should == 'draft'
+  it "should be 'draft' when changed status is PLAN_STATUS_DRAFT" do
+    @re_plan.should_receive(:status).and_return(RePlan::PLAN_STATUS_DRAFT)
+    helper.re_plan_status(@re_plan).should == 'draft'
   end
 
-  it "should be 'changed' when changed status is CHANGED_STATUS_CHANGED" do
-    @re_pipeline.should_receive(:changed_status).and_return(RePipelineBase::CHANGED_STATUS_CHANGED)
-    helper.re_pipeline_status(@re_pipeline).should == 'changed'
+  it "should be 'changed' when changed status is PLAN_STATUS_CHANGED" do
+    @re_plan.should_receive(:status).and_return(RePlan::PLAN_STATUS_CHANGED)
+    helper.re_plan_status(@re_plan).should == 'changed'
   end
 
-  it "should be 'current' when changed status is CHANGED_STATUS_CURRENT" do
-    @re_pipeline.should_receive(:changed_status).and_return(RePipelineBase::CHANGED_STATUS_CURRENT)
-    helper.re_pipeline_status(@re_pipeline).should == 'current'
+  it "should be 'published' when changed status is PLAN_STATUS_PUBLISHED" do
+    @re_plan.should_receive(:status).and_return(RePlan::PLAN_STATUS_PUBLISHED)
+    helper.re_plan_status(@re_plan).should == 'published'
   end
 
-  it "should be 'current' when changed status is unknown" do
-    @re_pipeline.should_receive(:changed_status).and_return(20202020202)
-    helper.re_pipeline_status(@re_pipeline).should == 'current'
+  it "should be 'draft' when changed status is unknown" do
+    @re_plan.should_receive(:status).and_return(20202020202)
+    helper.re_plan_status(@re_plan).should == 'draft'
   end
       
 end

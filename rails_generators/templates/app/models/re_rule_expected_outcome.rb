@@ -10,22 +10,10 @@ class ReRuleExpectedOutcome < ActiveRecord::Base
     end
   end
 
-  def copy! re_rule_expected_outcome    
-    self.outcome = re_rule_expected_outcome.outcome
-    self.workflow_code = re_rule_expected_outcome.workflow_code
-    self
-  end
+  # def copy! re_rule_expected_outcome    
+  #   self.outcome = re_rule_expected_outcome.outcome
+  #   self.workflow_code = re_rule_expected_outcome.workflow_code
+  #   self
+  # end
 
-  def equals? re_rule_expected_outcome    
-    if outcome != re_rule_expected_outcome.outcome
-      return false
-    end
-      
-    if outcome == RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW
-      return false unless workflow_code == re_rule_expected_outcome.workflow_code
-      #TODO check the workflow equals the workflow code
-    end  
-    
-    return true    
-  end
 end

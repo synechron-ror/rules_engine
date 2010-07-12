@@ -45,6 +45,7 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/rules_engine/re_rule
       public/stylesheets/rules_engine/images/rules_engine/re_workflow
       spec/helpers
+      spec/models
       spec/support
     ).each do |dirname|
       m.directory dirname
@@ -319,6 +320,11 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/title-single.png
       public/stylesheets/rules_engine/screen.css
       spec/helpers/rules_engine_helper_spec.rb
+      spec/models/re_plan_spec.rb
+      spec/models/re_plan_workflow_spec.rb
+      spec/models/re_rule_expected_outcome_spec.rb
+      spec/models/re_rule_spec.rb
+      spec/models/re_workflow_spec.rb
       spec/support/rules_engine_macros.rb
     ).each do |filename|
       m.file filename, filename

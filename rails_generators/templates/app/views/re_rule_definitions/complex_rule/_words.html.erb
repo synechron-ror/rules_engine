@@ -1,16 +1,16 @@
-<%% position = 0 %>
-<%% (@re_rule.rule.words || []).each do | word | %>  
-  <%% f.fields_for :rule_data, {:first => false} do |frd| %>
-    <%%= render '/re_rule_definitions/<%=rule_name%>_rule/word', :f => frd, :position => position, :word => word %>
-    <%% position += 1 %>        
-  <%% end %>
-<%% end %>  
-<%% if position == 0 %>
-  <%% f.fields_for :rule_data, {:first => false} do |frd| %>
-    <%%= render '/re_rule_definitions/<%=rule_name%>_rule/word', :f => frd, :position => position %>      
-  <%% end %>
-<%% end %>
+<% position = 0 %>
+<% (@re_rule.rule.words || []).each do | word | %>  
+  <% f.fields_for :rule_data, {:first => false} do |frd| %>
+    <%= render '/re_rule_definitions/complex_rule/word', :f => frd, :position => position, :word => word %>
+    <% position += 1 %>        
+  <% end %>
+<% end %>  
+<% if position == 0 %>
+  <% f.fields_for :rule_data, {:first => false} do |frd| %>
+    <%= render '/re_rule_definitions/complex_rule/word', :f => frd, :position => position %>      
+  <% end %>
+<% end %>
 
-<div id="new_position_<%=rule_name%>"></div>
-<%%= re_form_text "", re_add_link('Add another word to match', '<%=rule_name%>') %>    
+<div id="new_position_complex"></div>
+<%= re_form_text "", re_add_link('Add another word to match', 'complex') %>    
 

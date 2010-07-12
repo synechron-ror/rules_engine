@@ -2,12 +2,12 @@ module RulesEngineHelper
 
   def re_plan_status re_plan
     case re_plan.status
-    when RePlan::PLAN_STATUS_DRAFT
-      'draft'
+    when RePlan::PLAN_STATUS_PUBLISHED
+      'published'
     when RePlan::PLAN_STATUS_CHANGED
       'changed'
-    else #  RePlan::PLAN_STATUS_PUBLISHED
-      'published'
+    else # when RePlan::PLAN_STATUS_DRAFT
+      'draft'
     end
   end    
   

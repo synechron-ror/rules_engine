@@ -1,8 +1,7 @@
 class ReRule < ActiveRecord::Base
   belongs_to :re_workflow
-  acts_as_list :scope => :re_workflow
-
   has_many  :re_rule_expected_outcomes, :dependent => :destroy, :order => "outcome ASC"
+  acts_as_list :scope => :re_workflow
       
   validates_associated  :re_workflow
   validates_presence_of :rule_class_name
@@ -13,6 +12,25 @@ class ReRule < ActiveRecord::Base
   after_create :after_create_rule
   before_destroy :before_destroy_rule
 
+  def before_save_rule
+    return if rule.nil?
+    self.title = rule.title
+    self.summary = rule.summary
+    self.data = rule.data
+    
+    self.re_rule_expected_outcomes = (rule.expected_outcomes || []).map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
+    
+    re_workflow.changed! if changes.detect { |change| !ignore_attributes.include?(change[0])}    
+  end
+
+  def after_create_rule
+    rule.after_add_to_workflow(self.re_workflow.code) unless rule.nil?
+  end
+
+  def before_destroy_rule
+    rule.before_remove_from_workflow(self.re_workflow.code) unless rule.nil?
+  end
+
   def validate
     if self.rule.nil?
       errors.add("rule_class", "not found") 
@@ -21,34 +39,18 @@ class ReRule < ActiveRecord::Base
     end
   end
     
-  def copy! re_rule
-    activated_attrs = re_rule.attributes
-    ignore_attributes.each{|key| activated_attrs.delete(key)}
-
-    activated_attrs.each do |key, value|
-      self[key] = value
-    end
-    
-    self.re_rule_expected_outcomes = re_rule.re_rule_expected_outcomes.map { |rule_expected_outcome| ReRuleExpectedOutcome.new.copy!(rule_expected_outcome) }
-    
-    self
-  end
-
-  def equals? re_rule
-    activated_attrs = re_rule.attributes
-    ignore_attributes.each{|key| activated_attrs.delete(key)}
-
-    activated_attrs.each do |key, value|
-      return false unless self[key] == value
-    end
-    
-    return false unless self.re_rule_expected_outcomes.length == re_rule.re_rule_expected_outcomes.length
-    self.re_rule_expected_outcomes.each_with_index do |rule_expected_outcome, index|
-      return false unless rule_expected_outcome.equals?(re_rule.re_rule_expected_outcomes[index])
-    end
-    
-    true
-  end
+  # def copy! re_rule
+  #   activated_attrs = re_rule.attributes
+  #   ignore_attributes.each{|key| activated_attrs.delete(key)}
+  # 
+  #   activated_attrs.each do |key, value|
+  #     self[key] = value
+  #   end
+  #   
+  #   self.re_rule_expected_outcomes = re_rule.re_rule_expected_outcomes.map { |rule_expected_outcome| ReRuleExpectedOutcome.new.copy!(rule_expected_outcome) }
+  #   
+  #   self
+  # end
 
   def rule
     return @rule unless @rule.nil?
@@ -62,25 +64,6 @@ class ReRule < ActiveRecord::Base
   def rule_attributes=params
     raise 'rule class not found' if rule.nil?    
     rule.attributes = params
-  end
-
-  def before_save_rule
-    return if rule.nil?
-    self.title = rule.title
-    self.summary = rule.summary
-    self.data = rule.data
-    
-    self.re_rule_expected_outcomes = (rule.expected_outcomes || []).map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
-  end
-
-  def after_create_rule
-    return if rule.nil?
-    rule.after_add_to_workflow(self.re_workflow.code)
-  end
-
-  def before_destroy_rule
-    return if rule.nil?
-    rule.before_remove_from_workflow(self.re_workflow.code)
   end
 
   def rule_error
