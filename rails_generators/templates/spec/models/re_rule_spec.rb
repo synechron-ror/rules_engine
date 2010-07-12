@@ -6,7 +6,7 @@ describe ReRule do
       :rule_class_name => "MockRuleClass",
       :title => "Mock Title",      
       :summary => "Mock Summary",
-      :data => "Lots Of Data"
+      :data => '["Rule Title", ["one", "two"], "start_workflow", "Other Pipeline"]'
     }
   end
   
@@ -83,7 +83,7 @@ describe ReRule do
     end
   
     it "should set the rule data with the model data attribute" do
-      @rule.should_receive(:data=).with("Lots Of Data")
+      @rule.should_receive(:data=).with(valid_attributes[:data])
       @re_rule.rule
     end
   end
@@ -279,4 +279,40 @@ describe ReRule do
       re_workflow.re_rules.should == [re_rule_2, re_rule_1]
     end
   end    
+  
+  describe "publish" do
+    it "should convert the rule to a hash" do
+      re_rule = ReRule.new(valid_attributes)
+      
+      publish_data = re_rule.publish
+      publish_data[:rule_class_name].should == valid_attributes[:rule_class_name]
+      publish_data[:title].should == valid_attributes[:title]
+      publish_data[:summary].should == valid_attributes[:summary]
+      publish_data[:data].should == valid_attributes[:data]
+    end
+  end
+
+  describe "revert!" do
+    it "should return self" do
+      re_rule = ReRule.new
+      re_rule.revert!({}).should == re_rule
+    end
+
+    it "should set the rule based on the data" do
+      re_rule = ReRule.new
+      RulesEngine::Discovery.should_receive(:rule_class).with('mock_rule_class_name').and_return(@rule_class)      
+      
+      re_rule.revert!({
+        :rule_class_name => 'mock_rule_class_name',
+        :title => 'mock title',
+        :summary => 'mock summary',
+        :data => 'mock data'
+      })
+      
+      re_rule[:rule_class_name].should == 'mock_rule_class_name'
+      re_rule[:title].should == 'mock title'
+      re_rule[:summary].should == 'mock summary'
+      re_rule[:data].should == 'mock data'
+    end
+  end
 end

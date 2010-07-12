@@ -83,6 +83,46 @@ describe RePlan do
     end            
   end
   
+  describe "publish" do
+    it "should convert the plan to a hash" do
+      re_plan = RePlan.new(valid_attributes)
+      re_plan.stub!(:re_workflows).and_return([mock('workflow one', :publish => "workflow one"), mock('workflow two', :publish => "workflow two")])
+      
+      publish_data = re_plan.publish
+      publish_data[:code].should == 'aa_mock'
+      publish_data[:title].should == valid_attributes[:title]
+      publish_data[:description].should == valid_attributes[:description]
+      publish_data[:workflows].should == ['workflow one', 'workflow two']
+    end
+  end
+
+  describe "revert!" do
+    it "should return self" do
+      re_plan = RePlan.new
+      re_plan.revert!({}).should == re_plan
+    end
+
+    it "should set the plan based on the data" do
+      re_workflow_1 = mock_model(ReWorkflow)
+      re_workflow_2 = mock_model(ReWorkflow)
+      re_workflow_1.should_receive(:revert!).with('workflow one').and_return(re_workflow_1)
+      re_workflow_2.should_receive(:revert!).with('workflow two').and_return(re_workflow_2)
+      ReWorkflow.stub!(:new).and_return(re_workflow_1, re_workflow_2)
+      
+      re_plan = RePlan.new
+      re_plan.should_receive(:re_workflows=).with([re_workflow_1, re_workflow_2])
+      
+      re_plan.revert!({:code => "mock_workflow_code", 
+                            :title => "mock_title", 
+                            :description => "mock_description",
+                            :workflows => ["workflow one", "workflow two"]})
+                            
+     re_plan.code.should == "mock_workflow_code"
+     re_plan.title.should == "mock_title"
+     re_plan.description.should == "mock_description"
+    end
+  end
+
   describe "setting the default workflow" do
     it "should move the workflow to the top of the list" do
       re_plan_workflow_1 = mock_model(RePlanWorkflow, :re_workflow_id => "1001")

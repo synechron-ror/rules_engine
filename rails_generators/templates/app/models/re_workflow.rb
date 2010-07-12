@@ -20,18 +20,22 @@ class ReWorkflow < ActiveRecord::Base
     self[:code] = new_code.strip.downcase.gsub(/[^a-zA-Z0-9]+/i, '_') if new_code && new_record?
   end
   
-  # def copy! re_workflow
-  #   activated_attrs = re_workflow.attributes
-  #   ignore_attributes.each{|key| activated_attrs.delete(key)}
-  # 
-  #   activated_attrs.each do |key, value|
-  #     self[key] = value
-  #   end
-  #   
-  #   self.re_rules = re_workflow.re_rules.plan { |rule| ReRule.new.copy!(rule) }
-  # 
-  #   self
-  # end
+  def publish
+    { :code => code, 
+      :title => title, 
+      :description => description,
+      :rules => re_rules.map{ | re_rule | re_rule.publish }
+    }
+  end  
+
+  def revert!(rule_data)
+    self.code = rule_data[:code]
+    self.title = rule_data[:title]
+    self.description = rule_data[:description]
+    
+    self.re_rules = (rule_data[:rules] || []).map { |rule| ReRule.new.revert!(rule) }
+    self
+  end  
 
   def workflow_error
     return 'rules required' if re_rules.empty?

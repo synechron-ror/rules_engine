@@ -25,5 +25,5 @@ describe ReRuleExpectedOutcome do
       re_rule_expected_outcome.should be_valid
     end      
   end
-    
+
 end

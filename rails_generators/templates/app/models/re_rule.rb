@@ -38,20 +38,26 @@ class ReRule < ActiveRecord::Base
       errors.add(self.rule_class_name, "not valid") 
     end
   end
-    
-  # def copy! re_rule
-  #   activated_attrs = re_rule.attributes
-  #   ignore_attributes.each{|key| activated_attrs.delete(key)}
-  # 
-  #   activated_attrs.each do |key, value|
-  #     self[key] = value
-  #   end
-  #   
-  #   self.re_rule_expected_outcomes = re_rule.re_rule_expected_outcomes.map { |rule_expected_outcome| ReRuleExpectedOutcome.new.copy!(rule_expected_outcome) }
-  #   
-  #   self
-  # end
 
+  def publish
+    { :rule_class_name => rule_class_name, 
+      :title => title, 
+      :summary => summary,
+      :data => data
+    }
+  end  
+
+  def revert!(rule_data)
+    self.rule_class_name = rule_data[:rule_class_name]
+    self.title = rule_data[:title]
+    self.summary = rule_data[:summary]
+    self.data = rule_data[:data]
+    
+    self.re_rule_expected_outcomes = (rule.expected_outcomes || []).map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
+    self
+  end  
+  
+  
   def rule
     return @rule unless @rule.nil?
     rule_class = RulesEngine::Discovery.rule_class(self.rule_class_name)

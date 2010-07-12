@@ -76,6 +76,46 @@ describe ReWorkflow do
       re_workflow.code.should == "my_code"
     end            
   end
+
+  describe "publish" do
+    it "should convert the workflow to a hash" do
+      re_workflow = ReWorkflow.new(valid_attributes)
+      re_workflow.stub!(:re_rules).and_return([mock('rule one', :publish => "rule one"), mock('rule two', :publish => "rule two")])
+      
+      publish_data = re_workflow.publish
+      publish_data[:code].should == 'aa_mock'
+      publish_data[:title].should == valid_attributes[:title]
+      publish_data[:description].should == valid_attributes[:description]
+      publish_data[:rules].should == ['rule one', 'rule two']
+    end
+  end
+
+  describe "revert!" do
+    it "should return self" do
+      re_workflow = ReWorkflow.new
+      re_workflow.revert!({}).should == re_workflow
+    end
+
+    it "should set the workflow based on the data" do
+      re_rule_1 = mock_model(ReRule)
+      re_rule_2 = mock_model(ReRule)
+      re_rule_1.should_receive(:revert!).with('rule one').and_return(re_rule_1)
+      re_rule_2.should_receive(:revert!).with('rule two').and_return(re_rule_2)
+      ReRule.stub!(:new).and_return(re_rule_1, re_rule_2)
+      
+      re_workflow = ReWorkflow.new
+      re_workflow.should_receive(:re_rules=).with([re_rule_1, re_rule_2])
+      
+      re_workflow.revert!({:code => "mock_rule_code", 
+                            :title => "mock_title", 
+                            :description => "mock_description",
+                            :rules => ["rule one", "rule two"]})
+                            
+     re_workflow.code.should == "mock_rule_code"
+     re_workflow.title.should == "mock_title"
+     re_workflow.description.should == "mock_description"
+    end
+  end
   
   describe "checking for workflow errors" do
     before(:each) do

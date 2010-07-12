@@ -28,6 +28,24 @@ class RePlan < ActiveRecord::Base
     self[:code] = new_code.strip.downcase.gsub(/[^a-zA-Z0-9]+/i, '_') if new_code && new_record?
   end
   
+  def publish
+    { :code => code, 
+      :title => title, 
+      :description => description,
+      :workflows => re_workflows.map{ | re_workflow | re_workflow.publish }
+    }
+  end  
+
+  def revert!(rule_data)
+    self.code = rule_data[:code]
+    self.title = rule_data[:title]
+    self.description = rule_data[:description]
+    
+    self.re_workflows = (rule_data[:workflows] || []).map { |workflow| ReWorkflow.new.revert!(workflow) }
+    self
+  end  
+
+  
   def default_workflow= re_workflow
     re_plan_workflow = re_plan_workflows.detect { | re_plan_workflow | re_plan_workflow.re_workflow_id == re_workflow.id}
     re_plan_workflow.move_to_top if re_plan_workflow
