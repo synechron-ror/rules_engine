@@ -1,4 +1,4 @@
-<% set_re_javascript_include ['rules_engine/re_plan_preview'] %>
+<% set_re_javascript_include ['rules_engine/re_plan_preview', 'rules_engine/re_workflow_plan'] %>
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
 											link_to("View Plan", re_plan_path(@re_plan), :class => "re-bc-plan-show"),
 											'<span class="re-bc-workflow-show">View Workflow</span>' %>
@@ -62,14 +62,7 @@
 		<div class="clear top-5"></div>
 	<% end %>
 	
-	<h4>
-		<div class="re-menu-workflow-plans">
-			Plans Using Workflow
-		</div>	
-	</h4>		
-	<div class="clear"></div>    
-
-	<%= render '/re_workflows/plan_index' %>
+	<%= render '/re_workflows/plan_prepare' %>
 	<div class="clear"></div>    
 	
 </div>

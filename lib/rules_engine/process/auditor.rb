@@ -52,7 +52,7 @@ module RulesEngine
       end
     
       def history(process_id)
-        {:process_audits => "[]"}.to_json
+        []
       end
     
       def perform_audit?(code)

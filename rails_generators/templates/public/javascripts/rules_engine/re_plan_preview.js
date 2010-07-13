@@ -1,6 +1,6 @@
 $(document).ready(function() {	  
   
-  $('a.re-plan-preview').live('click', function() {    
+  $('a.re-xtra-plan-preview-link').live('click', function() {    
     var id = $(this).attr('href').replace('#', '')
       
     $.re_block();

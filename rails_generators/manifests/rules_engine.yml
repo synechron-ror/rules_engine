@@ -1,13 +1,15 @@
 contents :
-  - app/views/re_plan_workflows      
-  - app/views/re_rule_definitions    
-  - app/views/re_workflows
-  - app/views/re_plan_workflow_rules 
   - app/views/re_plans               
+  - app/views/re_plan_workflows      
+  - app/views/re_plan_workflow_rules 
+  - app/views/re_workflows
   - app/views/re_workflow_rules
+  - app/views/re_publications
+  - app/views/re_processes
 
   - public/stylesheets/fancybox
   - public/stylesheets/blueprint
+  
   - public/stylesheets/rules_engine
   
   - public/javascripts/rules_engine
@@ -19,11 +21,13 @@ files :
   - doc/README.rules_engine_view
   - doc/README.rules_engine_features
 
-  - app/controllers/re_plan_workflows_controller.rb      
-  - app/controllers/re_workflow_rules_controller.rb
-  - app/controllers/re_plan_workflow_rules_controller.rb 
   - app/controllers/re_plans_controller.rb               
+  - app/controllers/re_plan_workflows_controller.rb      
+  - app/controllers/re_plan_workflow_rules_controller.rb 
   - app/controllers/re_workflows_controller.rb
+  - app/controllers/re_workflow_rules_controller.rb
+  - app/controllers/re_publications_controller.rb
+  - app/controllers/re_processes_controller.rb
 
   - app/helpers/rules_engine_helper.rb
 
@@ -52,8 +56,8 @@ files :
   
   - spec/models/re_plan_spec.rb         
   - spec/models/re_plan_workflow_spec.rb         
-  - spec/models/re_rule_expected_outcome_spec.rb 
   - spec/models/re_rule_spec.rb                  
+  - spec/models/re_rule_expected_outcome_spec.rb 
   - spec/models/re_workflow_spec.rb
   
   - spec/support/rules_engine_macros.rb
@@ -66,7 +70,4 @@ files :
   - features/step_definitions/common/re_view_steps.rb
 
   - features/support/rules_engine.rb
-  - features/support/blueprint_re_pipelines.rb
-
-  
-  
+  - features/support/blueprint_re_pipelines.rb  

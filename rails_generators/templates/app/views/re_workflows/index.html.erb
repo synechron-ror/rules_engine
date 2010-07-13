@@ -1,4 +1,4 @@
-<% set_re_javascript_include ['rules_engine/re_workflow_preview', 'rules_engine/re_workflow_new'] %>
+<% set_re_javascript_include ['rules_engine/re_workflow_preview', 'rules_engine/re_workflow_new', 'rules_engine/re_process_index'] %>
 <% set_re_breadcrumbs_right link_to("All Workflows", re_workflows_path, :class => "re-bc-workflow-list"),
 														link_to("<em>All Plans</em>", re_plans_path, :class => "re-bc-plan-list blue")%>
 
@@ -22,14 +22,13 @@
 		<h4>
 			<%= link_to("New Workflow", new_re_workflow_path, :id => "re_workflow_new", :class => "re-menu-workflow-new") %>
 		</h4>	
+		<div class="clear top-5"></div>
 
 		<div class="clear top-20"></div>
 		<hr/>
 		<div class="clear top-5"></div>
 	<% end %>
 	
-	<h4>
-		<div class="re-menu-process-list">Process History</div>		
-	</h4>
+	<%= render '/re_processes/index_prepare', :re_plan_id => 0 %>
 	<div class="clear top-5"></div>    
 </div>  

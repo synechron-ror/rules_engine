@@ -74,15 +74,17 @@ class RePlan < ActiveRecord::Base
   end  
 
   def add_workflow re_workflow
-    return if self.re_workflows.include?(re_workflow)
+    return false if self.re_workflows.include?(re_workflow)
     self.re_workflows << re_workflow 
     changed!
+    true
   end
 
   def remove_workflow re_workflow
-    return unless self.re_workflows.include?(re_workflow)
+    return false unless self.re_workflows.include?(re_workflow)
     self.re_workflows.delete(re_workflow)
     changed!
+    true
   end  
   
   

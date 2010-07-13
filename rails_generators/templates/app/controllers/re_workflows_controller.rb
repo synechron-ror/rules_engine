@@ -4,9 +4,9 @@ class ReWorkflowsController < ApplicationController
   
   # before_filter :login_required
   before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change]
-  before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview]
+  before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview, :plan, :add]
 
-  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview] do |controller|
+  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :plan] do |controller|
     controller.re_load_model :re_workflow
   end    
 
@@ -80,6 +80,16 @@ class ReWorkflowsController < ApplicationController
   end
   
   def preview
-    
+  end
+
+  def plan
+    klass = RePlanWorkflow
+    klass = klass.order_plan_title
+    klass = klass.by_workflow_id(@re_workflow.id)
+    @re_plan_workflows = klass.paginate(:include => :re_plan, :page => params[:page] || 1, :per_page => 10)
+  end
+
+  def add
+    @re_workflows = ReWorkflow.order_title.find(:all)
   end
 end

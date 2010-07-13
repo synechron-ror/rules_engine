@@ -26,7 +26,7 @@ describe "RulesEngine::Publish::Publisher" do
   describe "publishing a plan" do
     it "should throw an error if not overwritten" do
       lambda {
-        RulesEngine::Publish::Publisher.new.publish('code', 'data')
+        RulesEngine::Publish::Publisher.new.publish('code', 'version_tag', 'data')
       }.should raise_error
     end
   end

@@ -9,9 +9,8 @@ class RulesEngineManifest
       app/views/re_plan_workflow_rules
       app/views/re_plan_workflows
       app/views/re_plans
-      app/views/re_rule_definitions
-      app/views/re_rule_definitions/complex_rule
-      app/views/re_rule_definitions/simple_rule
+      app/views/re_processes
+      app/views/re_publications
       app/views/re_workflow_rules
       app/views/re_workflows
       config/initializers
@@ -41,8 +40,10 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/re_view_error
       public/stylesheets/rules_engine/images/re_view_navigate
       public/stylesheets/rules_engine/images/rules_engine
+      public/stylesheets/rules_engine/images/rules_engine/re_common
       public/stylesheets/rules_engine/images/rules_engine/re_plan
       public/stylesheets/rules_engine/images/rules_engine/re_process
+      public/stylesheets/rules_engine/images/rules_engine/re_publication
       public/stylesheets/rules_engine/images/rules_engine/re_rule
       public/stylesheets/rules_engine/images/rules_engine/re_workflow
       spec/helpers
@@ -56,6 +57,8 @@ class RulesEngineManifest
       app/controllers/re_plan_workflow_rules_controller.rb
       app/controllers/re_plan_workflows_controller.rb
       app/controllers/re_plans_controller.rb
+      app/controllers/re_processes_controller.rb
+      app/controllers/re_publications_controller.rb
       app/controllers/re_workflow_rules_controller.rb
       app/controllers/re_workflows_controller.rb
       app/helpers/rules_engine_helper.rb
@@ -102,21 +105,19 @@ class RulesEngineManifest
       app/views/re_plans/new.js.erb
       app/views/re_plans/preview.html.erb
       app/views/re_plans/preview.js.erb
+      app/views/re_plans/re_process.html.erb
+      app/views/re_plans/re_process.js.erb
       app/views/re_plans/show.html.erb
       app/views/re_plans/template.html.erb
       app/views/re_plans/update.js.erb
-      app/views/re_rule_definitions/complex_rule/_edit.html.erb
-      app/views/re_rule_definitions/complex_rule/_help.html.erb
-      app/views/re_rule_definitions/complex_rule/_new.html.erb
-      app/views/re_rule_definitions/complex_rule/_pipeline.html.erb
-      app/views/re_rule_definitions/complex_rule/_script.html.erb
-      app/views/re_rule_definitions/complex_rule/_title.html.erb
-      app/views/re_rule_definitions/complex_rule/_word.html.erb
-      app/views/re_rule_definitions/complex_rule/_words.html.erb
-      app/views/re_rule_definitions/simple_rule/_edit.html.erb
-      app/views/re_rule_definitions/simple_rule/_form.html.erb
-      app/views/re_rule_definitions/simple_rule/_help.html.erb
-      app/views/re_rule_definitions/simple_rule/_new.html.erb
+      app/views/re_processes/_index_prepare.html.erb
+      app/views/re_processes/_index_update.html.erb
+      app/views/re_processes/index.html.erb
+      app/views/re_processes/index.js.erb
+      app/views/re_publications/_show_prepare.html.erb
+      app/views/re_publications/_show_update.html.erb
+      app/views/re_publications/show.html.erb
+      app/views/re_publications/show.js.erb
       app/views/re_workflow_rules/_edit.html.erb
       app/views/re_workflow_rules/_error.html.erb
       app/views/re_workflow_rules/_help.html.erb
@@ -130,18 +131,23 @@ class RulesEngineManifest
       app/views/re_workflow_rules/new.html.erb
       app/views/re_workflow_rules/new.js.erb
       app/views/re_workflow_rules/update.js.erb
+      app/views/re_workflows/_add_prepare.html.erb
+      app/views/re_workflows/_add_update.html.erb
       app/views/re_workflows/_edit.html.erb
       app/views/re_workflows/_empty.html.erb
       app/views/re_workflows/_index.html.erb
       app/views/re_workflows/_menu.html.erb
       app/views/re_workflows/_new.html.erb
-      app/views/re_workflows/_plan_index.html.erb
+      app/views/re_workflows/_plan_prepare.html.erb
+      app/views/re_workflows/_plan_update.html.erb
       app/views/re_workflows/_preview.html.erb
       app/views/re_workflows/_rule_change.html.erb
       app/views/re_workflows/_rule_empty.html.erb
       app/views/re_workflows/_rule_preview.html.erb
       app/views/re_workflows/_rule_show.html.erb
       app/views/re_workflows/_show.html.erb
+      app/views/re_workflows/add.html.erb
+      app/views/re_workflows/add.js.erb
       app/views/re_workflows/change.html.erb
       app/views/re_workflows/create.js.erb
       app/views/re_workflows/edit.html.erb
@@ -149,6 +155,8 @@ class RulesEngineManifest
       app/views/re_workflows/index.html.erb
       app/views/re_workflows/new.html.erb
       app/views/re_workflows/new.js.erb
+      app/views/re_workflows/plan.html.erb
+      app/views/re_workflows/plan.js.erb
       app/views/re_workflows/preview.html.erb
       app/views/re_workflows/preview.js.erb
       app/views/re_workflows/show.html.erb
@@ -175,9 +183,13 @@ class RulesEngineManifest
       public/javascripts/rules_engine/re_plan_change.js
       public/javascripts/rules_engine/re_plan_new.js
       public/javascripts/rules_engine/re_plan_preview.js
+      public/javascripts/rules_engine/re_process_index.js
+      public/javascripts/rules_engine/re_publication_show.js
       public/javascripts/rules_engine/re_view.js
+      public/javascripts/rules_engine/re_workflow_add.js
       public/javascripts/rules_engine/re_workflow_change.js
       public/javascripts/rules_engine/re_workflow_new.js
+      public/javascripts/rules_engine/re_workflow_plan.js
       public/javascripts/rules_engine/re_workflow_preview.js
       public/stylesheets/blueprint/ie.css
       public/stylesheets/blueprint/plugins/buttons/icons/cross.png
@@ -248,36 +260,42 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/re_view_button/oval-red-right.gif
       public/stylesheets/rules_engine/images/re_view_error/re-alert-close.png
       public/stylesheets/rules_engine/images/re_view_navigate/breadcrumb.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/list-next-disabled-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/list-next-enabled-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/list-prev-disabled-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/list-prev-enabled-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/loading.gif
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-changed-18.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-changed-25.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-draft-18.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-draft-25.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-error-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-info-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-published-18.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-published-25.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-success-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-valid-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-valid-18.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-verify-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-verify-18.png
+      public/stylesheets/rules_engine/images/rules_engine/re_common/status-verify-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/alert-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/change-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/delete-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/edit-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/history-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/list-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/new-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/preview-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/publish-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/revert-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/show-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/status-changed-18.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/status-changed-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/status-draft-18.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/status-draft-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/status-published-18.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/status-published-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/status-verify-18.png
-      public/stylesheets/rules_engine/images/rules_engine/re_plan/status-verify-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/title-plural.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/title-single.png
       public/stylesheets/rules_engine/images/rules_engine/re_process/error-14.png
       public/stylesheets/rules_engine/images/rules_engine/re_process/info-14.png
       public/stylesheets/rules_engine/images/rules_engine/re_process/list-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_process/loadingAnimation.gif
-      public/stylesheets/rules_engine/images/rules_engine/re_process/next-disabled-14.png
-      public/stylesheets/rules_engine/images/rules_engine/re_process/next-enabled-14.png
-      public/stylesheets/rules_engine/images/rules_engine/re_process/prev-disabled-14.png
-      public/stylesheets/rules_engine/images/rules_engine/re_process/prev-enabled-14.png
       public/stylesheets/rules_engine/images/rules_engine/re_process/success-14.png
+      public/stylesheets/rules_engine/images/rules_engine/re_publication/show-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/add-14.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/alert-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/destroy-25.png
@@ -291,22 +309,17 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/rules_engine/re_rule/move-up-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/move-up-off-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/new-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_rule/next-change-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_rule/next-show-18.png
+      public/stylesheets/rules_engine/images/rules_engine/re_rule/next-down-25.png
+      public/stylesheets/rules_engine/images/rules_engine/re_rule/next-right-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/show-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/start-pipeline-18.png
-      public/stylesheets/rules_engine/images/rules_engine/re_rule/status-valid-14.png
-      public/stylesheets/rules_engine/images/rules_engine/re_rule/status-valid-18.png
-      public/stylesheets/rules_engine/images/rules_engine/re_rule/status-verify-14.png
-      public/stylesheets/rules_engine/images/rules_engine/re_rule/status-verify-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/stop-failure-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/stop-success-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/title-plural.png
       public/stylesheets/rules_engine/images/rules_engine/re_rule/title-single.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/add-14.png
-      public/stylesheets/rules_engine/images/rules_engine/re_workflow/add-18.png
+      public/stylesheets/rules_engine/images/rules_engine/re_workflow/add-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/add-off-14.png
-      public/stylesheets/rules_engine/images/rules_engine/re_workflow/add-off-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/alert-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/change-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/change-25.png
@@ -314,17 +327,14 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/edit-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/is-default-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/list-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_workflow/lookup-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/make-default-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/make-default-off-18.png
-      public/stylesheets/rules_engine/images/rules_engine/re_workflow/maps-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/new-25.png
+      public/stylesheets/rules_engine/images/rules_engine/re_workflow/plan-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/preview-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/remove-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/show-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/show-25.png
-      public/stylesheets/rules_engine/images/rules_engine/re_workflow/status-valid-18.png
-      public/stylesheets/rules_engine/images/rules_engine/re_workflow/status-verify-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/title-plural.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/title-single.png
       public/stylesheets/rules_engine/screen.css

@@ -122,23 +122,10 @@ module RulesEngine
       
       def status(process_id)
         throw "RulesEngine::Process::Runner required"
-        # RulesEngine::Process::PROCESS_STATUS_NONE
       end      
       
-      def history(page = 1, page_size = 20)
+      def history(plan_code = nil, page = 1, page_size = 20)
         throw "RulesEngine::Process::Runner required"
-        # {:page => page, 
-        #    :page_size => page_size,
-        #    :next_page => nil, 
-        #    :previous_page => nil,
-        #    :processs => [
-        #               {:process_id => '1234', 
-        #                 :status => RulesEngine::Process::PROCESS_STATUS_RUNNING, 
-        #                 :started => Time.now.utc.to_s, 
-        #                 :finished => Time.now.utc.to_s, 
-        #               }
-        #             ]
-        # }.to_json
       end
     end  
   end

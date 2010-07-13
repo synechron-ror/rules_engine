@@ -31,9 +31,31 @@ $(document).ready(function() {
   });
 
   $('a#re_plan_publish').live('click', function() {    
-    re_plan_action_confirm('publish', "Publish Plan", "Publish")
+    $('#re_plan_publish_form #tag').attr('value', '')
+    $('#re_plan_publish_tag').attr('value', '')
+    $('#re_plan_publish_tag').re_form_valid();
+    $('#re_plan_publish_tag').closest('#re_plan_publish_confirm').find('.form-error-message').remove();
+    $.fancybox({ 'href': '#re_plan_publish_confirm' });          
+    
   	return false;  
   });  
+
+  $("#re_plan_publish_ok").live('click', function() {
+    var tag = $.trim($('#re_plan_publish_tag').attr('value'))
+    if (tag == null || tag.length == 0)
+    {
+      $('#re_plan_publish_tag').re_form_invalid();
+      $('#re_plan_publish_tag').after('<span class="form-error-message">Tag Required</span>');
+    }  
+    else
+    {
+      $('#re_plan_publish_form #tag').attr('value', tag)
+      $.re_block();
+      $.post($('#re_plan_publish_form').attr('action'), $('#re_plan_publish_form').serialize(), null, 'script');    
+    }
+    return false;
+  });  
+  
 
   $('a#re_plan_revert').live('click', function() {    
     re_plan_action_confirm('revert', "Discard Plan Changed", "Discard Changes")
@@ -57,94 +79,6 @@ $(document).ready(function() {
     $.post($(form_id).attr('action'), $(form_id).serialize(), null, 'script');    
     return false;
   });
-
-  // NEW PIPELINE
-  $('a#re_workflow_new').live('click', function() {    
-    var plan_id = $(this).attr('href').replace('#', '');  
-    
-    $.re_block();
-    $.get('/re_plans/' + plan_id + '/workflows/new', null, function() {
-          $.re_unblock();
-          $.fancybox({ href: '#re_content'});
-        }, 'script');
-        
-  	return false;  
-  });  
-
-  $("#re_workflow_new_cancel").live('click', function() {
-    $.fancybox.close();
-    return false;
-  });  
-
-  $('#re_workflow_new_insert').live('click', function() {
-    $.re_block();    
-    $.post($('#re_workflow_new_form').attr('action'), $('#re_workflow_new_form').serialize(), function() {
-        $.fancybox.resize();
-        $.re_unblock();
-      }, 'script');
-    
-    return false;
-  });
-
-  // PIPELINE ADD
-  $('a.re-menu-workflow-add').live('click', function() {    
-    var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 2)
-      return false;
-      
-    $.re_block();
-    $(this).removeClass('re-workflow-add');
-    $(this).addClass('re-workflow-add-off');
-    
-    $.post($('#re_workflow_add_form_' + values[1]).attr('action'), $('#re_workflow_add_form_' + values[1]).serialize(), null, 'script');
-  	return false;  
-  });  
-
-  // REMOVE PIPELINE
-  $('a.re-list-workflow-remove').live('click', function() {    
-    var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 2)
-      return false;
-      
-    $('#re_workflow_remove_ok').attr('href', '#re_workflow_remove_form_' + values[1])  
-    $.fancybox({ 'href': '#re_workflow_remove_confirm' });          
-  	return false;  
-  });  
-
-  $("#re_workflow_remove_cancel").live('click', function() {
-    $.fancybox.close();  
-    return false;
-  });  
-
-  $('#re_workflow_remove_ok').live('click', function() {
-    var form_id = $(this).attr('href');
-
-    $.re_block();
-    $.post($(form_id).attr('action'), $(form_id).serialize(), function() { 
-      $.fancybox.close();
-      $.re_unblock(); 
-    }, 'script');    
-    return false;
-  });
-
-  // PIPELINE DEFAULT
-  $('a.re-list-workflow-make-default').live('click', function() {    
-    var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 2)
-      return false;
-      
-    $.re_block();
-    $(this).removeClass('re-workflow-make-default');
-    $(this).addClass('re-workflow-make-default-off');
-    
-    $.post($('#re_workflow_default_form_' + values[1]).attr('action'), $('#re_workflow_default_form_' + values[1]).serialize(), null, 'script');    
-  	return false;  
-  });  
-  
-  $('a.re-list-workflow-make-default-off').live('click', function() {    
-  	return false;  
-  });  
-    
 
 });
 

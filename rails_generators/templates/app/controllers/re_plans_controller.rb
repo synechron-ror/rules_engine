@@ -4,14 +4,15 @@ class RePlansController < ApplicationController
 
   # before_filter :login_required
   before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :publish, :revert]
-  before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview]
+  before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview, :re_process]
 
-  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :publish, :revert] do |controller|
+  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :publish, :revert, :re_process] do |controller|
     controller.re_load_model :re_plan
   end    
 
   def index    
     klass = RePlan
+    klass = klass.order_title
     @re_plans = klass.find(:all)
   end
 
@@ -83,12 +84,12 @@ class RePlansController < ApplicationController
   
   def preview
   end
-  
+
   def publish
-    if @re_plan.plan_error
+    if @re_plan.plan_error || params['tag'].blank?
       flash[:error] = 'Cannot Publish Plan.'
     else  
-      @re_plan.plan_version = RulesEngine::Publish.publisher.publish(@re_plan.code, @re_plan.publish)
+      @re_plan.plan_version = RulesEngine::Publish.publisher.publish(@re_plan.code, params['tag'], @re_plan.publish)
       @re_plan.plan_status = RePlan::PLAN_STATUS_PUBLISHED
       @re_plan.save
       flash[:success] = 'Plan Published.'
@@ -123,5 +124,9 @@ class RePlansController < ApplicationController
         render :action => "update"
       end
     end
+  end
+  
+  def re_process
+    @re_processes = RulesEngine::Process.runner.history(@re_plan.code, params[:page] || 1, 5)    
   end
 end

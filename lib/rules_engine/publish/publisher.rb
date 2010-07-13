@@ -25,28 +25,23 @@ module RulesEngine
     
     class Publisher
       # return the published version
-      def publish(plan_code, plan)
+      def publish(plan_code, version_tag, plan)
         throw "RulesEngine::Publish::Publisher required"
         # 1
       end
       
-      # return the published version
-      def get(plan_code, version = nil)
+      # return the published plan_version
+      def get(plan_code, plan_version = nil)
         throw "RulesEngine::Publish::Publisher required"
-        # { :code => code, 
-        #   :workflow => [{:class_name => 'rule_class_one', :data => [:one, :two, :three]},
-        #                         {:class_name => 'rule_class_two', :data => [:four, :five, :six]}]
-        # }
       end
       
       # list the published versions
       def versions(plan_code)
         throw "RulesEngine::Publish::Publisher required"                
-        # [{:version => 2, :published_at => Time.now.utc.to_s}, {:version => 1, :published_at => Time.now.utc.to_s}]
       end
 
       # remove the plan
-      def remove(plan_code, version = nil)
+      def remove(plan_code, plan_version = nil)
         throw "RulesEngine::Publish::Publisher required"                
       end
       

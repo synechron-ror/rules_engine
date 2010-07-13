@@ -1,6 +1,6 @@
 $(document).ready(function() {	  
   
-  $('a.re-workflow-preview').live('click', function() {    
+  $('a.re-xtra-workflow-preview').live('click', function() {    
     var id = $(this).attr('href').replace('#', '')
       
     $.re_block();

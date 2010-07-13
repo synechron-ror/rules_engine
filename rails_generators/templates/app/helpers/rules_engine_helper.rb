@@ -11,12 +11,22 @@ module RulesEngineHelper
     end
   end    
   
-  def re_workflow_list
-    @re_workflows ||= ReWorkflow.order_title.find(:all)
-  end
-  
   def re_plan_version re_plan
     return '' if re_plan.nil? || re_plan.plan_version.nil?
     "Ver.#{re_plan.plan_version}"    
   end
+  
+  def re_process_status process_status
+    case process_status.to_i
+    when RulesEngine::Process::PROCESS_STATUS_RUNNING
+      'running'
+    when RulesEngine::Process::PROCESS_STATUS_SUCCESS
+      'success'
+    when RulesEngine::Process::PROCESS_STATUS_FAILURE
+      'error'      
+    else # RulesEngine::Process::PROCESS_STATUS_NONE
+      'info'
+    end    
+  end    
+  
 end

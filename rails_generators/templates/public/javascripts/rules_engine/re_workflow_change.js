@@ -13,8 +13,6 @@ $(document).ready(function() {
 
   $('a#re_workflow_edit').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 2)
-      return false;
       
     $.re_block();
     if (parseInt(values[0]) == 0)
@@ -56,8 +54,6 @@ $(document).ready(function() {
   // NEW RULE
   $('a.re-menu-rule-new').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 3)
-      return false;
 
     $.re_block();
     if (parseInt(values[0]) == 0)
@@ -82,8 +78,6 @@ $(document).ready(function() {
   // RULE HELP  
   $('a.re-menu-rule-help').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 3)
-      return false;
     
     $.re_block();
     if (parseInt(values[0]) == 0)
@@ -102,8 +96,6 @@ $(document).ready(function() {
   // RULE EDIT
   $('a.re-list-rule-edit').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 3)
-      return false;
 
     $.re_block();
     if (parseInt(values[0]) == 0)
@@ -128,8 +120,6 @@ $(document).ready(function() {
   // RULE DELETE
   $('a.re-list-rule-delete').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 3)
-      return false;
       
     $('#re_rule_delete_ok').attr('href', '#re_rule_delete_form_' + values[2])  
     $.fancybox({ 'href': '#re_rule_delete_confirm' });          
@@ -155,8 +145,6 @@ $(document).ready(function() {
   // RULE MOVE
   $('a.re-list-rule-move-up').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 3)
-      return false;
       
     $.re_block();
     $(this).removeClass('re-list-rule-move-up');
@@ -170,8 +158,6 @@ $(document).ready(function() {
   
   $('a.re-list-rule-move-down').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
-    if (values.length != 3)
-      return false;
       
     $.re_block();
     $(this).removeClass('re-list-rule-move-down');

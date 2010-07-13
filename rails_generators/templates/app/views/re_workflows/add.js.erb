@@ -1,0 +1,6 @@
+$('#re_workflow_add_pending').hide();
+
+$('#re_workflow_add').html('<%=escape_javascript(render('/re_workflows/add_update'))%>');
+$('#re_workflow_add').show();
+
+re_plan_workflow_add_update();

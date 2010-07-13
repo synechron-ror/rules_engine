@@ -3,7 +3,7 @@
 <% default_workflow = re_workflow == @re_plan.default_workflow %>
 <% last_workflow = re_workflow == @re_plan.re_workflows[-1]  %>
 
-<div class="re-list-workflow-change" id="re_workflow_change_<%= re_workflow.id %>" style="<%= local_hide ?  'display:none' : '' %>">
+<div class="re-list-workflow-change" style="<%= local_hide ?  'display:none' : '' %>">
   <div class="<%= re_workflow_error.blank? ? 're-bluebox' : 're-redbox' %>">
 		<div class="clear top-2"></div>    
     <h4 class="float-left re-sts-workflow-<%= re_workflow_error.blank? ? 'valid' : 'verify' %>">
@@ -18,7 +18,7 @@
     </div>
     <div class="clear top-2"></div>    
 		<hr/>
-		<a href="#<%= re_workflow.id %>" class="re-workflow-preview float-left">
+		<a href="#<%= re_workflow.id %>" class="re-xtra-workflow-preview float-left">
 			<div class="re-xtra-workflow-preview"></div>
 		</a>	
 		<p class="float-left left-5">

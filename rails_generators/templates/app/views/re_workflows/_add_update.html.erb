@@ -1,0 +1,21 @@
+<% if @re_workflows.empty? %>
+	<h6 class="left-50 red"><em>No Workflows to Add</em></h6>
+<% else %>
+	<% @re_workflows.each do |re_workflow| %>
+		<div class="clear top-2"></div>
+		<h6>	
+			<%= link_to(re_workflow.title, "##{re_workflow.id}", :class => "re-menu-workflow-add-link") %>
+			<a href="#<%= re_workflow.id %>" class="re-xtra-workflow-preview float-right">
+				<div class="re-xtra-workflow-preview"></div>
+			</a>	
+		</h6>	
+
+		<hr/>
+
+		<div style="display:none">
+		  <% re_form_for(re_workflow, :url => '#', :html => {:method => :put, :id => "re_workflow_add_form_#{re_workflow.id}"}) do |f| %>
+		  <% end %>  
+		</div>  				
+	<% end %>
+<% end %>
+	

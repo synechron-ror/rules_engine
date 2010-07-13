@@ -24,35 +24,3 @@
   <%= link_to("Delete Plan", "##{@re_plan.id}", :id => "re_plan_delete", :class => "re-menu-plan-delete") %>
 </h4>    
 <div class="clear top-5"></div>
-
-
-<hr/>
-<div class="clear top-10"></div>	
-
-<h4>
-  <%= link_to("Add New Workflow", "##{@re_plan.id}", :id => "re_workflow_new", :class => "re-menu-workflow-new") %>
-</h4>    
-<div class="clear top-5"></div>
-<h4>
-	<div class="re-menu-workflow-lookup ">Add Existing Workflow</div>
-</h4>    
-<div class="clear top-5"></div>
-
-<% re_workflow_list.each do |re_workflow| %>
-
-	<div class="clear top-2"></div>
-	<h6>	
-		<%= link_to(re_workflow.title, "##{@re_plan.id}|#{re_workflow.id}", :class => "re-menu-workflow-add#{@re_plan.re_workflows.include?(re_workflow) ? '-off' : ''}") %>
-		<a href="#<%= re_workflow.id %>" class="re-workflow-preview float-right">
-			<div class="re-xtra-workflow-preview"></div>
-		</a>	
-	</h6>	
-	<div class="clear top-2"></div>
-
-	<hr/>
-
-	<div style="display:none">
-	  <% re_form_for(re_workflow, :url => add_re_plan_workflow_path(@re_plan, re_workflow), :html => {:method => :put, :id => "re_workflow_add_form_#{re_workflow.id}"}) do |f| %>
-	  <% end %>  
-	</div>  				
-<% end %>

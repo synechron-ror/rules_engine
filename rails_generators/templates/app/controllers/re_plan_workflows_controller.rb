@@ -103,9 +103,12 @@ class RePlanWorkflowsController < ApplicationController
   end
 
   def add
-    @re_plan.add_workflow(@re_workflow)
-    
-    flash[:success] = 'Workflow Added.'
+    if @re_plan.add_workflow(@re_workflow)    
+      flash[:success] = 'Workflow Added.'
+    else
+      flash[:error] = 'Cannot Add Workflow.'
+    end  
+
     respond_to do |format|
       format.html do
         redirect_to(change_re_plan_path(@re_plan))
@@ -116,10 +119,13 @@ class RePlanWorkflowsController < ApplicationController
     end
   end
 
-  def remove
-    @re_plan.remove_workflow(@re_workflow)
-    
-    flash[:success] = 'Workflow Removed.'
+  def remove    
+    if @re_plan.remove_workflow(@re_workflow)
+      flash[:success] = 'Workflow Removed.'
+    else
+      flash[:error] = 'Cannot Remove Workflow.'
+    end  
+
     respond_to do |format|
       format.html do
         redirect_to(change_re_plan_path(@re_plan))

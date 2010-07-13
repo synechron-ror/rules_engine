@@ -1,4 +1,4 @@
-$('#re_content').html('<%=escape_javascript(render('/re_workflows/new'))%>');
+$('#re_content').html('<%=escape_javascript(render('/re_workflows/new', :create_path => re_workflows_path, :cancel_path => re_workflows_path))%>');
 
 $('#re_workflow_new_insert').closest('div.re-form-button').re_form_button(); 
 

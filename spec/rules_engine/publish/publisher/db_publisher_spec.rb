@@ -17,44 +17,44 @@ describe "RulesEngine::Publish::DbPublisher" do
   describe "publishing a plan" do
     before(:each) do
       @re_published_plan = mock_model(RulesEngine::Publish::RePublishedPlan)
-      @re_published_plan.stub!(:version).and_return(1)
+      @re_published_plan.stub!(:plan_version).and_return(1)
       RulesEngine::Publish.publisher.stub!(:get_re_plan).and_return(@re_published_plan)      
       RulesEngine::Cache.stub!(:perform_caching?).and_return(false)
     end
     
     it "should create a new plan with the code and the data" do
-      RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_code => 'mock_code', :data => '["mock data"]'))
-      RulesEngine::Publish.publisher.publish('mock_code', ['mock data'])
+      RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_code => 'mock_code', :version_tag => 'mock_tag', :data => '["mock data"]'))
+      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', ['mock data'])
     end
         
-    it "should set the version as 1 if not set" do
+    it "should set the plan_version as 1 if not set" do
       RulesEngine::Publish.publisher.stub!(:get_re_plan).and_return(nil)
-      RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:version => 1))
-      RulesEngine::Publish.publisher.publish('mock_code', 'mock data')
+      RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_version => 1))
+      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data')
     end
     
-    it "should increment the version if set" do
-      @re_published_plan.stub!(:version).and_return(101)
-      RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:version => 102))
-      RulesEngine::Publish.publisher.publish('mock_code', 'mock data')
+    it "should increment the plan_version if set" do
+      @re_published_plan.stub!(:plan_version).and_return(101)
+      RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_version => 102))
+      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data')
     end
 
     it "should return the version" do
       RulesEngine::Publish::RePublishedPlan.stub!(:create)
 
       RulesEngine::Publish.publisher.stub!(:get_re_plan).and_return(nil)
-      RulesEngine::Publish.publisher.publish('mock_code', 'mock data').should == 1
+      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data').should == 1
 
-      @re_published_plan.stub!(:version).and_return(101)
+      @re_published_plan.stub!(:plan_version).and_return(101)
       RulesEngine::Publish.publisher.stub!(:get_re_plan).and_return(@re_published_plan)
-      RulesEngine::Publish.publisher.publish('mock_code', 'mock data').should == 102
+      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data').should == 102
     end
 
     it "should set the time to now utc" do
       now = Time.now
       Time.stub!(:now).and_return(now)
       RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:published_at => now.utc))
-      RulesEngine::Publish.publisher.publish('mock_code', 'mock data')
+      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data')
     end
     
     describe "caching turned on" do
@@ -66,7 +66,7 @@ describe "RulesEngine::Publish::DbPublisher" do
         RulesEngine::Cache.stub!(:perform_caching?).and_return(true)
         
         store.should_receive(:write).with('re_db_pub_mock_code_default', 'mock data')
-        RulesEngine::Publish.publisher.publish('mock_code', 'mock data')
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data')
       end
           
     end
@@ -112,29 +112,31 @@ describe "RulesEngine::Publish::DbPublisher" do
       end    
     end
   end
-
+  
   describe "getting the versions" do
     it "should returns an array of version data " do
       now = Time.now
-      plan_1 = mock('RePublishedPlan', :version => 101, :published_at => now)
-      plan_2 = mock('RePublishedPlan', :version => 102, :published_at => now + 5.days)
+      plan_1 = mock('RePublishedPlan', :version_tag => "tag 101", :plan_version => 101, :published_at => now)
+      plan_2 = mock('RePublishedPlan', :version_tag => "tag 102", :plan_version => 102, :published_at => now + 5.days)
       
       RulesEngine::Publish::RePublishedPlan.stub!(:find).and_return([plan_1, plan_2])
                                               
       versions = RulesEngine::Publish.publisher.versions('mock_code')
       versions.length.should == 2
-      versions[0][:version].should == 101
-      versions[0][:published_at].should == now.utc.to_s
-
-      versions[1][:version].should == 102
-      versions[1][:published_at].should == (now + 5.days).utc.to_s
+      versions[0]["plan_version"].should == 101
+      versions[0]["version_tag"].should == "tag 101"
+      versions[0]["published_at"].should == now.utc.to_s
+  
+      versions[1]["plan_version"].should == 102
+      versions[1]["version_tag"].should == "tag 102"
+      versions[1]["published_at"].should == (now + 5.days).utc.to_s
     end
   end
   
   describe "removing the plans" do
     before(:each) do
-      @plan_1 = mock('RePublishedPlan', :version => 101)
-      @plan_2 = mock('RePublishedPlan', :version => 102)
+      @plan_1 = mock('RePublishedPlan', :plan_version => 101)
+      @plan_2 = mock('RePublishedPlan', :plan_version => 102)
   
       @plan_1.stub!(:destroy)
       @plan_2.stub!(:destroy)
@@ -169,7 +171,7 @@ describe "RulesEngine::Publish::DbPublisher" do
       end
     end    
   end
-
+  
   describe "getting the cache code" do
     it "should prefix with re_plan" do
       pending("needs to be written")

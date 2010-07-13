@@ -65,25 +65,26 @@ class CreateRulesEngine < ActiveRecord::Migration
     #################################
     create_table :re_published_plans do |t|
       t.string   :plan_code
-      t.integer  :version
+      t.integer  :plan_version
+      t.string   :version_tag
             
       t.datetime :published_at
       t.text     :data
     end    
 
     add_index :re_published_plans, [:plan_code]
-    add_index :re_published_plans, [:plan_code, :version]
+    add_index :re_published_plans, [:plan_code, :plan_version]
     
     create_table :re_process_runs do |t|
       t.string   :plan_code
-      t.integer  :status
+      t.integer  :process_status
       t.datetime :created_at
       t.datetime :started_at
       t.datetime :finished_at
     end    
 
     add_index :re_process_runs, [:plan_code]
-    add_index :re_process_runs, [:status]
+    add_index :re_process_runs, [:process_status]
     add_index :re_process_runs, [:started_at]
     add_index :re_process_runs, [:finished_at]
 

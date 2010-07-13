@@ -1,0 +1,21 @@
+<% if @re_plan_workflows.empty? %>
+	<h6 class="left-50 red"><em>Not Used</em></h6>
+<% else %>
+	<% @re_plan_workflows.each do |re_plan_workflow| %>
+		<div class="clear top-2"></div>
+		<h6>	
+			<a href="#<%= re_plan_workflow.re_plan.id %>" class="re-xtra-plan-preview-link float-left">
+				<div class="re-xtra-workflow-preview"></div>
+			</a>	
+			<p class="float-left">
+				<%= re_plan_workflow.re_plan.title %>
+			</p>	
+		</h6>	
+		<div class="clear top-2"></div>
+		<hr/>
+	<% end %>
+	<% if !@re_plan_workflows.empty? && (@re_plan_workflows.next_page || @re_plan_workflows.previous_page) %>
+		<a class="re-xtra-workflow-next-<%= @re_plan_workflows.next_page ? 'enabled' : 'disabled' %>" href='#<%= @re_plan_workflows.next_page || '1' %>'></a>
+		<a class="re-xtra-workflow-prev-<%= @re_plan_workflows.previous_page ? 'enabled' : 'disabled' %>" href='#<%= @re_plan_workflows.previous_page || '1' %>'></a>
+	<% end %>
+<% end %>

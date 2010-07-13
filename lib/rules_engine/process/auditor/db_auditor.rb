@@ -5,8 +5,8 @@ module RulesEngine
       validates_presence_of :code
     
       named_scope :by_process_id, lambda {|process_id| {:conditions => ['process_id = ?', process_id]} }
-      named_scope :order_id, lambda {|order| {:order => "id #{order}"} }
-      named_scope :order_created_at, lambda {|order| {:order => "created_at #{order}"} }
+      # named_scope :order_id, lambda {|order| {:order => "id #{order}"} }
+      named_scope :order_created_at, lambda {|order| {:order => "created_at #{order}, id #{order}"} }
     end
 
     class DbAuditor < Auditor
@@ -25,14 +25,17 @@ module RulesEngine
       end
   
       def history(process_id)
-        process_audits = ReProcessAudit.by_process_id(process_id).order_id('ASC').order_date('ASC').find(:all).map do |re_process_audit| 
-                                  {:process_id => re_process_audit.process_id || '', 
-                                    :created => re_process_audit.created_at.utc.to_s, 
-                                    :code => re_process_audit.code, 
-                                    :message => re_process_audit.message}
+        klass = ReProcessAudit
+        klass = klass.by_process_id(process_id)
+        # klass = klass.order_id('ASC')
+        klass = klass.order_created_at('ASC')
+        
+        klass.find(:all).map do |re_process_audit| 
+                                  {"process_id" => re_process_audit.process_id, 
+                                    "created_at" => re_process_audit.created_at.utc.to_s, 
+                                    "code" => re_process_audit.code, 
+                                    "message" => re_process_audit.message}
                                   end
-                                  
-        {:process_audits => process_audits}.to_json
       end    
     end  
   end  

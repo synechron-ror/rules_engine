@@ -1,9 +1,25 @@
-// Ste the fancybox defaults
+// set the fancybox behaviour
 $.extend($.fn.fancybox.defaults, { 
     hideOnOverlayClick : false,
-    overlayOpacity : 0.6
+    overlayOpacity : 0.6,
+    onComplete : function() { 
+    			$(document).unbind('keydown.fb').bind('keydown.fb', function(e) {
+    				if (e.keyCode == 27) {
+    					e.preventDefault();
+    					$.fancybox.close();
+
+    				} else if (e.keyCode == 37) {
+              // e.preventDefault();
+              // $.fancybox.prev();
+
+    				} else if (e.keyCode == 39) {
+              // e.preventDefault();
+              // $.fancybox.next();
+    				}
+    			});
+       }
    });
-   
+
 jQuery.re_block = function(){
   $.fancybox.showActivity();
   $.blockUI({message: null});

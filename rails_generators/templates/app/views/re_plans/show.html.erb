@@ -1,4 +1,4 @@
-<% set_re_javascript_include ['rules_engine/re_workflow_preview'] %>
+<% set_re_javascript_include ['rules_engine/re_workflow_preview', 'rules_engine/re_publication_show', 'rules_engine/re_process_index'] %>
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), '<span class="re-bc-plan-show">View Plan</span>' %>
 
 <div class="span-17 border">      
@@ -34,35 +34,23 @@
 	<% if rules_engine_editor? %>
 		<h4>
 			<%= link_to("Edit Plan", change_re_plan_path(@re_plan), :class => "re-menu-plan-change") %>
-		</h4>    
-		
+		</h4>    		
 		<div class="clear top-5"></div>
+
+		<div class="clear top-20"></div>
 		<hr/>
 		<div class="clear top-5"></div>
 	<% end %>
 
-	<h4>
-		<div class="re-menu-plan-history">Published History</div>	
-	</h4>
+	<%= render '/re_processes/index_prepare', :re_plan_id => @re_plan.id %>	
+	<div class="clear top-5"></div>    
 	
-	<% RulesEngine::Publish.publisher.versions(@re_plan.code).each do |version| %>
-		<div class="clear top-2"></div>
-		<h6 class="float-left left-5">	
-			<%= version[:version] %>
-		</h6>	
-		<h6 class="float-right">	
-			<%= Time.parse(version[:published_at]).strftime('%d %b %Y - %H:%M:%S') %>
-		</h6>	
-		<div class="clear top-2"></div>
-		<hr/>
-	<% end %>		
-
-	<div class="clear top-10"></div>
-	
-	<h4>
-		<div class="re-menu-process-list">Process History</div>		
-	</h4>
+	<div class="clear top-20"></div>
+	<hr/>
 	<div class="clear top-5"></div>
+
+	<%= render '/re_publications/show_prepare' %>
+	<div class="clear"></div>
 </div>
 
 <div class="clear"></div>

@@ -1,4 +1,4 @@
-<% set_re_javascript_include ['rules_engine/re_workflow_preview', 'rules_engine/re_plan_change'] %>
+<% set_re_javascript_include ['rules_engine/re_workflow_add', 'rules_engine/re_workflow_preview', 'rules_engine/re_plan_change'] %>
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
 											link_to("View Plan", re_plan_path(@re_plan), :class => "re-bc-plan-show"),
 											'<span class="re-bc-plan-change">Edit Plan</span>' %>
@@ -45,10 +45,14 @@
 	</h4>
 	<div class="clear top-5"></div>
 
-
 	<div id="re_plan_menu">
 	 	<%= render '/re_plans/menu' %>
-	</div>
+	</div>	
+	<hr/>
+	<div class="clear top-10"></div>	
+	
+	<%= render '/re_workflows/add_prepare', :re_plan_id => @re_plan.id %>
+	
 </div>  
 
 <div style="display:none">
@@ -69,6 +73,29 @@
         </div>    
         <div class="clear"></div>
         <%= re_button_link_green('Action', "#", :id => "re_plan_action_ok") %>
+        <%= re_button_link_orange('Cancel', "#", :id => "re_plan_action_cancel") %>
+      <% end %>  
+    </div>
+  </div>
+
+  <div id="re_plan_publish_confirm">
+    <div class="span-14 last">
+      <% re_whitebox do %>    
+        <h3 class="re-hdr-plan-alert"><span class="red">Confirm :</span> Publish Plan</h3>
+        <div class="clear top-5"></div>
+        <hr/>
+        <div class="clear top-5"></div>
+  
+        <div class="span-13 last">
+					<%= re_text_field("Tag Published Plan", :re_plan_publish_tag, "", :error => 'ok', :required => true, :span => '4x9') %>
+        </div>  
+        <div class="clear"></div>
+
+        <div class="span-12 prepend-1 last">
+          <h6 id="re_plan_action_content_title"></h6>
+        </div>    
+        <div class="clear"></div>
+        <%= re_button_link_green('Publish', "#", :id => "re_plan_publish_ok") %>
         <%= re_button_link_orange('Cancel', "#", :id => "re_plan_action_cancel") %>
       <% end %>  
     </div>

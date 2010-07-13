@@ -1,4 +1,4 @@
-<% set_re_javascript_include ['rules_engine/re_plan_preview', 'rules_engine/re_plan_new'] %>
+<% set_re_javascript_include ['rules_engine/re_plan_preview', 'rules_engine/re_plan_new', 'rules_engine/re_process_index'] %>
 <% set_re_breadcrumbs_right link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
 														link_to("<em>All Workflows</em>", re_workflows_path, :class => "re-bc-workflow-list blue")%>
 
@@ -28,8 +28,6 @@
 		<div class="clear top-5"></div>
 	<% end %>	
 
-	<h4>
-		<div class="re-menu-process-list">Process History</div>		
-	</h4>
+	<%= render '/re_processes/index_prepare', :re_plan_id => 0 %>	
 	<div class="clear"></div>    
 </div>  

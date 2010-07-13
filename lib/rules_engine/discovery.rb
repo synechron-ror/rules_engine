@@ -1,16 +1,26 @@
 module RulesEngine
   class Discovery
     
-    RULES_PATH = File.expand_path(File.join(RAILS_ROOT, '/app/rules'))
+    @rules_path = nil
     @rule_classes = nil
     @rule_groups = nil
         
     class << self
+      def rules_path= path
+        @rules_path = path
+      end  
+
+      def rules_path
+        return @rules_path if @rules_path
+        return File.expand_path(File.join(Rails.root, '/app/rules')) if defined?(Rails) && Rails.root
+        throw Exception.new("Rails.root or rules_path not defined") 
+      end  
+      
       def discover!
         @rule_classes = []
         @rule_groups = {}
         
-        Dir.glob("#{ RULES_PATH }/**/*.rb").each do |rule| 
+        Dir.glob("#{rules_path}/**/*.rb").each do |rule| 
           require rule
           
           rule_class = Kernel.const_get(File.basename(rule, '.rb').classify)
