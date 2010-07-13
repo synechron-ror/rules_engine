@@ -15,7 +15,7 @@ templates :
     - app/rules/complex_rule.rb
     - app/views/re_rule_definitions/complex_rule/_edit.html.erb
     - app/views/re_rule_definitions/complex_rule/_help.html.erb
-    - app/views/re_rule_definitions/complex_rule/_pipeline.html.erb
+    - app/views/re_rule_definitions/complex_rule/_workflow.html.erb
     - app/views/re_rule_definitions/complex_rule/_script.html.erb
     - app/views/re_rule_definitions/complex_rule/_title.html.erb
     - app/views/re_rule_definitions/complex_rule/_new.html.erb
