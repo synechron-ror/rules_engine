@@ -9,6 +9,18 @@ module RulesEngine
       # named_scope :order_id, lambda {|order| {:order => "id #{order}"} }
       named_scope :order_started_at, lambda {|order| {:order => "started_at #{order}, id #{order}"} }
       named_scope :order_finished_at, lambda {|order| {:order => "finished_at #{order}, id #{order}"} }      
+      
+      def history(plan_code, options = {})
+        options = {:page => 1, :page_size => 20}.merge(options)
+        
+        klass = self
+        klass = klass.by_plan_code(plan_code) unless plan_code.nil?
+        klass = klass.by_process_status_gt(RulesEngine::Process::PROCESS_STATUS_RUNNING)
+        # klass = klass.order_id('DESC')
+        klass = klass.order_started_at('DESC')
+        
+        klass.paginate(:page => options[:page], :per_page => options[:page_size])
+      end
     end
     
       
@@ -44,27 +56,21 @@ module RulesEngine
       end      
    
    
-      def history(plan_code = nil, page = 1, page_size = 20)
-        klass = ReProcessRun
-        klass = klass.by_plan_code(plan_code) unless plan_code.nil?
-        klass = klass.by_process_status_gt(RulesEngine::Process::PROCESS_STATUS_RUNNING)
-        # klass = klass.order_id('DESC')
-        klass = klass.order_started_at('DESC')
+      def history(plan_code = nil, options = {})
         
-        re_process_runs = klass.paginate(:page => page, :per_page => page_size)        
-        processs = re_process_runs.map do |re_process_run| 
-                                  {"process_id" => re_process_run.id,  
-                                    "plan_code" => re_process_run.plan_code, 
-                                    "process_status" => re_process_run.process_status,  
-                                    "created_at" => re_process_run.created_at.utc.to_s, 
-                                    "started_at" => re_process_run.started_at.nil? ? nil : re_process_run.started_at.utc.to_s, 
-                                    "finished_at" =>re_process_run.finished_at.nil? ? nil : re_process_run.finished_at.utc.to_s}
-                                  end  
-        {"page" => page, 
-           "page_size" => page_size,
-           "next_page" => re_process_runs.next_page, 
+        re_process_runs = ReProcessRun.history(plan_code, options)
+
+        {  "next_page" => re_process_runs.next_page, 
            "previous_page" => re_process_runs.previous_page,
-           "processes" => processs
+           "processes" => re_process_runs.map do |re_process_run| 
+              { 
+                "process_id" => re_process_run.id,  
+                "plan_code" => re_process_run.plan_code, 
+                "process_status" => re_process_run.process_status,  
+                "created_at" => re_process_run.created_at.utc.to_s, 
+                "started_at" => re_process_run.started_at.nil? ? nil : re_process_run.started_at.utc.to_s, 
+                "finished_at" =>re_process_run.finished_at.nil? ? nil : re_process_run.finished_at.utc.to_s}
+            end
         }
       end
       

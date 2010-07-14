@@ -124,8 +124,11 @@ module RulesEngine
         throw "RulesEngine::Process::Runner required"
       end      
       
-      def history(plan_code = nil, page = 1, page_size = 20)
+      def history(plan_code = nil, options = {})
         throw "RulesEngine::Process::Runner required"
+        # {
+        #   :proceses => []
+        # }
       end
     end  
   end

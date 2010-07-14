@@ -42,7 +42,7 @@ describe "RulesEngine::Publish::Publisher" do
   describe "getting the versions" do
     it "should throw an error if not overwritten" do
       lambda {
-        RulesEngine::Publish::Publisher.new.versions('code')
+        RulesEngine::Publish::Publisher.new.versions('code', {:dummy => "option"})
       }.should raise_error
     end
   end
