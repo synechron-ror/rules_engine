@@ -10,7 +10,14 @@
 <div class="<%= local_new_row ? 'left-10' : '' %> re-xtra-rule-preview">
   <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %>"><%=h re_rule.title %></div>
   <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
-      <p class="top-5">Test <%=h re_rule.summary %></p>	
+      <p class="float-left top-5">
+				<%=h re_rule.summary %>
+			</p>	
+			<div class="float-right red smalltext right-5">
+				<%=h re_rule_error %>
+			</div>
+			<div class="clear"></div>
+
       <div class="top-5 float-right">
         <% if re_rule.re_rule_expected_outcomes.empty? %>
           <div class="re-xtra-rule-continue">Continue</div>

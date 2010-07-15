@@ -5,17 +5,21 @@
   <h4 class="float-left re-sts-rule-<%= re_rule_error.blank? ? 'valid' : 'verify' %>"><%=h re_rule.title %></h4>
   <div class="float-right">
 		<!-- NO ACTIONS ON THE RULE	 -->
-		<p class="red smalltext"><%= re_rule_error %></p>
   </div>
   <div class="clear"></div>    
 </div>
 <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
 	<div class="span-8">
-	  <p class="top-5 left-10">
-	    <%=h re_rule.summary %>
-	  </p>
+     <p class="top-5">
+			<%=h re_rule.summary %>
+		</p>	
 	</div>      
-	<div class="prepend-8 top-10">
+	<div class="prepend-8">
+		<div class="float-right red smalltext right-5">
+			<%=h re_rule_error %>
+		</div>
+		<div class="clear"></div>
+
 	  <% if re_rule.re_rule_expected_outcomes.empty? %>
 	    <div class="re-xtra-rule-continue">Continue</div>
 	  <% end %>        

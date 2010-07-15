@@ -72,7 +72,7 @@ class ReRule < ActiveRecord::Base
   end
 
   def rule_error
-    return "#{title} class #{rule_class_name} invalid" if rule.nil?
+    return "class #{rule_class_name} missing" if rule.nil?
     return "#{rule.errors.values.join(', ')}" unless rule.valid?
 
     re_rule_expected_outcomes.each do |re_rule_expected_outcome|

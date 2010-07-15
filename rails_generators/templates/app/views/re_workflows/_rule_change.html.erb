@@ -3,12 +3,12 @@
 <%#= :move_up_path => move_up_re_workflow_rule_path(@re_workflow, re_rule) %>
 <%#= :move_down_path => move_down_re_workflow_rule_path(@re_workflow, re_rule) %>
 
-<% rule_error = re_rule.rule_error %>
+<% re_rule_error = re_rule.rule_error %>
 <% local_first_rule = local_assigns[:first_rule] && first_rule  %>
 <% local_last_rule = local_assigns[:last_rule] && last_rule  %>
 
-<div class="<%= rule_error.blank? ? 're-bluebox' : 're-redbox' %>">
-	<h4 class="float-left  re-sts-rule-<%= rule_error.blank? ? 'valid' : 'verify' %>"><%=h re_rule.title %></h4>
+<div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %>">
+	<h4 class="float-left  re-sts-rule-<%= re_rule_error.blank? ? 'valid' : 'verify' %>"><%=h re_rule.title %></h4>
 	<div class="float-right">
 		<%= link_to("<span>Edit</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "re-list-rule-edit") %>
 		<%= link_to("<span>Delete</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "re-list-rule-delete") %>
@@ -17,13 +17,18 @@
 	</div>
 	<div class="clear"></div>
 </div>
-<div class="<%= rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
+<div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
 	<div class="span-8">
-		<p class="top-5 left-10">
+		<p class="top-5">
 			<%=h re_rule.summary %>
 		</p>
 	</div>
-	<div class="prepend-8 top-10">
+	<div class="prepend-8">
+		<div class="float-right red smalltext right-5">
+			<%=h re_rule_error %>
+		</div>
+		<div class="clear"></div>
+		
 		<% if re_rule.re_rule_expected_outcomes.empty? %>
 			<div class="re-xtra-rule-continue">Continue</div>
 		<% end %>        

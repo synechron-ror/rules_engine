@@ -5,7 +5,6 @@
   padding-top: 6px;
 }
 
-
 /* ************************************* */
 /* MAPS */
 /* ************************************* */
@@ -637,7 +636,7 @@ div.re-xtra-rule-title-single span {
 }
 .re-xtra-rule-continue {
   width: 155px;
-	background: #fffef0 url('./images/rules_engine/re_rule/next-show-18.png') no-repeat 165px 2px;
+	background: #fffef0 url('./images/rules_engine/re_rule/start-pipeline-18.png') no-repeat 165px 2px;
 	font-weight: bold;
 	border: 1px #92b83c solid; 
 	padding: 3px 24px 3px 6px;
