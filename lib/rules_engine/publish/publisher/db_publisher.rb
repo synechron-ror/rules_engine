@@ -54,11 +54,11 @@ module RulesEngine
         plan
       end  
       
-      def versions(plan_code, options = {})
+      def history(plan_code, options = {})
         re_published_plans = RePublishedPlan.plans(plan_code, options)
         
         {
-          :versions => re_published_plans.map do |re_published_plan|
+          "publications" => re_published_plans.map do |re_published_plan|
             { 
               "plan_version" => re_published_plan.plan_version, 
               "version_tag" => re_published_plan.version_tag, 

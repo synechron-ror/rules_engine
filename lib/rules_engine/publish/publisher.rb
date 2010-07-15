@@ -36,10 +36,10 @@ module RulesEngine
       end
       
       # list the published versions
-      def versions(plan_code, options = {})
+      def history(plan_code, options = {})
         throw "RulesEngine::Publish::Publisher required"                
         # {
-        #   :versions => []
+        #   :publications => []
         # }
       end
 

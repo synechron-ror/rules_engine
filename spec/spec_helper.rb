@@ -9,6 +9,8 @@ require 'spec'
 require 'spec/rails'
 require 'spec/autorun'
 
+require 'will_paginate'
+
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
@@ -19,3 +21,29 @@ ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/railsenv/log/d
 
 
 Dir["#{File.dirname(__FILE__)}/../lib/*.rb"].each {|f| require f}
+
+ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+
+ActiveRecord::Schema.define(:version => 1) do
+  create_table :re_published_plans do |t|
+    t.string   :plan_code
+    t.integer  :plan_version
+    t.string   :version_tag
+          
+    t.datetime :published_at
+    t.text     :data
+  end
+end
+
+# ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+
+ActiveRecord::Schema.define(:version => 1) do
+  create_table :re_process_runs do |t|
+    t.string   :plan_code
+    t.integer  :process_status
+    t.datetime :created_at
+    t.datetime :started_at
+    t.datetime :finished_at
+  end
+end
+

@@ -127,6 +127,6 @@ class RePlansController < ApplicationController
   end
   
   def re_process
-    @re_processes = RulesEngine::Process.runner.history(@re_plan.code, params[:page] || 1, 5)    
+    @re_processes = RulesEngine::Process.runner.history(@re_plan.code, :page => params[:page] || 1, :per_page => 5)    
   end
 end

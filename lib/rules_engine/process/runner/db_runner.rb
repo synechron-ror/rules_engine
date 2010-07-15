@@ -6,20 +6,17 @@ module RulesEngine
       
       named_scope :by_plan_code, lambda {|plan_code| {:conditions => ['plan_code = ?', plan_code]} }
       named_scope :by_process_status_gt, lambda {|process_status| {:conditions => "process_status > #{process_status}"} }
-      # named_scope :order_id, lambda {|order| {:order => "id #{order}"} }
       named_scope :order_started_at, lambda {|order| {:order => "started_at #{order}, id #{order}"} }
-      named_scope :order_finished_at, lambda {|order| {:order => "finished_at #{order}, id #{order}"} }      
       
-      def history(plan_code, options = {})
-        options = {:page => 1, :page_size => 20}.merge(options)
-        
+      def self.history(plan_code, options = {})
+
         klass = self
         klass = klass.by_plan_code(plan_code) unless plan_code.nil?
-        klass = klass.by_process_status_gt(RulesEngine::Process::PROCESS_STATUS_RUNNING)
+        klass = klass.by_process_status_gt(RulesEngine::Process::PROCESS_STATUS_NONE)
         # klass = klass.order_id('DESC')
         klass = klass.order_started_at('DESC')
         
-        klass.paginate(:page => options[:page], :per_page => options[:page_size])
+        klass.paginate({:page => 1, :per_page => 10}.merge(options))
       end
     end
     

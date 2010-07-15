@@ -10,6 +10,6 @@ class RePublicationsController < ApplicationController
   end    
 
   def show
-    @re_publications = RulesEngine::Publish.publisher.versions(@re_plan.code)[0..10]    
+    @re_publications = RulesEngine::Publish.publisher.history(@re_plan.code, :page => params[:page] || 1, :per_page => 5)
   end
 end

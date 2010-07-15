@@ -1,20 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
-
-ActiveRecord::Schema.define(:version => 1) do
-  create_table :re_published_plans do |t|
-    t.string   :plan_code
-    t.integer  :plan_version
-    t.string   :version_tag
-          
-    t.datetime :published_at
-    t.text     :data
-  end
-end
-
 describe "RulesEngine::Publish::RePublishedPlan" do
   before(:each) do
+    RulesEngine::Publish.publisher = :db_publisher
+
     @re_published_plan_1 = RulesEngine::Publish::RePublishedPlan.create(:plan_code => 'mock_code', 
                                                                          :plan_version => 1,
                                                                          :version_tag => 'mock_tag', 
@@ -179,30 +168,30 @@ describe "RulesEngine::Publish::DbPublisher" do
     end
   end
   
-  describe "getting the versions" do
+  describe "getting the publication history" do
     it "should returns a hash of the version data " do
-      data = RulesEngine::Publish.publisher.versions('mock_code')
+      data = RulesEngine::Publish.publisher.history('mock_code')
       data.should be_instance_of(Hash)
     end
     
-    it "should include an array of versions" do
-      data = RulesEngine::Publish.publisher.versions('mock_code')
-      versions = data[:versions]
+    it "should include an array of publications" do
+      data = RulesEngine::Publish.publisher.history('mock_code')
+      versions = data["publications"]
       versions.should be_instance_of(Array)
     end  
     
     it "should include the version information" do
-      data = RulesEngine::Publish.publisher.versions('mock_code')
-      versions = data[:versions]
+      data = RulesEngine::Publish.publisher.history('mock_code')
+      publications = data["publications"]
       
-      versions.length.should == 2
-      versions[0]["plan_version"].should == 101
-      versions[0]["version_tag"].should == "tag 101"
-      versions[0]["published_at"].should == @now.utc.to_s
+      publications.length.should == 2
+      publications[0]["plan_version"].should == 101
+      publications[0]["version_tag"].should == "tag 101"
+      publications[0]["published_at"].should == @now.utc.to_s
   
-      versions[1]["plan_version"].should == 101
-      versions[1]["version_tag"].should == "tag 101"
-      versions[1]["published_at"].should == @now.utc.to_s
+      publications[1]["plan_version"].should == 101
+      publications[1]["version_tag"].should == "tag 101"
+      publications[1]["published_at"].should == @now.utc.to_s
     end
   end
   

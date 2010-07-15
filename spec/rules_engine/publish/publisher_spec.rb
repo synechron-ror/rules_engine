@@ -17,6 +17,8 @@ describe "RulesEngine::Publish::Publisher" do
   
   describe "getting the publisher" do
     it "should throw an exception if the publisher is not set" do
+      RulesEngine::Publish.publisher = nil
+      
       lambda {
         RulesEngine::Publish.publisher
       }.should raise_error
@@ -39,10 +41,10 @@ describe "RulesEngine::Publish::Publisher" do
     end
   end
 
-  describe "getting the versions" do
+  describe "getting the history" do
     it "should throw an error if not overwritten" do
       lambda {
-        RulesEngine::Publish::Publisher.new.versions('code', {:dummy => "option"})
+        RulesEngine::Publish::Publisher.new.history('code', {:dummy => "option"})
       }.should raise_error
     end
   end
