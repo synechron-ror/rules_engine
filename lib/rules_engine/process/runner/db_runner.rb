@@ -1,3 +1,5 @@
+require 'will_paginate'
+
 module RulesEngine
   module Process
     
@@ -13,7 +15,6 @@ module RulesEngine
         klass = self
         klass = klass.by_plan_code(plan_code) unless plan_code.nil?
         klass = klass.by_process_status_gt(RulesEngine::Process::PROCESS_STATUS_NONE)
-        # klass = klass.order_id('DESC')
         klass = klass.order_started_at('DESC')
         
         klass.paginate({:page => 1, :per_page => 10}.merge(options))
@@ -40,7 +41,7 @@ module RulesEngine
         
         re_process.update_attributes(:plan_code => plan["code"], :started_at => Time.now.utc, :process_status => RulesEngine::Process::PROCESS_STATUS_RUNNING)  
         
-        success = super
+        success = _run_plan(process_id, plan, data)
         
         re_process.update_attributes(:finished_at => Time.now.utc, :process_status => success ? RulesEngine::Process::PROCESS_STATUS_SUCCESS : RulesEngine::Process::PROCESS_STATUS_FAILURE)
       
@@ -64,9 +65,9 @@ module RulesEngine
                 "process_id" => re_process_run.id,  
                 "plan_code" => re_process_run.plan_code, 
                 "process_status" => re_process_run.process_status,  
-                "created_at" => re_process_run.created_at.utc.to_s, 
                 "started_at" => re_process_run.started_at.nil? ? nil : re_process_run.started_at.utc.to_s, 
-                "finished_at" =>re_process_run.finished_at.nil? ? nil : re_process_run.finished_at.utc.to_s}
+                "finished_at" =>re_process_run.finished_at.nil? ? nil : re_process_run.finished_at.utc.to_s
+              }
             end
         }
       end

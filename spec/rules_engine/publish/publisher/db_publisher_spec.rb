@@ -180,7 +180,7 @@ describe "RulesEngine::Publish::DbPublisher" do
       versions.should be_instance_of(Array)
     end  
     
-    it "should include the version information" do
+    it "should include the publication information" do
       data = RulesEngine::Publish.publisher.history('mock_code')
       publications = data["publications"]
       

@@ -9,9 +9,6 @@ module RulesEngine
     autoload :DbAuditor, 'rules_engine/process/auditor/db_auditor'
     
     class << self
-      def perform_auditing?
-        !@auditor.nil? 
-      end
 
       def auditor=(auditor_options)
         type, *parameters = *([ auditor_options ].flatten)
@@ -40,10 +37,10 @@ module RulesEngine
         if perform_audit?(code)
           if defined?(Rails) && Rails.logger 
             case code
-            when RulesEngine::Process::AUDIT_INFO, RulesEngine::Process::AUDIT_SUCCESS
-              Rails.logger.info("#{'*' * 5} #{process_id}, #{code}, #{message}")
             when RulesEngine::Process::AUDIT_FAILURE
               Rails.logger.error("#{'*' * 5} #{process_id}, #{code}, #{message}")
+            else # when RulesEngine::Process::AUDIT_INFO, RulesEngine::Process::AUDIT_SUCCESS
+              Rails.logger.info("#{'*' * 5} #{process_id}, #{code}, #{message}")
             end
           else  
             $stderr.puts("#{'*' * 5} #{process_id}, #{code}, #{message}")
@@ -51,8 +48,10 @@ module RulesEngine
         end   
       end
     
-      def history(process_id)
-        []
+      def history(process_id, options = {})
+        {
+          "audits" => []
+        }  
       end
     
       def perform_audit?(code)

@@ -9,8 +9,6 @@ require 'spec'
 require 'spec/rails'
 require 'spec/autorun'
 
-require 'will_paginate'
-
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
