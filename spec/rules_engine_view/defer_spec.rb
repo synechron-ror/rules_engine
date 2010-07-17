@@ -17,6 +17,10 @@ describe "set_re_javascript_include", :type => :helper do
 end
 
 describe "set_re_breadcrumbs", :type => :helper do 
+  before(:each) do
+    RulesEngineView::Defer.prefix_breadcrumbs = nil
+  end
+
   it "should be accessible to rails apps by default" do 
     ActionView::Base.new.methods.should include("set_re_breadcrumbs")
   end
@@ -32,8 +36,22 @@ describe "set_re_breadcrumbs", :type => :helper do
   end
 end
 
+describe "set_re_breadcrumbs_prefix", :type => :helper do 
+  before(:each) do
+    RulesEngineView::Defer.prefix_breadcrumbs = "HERE"
+  end
+  
+  it "should add the prefix to the breadcrumb array" do    
+    eval_erb("<% set_re_breadcrumbs('me') %>")
+    @template.instance_variable_get("@content_for_defer_re_breadcrumbs").should == eval_erb("<%= re_breadcrumbs('HERE', 'me') %>")
+  end
+end
 
 describe "set_re_breadcrumbs_right", :type => :helper do 
+  before(:each) do
+    RulesEngineView::Defer.prefix_breadcrumbs = nil
+  end
+  
   it "should be accessible to rails apps by default" do 
     ActionView::Base.new.methods.should include("set_re_breadcrumbs_right")
   end
@@ -46,5 +64,17 @@ describe "set_re_breadcrumbs_right", :type => :helper do
   it "should set defer_re_breadcrumbs variable " do
     eval_erb("<% set_re_breadcrumbs_right('me') %>")
     @template.instance_variable_get("@content_for_defer_re_breadcrumbs").should == eval_erb("<%= re_breadcrumbs_right('me') %>")
+  end  
+end
+  
+describe "set_re_breadcrumbs_right_prefix", :type => :helper do 
+  before(:each) do
+    RulesEngineView::Defer.prefix_breadcrumbs = "HERE"
+  end
+  
+  it "should add the prefix to the breadcrumb array" do
+    eval_erb("<% set_re_breadcrumbs_right('me') %>")
+    @template.instance_variable_get("@content_for_defer_re_breadcrumbs").should == eval_erb("<%= re_breadcrumbs_right('HERE', 'me') %>")
   end
 end
+

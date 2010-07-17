@@ -12,11 +12,11 @@
 
   <%= javascript_include_tag 'jquery-1.4.2.min', 'jquery.blockUI', 'jquery.autocomplete.pack', 'jquery.fancybox-1.3.1',
 															'rules_engine/re_view', 
-															#'application', 
+															'application', 
 															:cache => true %>
 
   <%= stylesheet_link_tag 'rules_engine/screen',  'jquery.autocomplete', 'fancybox/jquery.fancybox-1.3.1',
-													#'application', 
+													'application', 
 													:cache => true %>    
                         
   <%= yield :defer_re_javascript_include %>                          

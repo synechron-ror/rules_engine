@@ -48,7 +48,7 @@ class RePlan < ActiveRecord::Base
       else  
         data["workflow_#{re_workflow.code}"]["next_workflow"] = re_workflows[index+1].code
       end  
-    end  
+    end
     data
   end  
 
@@ -66,7 +66,7 @@ class RePlan < ActiveRecord::Base
       orig_re_workflows << re_workflow
       
       next_workflow = workflow_data["next_workflow"]
-      workflow_data = next_workflow.blank? ? nil : workflow_data["workflow_#{next_workflow}"]
+      workflow_data = next_workflow.blank? ? nil : rule_data["workflow_#{next_workflow}"]
     end  
     
     self.re_workflows = orig_re_workflows

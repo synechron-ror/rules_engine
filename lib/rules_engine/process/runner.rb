@@ -70,12 +70,6 @@ module RulesEngine
             error = done = true 
           end
 
-          last_workflow = plan['last_workflow']
-          if (last_workflow.blank? || plan["workflow_#{last_workflow}"].nil?)
-            RulesEngine::Process.auditor.audit(process_id, "Last Workflow : #{last_workflow} : missing", RulesEngine::Process::AUDIT_FAILURE)
-            error = done = true 
-          end          
-            
           current_workflow = first_workflow
           next_workflow = ""
           while (!done && workflow_count < @@max_workflows)

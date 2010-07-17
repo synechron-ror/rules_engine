@@ -27,8 +27,8 @@ describe RePlan do
   end  
 
   describe "creating a plan" do
-    it "should set the status to draft" do
-      re_plan = RePlan.create!(valid_attributes.except(:status))
+    it "should set the plan_status to draft" do
+      re_plan = RePlan.create!(valid_attributes.except(:plan_status))
       re_plan.plan_status.should == RePlan::PLAN_STATUS_DRAFT
     end        
   end  
@@ -86,13 +86,17 @@ describe RePlan do
   describe "publish" do
     it "should convert the plan to a hash" do
       re_plan = RePlan.new(valid_attributes)
-      re_plan.stub!(:re_workflows).and_return([mock('workflow one', :publish => "workflow one"), mock('workflow two', :publish => "workflow two")])
-      
+      re_plan.stub!(:re_workflows).and_return([mock('workflow one', :code => 'one', :publish => {"workflow" => "one"}), 
+                                               mock('workflow two', :code => 'two', :publish => {"workflow" => "two"})])      
       publish_data = re_plan.publish
-      publish_data[:code].should == 'aa_mock'
-      publish_data[:title].should == valid_attributes[:title]
-      publish_data[:description].should == valid_attributes[:description]
-      publish_data[:workflows].should == ['workflow one', 'workflow two']
+      publish_data["code"].should == 'aa_mock'
+      publish_data["title"].should == valid_attributes[:title]
+      publish_data["description"].should == valid_attributes[:description]
+      publish_data["first_workflow"].should == "one"
+      publish_data["workflow_one"]["workflow"].should == "one"
+      publish_data["workflow_one"]["next_workflow"].should == "two"
+      publish_data["workflow_two"]["workflow"].should == "two"
+      publish_data["workflow_two"]["next_workflow"].should == ""
     end
   end
 
@@ -105,33 +109,24 @@ describe RePlan do
     it "should set the plan based on the data" do
       re_workflow_1 = mock_model(ReWorkflow)
       re_workflow_2 = mock_model(ReWorkflow)
-      re_workflow_1.should_receive(:revert!).with('workflow one').and_return(re_workflow_1)
-      re_workflow_2.should_receive(:revert!).with('workflow two').and_return(re_workflow_2)
+      re_workflow_1.should_receive(:revert!).with(hash_including('workflow' => 'one')).and_return(re_workflow_1)
+      re_workflow_2.should_receive(:revert!).with(hash_including('workflow' => 'two')).and_return(re_workflow_2)
       ReWorkflow.stub!(:new).and_return(re_workflow_1, re_workflow_2)
       
       re_plan = RePlan.new
       re_plan.should_receive(:re_workflows=).with([re_workflow_1, re_workflow_2])
       
-      re_plan.revert!({:code => "mock_workflow_code", 
-                            :title => "mock_title", 
-                            :description => "mock_description",
-                            :workflows => ["workflow one", "workflow two"]})
+      re_plan.revert!({"code" => "mock_workflow_code", 
+                            "title" => "mock_title", 
+                            "description" => "mock_description",
+                            "first_workflow" => "one",
+                            "workflow_one" => {"workflow" => "one", "next_workflow" => "two"},
+                            "workflow_two" => {"workflow" => "two", "next_workflow" => ""}
+                        })
                             
      re_plan.code.should == "mock_workflow_code"
      re_plan.title.should == "mock_title"
      re_plan.description.should == "mock_description"
-    end
-  end
-
-  describe "setting the default workflow" do
-    it "should move the workflow to the top of the list" do
-      re_plan_workflow_1 = mock_model(RePlanWorkflow, :re_workflow_id => "1001")
-      re_plan_workflow_2 = mock_model(RePlanWorkflow, :re_workflow_id => "1002")
-      re_plan = RePlan.new
-      re_plan.stub!(:re_plan_workflows).and_return([re_plan_workflow_1, re_plan_workflow_2])
-      
-      re_plan_workflow_1.should_receive(:move_to_top)
-      re_plan.default_workflow = mock_model(ReWorkflow, :id => "1001")
     end
   end
   
@@ -159,7 +154,7 @@ describe RePlan do
     
     it "should return a failed message if there are no workflows" do
       src = RePlan.new(valid_attributes)
-      src.plan_error.should == "workflows required"
+      src.plan_error.should == "workflows req'd"
     end
     
     it "should validate each workflow" do
@@ -173,7 +168,7 @@ describe RePlan do
       @re_workflow_1.should_receive(:workflow_error).at_least(:once).and_return("oops")
       @re_workflow_2.should_not_receive(:workflow)
       
-      @re_plan.plan_error.should == "error within workflows"
+      @re_plan.plan_error.should == "workflow error"
     end
   end
 

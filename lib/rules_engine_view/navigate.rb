@@ -14,7 +14,6 @@ module RulesEngineView
       result << "</em>"
       result << "<span class='re-breadcrumbs-seperator'>></span>" if links[-1] == links[0]
       result << '</div>'
-      # result << '<div class="clear top-5">.</div>'
       result
     end
     
@@ -33,7 +32,6 @@ module RulesEngineView
         
       result << "<div class='re-breadcrumb-right'>#{links[-1]}</div>"
       result << '</div>'      
-      # result << '<div class="clear top-5">.</div>'
       result            
     end
   end  

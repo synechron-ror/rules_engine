@@ -83,10 +83,10 @@ describe ReWorkflow do
       re_workflow.stub!(:re_rules).and_return([mock('rule one', :publish => "rule one"), mock('rule two', :publish => "rule two")])
       
       publish_data = re_workflow.publish
-      publish_data[:code].should == 'aa_mock'
-      publish_data[:title].should == valid_attributes[:title]
-      publish_data[:description].should == valid_attributes[:description]
-      publish_data[:rules].should == ['rule one', 'rule two']
+      publish_data["code"].should == 'aa_mock'
+      publish_data["title"].should == valid_attributes[:title]
+      publish_data["description"].should == valid_attributes[:description]
+      publish_data["rules"].should == ['rule one', 'rule two']
     end
   end
 
@@ -106,10 +106,10 @@ describe ReWorkflow do
       re_workflow = ReWorkflow.new
       re_workflow.should_receive(:re_rules=).with([re_rule_1, re_rule_2])
       
-      re_workflow.revert!({:code => "mock_rule_code", 
-                            :title => "mock_title", 
-                            :description => "mock_description",
-                            :rules => ["rule one", "rule two"]})
+      re_workflow.revert!({"code" => "mock_rule_code", 
+                            "title" => "mock_title", 
+                            "description" => "mock_description",
+                            "rules" => ["rule one", "rule two"]})
                             
      re_workflow.code.should == "mock_rule_code"
      re_workflow.title.should == "mock_title"

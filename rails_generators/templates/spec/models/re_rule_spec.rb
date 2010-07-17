@@ -229,7 +229,7 @@ describe ReRule do
     
     it "should return '[title] class [class] invalid' if the rule is missing" do
       @re_rule.should_receive(:rule).and_return(nil)
-      @re_rule.rule_error.should == "Mock Title class MockRuleClass invalid"
+      @re_rule.rule_error.should == "class MockRuleClass missing"
     end
     
     it "should ignore outcomes where the workflow_code is nil" do
@@ -285,10 +285,10 @@ describe ReRule do
       re_rule = ReRule.new(valid_attributes)
       
       publish_data = re_rule.publish
-      publish_data[:rule_class_name].should == valid_attributes[:rule_class_name]
-      publish_data[:title].should == valid_attributes[:title]
-      publish_data[:summary].should == valid_attributes[:summary]
-      publish_data[:data].should == valid_attributes[:data]
+      publish_data["rule_class_name"].should == valid_attributes[:rule_class_name]
+      publish_data["title"].should == valid_attributes[:title]
+      publish_data["summary"].should == valid_attributes[:summary]
+      publish_data["data"].should == valid_attributes[:data]
     end
   end
 
@@ -303,10 +303,10 @@ describe ReRule do
       RulesEngine::Discovery.should_receive(:rule_class).with('mock_rule_class_name').and_return(@rule_class)      
       
       re_rule.revert!({
-        :rule_class_name => 'mock_rule_class_name',
-        :title => 'mock title',
-        :summary => 'mock summary',
-        :data => 'mock data'
+        "rule_class_name" => 'mock_rule_class_name',
+        "title" => 'mock title',
+        "summary" => 'mock summary',
+        "data" => 'mock data'
       })
       
       re_rule[:rule_class_name].should == 'mock_rule_class_name'

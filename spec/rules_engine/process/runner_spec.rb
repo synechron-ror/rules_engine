@@ -64,7 +64,6 @@ describe "RulesEngine::Process::Runner" do
       
       @plan = {"code" => "plan_code",
                "first_workflow" => "one",
-               "last_workflow" => "three",
                
                "workflow_one" => {
                  "rules" => [{
@@ -118,17 +117,6 @@ describe "RulesEngine::Process::Runner" do
       
       it "should return false" do
         @runner.run(10001, @plan.except("first_workflow"), {}).should == false
-      end
-    end    
-    
-    describe "last_workflow missing" do
-      it "should audit the failure" do
-        RulesEngine::Process.auditor.should_receive(:audit).once.with(10001, anything, RulesEngine::Process::AUDIT_FAILURE)
-        @runner.run(10001, @plan.except("last_workflow"), {})
-      end
-      
-      it "should return false" do
-        @runner.run(10001, @plan.except("last_workflow"), {}).should == false
       end
     end    
     
