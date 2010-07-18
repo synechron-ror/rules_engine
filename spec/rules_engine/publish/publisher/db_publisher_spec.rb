@@ -79,53 +79,93 @@ describe "RulesEngine::Publish::DbPublisher" do
   end
   
   describe "publishing a plan" do
+    
+    describe "writing the plan to the database" do
+      it "should create a new plan with the code and the data" do
+        RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_code => 'mock_code', :version_tag => 'mock_tag'))
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+      end
 
-    it "should create a new plan with the code and the data" do
-      RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_code => 'mock_code', :version_tag => 'mock_tag', :data => '["mock data"]'))
-      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', ['mock data'])
-    end
+      it "should create a set the plan code in the data" do
+        RulesEngine::Publish::RePublishedPlan.should_receive(:create) do |options| 
+          JSON.parse(options[:data])["code"].should == "mock_code"
+        end
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+      end
 
-    it "should set the published_at time to now utc" do
-      now = Time.now
-      Time.stub!(:now).and_return(now)
-      RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:published_at => now.utc))
-      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data')
+      it "should create a set the plan version in the data" do
+        RulesEngine::Publish::RePublishedPlan.should_receive(:create) do |options| 
+          JSON.parse(options[:data])["version"].should == 102
+        end
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+      end
+
+      it "should create a set the plan tag in the data" do
+        RulesEngine::Publish::RePublishedPlan.should_receive(:create) do |options| 
+          JSON.parse(options[:data])["tag"].should == 'mock_tag'
+        end
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+      end
+
+      it "should set the published_at time to now utc" do
+        now = Time.now
+        Time.stub!(:now).and_return(now)
+        RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:published_at => now.utc))
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+      end
+    
+      describe "no existing plan" do
+        it "should set the plan_version as 1" do
+          RulesEngine::Publish::RePublishedPlan.stub!(:plan).and_return(nil)    
+          RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_version => 1))
+          RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+        end
+      end    
+    
+      describe "existing plan" do
+        it "should increment the plan_version" do
+          RulesEngine::Publish::RePublishedPlan.stub!(:plan).and_return(@re_published_plan)
+          RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_version => 102))
+          RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+        end
+      end
     end
     
-    describe "no existing plan" do
-      it "should set the plan_version as 1" do
-        RulesEngine::Publish::RePublishedPlan.stub!(:plan).and_return(nil)    
-        RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_version => 1))
-        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data')
-      end
-    end    
-    
-    describe "existing plan" do
-      it "should increment the plan_version" do
-        RulesEngine::Publish::RePublishedPlan.stub!(:plan).and_return(@re_published_plan)
-        RulesEngine::Publish::RePublishedPlan.should_receive(:create).with(hash_including(:plan_version => 102))
-        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data')
-      end
-    end
-
     it "should return the version" do
       RulesEngine::Publish::RePublishedPlan.stub!(:plan).and_return(@re_published_plan)
       
       @re_published_plan.stub!(:plan_version).and_return(101)
-      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data').should == 102
+      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'}).should == 102
 
       @re_published_plan.stub!(:plan_version).and_return(333)
       RulesEngine::Publish.publisher.stub!(:get_re_plan).and_return(@re_published_plan)
-      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data').should == 334
+      RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'}).should == 334
     end
 
     describe "caching turned on" do
-      it "should write the plan to the cache" do
+      before(:each) do
         RulesEngine::Cache.stub!(:perform_caching?).and_return(true)        
-        @store.should_receive(:write).with('re_db_pub_mock_code_default', 'mock data')
-        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', 'mock data')
       end
-          
+      
+      it "should write the plan to the cache" do
+        @store.should_receive(:write).with('re_db_pub_mock_code_default', hash_including("data" => 'mock'))
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+      end          
+
+      it "should set the plan code in the data" do
+        @store.should_receive(:write).with('re_db_pub_mock_code_default', hash_including("code" => 'mock_code'))
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+      end
+
+      it "should set the plan version in the data" do
+        @store.should_receive(:write).with('re_db_pub_mock_code_default', hash_including("version" => 102))
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+      end
+
+      it "should set the plan tag in the data" do
+        @store.should_receive(:write).with('re_db_pub_mock_code_default', hash_including("tag" => 'mock_tag'))
+        RulesEngine::Publish.publisher.publish('mock_code', 'mock_tag', {"data" => 'mock'})
+      end
     end
   end
 

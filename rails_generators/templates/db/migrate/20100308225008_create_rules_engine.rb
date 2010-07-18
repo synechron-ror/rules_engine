@@ -77,6 +77,7 @@ class CreateRulesEngine < ActiveRecord::Migration
     
     create_table :re_process_runs do |t|
       t.string   :plan_code
+      t.integer  :plan_version
       t.integer  :process_status
       t.datetime :created_at
       t.datetime :started_at

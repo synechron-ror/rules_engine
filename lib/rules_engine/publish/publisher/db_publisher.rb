@@ -33,6 +33,7 @@ module RulesEngine
         re_plan = RePublishedPlan.plan(plan_code, {})
         
         plan_version = re_plan.nil? ? 1 : re_plan.plan_version + 1
+        plan.merge!("code" => plan_code, "version" => plan_version, "tag" => version_tag)
         RePublishedPlan.create(:plan_code => plan_code, :plan_version => plan_version, :version_tag => version_tag, :data => plan.to_json, :published_at => Time.now.utc)
         
         if RulesEngine::Cache.perform_caching?

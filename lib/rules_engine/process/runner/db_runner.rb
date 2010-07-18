@@ -39,7 +39,7 @@ module RulesEngine
           return false
         end
         
-        re_process.update_attributes(:plan_code => plan["code"], :started_at => Time.now.utc, :process_status => RulesEngine::Process::PROCESS_STATUS_RUNNING)  
+        re_process.update_attributes(:plan_code => plan["code"], :plan_version => plan["version"], :started_at => Time.now.utc, :process_status => RulesEngine::Process::PROCESS_STATUS_RUNNING)  
         
         success = _run_plan(process_id, plan, data)
         
@@ -64,6 +64,7 @@ module RulesEngine
               { 
                 "process_id" => re_process_run.id,  
                 "plan_code" => re_process_run.plan_code, 
+                "plan_version" => re_process_run.plan_version, 
                 "process_status" => re_process_run.process_status,  
                 "started_at" => re_process_run.started_at.nil? ? nil : re_process_run.started_at.utc.to_s, 
                 "finished_at" =>re_process_run.finished_at.nil? ? nil : re_process_run.finished_at.utc.to_s

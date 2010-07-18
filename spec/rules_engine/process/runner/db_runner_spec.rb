@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 describe "RulesEngine::Process::ReProcessRun" do
   before(:each) do
     RulesEngine::Process.runner = :db_runner
+    RulesEngine::Process.auditor = nil
     
     @now = Time.now
     @re_process_run_1 = RulesEngine::Process::ReProcessRun.create(:plan_code => 'mock_code', 
@@ -54,10 +55,12 @@ end
 describe "RulesEngine::Process::DbRunner" do
   before(:each) do
     RulesEngine::Process.runner = :db_runner
+    RulesEngine::Process.auditor = nil
     
     @now = Time.now
     @re_process_run = mock_model(RulesEngine::Process::ReProcessRun)
     @re_process_run.stub!(:plan_code).and_return('mock code')
+    @re_process_run.stub!(:plan_version).and_return(1002)
     @re_process_run.stub!(:process_status).and_return(RulesEngine::Process::PROCESS_STATUS_FAILURE)
     @re_process_run.stub!(:started_at).and_return(@now)
     @re_process_run.stub!(:finished_at).and_return(@now + 1.minute)
@@ -93,7 +96,7 @@ describe "RulesEngine::Process::DbRunner" do
   
   describe "running a plan" do
     before(:each) do
-      @plan = {"code" => 'mock_plan'}
+      @plan = {"code" => 'mock_plan', "version" => 1009}
     end
     
     it "should get the created process" do      
@@ -116,9 +119,21 @@ describe "RulesEngine::Process::DbRunner" do
       end              
     end
     
-    it "should update the plan code as running" do
-      @re_process_run.should_receive(:update_attributes).once.with(hash_including(:process_status => RulesEngine::Process::PROCESS_STATUS_RUNNING))
-      RulesEngine::Process.runner.run(1009, @plan, {})                                                        
+    describe "updateing the plan" do
+      it "should update the plan code" do
+        @re_process_run.should_receive(:update_attributes).once.with(hash_including(:plan_code => 'mock_plan'))
+        RulesEngine::Process.runner.run(1009, @plan, {})                                                        
+      end
+    
+      it "should update the plan version" do
+        @re_process_run.should_receive(:update_attributes).once.with(hash_including(:plan_version => 1009))
+        RulesEngine::Process.runner.run(1009, @plan, {})                                                        
+      end
+    
+      it "should update the plan as running" do
+        @re_process_run.should_receive(:update_attributes).once.with(hash_including(:process_status => RulesEngine::Process::PROCESS_STATUS_RUNNING))
+        RulesEngine::Process.runner.run(1009, @plan, {})                                                        
+      end
     end
     
     it "should run the plan" do
@@ -198,11 +213,13 @@ describe "RulesEngine::Process::DbRunner" do
       
       processes.length.should == 2
       processes[0]["plan_code"].should == 'mock code'
+      processes[0]["plan_version"].should == 1002
       processes[0]["process_status"].should == RulesEngine::Process::PROCESS_STATUS_FAILURE
       processes[0]["started_at"].should == @now.utc.to_s
       processes[0]["finished_at"].should == (@now + 1.minute).utc.to_s
   
       processes[1]["plan_code"].should == 'mock code'
+      processes[0]["plan_version"].should == 1002
       processes[1]["process_status"].should == RulesEngine::Process::PROCESS_STATUS_FAILURE
       processes[1]["started_at"].should == @now.utc.to_s
       processes[1]["finished_at"].should == (@now + 1.minute).utc.to_s
