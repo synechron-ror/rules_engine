@@ -4,6 +4,12 @@
   font-family:'andale mono', 'lucida console', monospace;
   padding-top: 6px;
 }
+.re-code-small{
+  font-size: 12px;
+  line-height: 14px;
+  font-family:'lucida console', monospace;
+  padding-top: 3px;
+}
 
 /* ************************************* */
 /* MAPS */
