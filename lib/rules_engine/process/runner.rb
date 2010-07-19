@@ -134,7 +134,11 @@ module RulesEngine
             error = true
           end
 
-          RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : complete", RulesEngine::Process::AUDIT_INFO)
+          if error  
+            RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : failure", RulesEngine::Process::AUDIT_FAILURE)
+          else  
+            RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : success", RulesEngine::Process::AUDIT_SUCCESS)
+          end
       
           !error
         end

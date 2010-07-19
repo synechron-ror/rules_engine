@@ -703,6 +703,16 @@ div.re-xtra-publication-show-pending {
 /* ************************************* */
 /* PROCESSES */
 /* ************************************* */
+.re-breadcrumbs .re-bc-process-list {
+	background: transparent url('./images/rules_engine/re_process/list-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+
+h3.re-hdr-process-show {
+	background: transparent url('./images/rules_engine/re_process/list-25.png') no-repeat left 2px;
+  padding: 0 0 0 30px;
+}
+
 div.re-menu-process-list {
 	background: transparent url('./images/rules_engine/re_process/list-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
@@ -766,7 +776,21 @@ a.re-xtra-process-prev-disabled {
   padding-left: 20px;
 }
 
-
+.re-xtra-process-audit-success {
+  background: transparent url('./images/rules_engine/re_common/status-success-14.png') no-repeat 0px 2px;
+  height: 16px;  
+  padding-left: 20px;
+}
+.re-xtra-process-audit-error {
+  background: transparent url('./images/rules_engine/re_common/status-error-14.png') no-repeat 0px 2px;
+  height: 16px;  
+  padding-left: 20px;
+}
+.re-xtra-process-audit-info {
+  background: transparent url('./images/rules_engine/re_common/status-info-14.png') no-repeat 0px 2px;
+  height: 16px;  
+  padding-left: 20px;
+}
 
 /*div.re-menu-process-list  {
   background: transparent url('./images/rules_engine/re_process/list-25.png') no-repeat left -1px;

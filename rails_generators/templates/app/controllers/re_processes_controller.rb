@@ -10,6 +10,6 @@ class ReProcessesController < ApplicationController
   end
 
   def show
-    # @re_processes = RulesEngine::Process.runner.history(@re_plan.code)
+    @re_audits = RulesEngine::Process.auditor.history(params[:id])
   end
 end

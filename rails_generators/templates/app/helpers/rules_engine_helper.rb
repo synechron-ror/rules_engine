@@ -28,5 +28,15 @@ module RulesEngineHelper
       'info'
     end    
   end    
-  
+
+  def re_audit_status audit_status
+    case audit_status.to_i
+    when RulesEngine::Process::AUDIT_SUCCESS
+      'success'
+    when RulesEngine::Process::AUDIT_FAILURE
+      'error'      
+    else # RulesEngine::Process::AUDIT_INFO
+      'info'
+    end    
+  end      
 end

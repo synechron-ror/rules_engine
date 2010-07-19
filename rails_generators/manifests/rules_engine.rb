@@ -112,8 +112,11 @@ class RulesEngineManifest
       app/views/re_plans/update.js.erb
       app/views/re_processes/_index_prepare.html.erb
       app/views/re_processes/_index_update.html.erb
+      app/views/re_processes/_show.html.erb
       app/views/re_processes/index.html.erb
       app/views/re_processes/index.js.erb
+      app/views/re_processes/show.html.erb
+      app/views/re_processes/show.js.erb
       app/views/re_publications/_show_prepare.html.erb
       app/views/re_publications/_show_update.html.erb
       app/views/re_publications/show.html.erb
@@ -184,6 +187,7 @@ class RulesEngineManifest
       public/javascripts/rules_engine/re_plan_new.js
       public/javascripts/rules_engine/re_plan_preview.js
       public/javascripts/rules_engine/re_process_index.js
+      public/javascripts/rules_engine/re_process_show.js
       public/javascripts/rules_engine/re_publication_show.js
       public/javascripts/rules_engine/re_view.js
       public/javascripts/rules_engine/re_workflow_add.js

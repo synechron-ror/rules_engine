@@ -1,10 +1,10 @@
 module RulesEngine  
   module Process
     
-    AUDIT_NONE    =   -1
-    AUDIT_INFO    =   0
-    AUDIT_SUCCESS =   1
-    AUDIT_FAILURE =   2
+    AUDIT_NONE    =   0
+    AUDIT_INFO    =   1
+    AUDIT_SUCCESS =   2
+    AUDIT_FAILURE =   3
 
     autoload :DbAuditor, 'rules_engine/process/auditor/db_auditor'
     
