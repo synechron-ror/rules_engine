@@ -1314,10 +1314,10 @@ a.button-unchecked:hover	{ background-color: #696969; }
 
 a.re-add-link {
   display: block;
-	background: url(./images/re_view_button/icon-add.png) top left no-repeat;
+	background: url(./images/re_view_button/icon-add.png) left 4px no-repeat;
 	text-decoration: none;
 	font-weight: normal;	
-	padding: 2px 0 2px 24px;
+	padding: 0 0 2px 24px;
   margin: 0;
 }
 

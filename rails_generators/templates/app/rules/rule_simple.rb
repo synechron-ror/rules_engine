@@ -1,15 +1,15 @@
-class <%=rule_class%>Rule < RulesEngine::Rule
+class <%=rule_class%> < RulesEngine::Rule
 
   attr_reader :description
   ##################################################################
   # class options
   self.options = 
     {
-      :group => '<%=rule_class%>',
-      :display_name => '<%=rule_class%>',    
-      :help_partial => '/re_rule_definitions/<%=rule_name%>_rule/help',
-      :new_partial => '/re_rule_definitions/<%=rule_name%>_rule/new',
-      :edit_partial => '/re_rule_definitions/<%=rule_name%>_rule/edit'
+      :group => 'General',
+      :display_name => '<%=rule_class%> Rule',    
+      :help_partial => '/re_rule_definitions/<%=rule_name%>/help',
+      :new_partial => '/re_rule_definitions/<%=rule_name%>/new',
+      :edit_partial => '/re_rule_definitions/<%=rule_name%>/edit'
     } 
   
   ##################################################################

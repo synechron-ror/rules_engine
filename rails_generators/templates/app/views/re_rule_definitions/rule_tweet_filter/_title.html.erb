@@ -1,0 +1,7 @@
+<%= re_text_field "Filter Title", 
+                        "tweet_filter_title", 
+                        params[:tweet_filter_title] || @re_rule.rule.title,
+                        :size => 30, 
+                        :required => true, 
+												:error => @re_rule.rule.errors[:tweet_filter_title],
+                        :span => '4x13' %>

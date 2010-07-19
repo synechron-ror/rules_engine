@@ -1,6 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/manifests/rules_engine')
-require File.expand_path(File.dirname(__FILE__) + '/manifests/rules_engine_simple')
-require File.expand_path(File.dirname(__FILE__) + '/manifests/rules_engine_complex')
+Dir["#{File.dirname(__FILE__)}/manifests/*.rb"].each {|f| require f}
 
 class RulesEngineGenerator < Rails::Generator::Base
 
@@ -18,43 +16,24 @@ class RulesEngineGenerator < Rails::Generator::Base
   def after_generate
     puts ''
     puts '******************************************************'
-    case @rule_type
-
-    when 'simple'
-      if @rule_name.blank? || @rule_class.blank?
-        puts 'error rule name required USAGE ./script/generate simple [rule_name]'
-      else
-        puts 'run >rake spec to test the new rule'  
-      end 
-
-    when 'complex'
-      if @rule_name.blank? || @rule_class.blank?
-        puts 'error rule name required USAGE ./script/generate complex [rule_name]'
-      else
-        puts 'run >rake spec to test the new rule'  
-      end 
-           
-    when nil
+    if @rule_type.nil?
       puts 'open doc/README.rules_engine for more instructions'
-    else
-      puts 'error rule type not known USAGE ./script/generate [simple|complex] [rule_name]'  
+    elsif @rule_name.blank? || @rule_class.blank?
+      puts 'run >rake spec to test the new rule'  
     end      
     puts ''
   end
 
   def manifest
     record do |m|
-      case @rule_type
-      when 'simple'
-        unless @rule_name.blank? || @rule_class.blank?
-          RulesEngineSimpleManifest.populate_record(m, @rule_name ,@rule_class)
-        end  
-      when 'complex'
-        unless @rule_name.blank? || @rule_class.blank?
-          RulesEngineComplexManifest.populate_record(m, @rule_name ,@rule_class)
-        end  
-      when nil  
+      if @rule_type.nil?
         RulesEngineManifest.populate_record(m)
+      elsif @rule_name.blank? || @rule_class.blank?
+        klass = Kernel.const_get("#{@rule_type.classify}Manifest")
+        klass.populate_record(m)
+      else  
+        klass = Kernel.const_get("#{@rule_type.classify}Manifest")
+        klass.populate_record(m, @rule_name ,@rule_class)
       end      
     end
   end

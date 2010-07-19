@@ -1,0 +1,13 @@
+<% id = local_assigns[:position] ? position : 'NEW_RECORD'  %>
+
+<div id="tweet_filter_<%=id%>">
+  <%= re_text_field "Words to filter", "tweet_filter_words[#{id}][word]",  
+                                            local_assigns[:word] ? word : '',
+                                            :size => 25, 
+                                            :required => id == 0, 
+                                            :span => '4x13', 
+																						:error => id == 0 ? @re_rule.rule.errors[:tweet_filter_words] : nil,
+                                            :hint => re_remove_link("Remove", "tweet_filter[#{id}]", id) %>
+        
+  <%= re_remove_field("tweet_filter[#{id}]", id) %>      
+</div>

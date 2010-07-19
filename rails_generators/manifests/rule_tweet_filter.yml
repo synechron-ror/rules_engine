@@ -1,0 +1,12 @@
+directories :
+  - app/rules
+  - app/views/re_rule_definitions/rule_tweet_filter
+  - spec/lib/rules
+  - lib/tasks
+  
+contents :
+  - app/views/re_rule_definitions/rule_tweet_filter
+  
+files :
+  - app/rules/rule_tweet_filter.rb
+  - spec/lib/rules/rule_tweet_filter_spec.rb
