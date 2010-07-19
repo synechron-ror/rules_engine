@@ -98,16 +98,16 @@ class <%=rule_class%>Rule < RulesEngine::Rule
   ##################################################################
   # execute the rule
   # if a match is found procees to the expected outcome
-  # it gets the data parameter :sentence
+  # it gets the data parameter :tweet
   # it sets the data parameter :match
   def process(process_id, data)
-    sentence = data[:sentence] || data["sentence"]    
-    if sentence.blank?
+    tweet = data[:tweet] || data["tweet"]    
+    if tweet.blank?
       return RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT) 
     end
     
     words.each do |word|
-      if /#{word}/i =~ sentence        
+      if /#{word}/i =~ tweet        
         RulesEngine::Process.auditor.audit(process_id, "#{title} Found #{word}", RulesEngine::Process::AUDIT_INFO)
         data[:match] = word
         

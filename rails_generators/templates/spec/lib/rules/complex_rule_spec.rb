@@ -274,7 +274,7 @@ describe <%=rule_class%>Rule do
   #   before(:each) do
   #     @<%=rule_name%>_rule = <%=rule_class%>Rule.new
   #     @<%=rule_name%>_rule.stub!(:words).and_return(["mock", "words"])      
-  #     @data = {:sentence => "there was a mock sentence"}
+  #     @data = {:tweet => "there was a mock tweet"}
   #     
   #     @job = mock("job")
   #     @job.stub!(:audit)      
