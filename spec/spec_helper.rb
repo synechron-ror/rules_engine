@@ -45,3 +45,12 @@ ActiveRecord::Schema.define(:version => 1) do
   end
 end
 
+ActiveRecord::Schema.define(:version => 1) do
+  create_table :re_process_audits do |t|
+    t.integer  :process_id
+          
+    t.datetime :created_at
+    t.integer  :code
+    t.string   :message            
+  end    
+end
