@@ -53,6 +53,7 @@ class RePlan < ActiveRecord::Base
   end  
 
   def revert!(rule_data)
+    self.plan_status = RePlan::PLAN_STATUS_REVERTED
     self.code = rule_data["code"]
     self.title = rule_data["title"]
     self.description = rule_data["description"]
@@ -91,7 +92,8 @@ class RePlan < ActiveRecord::Base
   def default_workflow= re_workflow
     return if self.re_workflows.empty? || self.re_workflows[0] == re_workflow
     re_plan_workflow = re_plan_workflows.detect { | re_plan_workflow | re_plan_workflow.re_workflow_id == re_workflow.id}
-    re_plan_workflow.move_to_top if re_plan_workflow
+    return unless re_plan_workflow
+    re_plan_workflow.move_to_top
     changed!
   end
   

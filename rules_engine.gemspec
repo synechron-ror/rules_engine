@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-07-19}
+  s.date = %q{2010-07-21}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -392,6 +392,7 @@ Gem::Specification.new do |s|
      "spec/rcov.opts",
      "spec/rules_engine/cache_spec.rb",
      "spec/rules_engine/discovery_spec.rb",
+     "spec/rules_engine/process/auditor/db_auditor_spec.rb",
      "spec/rules_engine/process/auditor_spec.rb",
      "spec/rules_engine/process/runner/db_runner_spec.rb",
      "spec/rules_engine/process/runner_spec.rb",
@@ -436,6 +437,7 @@ Gem::Specification.new do |s|
      "spec/railsenv/config/routes.rb",
      "spec/rules_engine/cache_spec.rb",
      "spec/rules_engine/discovery_spec.rb",
+     "spec/rules_engine/process/auditor/db_auditor_spec.rb",
      "spec/rules_engine/process/auditor_spec.rb",
      "spec/rules_engine/process/runner/db_runner_spec.rb",
      "spec/rules_engine/process/runner_spec.rb",

@@ -111,7 +111,6 @@ class RePlansController < ApplicationController
       flash[:error] = 'Cannot Find Published Plan.'
     else
       @re_plan.revert!(plan)
-      @re_plan.plan_status = RePlan::PLAN_STATUS_REVERTED
       @re_plan.save!
       flash[:success] = 'Changes Discarded.'
     end  

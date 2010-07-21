@@ -34,6 +34,23 @@ describe RePlan do
   end  
   
   describe "changing a plan" do
+    describe "changing a plan back to it's reverted state" do
+      it "should mark the plan as published when saving" do
+        re_plan = RePlan.create!(valid_attributes)
+        re_plan.plan_status = RePlan::PLAN_STATUS_REVERTED
+        re_plan.save      
+        re_plan.plan_status.should == RePlan::PLAN_STATUS_PUBLISHED
+      end        
+
+      it "should not mark the plan as changed" do
+        re_plan = RePlan.create!(valid_attributes)
+        re_plan.plan_status = RePlan::PLAN_STATUS_REVERTED
+        re_plan.title = "new title"
+        re_plan.should_not_receive(:changed!)
+        re_plan.save      
+      end        
+    end
+
     it "should mark the plan as changed" do
       re_plan = RePlan.create!(valid_attributes)
       re_plan.title = "new title"
@@ -105,7 +122,13 @@ describe RePlan do
       re_plan = RePlan.new
       re_plan.revert!({}).should == re_plan
     end
-
+    
+    it "should set the plan as reverted" do
+      re_plan = RePlan.new
+      re_plan.revert!({})
+      re_plan.plan_status.should == RePlan::PLAN_STATUS_REVERTED
+    end
+        
     it "should set the plan based on the data" do
       re_workflow_1 = mock_model(ReWorkflow)
       re_workflow_2 = mock_model(ReWorkflow)
@@ -130,7 +153,110 @@ describe RePlan do
     end
   end
   
+  describe "adding a workflow" do
+    it "should be false if it already has the workflow" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow)
+      re_plan.stub!(:re_workflows).and_return([re_workflow])
+      re_plan.add_workflow(re_workflow).should == false
+    end
+    
+    it "should add the workflow" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow)
+      re_workflows = []
+      re_plan.stub!(:re_workflows).and_return(re_workflows)
+      re_plan.add_workflow(re_workflow)
+      re_workflows.should == [re_workflow]
+    end
+    
+    it "should mark the plan as changed" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow)
+      re_plan.should_receive(:changed!)
+      re_plan.add_workflow(re_workflow)
+    end
+  end
+
+  describe "removing a workflow" do
+    it "should be false if it does not have the workflow" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow)
+      re_plan.stub!(:re_workflows).and_return([])
+      re_plan.remove_workflow(re_workflow).should == false
+    end
+    
+    it "should remove the workflow" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow)
+      re_workflows = [re_workflow]
+      re_plan.stub!(:re_workflows).and_return(re_workflows)
+      re_plan.remove_workflow(re_workflow)
+      re_workflows.should == []
+    end
+    
+    it "should mark the plan as changed" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow)
+      re_plan.stub!(:re_workflows).and_return([re_workflow])
+      re_plan.should_receive(:changed!)
+      re_plan.remove_workflow(re_workflow)
+    end
+  end
+  
+  describe "setting thew default workflow" do
+    
+    it "should not change the list if the workflow is not in the list" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow, :id => 1001)
+      re_plan.stub!(:re_workflows).and_return([])
+
+      re_plan.should_not_receive(:changed!)
+      re_plan.default_workflow = re_workflow
+    end
+    
+    it "should not change the list if the workflow is alreasy the default" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow, :id => 1001)
+      re_plan.stub!(:re_workflows).and_return([re_workflow])
+      
+      re_plan.should_not_receive(:changed!)
+      re_plan.default_workflow = re_workflow      
+    end
+    
+    it "should move the workflow to the top of the list" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow, :id => 1001)
+      re_plan.stub!(:re_workflows).and_return([mock_model(ReWorkflow, :id => 1001), re_workflow])
+      
+      re_plan_workflow = mock_model(RePlanWorkflow, :re_workflow_id => 1001)
+      re_plan.stub!(:re_plan_workflows).and_return([re_plan_workflow])      
+      
+      re_plan_workflow.should_receive(:move_to_top)
+      re_plan.default_workflow = re_workflow
+    end
+    
+    it "should mark the plan as changed" do
+      re_plan = RePlan.new
+      re_workflow = mock_model(ReWorkflow, :id => 1001)
+      re_plan.stub!(:re_workflows).and_return([mock_model(ReWorkflow, :id => 1001), re_workflow])
+      
+      re_plan_workflow = mock_model(RePlanWorkflow, :re_workflow_id => 1001)
+      re_plan_workflow.stub!(:move_to_top)
+      re_plan.stub!(:re_plan_workflows).and_return([re_plan_workflow])      
+      
+      re_plan.should_receive(:changed!)
+      re_plan.default_workflow = re_workflow
+    end        
+  end
+  
   describe "getting the default workflow" do
+    it "should return nil if the workflow list empty" do
+      re_plan = RePlan.new
+      re_plan.stub!(:re_workflows).and_return([])
+      re_plan.default_workflow.should == nil
+    end
+
     it "should return the first workflow in the list" do
       re_workflow_1 = mock_model(ReWorkflow)
       re_workflow_2 = mock_model(ReWorkflow)
