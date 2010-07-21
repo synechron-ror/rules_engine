@@ -5,7 +5,7 @@ class ReRuleExpectedOutcome < ActiveRecord::Base
   validates_presence_of :outcome  
 
   def validate    
-    if outcome == RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW && workflow_code.blank?
+    if outcome == RulesEngine::Rule::Outcome::START_WORKFLOW && workflow_code.blank?
       errors.add(:workflow_code, "workflow code required")
     end
   end

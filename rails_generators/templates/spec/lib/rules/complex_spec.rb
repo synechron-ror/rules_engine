@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe <%=rule_class%> do
+describe RulesEngine::Rule::<%=rule_class%> do
 
   def valid_attributes
     {
@@ -17,34 +17,34 @@ describe <%=rule_class%> do
   end
   
   it "should be discoverable" do
-    RulesEngine::Discovery.rule_class("<%=rule_class%>").should == <%=rule_class%>
+    RulesEngine::Discovery.rule_class("RulesEngine::Rule::<%=rule_class%>").should == RulesEngine::Rule::<%=rule_class%>
   end
 
   describe "the expected class options" do    
     it "should be in the 'General' group" do
-      <%=rule_class%>.options[:group].should == "General"
+      RulesEngine::Rule::<%=rule_class%>.options[:group].should == "General"
     end
     
-    it "should have the diplay name of '<%=rule_class%> Rule'" do
-      <%=rule_class%>.options[:display_name].should == "<%=rule_class%> Rule"
+    it "should have the diplay name of '<%=rule_class%>'" do
+      RulesEngine::Rule::<%=rule_class%>.options[:display_name].should == "<%=rule_class%>"
     end
 
     it "should have the help template of '/re_rule_definitions/<%=rule_name%>/help'" do
-      <%=rule_class%>.options[:help_partial].should == '/re_rule_definitions/<%=rule_name%>/help'
+      RulesEngine::Rule::<%=rule_class%>.options[:help_partial].should == '/re_rule_definitions/<%=rule_name%>/help'
     end
 
     it "should have the new template of '/re_rule_definitions/<%=rule_name%>/new'" do
-      <%=rule_class%>.options[:new_partial].should == '/re_rule_definitions/<%=rule_name%>/new'
+      RulesEngine::Rule::<%=rule_class%>.options[:new_partial].should == '/re_rule_definitions/<%=rule_name%>/new'
     end
 
     it "should have the edit view partial template of '/re_rule_definitions/<%=rule_name%>/edit'" do
-      <%=rule_class%>.options[:edit_partial].should == '/re_rule_definitions/<%=rule_name%>/edit'
+      RulesEngine::Rule::<%=rule_class%>.options[:edit_partial].should == '/re_rule_definitions/<%=rule_name%>/edit'
     end
   end
   
   describe "setting the rule data" do
     before(:each) do
-      @<%=rule_name%> = <%=rule_class%>.new
+      @<%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       @<%=rule_name%>.data = valid_json_data
     end  
     
@@ -99,13 +99,13 @@ describe <%=rule_class%> do
   
   describe "the summary" do
     it "should be singluar if there is one word" do
-      <%=rule_name%> = <%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       <%=rule_name%>.stub!(:words).and_return(["one"])
       <%=rule_name%>.summary.should == "Match the word one"
     end
 
     it "should be plural if there are multiple words" do
-      <%=rule_name%> = <%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       <%=rule_name%>.stub!(:words).and_return(["one", "two", "three"])
       <%=rule_name%>.summary.should == "Match the words one, two, three"
     end        
@@ -113,7 +113,7 @@ describe <%=rule_class%> do
 
   describe "the data" do
     it "should be converted to a json string" do
-      <%=rule_name%> = <%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       <%=rule_name%>.should_receive(:title).and_return(["mock title"])
       <%=rule_name%>.should_receive(:words).and_return(["one", "two"])
       <%=rule_name%>.should_receive(:workflow_action).and_return(["workflow action"])
@@ -124,41 +124,41 @@ describe <%=rule_class%> do
   
   describe "the expected_outcomes" do
     it "should be next" do
-      <%=rule_name%> = <%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       <%=rule_name%>.should_receive(:workflow_action).and_return('next')
-      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]
+      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::Rule::Outcome::NEXT]
     end
     
     it "should be stop success" do
-      <%=rule_name%> = <%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       <%=rule_name%>.should_receive(:workflow_action).and_return('stop_success')
-      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS]
+      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::Rule::Outcome::STOP_SUCCESS]
     end
     
     it "should be stop failure" do
-      <%=rule_name%> = <%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       <%=rule_name%>.should_receive(:workflow_action).and_return('stop_failure')
-      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE]
+      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::Rule::Outcome::STOP_FAILURE]
     end
     
     it "should be start workflow" do
-      <%=rule_name%> = <%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       <%=rule_name%>.should_receive(:workflow_action).and_return('start_workflow')
       <%=rule_name%>.should_receive(:workflow).and_return('mock workflow')
-      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW, :workflow_code => "mock workflow"]
+      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::Rule::Outcome::START_WORKFLOW, :workflow_code => "mock workflow"]
     end
     
     it "should be next be default" do
-      <%=rule_name%> = <%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       <%=rule_name%>.should_receive(:workflow_action).and_return('this is not valid')
-      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT]
+      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::Rule::Outcome::NEXT]
     end
     
   end
   
   describe "setting the rule attributes" do
     before(:each) do
-      @<%=rule_name%> = <%=rule_class%>.new
+      @<%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
     end  
     
     it "should be valid with valid attributes" do
@@ -272,16 +272,16 @@ describe <%=rule_class%> do
   
   describe "processing the rule" do
     before(:each) do
-      @<%=rule_name%> = <%=rule_class%>.new
+      @<%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       @<%=rule_name%>.stub!(:words).and_return(["found", "word"])
     end
     
     it "should do nothing if there is no tweet" do      
-      @<%=rule_name%>.process(1001, {}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+      @<%=rule_name%>.process(1001, {}).outcome.should == RulesEngine::Rule::Outcome::NEXT
     end        
   
     it "should do nothing if there is no match" do
-      @<%=rule_name%>.process(@job, {:tweet => "not here"}).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+      @<%=rule_name%>.process(@job, {:tweet => "not here"}).outcome.should == RulesEngine::Rule::Outcome::NEXT
     end        
     
     describe "a match found" do
@@ -305,24 +305,24 @@ describe <%=rule_class%> do
       describe "matching workflow actions" do
         it "should return next" do
           @<%=rule_name%>.should_receive(:workflow_action).and_return('next')
-          @<%=rule_name%>.process(1001, @matched_data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_NEXT
+          @<%=rule_name%>.process(1001, @matched_data).outcome.should == RulesEngine::Rule::Outcome::NEXT
         end
 
         it "should return stop_success" do
           @<%=rule_name%>.should_receive(:workflow_action).and_return('stop_success')
-          @<%=rule_name%>.process(1001, @matched_data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
+          @<%=rule_name%>.process(1001, @matched_data).outcome.should == RulesEngine::Rule::Outcome::STOP_SUCCESS
         end
 
         it "should return stop_failure" do
           @<%=rule_name%>.should_receive(:workflow_action).and_return('stop_failure')
-          @<%=rule_name%>.process(1001, @matched_data).outcome.should == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
+          @<%=rule_name%>.process(1001, @matched_data).outcome.should == RulesEngine::Rule::Outcome::STOP_FAILURE
         end
         
         it "should return start workflow with the workflow_code" do
           @<%=rule_name%>.should_receive(:workflow_action).and_return('start_workflow')
           @<%=rule_name%>.should_receive(:workflow).and_return('mock_workflow')
           <%=rule_name%>_outcome = @<%=rule_name%>.process(1001, @matched_data)
-          <%=rule_name%>_outcome.outcome.should == RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW
+          <%=rule_name%>_outcome.outcome.should == RulesEngine::Rule::Outcome::START_WORKFLOW
           <%=rule_name%>_outcome.workflow_code.should == "mock_workflow"
         end        
       end

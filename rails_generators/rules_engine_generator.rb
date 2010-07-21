@@ -21,8 +21,8 @@ class RulesEngineGenerator < Rails::Generator::Base
       puts ''
     end
     if @rule_name.nil?    
-      puts 'run >script/generate rules_engine rule_simple [rule name]'
-      puts 'run >script/generate rules_engine rule_complex [rule name]'
+      puts 'run >script/generate rules_engine simple [rule name]'
+      puts 'run >script/generate rules_engine complex [rule name]'
       puts ''
       puts "or install the rules_engine_templates gem to see other templates"
       puts ''

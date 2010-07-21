@@ -187,32 +187,32 @@ describe ReRule do
     end
     
     it "should return the first outcome that is a OUTCOME_NEXT" do
-      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)
-      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_NEXT)
+      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::Rule::Outcome::NEXT)
+      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::Rule::Outcome::NEXT)
       @re_rule.re_rule_expected_outcomes << outcome_1
       @re_rule.re_rule_expected_outcomes << outcome_2
       @re_rule.re_rule_expected_outcome_next.should == outcome_1
     end
   
     it "should return the first outcome that is a OUTCOME_STOP_SUCCESS" do
-      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
-      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS)
+      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::Rule::Outcome::STOP_SUCCESS)
+      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::Rule::Outcome::STOP_SUCCESS)
       @re_rule.re_rule_expected_outcomes << outcome_1
       @re_rule.re_rule_expected_outcomes << outcome_2
       @re_rule.re_rule_expected_outcome_success.should == outcome_1
     end
   
     it "should return the first outcome that is a OUTCOME_STOP_FAILURE" do
-      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
-      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE)
+      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::Rule::Outcome::STOP_FAILURE)
+      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::Rule::Outcome::STOP_FAILURE)
       @re_rule.re_rule_expected_outcomes << outcome_1
       @re_rule.re_rule_expected_outcomes << outcome_2
       @re_rule.re_rule_expected_outcome_failure.should == outcome_1
     end
   
     it "should return all outcomes that are a OUTCOME_START_WORKFLOW" do
-      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW)
-      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW)
+      outcome_1 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::Rule::Outcome::START_WORKFLOW)
+      outcome_2 = ReRuleExpectedOutcome.new(:outcome => RulesEngine::Rule::Outcome::START_WORKFLOW)
       @re_rule.re_rule_expected_outcomes << outcome_1
       @re_rule.re_rule_expected_outcomes << outcome_2
       @re_rule.re_rule_expected_outcomes_start_workflow.should == [outcome_1, outcome_2]
@@ -239,21 +239,21 @@ describe ReRule do
     end
   
     it "should validate the workflow is present and activated" do
-      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :workflow_code => "mock_workflow_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW)
+      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :workflow_code => "mock_workflow_code", :outcome => RulesEngine::Rule::Outcome::START_WORKFLOW)
       ReWorkflow.should_receive(:find_by_code).and_return(mock("ReWorkflow", :workflow_error => nil))      
       @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
       @re_rule.rule_error.should be_nil
     end
       
     it "should return '[workflow_code] missing' if the required workflow is missing" do
-      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :workflow_code => "mock_workflow_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW)
+      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :workflow_code => "mock_workflow_code", :outcome => RulesEngine::Rule::Outcome::START_WORKFLOW)
       ReWorkflow.should_receive(:find_by_code).and_return(nil)
       @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
       @re_rule.rule_error.should == "mock_workflow_code missing"
     end
     
     it "should return '[workflow_code] invalid' if the required workflow has errors" do
-      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :workflow_code => "mock_workflow_code", :outcome => RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW)
+      re_rule_expected_outcome = mock_model(ReRuleExpectedOutcome, :workflow_code => "mock_workflow_code", :outcome => RulesEngine::Rule::Outcome::START_WORKFLOW)
       ReWorkflow.should_receive(:find_by_code).and_return(mock("ReWorkflow", :workflow_error => "workflow error"))      
       @re_rule.stub!(:re_rule_expected_outcomes).and_return([re_rule_expected_outcome])
       @re_rule.rule_error.should == "mock_workflow_code invalid"

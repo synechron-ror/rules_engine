@@ -55,7 +55,7 @@ describe "RulesEngine::Process::Runner" do
       @rule_class.stub!(:new).and_return(@rule_class)
       @rule_class.stub!(:title).and_return('mock title')
       @rule_class.stub!(:data=)
-      @rule_class.stub!(:process).and_return(RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT))
+      @rule_class.stub!(:process).and_return(RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::NEXT))
       RulesEngine::Discovery.stub!(:rule_class).and_return(@rule_class)
 
       RulesEngine::Process.auditor.stub!(:audit)# {|one, two, three| puts two }
@@ -183,7 +183,7 @@ describe "RulesEngine::Process::Runner" do
 
         describe "rule returns NEXT" do
           it "should proceed to the next rule" do
-            @test_rule.stub!(:process).and_return(RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_NEXT))
+            @test_rule.stub!(:process).and_return(RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::NEXT))
             RulesEngine::Discovery.should_receive(:rule_class).with("one_two")
             @runner.run(10001, @plan, {})
           end
@@ -191,39 +191,39 @@ describe "RulesEngine::Process::Runner" do
         
         describe "rule returns STOP_SUCCESS" do
           it "should not proceed to the next rule" do
-            @test_rule.stub!(:process).and_return(RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS))
+            @test_rule.stub!(:process).and_return(RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_SUCCESS))
             RulesEngine::Discovery.should_not_receive(:rule_class).with("one_two")
             @runner.run(10001, @plan, {})
           end
 
           it "should return success" do
-            @test_rule.stub!(:process).and_return(RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS))
+            @test_rule.stub!(:process).and_return(RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_SUCCESS))
             @runner.run(10001, @plan, {}) == true
           end
         end
 
         describe "rule returns STOP_FAILURE" do
           it "should not proceed to the next rule" do
-            @test_rule.stub!(:process).and_return(RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE))
+            @test_rule.stub!(:process).and_return(RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_FAILURE))
             RulesEngine::Discovery.should_not_receive(:rule_class).with("one_two")
             @runner.run(10001, @plan, {})
           end
 
           it "should return failure" do
-            @test_rule.stub!(:process).and_return(RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE))
+            @test_rule.stub!(:process).and_return(RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_FAILURE))
             @runner.run(10001, @plan, {}) == false
           end
         end
 
         describe "rule returns START_WORKFLOW" do
           it "should not proceed to the next rule" do
-            @test_rule.stub!(:process).and_return(RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW, 'three'))
+            @test_rule.stub!(:process).and_return(RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::START_WORKFLOW, 'three'))
             RulesEngine::Discovery.should_not_receive(:rule_class).with("one_two")
             @runner.run(10001, @plan, {})
           end
 
           it "should start the defined workflow" do
-            @test_rule.stub!(:process).and_return(RulesEngine::RuleOutcome.new(RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW, 'three'))
+            @test_rule.stub!(:process).and_return(RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::START_WORKFLOW, 'three'))
             RulesEngine::Discovery.should_not_receive(:rule_class).with("two_one")
             RulesEngine::Discovery.should_receive(:rule_class).with("three_one")
             @runner.run(10001, @plan, {})

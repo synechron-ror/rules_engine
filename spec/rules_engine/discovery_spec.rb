@@ -39,30 +39,40 @@ describe "RulesEngine::Discovery" do
   end
 
   it "should use the rules filename to define the rule class name" do
-    RulesEngine::Discovery.discover!      
-    RulesEngine::Discovery.rule_classes.should include(MockRule)
+    RulesEngine::Discovery.discover!
+    puts RulesEngine::Discovery.rule_classes
+    RulesEngine::Discovery.rule_classes.should include(RulesEngine::Rule::MockRule)
   end
 
   it "should undefine an existing the rule class" do
     RulesEngine::Discovery.discover! 
-    RulesEngine::Discovery.rule_class('MockRule').options.should == {:group=>"mock group"}
-    RulesEngine::Discovery.rule_class('MockRule').options[:name] = "test"
+    RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule').options.should == {:group=>"mock group"}
+    RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule').options[:name] = "test"
     RulesEngine::Discovery.discover! 
-    RulesEngine::Discovery.rule_class('MockRule').options.should == {:group=>"mock group"}
+    RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule').options.should == {:group=>"mock group"}
   end
 
   it "should add the rule to the rule group" do
     RulesEngine::Discovery.discover!      
-    RulesEngine::Discovery.rule_groups['mock group'].should include(MockRule)
+    RulesEngine::Discovery.rule_groups['mock group'].should include(RulesEngine::Rule::MockRule)
   end
   
   it "should return the class that matches the name" do
     RulesEngine::Discovery.discover!      
-    RulesEngine::Discovery.rule_class('MockRule').should == MockRule
+    RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule').should == RulesEngine::Rule::MockRule
   end
 
   it "should return nil if the class is unknown" do
     RulesEngine::Discovery.discover!      
     RulesEngine::Discovery.rule_class('unknown').should be_nil
   end
+  
+  describe "the rule class" do
+    it "should have a matching rule_class_name" do
+      RulesEngine::Discovery.discover!      
+      rule = RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule')
+      rule.rule_class_name.should == 'RulesEngine::Rule::MockRule'
+    end        
+  end
+  
 end

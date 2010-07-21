@@ -98,19 +98,19 @@ module RulesEngine
               rule_outcome = rule.process(process_id, data)
               RulesEngine::Process.auditor.audit(process_id, "Rule : #{rule.title} : finished")
 
-              if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS
+              if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_SUCCESS
                 RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : stop success", RulesEngine::Process::AUDIT_SUCCESS)
                 done = true 
                 break
               end
         
-              if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE
+              if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_FAILURE
                 RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : stop failure", RulesEngine::Process::AUDIT_FAILURE)
                 error = done = true 
                 break
               end
         
-              if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW
+              if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::START_WORKFLOW
                 RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : start next workflow - #{rule_outcome.workflow_code}", RulesEngine::Process::AUDIT_INFO)
                 next_workflow = rule_outcome.workflow_code
                 break

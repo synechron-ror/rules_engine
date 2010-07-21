@@ -150,7 +150,7 @@ class ApplicationController < ActionController::Base
 
 ######################################
 # 9. Create a Complex Rule
-  ./script/generate rules_engine rule_complex match_words
+  ./script/generate rules_engine complex match_words
 
 ######################################
 # 10. Run the Tests

@@ -89,19 +89,19 @@ class ReRule < ActiveRecord::Base
   end
   
   def re_rule_expected_outcome_next
-    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_NEXT }
+    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::Rule::Outcome::NEXT }
   end
   
   def re_rule_expected_outcome_success
-    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_SUCCESS }
+    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::Rule::Outcome::STOP_SUCCESS }
   end
 
   def re_rule_expected_outcome_failure
-    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_STOP_FAILURE }
+    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::Rule::Outcome::STOP_FAILURE }
   end
 
   def re_rule_expected_outcomes_start_workflow
-    re_rule_expected_outcomes.select{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::RuleOutcome::OUTCOME_START_WORKFLOW }
+    re_rule_expected_outcomes.select{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::Rule::Outcome::START_WORKFLOW }
   end
 
   protected
