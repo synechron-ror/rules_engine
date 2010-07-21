@@ -18,7 +18,11 @@ class RulesEngineGenerator < Rails::Generator::Base
     puts '******************************************************'
     if @rule_type.nil?
       puts 'open doc/README.rules_engine for more instructions'
-    elsif @rule_name.blank? || @rule_class.blank?
+      puts ''
+      Dir["#{File.dirname(__FILE__)}/manifests/*.rb"].each do |f| 
+        puts "run >script/generate rules_engine #{File.basename(rule, '.rb')} [rule name]"
+      end      
+    else
       puts 'run >rake spec to test the new rule'  
     end      
     puts ''
@@ -28,9 +32,6 @@ class RulesEngineGenerator < Rails::Generator::Base
     record do |m|
       if @rule_type.nil?
         RulesEngineManifest.populate_record(m)
-      elsif @rule_name.blank? || @rule_class.blank?
-        klass = Kernel.const_get("#{@rule_type.classify}Manifest")
-        klass.populate_record(m)
       else  
         klass = Kernel.const_get("#{@rule_type.classify}Manifest")
         klass.populate_record(m, @rule_name ,@rule_class)
