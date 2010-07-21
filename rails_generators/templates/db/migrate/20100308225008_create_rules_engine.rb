@@ -9,8 +9,6 @@ class CreateRulesEngine < ActiveRecord::Migration
       t.integer :plan_status
       t.integer :plan_version
       
-      t.integer :default_workflow_id
-      
       t.datetime :created_at
       t.datetime :updated_at
     end

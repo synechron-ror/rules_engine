@@ -52,6 +52,9 @@ files :
   
   - public/stylesheets/jquery.autocomplete.css
   
+  - spec/support/rules_engine_macros.rb
+  - spec/support/rules_engine_blueprints.rb  
+  
   - spec/helpers/rules_engine_helper_spec.rb
   
   - spec/models/re_plan_spec.rb         
@@ -59,8 +62,8 @@ files :
   - spec/models/re_rule_spec.rb                  
   - spec/models/re_rule_expected_outcome_spec.rb 
   - spec/models/re_workflow_spec.rb
-  
-  - spec/support/rules_engine_macros.rb
+
+  - spec/controllers/re_plans_controller_spec.rb
   
   - features/step_definitions/common/re_debug_steps.rb
   - features/step_definitions/common/re_error_steps.rb      
@@ -70,4 +73,3 @@ files :
   - features/step_definitions/common/re_view_steps.rb
 
   - features/support/rules_engine.rb
-  - features/support/blueprint_re_pipelines.rb  
