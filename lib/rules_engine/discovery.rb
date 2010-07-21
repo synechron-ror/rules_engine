@@ -21,15 +21,14 @@ module RulesEngine
         @rule_groups = {}
         
         Dir.glob("#{rules_path}/**/*.rb").each do |rule| 
-          require rule
-          
+          Kernel.load rule
+
           rule_class = Kernel.const_get(File.basename(rule, '.rb').classify)
           @rule_classes << rule_class
           
           group = rule_class.options[:group]
           @rule_groups[group] = [] unless @rule_groups.include?(group)
           @rule_groups[group] << rule_class
-          
         end  
         
         @rule_classes.sort! { |left, right| return left.to_s < right.to_s}
