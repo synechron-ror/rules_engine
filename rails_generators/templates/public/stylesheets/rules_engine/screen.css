@@ -679,9 +679,15 @@ select#re_rule_class_list {
   background-color: #FFF;
   overflow: hidden;
 }
-.re-xtra-rule-list p {
+.re-xtra-rule-list {
+}
+p.re-xtra-rule-name {
   float: left;
-  font-size: 120%;
+  font-size: 14px;
+  line-height: 18px;
+  width: 180px;
+  height: 16px;
+  overflow: hidden;
 }
 
 /* ************************************* */
