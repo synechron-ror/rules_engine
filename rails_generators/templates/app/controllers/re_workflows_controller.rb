@@ -77,6 +77,7 @@ class ReWorkflowsController < ApplicationController
   end
 
   def change
+    RulesEngine::Discovery.discover!
   end
   
   def preview

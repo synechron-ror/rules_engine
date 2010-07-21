@@ -19,8 +19,8 @@ class RulesEngineGenerator < Rails::Generator::Base
     if @rule_type.nil?
       puts 'open doc/README.rules_engine for more instructions'
       puts ''
-      Dir["#{File.dirname(__FILE__)}/manifests/*.rb"].each do |f| 
-        puts "run >script/generate rules_engine #{File.basename(rule, '.rb')} [rule name]"
+      Dir["#{File.dirname(__FILE__)}/manifests/*.rb"].each do |manifest| 
+        puts "run >script/generate rules_engine #{File.basename(manifest, '.rb')} [rule name]"
       end      
     else
       puts 'run >rake spec to test the new rule'  

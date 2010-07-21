@@ -86,6 +86,7 @@ class RePlanWorkflowsController < ApplicationController
   end
 
   def change
+    RulesEngine::Discovery.discover!
   end
   
   def default
