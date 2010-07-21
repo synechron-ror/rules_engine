@@ -19,20 +19,24 @@ class RulesEngineGenerator < Rails::Generator::Base
     if @rule_type.nil?
       puts 'open doc/README.rules_engine for more instructions'
       puts ''
-      Dir["#{File.dirname(__FILE__)}/manifests/*.rb"].each do |manifest| 
-        puts "run >script/generate rules_engine #{File.basename(manifest, '.rb')} [rule name]"
-      end      
+    end
+    if @rule_name.nil?    
+      puts 'run >script/generate rules_engine rule_simple [rule name]'
+      puts 'run >script/generate rules_engine rule_complex [rule name]'
+      puts ''
+      puts "or install the rules_engine_templates gem to see other templates"
+      puts ''
     else
       puts 'run >rake spec to test the new rule'  
+      puts ''
     end      
-    puts ''
   end
 
   def manifest
     record do |m|
       if @rule_type.nil?
         RulesEngineManifest.populate_record(m)
-      else  
+      elsif !@rule_name.nil?  
         klass = Kernel.const_get("#{@rule_type.classify}Manifest")
         klass.populate_record(m, @rule_name ,@rule_class)
       end      
