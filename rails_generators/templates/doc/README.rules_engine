@@ -146,7 +146,7 @@ class ApplicationController < ActionController::Base
 
 ######################################
 # 8. Create a Simple Rule
-  ./script/generate rules_engine rule_simple does_nothing
+  ./script/generate rules_engine simple does_nothing
 
 ######################################
 # 9. Create a Complex Rule

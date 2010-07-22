@@ -31,7 +31,7 @@ class RePlansController < ApplicationController
       
       respond_to do |format|
         format.html do
-          redirect_to(re_plans_path)
+          redirect_to(change_re_plan_path(@re_plan))
         end  
         format.js do
           render :action => "create"

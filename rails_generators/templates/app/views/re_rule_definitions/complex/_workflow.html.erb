@@ -13,7 +13,7 @@
 																		:required => true %>
 </div>
 <div class="prepend-1 span-7 last">
-  <%%= re_text_field "Workflow Name", "<%=rule_name%>_workflow", @re_rule.rule.workflow || params[:<%=rule_name%>_workflow] || '', 
+  <%%= re_text_field "Workflow Code", "<%=rule_name%>_workflow", @re_rule.rule.workflow || params[:<%=rule_name%>_workflow] || '', 
 																		:size => 20, 
 																		:required => true, 
 																		:span => '3x5',

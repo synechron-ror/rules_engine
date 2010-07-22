@@ -4,8 +4,8 @@ describe RulesEngine::Rule::Simple do
 
   def valid_attributes
     {
-      :rule_<%=rule_name%>_title => 'Valid Title'
-      # :rule_<%=rule_name%>_description => 'Valid Description'
+      :rule_<%=rule_name%>_title => 'Valid Title',
+      :rule_<%=rule_name%>_description => 'Valid Description'
     }
   end
   
