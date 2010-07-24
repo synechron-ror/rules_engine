@@ -9,9 +9,9 @@ module RulesEngine
         {
           :group => 'General',
           :display_name => 'Simple',    
-          :help_partial => '/re_rule_definitions/rule_<%=rule_name%>/help',
-          :new_partial => '/re_rule_definitions/rule_<%=rule_name%>/new',
-          :edit_partial => '/re_rule_definitions/rule_<%=rule_name%>/edit'
+          :help_partial => '/re_rule_definitions/<%=rule_name%>/help',
+          :new_partial => '/re_rule_definitions/<%=rule_name%>/new',
+          :edit_partial => '/re_rule_definitions/<%=rule_name%>/edit'
         } 
   
       ##################################################################
@@ -48,15 +48,15 @@ module RulesEngine
       def attributes=(params)
         param_hash = params.symbolize_keys
 
-        @title = param_hash[:rule_<%=rule_name%>_title]
-        @description = param_hash[:rule_<%=rule_name%>_description]
+        @title = param_hash[:<%=rule_name%>_title]
+        @description = param_hash[:<%=rule_name%>_description]
       end
   
       ##################################################################
       # validation and errors
       def valid?
         @errors = {}
-        @errors[:rule_<%=rule_name%>_title] = "Title required" if title.blank?    
+        @errors[:<%=rule_name%>_title] = "Title required" if title.blank?    
         return @errors.empty?
       end
 

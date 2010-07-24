@@ -14,11 +14,8 @@ templates :
   files : 
     - app/rules/complex.rb
     - app/views/re_rule_definitions/complex/_edit.html.erb
+    - app/views/re_rule_definitions/complex/_form_word.html.erb
+    - app/views/re_rule_definitions/complex/_form.html.erb
     - app/views/re_rule_definitions/complex/_help.html.erb
-    - app/views/re_rule_definitions/complex/_workflow.html.erb
-    - app/views/re_rule_definitions/complex/_script.html.erb
-    - app/views/re_rule_definitions/complex/_title.html.erb
     - app/views/re_rule_definitions/complex/_new.html.erb
-    - app/views/re_rule_definitions/complex/_word.html.erb
-    - app/views/re_rule_definitions/complex/_words.html.erb
     - spec/lib/rules/complex_spec.rb

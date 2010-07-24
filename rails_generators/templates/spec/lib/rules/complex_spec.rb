@@ -1,19 +1,19 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
+def valid_<%=rule_name%>_rule_data
+  '["Rule Title", ["word one", "word two"], "start_workflow", "Other Workflow"]'
+end
+
 describe RulesEngine::Rule::<%=rule_class%> do
 
   def valid_attributes
     {
-      :<%=rule_name%>_title => 'Valid Title',
+      :<%=rule_name%>_title => 'Another Title',
       :<%=rule_name%>_words => {
                     "1" => { "word" => 'first word'  },
                     "2" => { "word" => 'second word' }
                   }
     }
-  end
-  
-  def valid_json_data
-    '["Rule Title", ["one", "two"], "start_workflow", "Other Pipeline"]'
   end
   
   it "should be discoverable" do
@@ -45,7 +45,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
   describe "setting the rule data" do
     before(:each) do
       @<%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
-      @<%=rule_name%>.data = valid_json_data
+      @<%=rule_name%>.data = valid_<%=rule_name%>_rule_data
     end  
     
     describe "the json data is valid" do
@@ -58,7 +58,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
       end
 
       it "should set the words" do
-        @<%=rule_name%>.words.should == ["one", "two"]
+        @<%=rule_name%>.words.should == ["word one", "word two"]
       end
 
       it "should set the workflow_action" do
@@ -66,7 +66,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
       end
 
       it "should set the workflow" do
-        @<%=rule_name%>.workflow.should == "Other Pipeline"
+        @<%=rule_name%>.workflow.should == "Other Workflow"
       end        
     end
 
@@ -114,11 +114,11 @@ describe RulesEngine::Rule::<%=rule_class%> do
   describe "the data" do
     it "should be converted to a json string" do
       <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
-      <%=rule_name%>.should_receive(:title).and_return(["mock title"])
+      <%=rule_name%>.should_receive(:title).and_return("mock title")
       <%=rule_name%>.should_receive(:words).and_return(["one", "two"])
-      <%=rule_name%>.should_receive(:workflow_action).and_return(["workflow action"])
-      <%=rule_name%>.should_receive(:workflow).and_return(["workflow"])
-      <%=rule_name%>.data.should == '[["mock title"],["one","two"],["workflow action"],["workflow"]]'
+      <%=rule_name%>.should_receive(:workflow_action).and_return("workflow action")
+      <%=rule_name%>.should_receive(:workflow).and_return("workflow")
+      <%=rule_name%>.data.should == '["mock title",["one","two"],"workflow action","workflow"]'
     end
   end
   
@@ -169,7 +169,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
     describe "setting the <%=rule_name%>_title" do
       it "should set the title" do
         @<%=rule_name%>.attributes = valid_attributes
-        @<%=rule_name%>.title.should == 'Valid Title'
+        @<%=rule_name%>.title.should == 'Another Title'
       end            
     
       it "should not be valid if the '<%=rule_name%>_title' attribute is missing" do
@@ -328,4 +328,58 @@ describe RulesEngine::Rule::<%=rule_class%> do
       end
     end    
   end
+end
+
+describe ReWorkflowRulesController, :type => :controller  do
+  integrate_views
+  
+  before(:each) do
+    controller.instance_eval { flash.stub!(:sweep) }
+    
+    RulesEngine::Discovery.discover!
+    
+    controller.stub!(:rules_engine_reader_access_required).and_return(true)
+    controller.stub!(:rules_engine_editor_access_required).and_return(true)
+
+    @re_workflow = ReWorkflow.make
+    ReWorkflow.stub!(:find).and_return(@re_workflow)
+  end  
+  
+  describe "<%=rule_name%> rule help" do
+    it "should assign the <%=rule_name%> rule class" do
+      get :help, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
+      assigns[:rule_class].should == RulesEngine::Rule::<%=rule_class%>
+    end
+  end
+  
+  describe "new" do
+    it "show the new form" do
+      get :new, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
+      response.should have_tag("form#re_rule_new_form") do
+        with_tag("input#<%=rule_name%>_title")     
+        with_tag("input#<%=rule_name%>_words_0_word")
+        with_tag("select#<%=rule_name%>_workflow_action")
+        with_tag("input#<%=rule_name%>_workflow")
+      end  
+    end
+  end
+
+  describe "edit" do
+    it "show the edit form" do
+      re_rule = ReRule.make(:re_workflow_id => @re_workflow.id, 
+                            :rule_class_name => "RulesEngine::Rule::<%=rule_class%>",
+                            :data => valid_<%=rule_name%>_rule_data)
+      ReRule.stub!(:find).and_return(re_rule)
+      
+      get :edit, :re_workflow_id => @re_workflow.id, :re_rule_id => 1001, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
+      response.should have_tag("form#re_rule_edit_form") do
+        with_tag("input#<%=rule_name%>_title", :value => 'Rule Title')     
+        with_tag("input#<%=rule_name%>_words_0_word", :value => 'word one')
+        with_tag("input#<%=rule_name%>_words_1_word", :value => 'word two')
+        with_tag("select#<%=rule_name%>_workflow_action", :value => 'start_workflow')
+        with_tag("input#<%=rule_name%>_workflow", :value => 'Other Workflow')
+      end  
+    end
+  end
+  
 end

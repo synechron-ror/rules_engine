@@ -76,7 +76,7 @@ module RulesEngine
         end
     
         @workflow_action = param_hash[:<%=rule_name%>_workflow_action] || 'continue'
-        @workflow = param_hash[:<%=rule_name%>_workflow] || ''
+        @workflow = param_hash[:<%=rule_name%>_workflow]
       end
   
       ##################################################################

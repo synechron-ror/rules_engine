@@ -1,0 +1,76 @@
+<%% javascript_tag do %>
+  var new_<%=rule_name%> = '<%%=escape_javascript(render("/re_rule_definitions/<%=rule_name%>/form_word"))%>'  
+  
+  var update<%=rule_class%>WorkflowAction = function() {
+    if ($('#<%=rule_name%>_workflow_action').attr('value') == "start_workflow")
+    {
+      $('#<%=rule_name%>_workflow').re_form_enable();
+      $('#<%=rule_name%>_workflow').removeAttr("disabled");      
+    } else {
+      $('#<%=rule_name%>_workflow').re_form_disable();
+      $('#<%=rule_name%>_workflow').attr("disabled", true); 
+    }      
+  }
+
+  $(document).ready(function() {	
+    $('#<%=rule_name%>_title').focus();	
+    
+    $('#<%=rule_name%>_workflow_action').change(function() {
+      update<%=rule_class%>WorkflowAction();
+    });    
+    
+    update<%=rule_class%>WorkflowAction();
+  });
+
+<%% end %>
+
+<!-- TITLE -->
+<%%= re_text_field "Title", 
+                        "<%=rule_name%>_title", 
+                        params[:<%=rule_name%>_title] || @re_rule.rule.title,
+                        :size => 30, 
+                        :required => true, 
+												:error => @re_rule.rule.errors[:<%=rule_name%>_title],
+                        :span => '4x13' %>
+
+<!-- WORDS -->
+<%% position = 0 %>
+<%% (@re_rule.rule.words || []).each do | word | %>  
+  <%% f.fields_for :rule_data, {:first => false} do |frd| %>
+    <%%= render '/re_rule_definitions/<%=rule_name%>/form_word', :f => frd, :position => position, :word => word %>
+    <%% position += 1 %>        
+  <%% end %>
+<%% end %>  
+<%% if position == 0 %>
+  <%% f.fields_for :rule_data, {:first => false} do |frd| %>
+    <%%= render '/re_rule_definitions/<%=rule_name%>/form_word', :f => frd, :position => position %>      
+  <%% end %>
+<%% end %>
+
+<div id="new_position_<%=rule_name%>"></div>
+<%%= re_form_text "", re_add_link('Add another word to match', '<%=rule_name%>') %>    
+
+
+<!-- ACTION -->
+<div class="clear top-10"></div>
+<hr/>
+
+<div class="span-8">
+  <%%= re_select "Match Outcome", '<%=rule_name%>_workflow_action', 
+                                    options_for_select([
+                                                        ["Continue Next", 'next'], 
+                                                        ["Stop Success", 'stop_success'],
+                                                        ["Stop Failure", 'stop_failure'],
+                                                        ["Start another Workflow", 'start_workflow']
+                                                        ], 
+                                                        @re_rule.rule.workflow_action || params['<%=rule_name%>_workflow_action']),
+																		:required => true %>
+</div>
+<div class="prepend-1 span-7 last">
+  <%%= re_text_field "Workflow Code", "<%=rule_name%>_workflow", @re_rule.rule.workflow || params[:<%=rule_name%>_workflow], 
+																		:size => 20, 
+																		:required => true, 
+																		:span => '3x5',
+																		:error => @re_rule.rule.errors[:<%=rule_name%>_workflow] %>
+</div>
+
