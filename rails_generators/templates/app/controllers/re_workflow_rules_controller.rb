@@ -19,9 +19,7 @@ class ReWorkflowRulesController < ApplicationController
     if @rule_class.nil?
       flash[:error] = "#{params[:rule_class]} : class not found."
       render :error
-    else
-      @rule = @rule_class.new  
-    end      
+    end
   end  
   
   def error

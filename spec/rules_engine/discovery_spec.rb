@@ -40,7 +40,6 @@ describe "RulesEngine::Discovery" do
 
   it "should use the rules filename to define the rule class name" do
     RulesEngine::Discovery.discover!
-    puts RulesEngine::Discovery.rule_classes
     RulesEngine::Discovery.rule_classes.should include(RulesEngine::Rule::MockRule)
   end
 

@@ -62,10 +62,10 @@ module RulesEngine
 
       ##################################################################
       # callbacks when the rule is added and removed from a workflow
-      def after_add_to_workflow(workflow_code)
+      def before_add_to_workflow()
       end
   
-      def before_remove_from_workflow(workflow_code)
+      def before_remove_from_workflow()
       end
   
       ##################################################################

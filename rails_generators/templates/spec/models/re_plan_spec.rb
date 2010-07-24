@@ -4,7 +4,7 @@ describe RePlan do
   def valid_attributes
     {
       :code => "AA MOCK",
-      :title => "Mock Title"
+      :title => "Rule Title"
     }
   end
 

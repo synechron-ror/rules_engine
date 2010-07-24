@@ -8,12 +8,18 @@ class ReRule < ActiveRecord::Base
 
   default_scope :order => 're_rules.position ASC'
   
-  before_save :before_save_rule
-  after_create :after_create_rule
+  before_save    :before_save_rule
   before_destroy :before_destroy_rule
 
   def before_save_rule
     return if rule.nil?
+    
+    if self.new_record?
+      rule.before_create()
+    else  
+      rule.before_update()
+    end  
+    
     self.title = rule.title
     self.summary = rule.summary
     self.data = rule.data
@@ -23,19 +29,17 @@ class ReRule < ActiveRecord::Base
     re_workflow.changed! if changes.detect { |change| !ignore_attributes.include?(change[0])}    
   end
 
-  def after_create_rule
-    rule.after_add_to_workflow(self.re_workflow.code) unless rule.nil?
-  end
-
   def before_destroy_rule
-    rule.before_remove_from_workflow(self.re_workflow.code) unless rule.nil?
+    rule.before_destroy() unless rule.nil?
   end
 
   def validate
     if self.rule.nil?
-      errors.add("rule_class", "not found") 
+      errors.add("rule_class", "not found")
     elsif !self.rule.valid?
-      errors.add(self.rule_class_name, "not valid") 
+      errors.add(self.rule_class_name, "not valid")
+    else
+      true  
     end
   end
 

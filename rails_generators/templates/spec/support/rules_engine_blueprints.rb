@@ -25,3 +25,11 @@ ReWorkflow.blueprint do
   title
   description
 end
+
+# RULES
+ReRule.blueprint do
+  rule_class_name { 'RulesEngine::Rule::Unknown'}
+  position = 0
+  title
+  summary { Sham.description }
+end

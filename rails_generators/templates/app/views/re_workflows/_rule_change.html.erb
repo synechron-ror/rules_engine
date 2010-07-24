@@ -18,16 +18,16 @@
 	<div class="clear"></div>
 </div>
 <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
-	<div class="span-8">
+	<div class="span-7">
 		<p class="top-5">
 			<%=h re_rule.summary %>
 		</p>
 	</div>
-	<div class="prepend-8">
+	<div class="span-5 float-right">
 		<div class="float-right red smalltext right-5">
 			<%=h re_rule_error %>
 		</div>
-		<div class="clear"></div>
+		<div class="top-5 clear"></div>
 		<% if re_rule.re_rule_expected_outcomes.empty? %>
 			<div class="re-xtra-rule-continue">Continue</div>
 		<% end %>        

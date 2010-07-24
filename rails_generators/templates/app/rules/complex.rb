@@ -91,10 +91,10 @@ module RulesEngine
 
       ##################################################################
       # callbacks when the rule is added and removed from a workflow
-      def after_add_to_workflow(workflow_code)
+      def before_add_to_workflow()
       end
   
-      def before_remove_from_workflow(workflow_code)
+      def before_remove_from_workflow()
       end
   
       ##################################################################
@@ -110,7 +110,7 @@ module RulesEngine
     
         words.each do |word|
           if /#{word}/i =~ tweet        
-            RulesEngine::Process.auditor.audit(process_id, "#{title} Found #{word}", RulesEngine::Process::AUDIT_INFO)
+            RulesEngine::Process.auditor.audit(process_id, "Found #{word}", RulesEngine::Process::AUDIT_INFO)
             data[:match] = word
         
             case workflow_action

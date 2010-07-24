@@ -55,12 +55,16 @@ describe "RulesEngine::Rule::Definition" do
     end    
   end
 
-  it "should have the helper function 'after_add_to_workflow' to tell the rule has been added to a workflow" do
-    RulesEngine::Rule::Definition.new.methods.should include("after_add_to_workflow")
+  it "should have the helper function 'before_create'" do
+    RulesEngine::Rule::Definition.new.methods.should include("before_create")
   end
 
-  it "should have the helper function 'before_remove_from_workflow' to tell the rule is about to be removed from a workflow" do
-    RulesEngine::Rule::Definition.new.methods.should include("before_remove_from_workflow")
+  it "should have the helper function 'before_update'" do
+    RulesEngine::Rule::Definition.new.methods.should include("before_update")
+  end
+
+  it "should have the helper function 'before_destroy'" do
+    RulesEngine::Rule::Definition.new.methods.should include("before_destroy")
   end
   
   describe "processing a rule" do

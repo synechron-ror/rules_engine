@@ -4,7 +4,7 @@ describe ReRule do
   def valid_attributes
     {
       :rule_class_name => "MockRuleClass",
-      :title => "Mock Title",      
+      :title => "Rule Title",      
       :summary => "Mock Summary",
       :data => '["Rule Title", ["one", "two"], "start_workflow", "Other Pipeline"]'
     }
@@ -15,8 +15,9 @@ describe ReRule do
     @rule.stub!(:title=)
     @rule.stub!(:summary=)
     @rule.stub!(:data=)
-    @rule.stub!(:after_add_to_workflow)
-    @rule.stub!(:before_remove_from_workflow)
+    @rule.stub!(:before_create)
+    @rule.stub!(:before_update)
+    @rule.stub!(:before_destroy)
     @rule.stub!(:expected_outcomes).and_return([])
     @rule.stub!(:valid?).and_return(true)
     @rule_class = mock("MockRuleClass")
@@ -153,31 +154,35 @@ describe ReRule do
     end    
   end
   
-  describe "after saving a re_rule" do
+  describe "after creating a re_rule" do
     it "should notify the rule" do
       re_rule = ReRule.new(valid_attributes)
       re_rule.stub!(:re_workflow).and_return(@re_workflow)
 
-      @re_workflow.stub!(:code).and_return('1001')
-      re_rule.stub!(:rule).and_return(@rule)
-
-      updated_code = nil
-      @rule.should_receive(:after_add_to_workflow) do |re_workflow_code|
-        updated_code = re_workflow_code
-      end
+      @rule.should_receive(:before_create) 
       re_rule.save
-      updated_code.should == '1001'
+    end  
+  end
+  
+  describe "after updating a re_rule" do
+    it "should notify the rule" do
+      re_rule = ReRule.new(valid_attributes)
+      re_rule.stub!(:re_workflow).and_return(@re_workflow)
+      re_rule.save
+      
+      re_rule.title = "New Title"
+      @rule.should_receive(:before_update) 
+      re_rule.save
     end  
   end
   
   describe "before destroying a re_rule" do
     it "should notify the rule" do
-      @re_workflow = mock('re_workflow', :code => "1001", :valid? => true)
-      @re_rule = ReRule.new(valid_attributes)
-      @re_rule.stub!(:re_workflow).and_return(@re_workflow)
+      re_rule = ReRule.new(valid_attributes)
+      re_rule.stub!(:re_workflow).and_return(@re_workflow)
 
-      @rule.should_receive(:before_remove_from_workflow).with("1001")
-      @re_rule.destroy
+      @rule.should_receive(:before_destroy)
+      re_rule.destroy
     end  
   end
   
@@ -263,7 +268,7 @@ describe ReRule do
   
   describe "moving items in a list" do
     it "should move a rule down in the list" do
-      re_workflow = ReWorkflow.create!(:code => "AA-MOCK",:title => "Mock Title")
+      re_workflow = ReWorkflow.create!(:code => "AA-MOCK",:title => "Rule Title")
       
       re_rule_1 = ReRule.new(valid_attributes)
       re_rule_2 = ReRule.new(valid_attributes)
