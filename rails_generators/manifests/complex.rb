@@ -4,7 +4,6 @@ class ComplexManifest
     %W(
       app/rules
       app/views/re_rule_definitions/#{rule_name}
-      lib/tasks
       spec/lib/rules
     ).each do |dirname|
       m.directory dirname

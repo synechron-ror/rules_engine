@@ -1,7 +1,6 @@
 directories :
   - app/rules
   - spec/lib/rules
-  - lib/tasks
 
 templates :
   replacements :

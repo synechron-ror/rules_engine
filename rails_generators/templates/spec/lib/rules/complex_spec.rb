@@ -262,11 +262,15 @@ describe RulesEngine::Rule::<%=rule_class%> do
     end
   end
 
-  describe "after a rule is created" do
+  describe "before a rule is created" do
     # xit "There is nothing to do here"
   end
 
-  describe "after a rule is created" do
+  describe "before a rule is updated" do
+    # xit "There is nothing to do here"
+  end
+  
+  describe "before a rule is destroyed" do
     # xit "There is nothing to do here"
   end
   
