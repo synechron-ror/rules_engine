@@ -32,10 +32,7 @@ $(document).ready(function() {
     }
     
     $.re_block();
-    $.get('/re_plans/' + plan_id + '/workflows/new', null, function() {
-          $.re_unblock();
-          $.fancybox({ href: '#re_content'});
-        }, 'script');
+    $.get('/re_plans/' + plan_id + '/workflows/new', null, null, 'script');
         
   	return false;  
   });  
@@ -47,10 +44,7 @@ $(document).ready(function() {
 
   $('#re_workflow_new_insert').live('click', function() {
     $.re_block();    
-    $.post($('#re_workflow_new_form').attr('action'), $('#re_workflow_new_form').serialize(), function() {
-        $.fancybox.resize();
-        $.re_unblock();
-      }, 'script');
+    $.post($('#re_workflow_new_form').attr('action'), $('#re_workflow_new_form').serialize(), null, 'script');
     
     return false;
   });
@@ -95,10 +89,7 @@ $(document).ready(function() {
     var form_id = $(this).attr('href');
 
     $.re_block();
-    $.post($(form_id).attr('action'), $(form_id).serialize(), function() { 
-      $.fancybox.close();
-      $.re_unblock(); 
-    }, 'script');    
+    $.post($(form_id).attr('action'), $(form_id).serialize(), null, 'script');    
     return false;
   });
 

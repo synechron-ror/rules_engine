@@ -3,3 +3,7 @@ $('#re_content').html('<%=escape_javascript(render('/re_workflows/new', :create_
 $('#re_workflow_new_insert').closest('div.re-form-button').re_form_button(); 
 
 $("#re_workflow_new_form").submit(function() { return false; });
+
+$.re_unblock();
+$.fancybox.resize();
+$.fancybox({ href: '#re_content'});

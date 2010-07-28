@@ -35,8 +35,14 @@
 	<h4>
 		<%= link_to("View Plan", re_plan_path(@re_plan), :class => "re-menu-plan-show") %>
 	</h4>    
-
 	<div class="clear top-5"></div>
+
+	<h4>
+		<%= link_to("Copy Plan", "##{@re_plan.id}", :id => "re_plan_copy", :class => "re-menu-plan-copy") %>
+	</h4>    
+	<div class="clear top-5"></div>
+	
+	
 	<hr/>
 	<div class="clear top-5"></div>
 

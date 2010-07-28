@@ -135,10 +135,7 @@ $(document).ready(function() {
     var form_id = $(this).attr('href');
 
     $.re_block();
-    $.post($(form_id).attr('action'), $(form_id).serialize(), function() { 
-      $.fancybox.close();
-      $.re_unblock(); 
-    }, 'script');    
+    $.post($(form_id).attr('action'), $(form_id).serialize(), null, 'script');    
     return false;
   });
 

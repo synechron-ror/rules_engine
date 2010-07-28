@@ -15,8 +15,8 @@ task :rules_engine do
         
   RulesEngine::Publish.publisher = :db_publisher
   RulesEngine::Process.runner = :db_runner
-  RulesEngine::Process.auditor = :db_auditor
-  RulesEngine::Process.auditor.audit_level = RulesEngine::Process::AUDIT_INFO
+  # RulesEngine::Process.auditor = :db_auditor
+  # RulesEngine::Process.auditor.audit_level = RulesEngine::Process::AUDIT_INFO
   RulesEngine::Discovery.rules_path = File.expand_path(File.join(File.dirname(__FILE__), '/../../app/rules'))
   RulesEngine::Discovery.discover! 
   

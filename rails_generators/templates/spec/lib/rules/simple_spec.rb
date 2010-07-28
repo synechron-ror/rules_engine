@@ -168,48 +168,50 @@ end
 describe ReWorkflowRulesController, :type => :controller  do
   integrate_views
   
-  before(:each) do
-    controller.instance_eval { flash.stub!(:sweep) }
+  describe "RulesEngine::Rule::Simple" do
+  
+    before(:each) do
+      controller.instance_eval { flash.stub!(:sweep) }
 
-    RulesEngine::Discovery.discover!
+      RulesEngine::Discovery.discover!
         
-    controller.stub!(:rules_engine_reader_access_required).and_return(true)
-    controller.stub!(:rules_engine_editor_access_required).and_return(true)
+      controller.stub!(:rules_engine_reader_access_required).and_return(true)
+      controller.stub!(:rules_engine_editor_access_required).and_return(true)
 
-    @re_workflow = ReWorkflow.make
-    ReWorkflow.stub!(:find).and_return(@re_workflow)
-  end  
+      @re_workflow = ReWorkflow.make
+      ReWorkflow.stub!(:find).and_return(@re_workflow)
+    end  
   
-  describe "help" do
-    it "should assign the <%=rule_name%> rule class" do
-      get :help, :rule_class_name => "RulesEngine::Rule::Simple"
-      assigns[:rule_class].should == RulesEngine::Rule::Simple
+    describe "help" do
+      it "should assign the <%=rule_name%> rule class" do
+        get :help, :rule_class_name => "RulesEngine::Rule::Simple"
+        assigns[:rule_class].should == RulesEngine::Rule::Simple
+      end
     end
-  end
 
-  describe "new" do
-    it "show the new form" do
-      get :new, :rule_class_name => "RulesEngine::Rule::Simple"
-      response.should have_tag("form#re_rule_new_form") do
-        with_tag("input#<%=rule_name%>_title")
-        with_tag("input#<%=rule_name%>_description")      
-      end  
+    describe "new" do
+      it "show the new form" do
+        get :new, :rule_class_name => "RulesEngine::Rule::Simple"
+        response.should have_tag("form#re_rule_new_form") do
+          with_tag("input#<%=rule_name%>_title")
+          with_tag("input#<%=rule_name%>_description")      
+        end  
+      end
     end
-  end
   
-  describe "edit" do
-    it "show the edit form" do
-      re_rule = ReRule.make(:re_workflow_id => @re_workflow.id, 
-                            :rule_class_name => "RulesEngine::Rule::Simple",
-                            :data => valid_<%=rule_name%>_rule_data)
-      ReRule.stub!(:find).and_return(re_rule)
+    describe "edit" do
+      it "show the edit form" do
+        re_rule = ReRule.make(:re_workflow_id => @re_workflow.id, 
+                              :rule_class_name => "RulesEngine::Rule::Simple",
+                              :data => valid_<%=rule_name%>_rule_data)
+        ReRule.stub!(:find).and_return(re_rule)
       
-      get :edit, :re_workflow_id => @re_workflow.id, :re_rule_id => 1001, :rule_class_name => "RulesEngine::Rule::Simple"
-      response.should have_tag("form#re_rule_edit_form") do
-        with_tag("input#<%=rule_name%>_title", :value => 'Rule Title')     
-        with_tag("input#<%=rule_name%>_description", :value => 'Rule Description')     
-      end  
+        get :edit, :re_workflow_id => @re_workflow.id, :re_rule_id => 1001, :rule_class_name => "RulesEngine::Rule::Simple"
+        response.should have_tag("form#re_rule_edit_form") do
+          with_tag("input#<%=rule_name%>_title", :value => 'Rule Title')     
+          with_tag("input#<%=rule_name%>_description", :value => 'Rule Description')     
+        end  
+      end
     end
   end
-  
 end

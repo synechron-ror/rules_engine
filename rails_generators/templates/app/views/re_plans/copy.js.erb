@@ -1,0 +1,9 @@
+$('#re_content').html('<%=escape_javascript(render('/re_plans/copy'))%>');
+
+$('#re_plan_copy_duplicate').closest('div.re-form-button').re_form_button(); 
+
+$("#re_plan_copy_form").submit(function() { return false; });
+
+$.re_unblock();
+$.fancybox.resize();
+$.fancybox({ href: '#re_content'});

@@ -86,6 +86,7 @@ class RulesEngineManifest
       app/views/re_plan_workflows/show.html.erb
       app/views/re_plan_workflows/update.js.erb
       app/views/re_plans/_change.html.erb
+      app/views/re_plans/_copy.html.erb
       app/views/re_plans/_edit.html.erb
       app/views/re_plans/_empty.html.erb
       app/views/re_plans/_index.html.erb
@@ -97,6 +98,8 @@ class RulesEngineManifest
       app/views/re_plans/_workflow_preview.html.erb
       app/views/re_plans/_workflow_show.html.erb
       app/views/re_plans/change.html.erb
+      app/views/re_plans/copy.html.erb
+      app/views/re_plans/copy.js.erb
       app/views/re_plans/create.js.erb
       app/views/re_plans/edit.html.erb
       app/views/re_plans/edit.js.erb
@@ -195,6 +198,7 @@ class RulesEngineManifest
       public/javascripts/rules_engine/re_workflow_new.js
       public/javascripts/rules_engine/re_workflow_plan.js
       public/javascripts/rules_engine/re_workflow_preview.js
+      public/javascripts/rules_engine/re_workflow_show.js
       public/stylesheets/blueprint/ie.css
       public/stylesheets/blueprint/plugins/buttons/icons/cross.png
       public/stylesheets/blueprint/plugins/buttons/icons/key.png
@@ -285,6 +289,7 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/rules_engine/re_common/status-verify-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/alert-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/change-25.png
+      public/stylesheets/rules_engine/images/rules_engine/re_plan/copy-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/delete-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/edit-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_plan/list-25.png
@@ -327,6 +332,7 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/alert-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/change-18.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/change-25.png
+      public/stylesheets/rules_engine/images/rules_engine/re_workflow/copy-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/delete-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/edit-25.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/is-default-18.png
@@ -357,4 +363,8 @@ class RulesEngineManifest
 
 
   end
+
+  def self.after_generate()
+  end
+
 end

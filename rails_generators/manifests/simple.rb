@@ -22,4 +22,8 @@ class SimpleManifest
    m.template "spec/lib/rules/simple_spec.rb",  "spec/lib/rules/#{rule_name}_spec.rb"
 
   end
+
+  def self.after_generate(rule_name ,rule_class)
+  end
+
 end

@@ -3,10 +3,10 @@ class RePlansController < ApplicationController
   layout 'rules_engine'
 
   # before_filter :login_required
-  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :publish, :revert]
+  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :publish, :revert, :copy, :duplicate]
   before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview, :re_process]
 
-  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :publish, :revert, :re_process] do |controller|
+  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :publish, :revert, :re_process, :copy, :duplicate] do |controller|
     controller.re_load_model :re_plan
   end    
 
@@ -127,5 +127,29 @@ class RePlansController < ApplicationController
   
   def re_process
     @re_processes = RulesEngine::Process.runner.history(@re_plan.code, :page => params[:page] || 1, :per_page => 5)    
+  end
+
+  def copy
+    @re_plan_new = RePlan.new
+  end
+
+  def duplicate
+    @re_plan_new = RePlan.new
+    @re_plan_new.revert!(@re_plan.publish)
+    @re_plan_new.attributes = params[:re_plan]
+
+    if @re_plan_new.save    
+      flash[:success] = 'Plan Duplicated.'
+      respond_to do |format|
+        format.html do
+          redirect_to(change_re_plan_path(@re_plan_new))
+        end  
+        format.js do
+          render :inline => "window.location.href = '#{change_re_plan_path(@re_plan_new)}';"
+        end
+      end
+    else
+       render :action => "copy"  
+    end  
   end
 end

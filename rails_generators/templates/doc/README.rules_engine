@@ -69,7 +69,9 @@ ActionController::Routing::Routes.draw do |map|
                                       :preview => :get,
                                       :publish => :put, 
                                       :revert => :put,
-                                      :re_process => :get} do |re_map|  
+                                      :re_process => :get,
+                                      :copy => :get,
+                                      :duplicate => :post} do |re_map|  
     
     re_map.resources :workflows, :controller => :re_plan_workflows, 
                           :except => [:index],

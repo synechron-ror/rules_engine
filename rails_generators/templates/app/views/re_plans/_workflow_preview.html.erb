@@ -1,12 +1,10 @@
 <% re_workflow_error = re_workflow.workflow_error %>
 
-<div class="span-9">
+<div class="span-14">
 	<h4 class="re-sts-workflow-<%= re_workflow_error.blank? ? 'valid' : 'verify' %>">
 		<%=h re_workflow.title %>
 		<span class="re-code blue">(<%=h re_workflow.code%>)</span>
 	</h4>
-</div>  
-<div class="span-5 last">
 </div>  
 
 <div class="clear top-5"></div>

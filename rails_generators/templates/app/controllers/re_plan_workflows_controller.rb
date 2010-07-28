@@ -30,10 +30,9 @@ class RePlanWorkflowsController < ApplicationController
   end
   
   def create
-    @re_workflow = ReWorkflow.new(params[:re_workflow])
-    @re_plan.add_workflow(@re_workflow)
-    
+    @re_workflow = ReWorkflow.new(params[:re_workflow])    
     if @re_workflow.save
+      @re_plan.add_workflow(@re_workflow)
       flash[:success] = 'Workflow Created.'
       
       respond_to do |format|

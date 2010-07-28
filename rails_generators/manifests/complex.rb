@@ -23,4 +23,8 @@ class ComplexManifest
    m.template "spec/lib/rules/complex_spec.rb",  "spec/lib/rules/#{rule_name}_spec.rb"
 
   end
+
+  def self.after_generate(rule_name ,rule_class)
+  end
+
 end

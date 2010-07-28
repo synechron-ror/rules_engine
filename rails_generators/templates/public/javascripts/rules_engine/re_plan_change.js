@@ -30,6 +30,26 @@ $(document).ready(function() {
     return false;
   });
 
+  $('a#re_plan_copy').live('click', function() {    
+    var plan = $(this).attr('href').replace('#', '');
+      
+    $.re_block();
+    $.get('/re_plans/' + plan + '/copy', null, null, 'script');
+  	return false;  
+  });  
+
+  $("#re_plan_copy_cancel").live('click', function() {
+    $.fancybox.close();
+    return false;
+  });  
+
+  $('#re_plan_copy_duplicate').live('click', function() {
+    $.re_block();
+    $.post($('#re_plan_copy_form').attr('action'), $('#re_plan_copy_form').serialize(), null, 'script');    
+    return false;
+  });
+
+
   $('a#re_plan_publish').live('click', function() {    
     $('#re_plan_publish_form #tag').attr('value', '')
     $('#re_plan_publish_tag').attr('value', '')

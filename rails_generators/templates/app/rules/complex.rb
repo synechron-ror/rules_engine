@@ -112,9 +112,9 @@ module RulesEngine
         end
     
         words.each do |word|
-          if /#{word}/i =~ tweet        
+          if /\b#{word}\b/i =~ tweet        
             RulesEngine::Process.auditor.audit(process_id, "Found #{word}", RulesEngine::Process::AUDIT_INFO)
-            data[:match] = word
+            data[:tweet_match] = word
         
             case workflow_action
             when 'stop_success'

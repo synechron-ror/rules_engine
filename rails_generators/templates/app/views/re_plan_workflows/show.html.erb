@@ -1,4 +1,4 @@
-<% set_re_javascript_include ['rules_engine/re_plan_preview', 'rules_engine/re_workflow_plan'] %>
+<% set_re_javascript_include ['rules_engine/re_workflow_show', 'rules_engine/re_plan_preview', 'rules_engine/re_workflow_plan'] %>
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
 											link_to("View Plan", re_plan_path(@re_plan), :class => "re-bc-plan-show"),
 											'<span class="re-bc-workflow-show">View Workflow</span>' %>
@@ -28,7 +28,8 @@
 					<%= render '/re_workflows/rule_empty', :hide => !@re_workflow.re_rules.empty? %>
 
 			    <% @re_workflow.re_rules.each do |re_rule | %>
-			      <%= render '/re_workflows/rule_show', :re_rule => re_rule, 
+			      <%= render '/re_workflows/rule_show', :re_plan_id => @re_plan.id,
+																									:re_rule => re_rule, 
 																									:last_rule => re_rule == @re_workflow.re_rules[-1] %>
 			    <% end %>
 					<div class="clear"></div>
