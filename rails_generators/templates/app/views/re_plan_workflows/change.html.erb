@@ -64,8 +64,13 @@
 	<h4>
 		<%= link_to("View Workflow", re_plan_workflow_path(@re_plan, @re_workflow), :class => "re-menu-workflow-show") %>
 	</h4>
-
 	<div class="clear top-5"></div>
+	
+	<h4>
+		<%= link_to("Copy Workflow", "##{@re_plan.id}|#{@re_workflow.id}", :id => "re_workflow_copy", :class => "re-menu-workflow-copy") %>
+	</h4>
+	<div class="clear top-5"></div>
+
 	<hr/>
 	<div class="clear top-5"></div>
 

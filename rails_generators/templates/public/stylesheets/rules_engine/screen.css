@@ -225,6 +225,11 @@ div.re-xtra-plan-preview {
 	background: transparent url('./images/rules_engine/re_workflow/edit-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
+.re-breadcrumbs .re-bc-workflow-copy {
+	background: transparent url('./images/rules_engine/re_workflow/copy-25.png') no-repeat 0 4px;
+	padding: 0 0 0 30px;
+}
+
 
 /* sub headers*/
 h3.re-hdr-workflow-alert {
@@ -333,6 +338,15 @@ a.re-menu-workflow-show {
   text-decoration: none;
 }
 a.re-menu-workflow-show:hover {
+  text-decoration: underline;
+}
+a.re-menu-workflow-copy {
+	background: transparent url('./images/rules_engine/re_workflow/copy-25.png') no-repeat left -1px;
+  padding: 0 0 0 28px;
+  color: #218868;
+  text-decoration: none;
+}
+a.re-menu-workflow-copy:hover {
   text-decoration: underline;
 }
 a.re-menu-workflow-edit {

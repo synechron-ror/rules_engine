@@ -1,0 +1,8 @@
+$('#re_content').html('<%=escape_javascript(render('/re_workflows/copy', :duplicate_path => duplicate_re_workflow_path(@re_workflow), :cancel_path => change_re_workflow_path(@re_workflow)))%>');
+
+$('#re_workflow_copy_duplicate').closest('div.re-form-button').re_form_button(); 
+
+$("#re_workflow_copy_form").submit(function() { return false; });
+
+$.re_unblock();
+$.fancybox({ href: '#re_content'});

@@ -11,25 +11,6 @@ re_plan_action_confirm = function(id, title, action) {
 
 $(document).ready(function() {	  
 
-  $('a#re_plan_edit').live('click', function() {    
-    var plan = $(this).attr('href').replace('#', '');
-      
-    $.re_block();
-    $.get('/re_plans/' + plan + '/edit', null, null, 'script');
-  	return false;  
-  });  
-
-  $("#re_plan_edit_cancel").live('click', function() {
-    $.fancybox.close();
-    return false;
-  });  
-
-  $('#re_plan_edit_update').live('click', function() {
-    $.re_block();
-    $.post($('#re_plan_edit_form').attr('action'), $('#re_plan_edit_form').serialize(), null, 'script');    
-    return false;
-  });
-
   $('a#re_plan_copy').live('click', function() {    
     var plan = $(this).attr('href').replace('#', '');
       
@@ -49,6 +30,25 @@ $(document).ready(function() {
     return false;
   });
 
+
+  $('a#re_plan_edit').live('click', function() {    
+    var plan = $(this).attr('href').replace('#', '');
+      
+    $.re_block();
+    $.get('/re_plans/' + plan + '/edit', null, null, 'script');
+  	return false;  
+  });  
+
+  $("#re_plan_edit_cancel").live('click', function() {
+    $.fancybox.close();
+    return false;
+  });  
+
+  $('#re_plan_edit_update').live('click', function() {
+    $.re_block();
+    $.post($('#re_plan_edit_form').attr('action'), $('#re_plan_edit_form').serialize(), null, 'script');    
+    return false;
+  });
 
   $('a#re_plan_publish').live('click', function() {    
     $('#re_plan_publish_form #tag').attr('value', '')

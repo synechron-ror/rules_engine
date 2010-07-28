@@ -67,18 +67,16 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => :re_plans, :action => 'template'
   map.resources :re_plans, :member => {:change => :get,
                                       :preview => :get,
-                                      :publish => :put, 
-                                      :revert => :put,
+                                      :publish => :put, :revert => :put,
                                       :re_process => :get,
-                                      :copy => :get,
-                                      :duplicate => :post} do |re_map|  
+                                      :copy => :get, :duplicate => :post} do |re_map|  
     
     re_map.resources :workflows, :controller => :re_plan_workflows, 
                           :except => [:index],
                           :member => {:change => :get, 
                                       :default => :put, 
-                                      :add => :put, 
-                                      :remove => :put} do |re_pipeline|
+                                      :add => :put, :remove => :put,
+                                      :copy => :get, :duplicate => :post} do |re_pipeline|
       re_pipeline.resources :rules, :controller => :re_plan_workflow_rules, 
                                 :except => [:index, :show],
                                 :collection => {:help => :get, :error => :get}, 
@@ -90,7 +88,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :re_workflows, :collection => {:add => :get},
                                :member => {:plan => :get,
                                            :change => :get, 
-                                           :preview => :get} do |re_pipeline|
+                                           :preview => :get,
+                                           :copy => :get, :duplicate => :post} do |re_pipeline|
     re_pipeline.resources :rules, :controller => :re_workflow_rules, 
                               :except => [:index, :show],
                               :collection => {:help => :get, :error => :get}, 

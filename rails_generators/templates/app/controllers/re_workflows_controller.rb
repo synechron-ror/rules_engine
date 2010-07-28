@@ -3,10 +3,10 @@ class ReWorkflowsController < ApplicationController
   layout 'rules_engine'
   
   # before_filter :login_required
-  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change]
+  before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :copy, :duplicate]
   before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview, :plan, :add]
 
-  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :plan] do |controller|
+  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :plan, :copy, :duplicate] do |controller|
     controller.re_load_model :re_workflow
   end    
 
@@ -93,4 +93,29 @@ class ReWorkflowsController < ApplicationController
   def add
     @re_workflows = ReWorkflow.order_title.find(:all)
   end
+  
+  def copy
+    @re_workflow_new = ReWorkflow.new
+  end
+
+  def duplicate
+    @re_workflow_new = ReWorkflow.new
+    @re_workflow_new.revert!(@re_workflow.publish)
+    @re_workflow_new.attributes = params[:re_workflow]
+
+    if @re_workflow_new.save    
+      flash[:success] = 'Workflow Duplicated.'
+      respond_to do |format|
+        format.html do
+          redirect_to(change_re_workflow_path(@re_workflow_new))
+        end  
+        format.js do
+          render :inline => "window.location.href = '#{change_re_workflow_path(@re_workflow_new)}';"
+        end
+      end
+    else
+       render :action => "copy"  
+    end  
+  end
+  
 end

@@ -1,0 +1,11 @@
+<% set_re_breadcrumbs link_to("All Workflows", re_workflows_path, :class => "re-bc-workflow-list"), 
+											link_to("Edit Workflow", change_re_workflow_path(@re_workflow), :class => "re-bc-workflow-change"), 
+											'<span class="re-bc-workflow-copy">Copy Workflow</span>' %>
+
+<div class="prepend-1 span-22 append-1">      
+  <div class="re-infobox">
+    <%= render '/re_workflows/copy', :duplicate_path => duplicate_re_workflow_path(@re_workflow), :cancel_path => change_re_workflow_path(@re_workflow) %>
+    <div class="clear top-5"></div>
+  </div>  
+</div>  
+<div class="clear"></div>

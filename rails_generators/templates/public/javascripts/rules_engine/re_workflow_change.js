@@ -11,6 +11,28 @@ re_workflow_action_confirm = function(id, title, action) {
 
 $(document).ready(function() {	  
 
+  $('a#re_workflow_copy').live('click', function() {    
+    var values = $(this).attr('href').replace('#', '').split('|');
+      
+    $.re_block();
+    if (parseInt(values[0]) == 0)
+      $.get('/re_workflows/' + values[1] + '/copy', null, null, 'script');
+    else
+      $.get('/re_plans/' + values[0] + '/workflows/' + values[1] + '/copy', null, null, 'script');
+  	return false;  
+  });  
+
+  $("#re_workflow_copy_cancel").live('click', function() {
+    $.fancybox.close();
+    return false;
+  });  
+
+  $('#re_workflow_copy_duplicate').live('click', function() {
+    $.re_block();
+    $.post($('#re_workflow_copy_form').attr('action'), $('#re_workflow_copy_form').serialize(), null, 'script');    
+    return false;
+  });
+
   $('a#re_workflow_edit').live('click', function() {    
     var values = $(this).attr('href').replace('#', '').split('|');
       

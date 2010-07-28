@@ -79,6 +79,8 @@ class RulesEngineManifest
       app/views/re_plan_workflow_rules/new.js.erb
       app/views/re_plan_workflow_rules/update.js.erb
       app/views/re_plan_workflows/change.html.erb
+      app/views/re_plan_workflows/copy.html.erb
+      app/views/re_plan_workflows/copy.js.erb
       app/views/re_plan_workflows/edit.html.erb
       app/views/re_plan_workflows/edit.js.erb
       app/views/re_plan_workflows/new.html.erb
@@ -140,6 +142,7 @@ class RulesEngineManifest
       app/views/re_workflow_rules/update.js.erb
       app/views/re_workflows/_add_prepare.html.erb
       app/views/re_workflows/_add_update.html.erb
+      app/views/re_workflows/_copy.html.erb
       app/views/re_workflows/_edit.html.erb
       app/views/re_workflows/_empty.html.erb
       app/views/re_workflows/_index.html.erb
@@ -156,6 +159,8 @@ class RulesEngineManifest
       app/views/re_workflows/add.html.erb
       app/views/re_workflows/add.js.erb
       app/views/re_workflows/change.html.erb
+      app/views/re_workflows/copy.html.erb
+      app/views/re_workflows/copy.js.erb
       app/views/re_workflows/create.js.erb
       app/views/re_workflows/edit.html.erb
       app/views/re_workflows/edit.js.erb
