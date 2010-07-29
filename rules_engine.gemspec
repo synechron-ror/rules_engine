@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rules_engine}
-  s.version = "0.1.6"
+  s.version = "0.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-07-28}
+  s.date = %q{2010-07-29}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -59,7 +59,6 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/models/re_plan.rb",
      "rails_generators/templates/app/models/re_plan_workflow.rb",
      "rails_generators/templates/app/models/re_rule.rb",
-     "rails_generators/templates/app/models/re_rule_expected_outcome.rb",
      "rails_generators/templates/app/models/re_workflow.rb",
      "rails_generators/templates/app/rules/complex.rb",
      "rails_generators/templates/app/rules/simple.rb",
@@ -74,6 +73,8 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_plan_workflow_rules/new.js.erb",
      "rails_generators/templates/app/views/re_plan_workflow_rules/update.js.erb",
      "rails_generators/templates/app/views/re_plan_workflows/change.html.erb",
+     "rails_generators/templates/app/views/re_plan_workflows/copy.html.erb",
+     "rails_generators/templates/app/views/re_plan_workflows/copy.js.erb",
      "rails_generators/templates/app/views/re_plan_workflows/edit.html.erb",
      "rails_generators/templates/app/views/re_plan_workflows/edit.js.erb",
      "rails_generators/templates/app/views/re_plan_workflows/new.html.erb",
@@ -81,6 +82,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_plan_workflows/show.html.erb",
      "rails_generators/templates/app/views/re_plan_workflows/update.js.erb",
      "rails_generators/templates/app/views/re_plans/_change.html.erb",
+     "rails_generators/templates/app/views/re_plans/_copy.html.erb",
      "rails_generators/templates/app/views/re_plans/_edit.html.erb",
      "rails_generators/templates/app/views/re_plans/_empty.html.erb",
      "rails_generators/templates/app/views/re_plans/_index.html.erb",
@@ -92,6 +94,8 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_plans/_workflow_preview.html.erb",
      "rails_generators/templates/app/views/re_plans/_workflow_show.html.erb",
      "rails_generators/templates/app/views/re_plans/change.html.erb",
+     "rails_generators/templates/app/views/re_plans/copy.html.erb",
+     "rails_generators/templates/app/views/re_plans/copy.js.erb",
      "rails_generators/templates/app/views/re_plans/create.js.erb",
      "rails_generators/templates/app/views/re_plans/edit.html.erb",
      "rails_generators/templates/app/views/re_plans/edit.js.erb",
@@ -141,6 +145,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_workflow_rules/update.js.erb",
      "rails_generators/templates/app/views/re_workflows/_add_prepare.html.erb",
      "rails_generators/templates/app/views/re_workflows/_add_update.html.erb",
+     "rails_generators/templates/app/views/re_workflows/_copy.html.erb",
      "rails_generators/templates/app/views/re_workflows/_edit.html.erb",
      "rails_generators/templates/app/views/re_workflows/_empty.html.erb",
      "rails_generators/templates/app/views/re_workflows/_index.html.erb",
@@ -157,6 +162,8 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_workflows/add.html.erb",
      "rails_generators/templates/app/views/re_workflows/add.js.erb",
      "rails_generators/templates/app/views/re_workflows/change.html.erb",
+     "rails_generators/templates/app/views/re_workflows/copy.html.erb",
+     "rails_generators/templates/app/views/re_workflows/copy.js.erb",
      "rails_generators/templates/app/views/re_workflows/create.js.erb",
      "rails_generators/templates/app/views/re_workflows/edit.html.erb",
      "rails_generators/templates/app/views/re_workflows/edit.js.erb",
@@ -290,6 +297,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_common/status-verify-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/alert-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/change-25.png",
+     "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/copy-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/delete-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/edit-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_plan/list-25.png",
@@ -332,6 +340,7 @@ Gem::Specification.new do |s|
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_workflow/alert-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_workflow/change-18.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_workflow/change-25.png",
+     "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_workflow/copy-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_workflow/delete-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_workflow/edit-25.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/rules_engine/re_workflow/is-default-18.png",
@@ -353,7 +362,6 @@ Gem::Specification.new do |s|
      "rails_generators/templates/spec/lib/rules/simple_spec.rb",
      "rails_generators/templates/spec/models/re_plan_spec.rb",
      "rails_generators/templates/spec/models/re_plan_workflow_spec.rb",
-     "rails_generators/templates/spec/models/re_rule_expected_outcome_spec.rb",
      "rails_generators/templates/spec/models/re_rule_spec.rb",
      "rails_generators/templates/spec/models/re_workflow_spec.rb",
      "rails_generators/templates/spec/support/rules_engine_blueprints.rb",
