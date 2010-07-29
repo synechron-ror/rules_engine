@@ -66,7 +66,6 @@ class RulesEngineManifest
       app/models/re_plan.rb
       app/models/re_plan_workflow.rb
       app/models/re_rule.rb
-      app/models/re_rule_expected_outcome.rb
       app/models/re_workflow.rb
       app/views/layouts/rules_engine.html.erb
       app/views/re_plan_workflow_rules/edit.html.erb
@@ -357,7 +356,6 @@ class RulesEngineManifest
       spec/helpers/rules_engine_helper_spec.rb
       spec/models/re_plan_spec.rb
       spec/models/re_plan_workflow_spec.rb
-      spec/models/re_rule_expected_outcome_spec.rb
       spec/models/re_rule_spec.rb
       spec/models/re_workflow_spec.rb
       spec/support/rules_engine_blueprints.rb

@@ -1,6 +1,5 @@
 class ReRule < ActiveRecord::Base
   belongs_to :re_workflow
-  has_many  :re_rule_expected_outcomes, :dependent => :destroy, :order => "outcome ASC"
   acts_as_list :scope => :re_workflow
       
   validates_associated  :re_workflow
@@ -23,8 +22,6 @@ class ReRule < ActiveRecord::Base
     self.title = rule.title
     self.summary = rule.summary
     self.data = rule.data
-    
-    self.re_rule_expected_outcomes = (rule.expected_outcomes || []).map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
     
     re_workflow.changed! if changes.detect { |change| !ignore_attributes.include?(change[0])}    
   end
@@ -57,7 +54,6 @@ class ReRule < ActiveRecord::Base
     self.summary = rule_data["summary"]
     self.data = rule_data["data"]
     
-    self.re_rule_expected_outcomes = (rule.expected_outcomes || []).map { |expected_outcome| ReRuleExpectedOutcome.new(expected_outcome) }
     self
   end  
   
@@ -79,35 +75,9 @@ class ReRule < ActiveRecord::Base
     return "class #{rule_class_name} missing" if rule.nil?
     return "#{rule.errors.values.join(', ')}" unless rule.valid?
 
-    re_rule_expected_outcomes.each do |re_rule_expected_outcome|
-      next if re_rule_expected_outcome.workflow_code.blank?      
-
-      re_workflow = ReWorkflow.find_by_code(re_rule_expected_outcome.workflow_code)
-      return "#{re_rule_expected_outcome.workflow_code} missing" if re_workflow.nil?
-      
-      workflow_error = re_workflow.workflow_error
-      return "#{re_rule_expected_outcome.workflow_code} invalid" unless re_workflow.workflow_error.blank?
-    end
-    
     nil
   end
   
-  def re_rule_expected_outcome_next
-    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::Rule::Outcome::NEXT }
-  end
-  
-  def re_rule_expected_outcome_success
-    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::Rule::Outcome::STOP_SUCCESS }
-  end
-
-  def re_rule_expected_outcome_failure
-    re_rule_expected_outcomes.detect{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::Rule::Outcome::STOP_FAILURE }
-  end
-
-  def re_rule_expected_outcomes_start_workflow
-    re_rule_expected_outcomes.select{ |re_rule_expected_outcome| re_rule_expected_outcome.outcome == RulesEngine::Rule::Outcome::START_WORKFLOW }
-  end
-
   protected
     def ignore_attributes 
       [self.class.primary_key, self.class.inheritance_column, "re_workflow_id", "created_at", "updated_at"]

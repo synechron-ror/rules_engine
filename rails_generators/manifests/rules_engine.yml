@@ -34,7 +34,6 @@ files :
   - app/models/re_plan.rb                  
   - app/models/re_plan_workflow.rb         
   - app/models/re_rule.rb                  
-  - app/models/re_rule_expected_outcome.rb 
   - app/models/re_workflow.rb        
 
   - app/views/layouts/rules_engine.html.erb
@@ -60,7 +59,6 @@ files :
   - spec/models/re_plan_spec.rb         
   - spec/models/re_plan_workflow_spec.rb         
   - spec/models/re_rule_spec.rb                  
-  - spec/models/re_rule_expected_outcome_spec.rb 
   - spec/models/re_workflow_spec.rb
 
   - spec/controllers/re_plans_controller_spec.rb

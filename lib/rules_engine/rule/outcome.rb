@@ -14,6 +14,7 @@ module RulesEngine
 
       attr_accessor :outcome
       attr_accessor :workflow_code    
+      attr_accessor :title    
     end
   end  
 end

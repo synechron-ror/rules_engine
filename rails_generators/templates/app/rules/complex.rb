@@ -53,7 +53,7 @@ module RulesEngine
         when 'stop_failure'
           [:outcome => RulesEngine::Rule::Outcome::STOP_FAILURE]
         when 'start_workflow'
-          [:outcome => RulesEngine::Rule::Outcome::START_WORKFLOW, :workflow_code => workflow]
+          [:outcome => RulesEngine::Rule::Outcome::START_WORKFLOW, :title => "Start Workflow : #{workflow}"]
         else
           [:outcome => RulesEngine::Rule::Outcome::NEXT]  
         end

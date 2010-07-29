@@ -47,18 +47,6 @@ class CreateRulesEngine < ActiveRecord::Migration
     add_index :re_rules, [:re_workflow_id]
     add_index :re_rules, [:re_workflow_id, :position]
 
-    #################################
-    create_table :re_rule_expected_outcomes do |t|
-      t.integer :re_rule_id
-      
-      t.integer :outcome
-      t.string  :workflow_code      
-      
-      t.datetime :created_at
-      t.datetime :updated_at
-    end    
-
-    add_index :re_rule_expected_outcomes, [:re_rule_id]
     
     #################################
     create_table :re_published_plans do |t|
@@ -104,7 +92,6 @@ class CreateRulesEngine < ActiveRecord::Migration
     drop_table :re_process_runs
     drop_table :re_process_audits
     
-    drop_table :re_rule_expected_outcomes
     drop_table :re_rules
     drop_table :re_workflows
     drop_table :re_plan_workflows
