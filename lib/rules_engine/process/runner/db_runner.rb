@@ -31,7 +31,7 @@ module RulesEngine
         ReProcessRun.create(:process_status => RulesEngine::Process::PROCESS_STATUS_NONE).id
       end
       
-      def run(process_id, plan, data = {})
+      def run_plan(process_id, plan, data = {})
         re_process = ReProcessRun.find_by_id(process_id)
 
         if re_process.nil?
@@ -41,7 +41,7 @@ module RulesEngine
         
         re_process.update_attributes(:plan_code => plan["code"], :plan_version => plan["version"], :started_at => Time.now.utc, :process_status => RulesEngine::Process::PROCESS_STATUS_RUNNING)  
         
-        success = _run_plan(process_id, plan, data)
+        success = super(process_id, plan, data)
         
         re_process.update_attributes(:finished_at => Time.now.utc, :process_status => success ? RulesEngine::Process::PROCESS_STATUS_SUCCESS : RulesEngine::Process::PROCESS_STATUS_FAILURE)
       

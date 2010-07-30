@@ -237,14 +237,6 @@ describe RePlansController do
       RePlan.stub!(:find).and_return(@re_plan) 
     end
     
-    describe "plan has errors" do
-      it "should display a flash error message" do
-        @re_plan.should_receive(:plan_error).and_return('error')
-        put :publish, :id => 123, :tag => "publish tag"
-        flash[:error].should_not be_blank
-      end
-    end
-
     describe "tag is blank" do
       it "should display a flash error message" do
         put :publish, :id => 123, :tag => ""

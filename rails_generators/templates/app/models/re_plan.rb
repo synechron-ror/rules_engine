@@ -38,7 +38,7 @@ class RePlan < ActiveRecord::Base
       "code" => code, 
       "title" => title, 
       "description" => description,
-      "first_workflow" => re_workflows.empty? ? '' : re_workflows[0].code,
+      "run_workflow" => re_workflows.empty? ? '' : re_workflows[0].code,
     }
     re_workflows.each_with_index do | re_workflow, index | 
       data["workflow_#{re_workflow.code}"] = re_workflow.publish 
@@ -59,7 +59,7 @@ class RePlan < ActiveRecord::Base
     self.description = rule_data["description"]
     
     orig_re_workflows = []
-    workflow_data = rule_data["workflow_#{rule_data["first_workflow"]}"]
+    workflow_data = rule_data["workflow_#{rule_data["run_workflow"]}"]
     while (workflow_data && orig_re_workflows.length < 500)
       workflow_code = workflow_data["code"]
       re_workflow = ReWorkflow.find_by_code(workflow_code) || ReWorkflow.new
@@ -93,7 +93,12 @@ class RePlan < ActiveRecord::Base
     return if self.re_workflows.empty? || self.re_workflows[0] == re_workflow
     re_plan_workflow = re_plan_workflows.detect { | re_plan_workflow | re_plan_workflow.re_workflow_id == re_workflow.id}
     return unless re_plan_workflow
+
     re_plan_workflow.move_to_top
+    
+    self.re_plan_workflows(true)
+    self.re_workflows(true)
+    
     changed!
   end
   

@@ -26,16 +26,16 @@ describe RulesEngine::Rule::Simple do
       RulesEngine::Rule::Simple.options[:display_name].should == "Simple"
     end
 
-    it "should have the help template of '/re_rule_definitions/<%=rule_name%>/help'" do
-      RulesEngine::Rule::Simple.options[:help_partial].should == '/re_rule_definitions/<%=rule_name%>/help'
+    it "should have the help template of '/re_rules/<%=rule_name%>/help'" do
+      RulesEngine::Rule::Simple.options[:help_partial].should == '/re_rules/<%=rule_name%>/help'
     end
 
-    it "should have the new template of '/re_rule_definitions/<%=rule_name%>/new'" do
-      RulesEngine::Rule::Simple.options[:new_partial].should == '/re_rule_definitions/<%=rule_name%>/new'
+    it "should have the new template of '/re_rules/<%=rule_name%>/new'" do
+      RulesEngine::Rule::Simple.options[:new_partial].should == '/re_rules/<%=rule_name%>/new'
     end
 
-    it "should have the edit view partial template of '/re_rule_definitions/<%=rule_name%>/edit'" do
-      RulesEngine::Rule::Simple.options[:edit_partial].should == '/re_rule_definitions/<%=rule_name%>/edit'
+    it "should have the edit view partial template of '/re_rules/<%=rule_name%>/edit'" do
+      RulesEngine::Rule::Simple.options[:edit_partial].should == '/re_rules/<%=rule_name%>/edit'
     end
   end
   
@@ -103,7 +103,7 @@ describe RulesEngine::Rule::Simple do
   describe "the expected_outcomes" do
     it "should be outcome next" do
       <%=rule_name%> = RulesEngine::Rule::Simple.new
-      <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::Rule::Outcome::NEXT]
+      <%=rule_name%>.expected_outcomes[0][:outcome].should == RulesEngine::Rule::Outcome::NEXT
     end
   end
   
@@ -159,7 +159,7 @@ describe RulesEngine::Rule::Simple do
   describe "processing the rule" do
     it "should do nothing" do
       @<%=rule_name%> = RulesEngine::Rule::Simple.new
-      @<%=rule_name%>.process(1001, {}).outcome.should == RulesEngine::Rule::Outcome::NEXT
+      @<%=rule_name%>.process(1001, {:plan => "plan"}, {}).outcome.should == RulesEngine::Rule::Outcome::NEXT
     end        
   end
 end

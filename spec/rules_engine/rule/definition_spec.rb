@@ -69,11 +69,11 @@ describe "RulesEngine::Rule::Definition" do
   
   describe "processing a rule" do
     it "should return a rule_outcome" do
-      MockRule.new.process(101, {}).should be_instance_of(RulesEngine::Rule::Outcome)
+      MockRule.new.process(101, {}, {}).should be_instance_of(RulesEngine::Rule::Outcome)
     end
 
     it "should set the outcome to NEXT by default" do
-      MockRule.new.process(101, {}).outcome.should == RulesEngine::Rule::Outcome::NEXT
+      MockRule.new.process(101, {}, {}).outcome.should == RulesEngine::Rule::Outcome::NEXT
     end        
   end
   

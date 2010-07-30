@@ -76,7 +76,7 @@ module RulesEngine
       # execute the rule
       # return an RulesEngine::Rule::Outcome object to define what to do next
       # if nil to continue to the next rule
-      def process(process_id, data)
+      def process(process_id, plan, data)
         # process.audit("process #{title}", RulesEngine::Process::AUDIT_INFO)                        
         # RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_SUCCESS)
         # RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_FAILURE)

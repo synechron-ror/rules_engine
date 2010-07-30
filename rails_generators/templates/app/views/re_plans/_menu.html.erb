@@ -1,14 +1,12 @@
 <% plan_status = @re_plan.plan_status %>
 
-<% if plan_status == RePlan::PLAN_STATUS_DRAFT && !@re_plan.plan_error %>
+<% if plan_status == RePlan::PLAN_STATUS_DRAFT || plan_status == RePlan::PLAN_STATUS_CHANGED %>
   <h4>
-    <%= link_to("Publish Plan", "##{@re_plan.id}", :id => "re_plan_publish", :class => "re-menu-plan-publish") %>
-  </h4>    
-	<div class="clear top-5"></div>
-<% end %>  
-<% if plan_status == RePlan::PLAN_STATUS_CHANGED && !@re_plan.plan_error %>
-  <h4>
-    <%= link_to("Publish Changes", "##{@re_plan.id}", :id => "re_plan_publish", :class => "re-menu-plan-publish") %>
+		<% if @re_plan.plan_error %>
+    	<%= link_to("Publish Plan", "##{@re_plan.id}", :id => "re_plan_publish_with_errors", :class => "re-menu-plan-publish") %>
+		<% else %>
+    	<%= link_to("Publish Plan", "##{@re_plan.id}", :id => "re_plan_publish", :class => "re-menu-plan-publish") %>
+		<% end %>
   </h4>    
 	<div class="clear top-5"></div>
 <% end %>  

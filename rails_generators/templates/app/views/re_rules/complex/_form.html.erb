@@ -1,14 +1,14 @@
 <%% javascript_tag do %>
-  var new_<%=rule_name%> = '<%%=escape_javascript(render("/re_rule_definitions/<%=rule_name%>/form_word"))%>'  
+  var new_<%=rule_name%> = '<%%=escape_javascript(render("/re_rules/<%=rule_name%>/form_word"))%>'  
   
   var update<%=rule_class%>WorkflowAction = function() {
     if ($('#<%=rule_name%>_workflow_action').attr('value') == "start_workflow")
     {
-      $('#<%=rule_name%>_workflow').re_form_enable();
-      $('#<%=rule_name%>_workflow').removeAttr("disabled");      
+      $('#<%=rule_name%>_workflow_code').re_form_enable();
+      $('#<%=rule_name%>_workflow_code').removeAttr("disabled");      
     } else {
-      $('#<%=rule_name%>_workflow').re_form_disable();
-      $('#<%=rule_name%>_workflow').attr("disabled", true); 
+      $('#<%=rule_name%>_workflow_code').re_form_disable();
+      $('#<%=rule_name%>_workflow_code').attr("disabled", true); 
     }      
   }
 
@@ -37,13 +37,13 @@
 <%% position = 0 %>
 <%% (@re_rule.rule.words || []).each do | word | %>  
   <%% f.fields_for :rule_data, {:first => false} do |frd| %>
-    <%%= render '/re_rule_definitions/<%=rule_name%>/form_word', :f => frd, :position => position, :word => word %>
+    <%%= render '/re_rules/<%=rule_name%>/form_word', :f => frd, :position => position, :word => word %>
     <%% position += 1 %>        
   <%% end %>
 <%% end %>  
 <%% if position == 0 %>
   <%% f.fields_for :rule_data, {:first => false} do |frd| %>
-    <%%= render '/re_rule_definitions/<%=rule_name%>/form_word', :f => frd, :position => position %>      
+    <%%= render '/re_rules/<%=rule_name%>/form_word', :f => frd, :position => position %>      
   <%% end %>
 <%% end %>
 
@@ -67,10 +67,10 @@
 																		:required => true %>
 </div>
 <div class="prepend-1 span-7 last">
-  <%%= re_text_field "Workflow Code", "<%=rule_name%>_workflow", @re_rule.rule.workflow || params[:<%=rule_name%>_workflow], 
+  <%%= re_text_field "Workflow Code", "<%=rule_name%>_workflow_code", @re_rule.rule.workflow_code || params[:<%=rule_name%>_workflow_code], 
 																		:size => 20, 
 																		:required => true, 
 																		:span => '3x5',
-																		:error => @re_rule.rule.errors[:<%=rule_name%>_workflow] %>
+																		:error => @re_rule.rule.errors[:<%=rule_name%>_workflow_code] %>
 </div>
 

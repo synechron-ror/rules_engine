@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-07-29}
+  s.date = %q{2010-07-30}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -121,15 +121,15 @@ Gem::Specification.new do |s|
      "rails_generators/templates/app/views/re_publications/_show_update.html.erb",
      "rails_generators/templates/app/views/re_publications/show.html.erb",
      "rails_generators/templates/app/views/re_publications/show.js.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/complex/_edit.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/complex/_form.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/complex/_form_word.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/complex/_help.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/complex/_new.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/simple/_edit.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/simple/_form.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/simple/_help.html.erb",
-     "rails_generators/templates/app/views/re_rule_definitions/simple/_new.html.erb",
+     "rails_generators/templates/app/views/re_rules/complex/_edit.html.erb",
+     "rails_generators/templates/app/views/re_rules/complex/_form.html.erb",
+     "rails_generators/templates/app/views/re_rules/complex/_form_word.html.erb",
+     "rails_generators/templates/app/views/re_rules/complex/_help.html.erb",
+     "rails_generators/templates/app/views/re_rules/complex/_new.html.erb",
+     "rails_generators/templates/app/views/re_rules/simple/_edit.html.erb",
+     "rails_generators/templates/app/views/re_rules/simple/_form.html.erb",
+     "rails_generators/templates/app/views/re_rules/simple/_help.html.erb",
+     "rails_generators/templates/app/views/re_rules/simple/_new.html.erb",
      "rails_generators/templates/app/views/re_workflow_rules/_edit.html.erb",
      "rails_generators/templates/app/views/re_workflow_rules/_error.html.erb",
      "rails_generators/templates/app/views/re_workflow_rules/_help.html.erb",

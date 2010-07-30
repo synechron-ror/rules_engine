@@ -86,8 +86,8 @@ class RePlansController < ApplicationController
   end
 
   def publish
-    if @re_plan.plan_error || params['tag'].blank?
-      flash[:error] = 'Cannot Publish Plan.'
+    if params['tag'].blank?
+      flash[:error] = 'Tag Required.'
     else  
       @re_plan.plan_version = RulesEngine::Publish.publisher.publish(@re_plan.code, params['tag'], @re_plan.publish)
       @re_plan.plan_status = RePlan::PLAN_STATUS_PUBLISHED

@@ -50,7 +50,19 @@ $(document).ready(function() {
     return false;
   });
 
-  $('a#re_plan_publish').live('click', function() {    
+  $('a#re_plan_publish').live('click', function() {  
+    $('#re_plan_publish_warning').html('');
+    $('#re_plan_publish_form #tag').attr('value', '')
+    $('#re_plan_publish_tag').attr('value', '')
+    $('#re_plan_publish_tag').re_form_valid();
+    $('#re_plan_publish_tag').closest('#re_plan_publish_confirm').find('.form-error-message').remove();
+    $.fancybox({ 'href': '#re_plan_publish_confirm' });          
+    
+  	return false;  
+  });  
+
+  $('a#re_plan_publish_with_errors').live('click', function() {  
+    $('#re_plan_publish_warning').html('Warning! The plan you are publishing has errors!');
     $('#re_plan_publish_form #tag').attr('value', '')
     $('#re_plan_publish_tag').attr('value', '')
     $('#re_plan_publish_tag').re_form_valid();

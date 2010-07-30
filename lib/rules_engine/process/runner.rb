@@ -40,8 +40,32 @@ module RulesEngine
         # 0
       end
       
-      def run(process_id, plan, data = {})
-        _run_plan(process_id, plan, data)
+      def run_plan(process_id, plan, data = {})
+        RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : started", RulesEngine::Process::AUDIT_INFO)
+
+        success = _run_plan_workflow(process_id, plan, plan["workflow"], data)
+
+        if success
+          RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : success", RulesEngine::Process::AUDIT_SUCCESS)
+        else
+          RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : failure", RulesEngine::Process::AUDIT_FAILURE)
+        end
+          
+        success    
+      end
+      
+      def run_workflow(process_id, plan, workflow_name, data = {})        
+        RulesEngine::Process.auditor.audit(process_id, "Workflow : #{workflow_name} : started", RulesEngine::Process::AUDIT_INFO)
+
+        success = _run_plan_workflow(process_id, plan, workflow_name, data)
+
+        if success
+          RulesEngine::Process.auditor.audit(process_id, "Workflow : #{workflow_name} : success", RulesEngine::Process::AUDIT_SUCCESS)
+        else
+          RulesEngine::Process.auditor.audit(process_id, "Workflow : #{workflow_name} : failure", RulesEngine::Process::AUDIT_FAILURE)
+        end
+          
+        success    
       end
       
       def status(process_id)
@@ -56,91 +80,73 @@ module RulesEngine
       end
       
       protected
-        def _run_plan(process_id, plan, data = {})
+        def _run_plan_workflow(process_id, plan, workflow_name, data = {})
         
-          RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : started", RulesEngine::Process::AUDIT_INFO)
-
           workflow_count = 0
-          done = false
-          error = false
-        
-          first_workflow = plan['first_workflow']
-          if (first_workflow.blank? || plan["workflow_#{first_workflow}"].nil?)
-            RulesEngine::Process.auditor.audit(process_id, "First Workflow : #{first_workflow} : missing", RulesEngine::Process::AUDIT_FAILURE)
-            error = done = true 
-          end
-
-          current_workflow = first_workflow
-          next_workflow = ""
-          while (!done && workflow_count < @@max_workflows)
+          while (workflow_count < @@max_workflows)
             workflow_count += 1 
-        
-            RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : started", RulesEngine::Process::AUDIT_INFO)
-          
-            workflow = plan["workflow_#{current_workflow}"]
-            if workflow.nil?
-              RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : not found", RulesEngine::Process::AUDIT_FAILURE) 
-              error = done = true 
-              break 
-            end
-          
-            workflow["rules"].each do | workflow_rule |
-              rule_class = RulesEngine::Discovery.rule_class(workflow_rule["rule_class_name"])
-              unless rule_class
-                RulesEngine::Process.auditor.audit(process_id, "Rule : #{workflow_rule["rule_class_name"]} : not found", RulesEngine::Process::AUDIT_FAILURE) 
-                error = done = true 
-                break 
-              end  
-              rule = rule_class.new
-              rule.data = workflow_rule["data"]
             
-              RulesEngine::Process.auditor.audit(process_id, "Rule : #{rule.title} : starting")                    
-              rule_outcome = rule.process(process_id, data)
-              RulesEngine::Process.auditor.audit(process_id, "Rule : #{rule.title} : finished")
-
-              if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_SUCCESS
-                RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : stop success", RulesEngine::Process::AUDIT_SUCCESS)
-                done = true 
-                break
-              end
-        
-              if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_FAILURE
-                RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : stop failure", RulesEngine::Process::AUDIT_FAILURE)
-                error = done = true 
-                break
-              end
-        
-              if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::START_WORKFLOW
-                RulesEngine::Process.auditor.audit(process_id, "Workflow : #{current_workflow} : start next workflow - #{rule_outcome.workflow_code}", RulesEngine::Process::AUDIT_INFO)
-                next_workflow = rule_outcome.workflow_code
-                break
-              end
-            end          
-          
-            if next_workflow.blank?
-              current_workflow = workflow["next_workflow"]
-            else
-              current_workflow = next_workflow  
-            end            
-          
-            if current_workflow.blank?
-              done = true 
-              break
+            workflow = plan["workflow_#{workflow_name}"]
+            if workflow.nil?
+              RulesEngine::Process.auditor.audit(process_id, "Workflow : #{workflow_name} : not found", RulesEngine::Process::AUDIT_FAILURE) 
+              return false;
+            end
+            
+            rule_outcome = _run_workflow_rules(process_id, plan, workflow, data)
+            
+            if rule_outcome.nil?
+              return true
+            elsif rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_SUCCESS
+              return true
+            elsif rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_FAILURE
+              return false
+            elsif rule_outcome.outcome == RulesEngine::Rule::Outcome::START_WORKFLOW
+              workflow_name = rule_outcome.workflow_code
+            else # rule_outcome.outcome == RulesEngine::Rule::Outcome::NEXT
+              return true              
             end
           end  
 
-          if workflow_count >= @@max_workflows
-            RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : error - Maximum workflow depth #{@@max_workflows} exceeded", RulesEngine::Process::PROCESS_STATUS_FAILURE)
-            error = true
-          end
+          RulesEngine::Process.auditor.audit(process_id, "Maximum workflow depth #{@@max_workflows} exceeded", RulesEngine::Process::PROCESS_STATUS_FAILURE)
+          return false
+        end
+        
+        def _run_workflow_rules(process_id, plan, workflow, data = {})
+          
+          RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : started", RulesEngine::Process::AUDIT_INFO)
+          
+          workflow["rules"].each do | workflow_rule |
+            rule_class = RulesEngine::Discovery.rule_class(workflow_rule["rule_class_name"])
+            unless rule_class
+              RulesEngine::Process.auditor.audit(process_id, "Rule : #{workflow_rule["rule_class_name"]} : not found", RulesEngine::Process::AUDIT_FAILURE) 
+              return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_FAILURE)
+            end  
+            
+            rule = rule_class.new
+            rule.data = workflow_rule["data"]
+          
+            RulesEngine::Process.auditor.audit(process_id, "Rule : #{rule.title} : starting")                    
+            rule_outcome = rule.process(process_id, plan, data)
+            RulesEngine::Process.auditor.audit(process_id, "Rule : #{rule.title} : finished")
 
-          if error  
-            RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : failure", RulesEngine::Process::AUDIT_FAILURE)
-          else  
-            RulesEngine::Process.auditor.audit(process_id, "Plan : #{plan["code"]} : success", RulesEngine::Process::AUDIT_SUCCESS)
-          end
+            if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_SUCCESS
+              RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : stop success", RulesEngine::Process::AUDIT_SUCCESS)
+              return rule_outcome
+            end
       
-          !error
+            if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_FAILURE
+              RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : stop failure", RulesEngine::Process::AUDIT_FAILURE)
+              return rule_outcome
+            end
+      
+            if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::START_WORKFLOW
+              RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : start next workflow - #{rule_outcome.workflow_code}", RulesEngine::Process::AUDIT_INFO)
+              return rule_outcome
+            end
+          end
+          
+          RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : stop success", RulesEngine::Process::AUDIT_SUCCESS)
+          return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_SUCCESS)
         end
     end  
   end

@@ -43,6 +43,15 @@ describe ReWorkflow do
     end        
   end  
   
+  describe "destroying a workflow" do
+    it "should set the plan as changed" do
+      re_workflow = ReWorkflow.create!(valid_attributes)
+      re_workflow.stub!(:re_plans).and_return([re_plan = mock_model(RePlan)])
+      re_plan.should_receive(:changed!)
+      re_workflow.destroy
+    end        
+  end    
+  
   it "should replace any nonprint cahracters with an _" do
     re_workflow = ReWorkflow.new(valid_attributes.merge(:code => "my code"))
     re_workflow.save!

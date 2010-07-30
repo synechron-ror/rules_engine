@@ -4,7 +4,7 @@ module RulesEngine
 
       attr_reader :words
       attr_reader :workflow_action
-      attr_reader :workflow
+      attr_reader :workflow_code
 
       ##################################################################
       # class options
@@ -12,9 +12,9 @@ module RulesEngine
         {
           :group => 'General',
           :display_name => '<%=rule_class%>',    
-          :help_partial => '/re_rule_definitions/<%=rule_name%>/help',
-          :new_partial => '/re_rule_definitions/<%=rule_name%>/new',
-          :edit_partial => '/re_rule_definitions/<%=rule_name%>/edit'
+          :help_partial => '/re_rules/<%=rule_name%>/help',
+          :new_partial => '/re_rules/<%=rule_name%>/new',
+          :edit_partial => '/re_rules/<%=rule_name%>/edit'
         } 
   
       ##################################################################
@@ -24,9 +24,9 @@ module RulesEngine
           @title = nil
           @words = nil
           @workflow_action = 'continue'
-          @workflow = nil
+          @workflow_code = nil
         else
-          @title, @words, @workflow_action, @workflow = ActiveSupport::JSON.decode(data)
+          @title, @words, @workflow_action, @workflow_code = ActiveSupport::JSON.decode(data)
         end  
       end
   
@@ -41,7 +41,7 @@ module RulesEngine
       end
   
       def data
-        [title, words, workflow_action, workflow].to_json
+        [title, words, workflow_action, workflow_code].to_json
       end
   
       def expected_outcomes
@@ -53,7 +53,7 @@ module RulesEngine
         when 'stop_failure'
           [:outcome => RulesEngine::Rule::Outcome::STOP_FAILURE]
         when 'start_workflow'
-          [:outcome => RulesEngine::Rule::Outcome::START_WORKFLOW, :title => "Start Workflow : #{workflow}"]
+          [:outcome => RulesEngine::Rule::Outcome::START_WORKFLOW, :title => "Start Workflow : #{workflow_code}"]
         else
           [:outcome => RulesEngine::Rule::Outcome::NEXT]  
         end
@@ -76,7 +76,7 @@ module RulesEngine
         end
     
         @workflow_action = param_hash[:<%=rule_name%>_workflow_action] || 'continue'
-        @workflow = param_hash[:<%=rule_name%>_workflow]
+        @workflow_code = param_hash[:<%=rule_name%>_workflow_code]
       end
   
       ##################################################################
@@ -85,7 +85,7 @@ module RulesEngine
         @errors = {}
         @errors[:<%=rule_name%>_words] = "At least one word must be defined" if words.nil? || words.empty?
         @errors[:<%=rule_name%>_title] = "Title required" if title.blank?    
-        @errors[:<%=rule_name%>_workflow] = "Workflow required" if workflow_action == 'start_workflow' && workflow.blank?
+        @errors[:<%=rule_name%>_workflow_code] = "Workflow code required" if workflow_action == 'start_workflow' && workflow_code.blank?
         return @errors.empty?
       end
 
@@ -105,7 +105,7 @@ module RulesEngine
       # if a match is found procees to the expected outcome
       # it gets the data parameter :tweet
       # it sets the data parameter :match
-      def process(process_id, data)
+      def process(process_id, plan, data)
         tweet = data[:tweet] || data["tweet"]    
         if tweet.blank?
           return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::NEXT) 
@@ -122,7 +122,7 @@ module RulesEngine
             when 'stop_failure'
               return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_FAILURE)
             when 'start_workflow'
-              return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::START_WORKFLOW, workflow)
+              return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::START_WORKFLOW, workflow_code)
             else #'next'
               return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::NEXT)
             end

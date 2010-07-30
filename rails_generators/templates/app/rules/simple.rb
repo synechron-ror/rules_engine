@@ -9,9 +9,9 @@ module RulesEngine
         {
           :group => 'General',
           :display_name => 'Simple',    
-          :help_partial => '/re_rule_definitions/<%=rule_name%>/help',
-          :new_partial => '/re_rule_definitions/<%=rule_name%>/new',
-          :edit_partial => '/re_rule_definitions/<%=rule_name%>/edit'
+          :help_partial => '/re_rules/<%=rule_name%>/help',
+          :new_partial => '/re_rules/<%=rule_name%>/new',
+          :edit_partial => '/re_rules/<%=rule_name%>/edit'
         } 
   
       ##################################################################
@@ -74,7 +74,7 @@ module RulesEngine
       ##################################################################
       # execute the rule
       # this rule does nothing
-      def process(process_id, data)
+      def process(process_id, plan, data)
         RulesEngine::Process.auditor.audit(process_id, "Inside Rule #{title}", RulesEngine::Process::AUDIT_INFO)                        
         # RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_SUCCESS)
         # RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_FAILURE)

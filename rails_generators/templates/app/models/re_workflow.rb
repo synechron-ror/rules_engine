@@ -10,11 +10,18 @@ class ReWorkflow < ActiveRecord::Base
   named_scope :order_code,  :order => 're_workflows.code ASC'
   named_scope :order_title, :order => 're_workflows.title ASC'
   
-  before_save :before_save_workflow
+  before_save    :before_save_workflow
+  before_destroy :before_destroy_workflow
 
   def before_save_workflow
     self.changed! if changes.detect { |change| !ignore_attributes.include?(change[0])}    
   end  
+  
+  def before_destroy_workflow
+    re_plans.each do |re_plan|
+      re_plan.changed!
+    end
+  end
 
   def code=(new_code)
     self[:code] = new_code.strip.downcase.gsub(/[^a-zA-Z0-9]+/i, '_') if new_code && new_record?

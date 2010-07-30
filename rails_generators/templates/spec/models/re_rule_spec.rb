@@ -177,32 +177,27 @@ describe ReRule do
   
   describe "checking for rule errors" do
     before(:each) do
-      @rule = mock("Rule", :valid? => true)
-      
+      @rule = mock("Rule")
       @re_rule = ReRule.new(valid_attributes)
-      @re_rule.stub!(:rule).and_return(@rule)
     end
     
     it "should return '[title] class [class] invalid' if the rule is missing" do
       @re_rule.should_receive(:rule).and_return(nil)
       @re_rule.rule_error.should == "class MockRuleClass missing"
     end
-    
-    # it "should validate the workflow is present and published" do
-    #   ReWorkflow.should_receive(:find_by_code).and_return(mock("ReWorkflow", :workflow_error => nil))      
-    #   @re_rule.rule_error.should be_nil
-    # end
-      
-    # it "should return '[workflow_code] missing' if the required workflow is missing" do
-    #   ReWorkflow.should_receive(:find_by_code).and_return(nil)
-    #   @re_rule.rule_error.should == "mock_workflow_code missing"
-    # end
-    
-    # it "should return '[workflow_code] invalid' if the required workflow has errors" do
-    #   ReWorkflow.should_receive(:find_by_code).and_return(mock("ReWorkflow", :workflow_error => "workflow error"))      
-    #   @re_rule.rule_error.should == "mock_workflow_code invalid"
-    # end
-    
+
+    it "should return 'the rule errors' if the rule has errors" do
+      @re_rule.stub!(:rule).and_return(@rule)
+      @rule.should_receive(:valid?).and_return(false)
+      @rule.should_receive(:errors).and_return(mock('error', :values => ['one', 'two']))
+      @re_rule.rule_error.should == "one, two"
+    end
+
+    it "should return 'nil' if the rule has no errors" do
+      @re_rule.stub!(:rule).and_return(@rule)
+      @rule.should_receive(:valid?).and_return(true)
+      @re_rule.rule_error.should == nil
+    end    
   end
   
   describe "moving items in a list" do

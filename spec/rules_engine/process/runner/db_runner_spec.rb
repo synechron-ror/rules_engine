@@ -96,12 +96,12 @@ describe "RulesEngine::Process::DbRunner" do
   
   describe "running a plan" do
     before(:each) do
-      @plan = {"code" => 'mock_plan', "version" => 1009}
+      @plan = {"code" => 'mock_plan', "version" => 1009, "workflow" => "db_runner_workflow"}
     end
     
     it "should get the created process" do      
       RulesEngine::Process::ReProcessRun.should_receive(:find_by_id).with(1009)
-      RulesEngine::Process.runner.run(1009, @plan, {})
+      RulesEngine::Process.runner.run_plan(1009, @plan, {})
     end
     
     describe "process not found" do
@@ -110,65 +110,64 @@ describe "RulesEngine::Process::DbRunner" do
       end
       
       it "should return false" do
-        RulesEngine::Process.runner.run(1009, @plan, {}).should == false
+        RulesEngine::Process.runner.run_plan(1009, @plan, {}).should == false
       end
       
       it "should audit the error" do
         RulesEngine::Process.auditor.should_receive(:audit).with(1009, "Process missing", RulesEngine::Process::AUDIT_FAILURE)
-        RulesEngine::Process.runner.run(1009, @plan, {})
+        RulesEngine::Process.runner.run_plan(1009, @plan, {})
       end              
     end
     
     describe "updateing the plan" do
       it "should update the plan code" do
         @re_process_run.should_receive(:update_attributes).once.with(hash_including(:plan_code => 'mock_plan'))
-        RulesEngine::Process.runner.run(1009, @plan, {})                                                        
+        RulesEngine::Process.runner.run_plan(1009, @plan, {})                                                        
       end
     
       it "should update the plan version" do
         @re_process_run.should_receive(:update_attributes).once.with(hash_including(:plan_version => 1009))
-        RulesEngine::Process.runner.run(1009, @plan, {})                                                        
+        RulesEngine::Process.runner.run_plan(1009, @plan, {})                                                        
       end
     
       it "should update the plan as running" do
         @re_process_run.should_receive(:update_attributes).once.with(hash_including(:process_status => RulesEngine::Process::PROCESS_STATUS_RUNNING))
-        RulesEngine::Process.runner.run(1009, @plan, {})                                                        
+        RulesEngine::Process.runner.run_plan(1009, @plan, {})                                                        
       end
     end
     
     it "should run the plan" do
-      RulesEngine::Process.runner.should_receive(:_run_plan).with(1009, @plan, {:test => "data"})
-      RulesEngine::Process.runner.run(1009, @plan, {:test => "data"})                                                        
+      RulesEngine::Process.runner.should_receive(:_run_plan_workflow).with(1009, @plan, "db_runner_workflow", {:test => "data"})
+      RulesEngine::Process.runner.run_plan(1009, @plan, {:test => "data"})                                                        
     end                  
-
   
     describe "running the plan was successfull" do
       before(:each) do
-        RulesEngine::Process.runner.should_receive(:_run_plan).and_return(true)
+        RulesEngine::Process.runner.should_receive(:_run_plan_workflow).and_return(true)
       end
       
       it "should update the status as finished success" do
         @re_process_run.should_receive(:update_attributes).once.with(hash_including(:process_status => RulesEngine::Process::PROCESS_STATUS_SUCCESS))
-        RulesEngine::Process.runner.run(1009, @plan, {})                                                        
+        RulesEngine::Process.runner.run_plan(1009, @plan, {})                                                        
       end
       
       it "should return success" do
-        RulesEngine::Process.runner.run(1009, @plan, {}).should == true
+        RulesEngine::Process.runner.run_plan(1009, @plan, {}).should == true
       end
     end  
     
     describe "running the plan failed" do
       before(:each) do
-        RulesEngine::Process.runner.should_receive(:_run_plan).and_return(false)
+        RulesEngine::Process.runner.should_receive(:_run_plan_workflow).and_return(false)
       end
       
       it "should update the status as failed" do
         @re_process_run.should_receive(:update_attributes).once.with(hash_including(:process_status => RulesEngine::Process::PROCESS_STATUS_FAILURE))
-        RulesEngine::Process.runner.run(1009, @plan, {})                                                        
+        RulesEngine::Process.runner.run_plan(1009, @plan, {})                                                        
       end
 
       it "should return failure" do
-        RulesEngine::Process.runner.run(1009, @plan, {}).should == false
+        RulesEngine::Process.runner.run_plan(1009, @plan, {}).should == false
       end
     end      
   end

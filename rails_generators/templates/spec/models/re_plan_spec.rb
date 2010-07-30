@@ -109,7 +109,7 @@ describe RePlan do
       publish_data["code"].should == 'aa_mock'
       publish_data["title"].should == valid_attributes[:title]
       publish_data["description"].should == valid_attributes[:description]
-      publish_data["first_workflow"].should == "one"
+      publish_data["run_workflow"].should == "one"
       publish_data["workflow_one"]["workflow"].should == "one"
       publish_data["workflow_one"]["next_workflow"].should == "two"
       publish_data["workflow_two"]["workflow"].should == "two"
@@ -142,7 +142,7 @@ describe RePlan do
       re_plan.revert!({"code" => "mock_workflow_code", 
                             "title" => "mock_title", 
                             "description" => "mock_description",
-                            "first_workflow" => "one",
+                            "run_workflow" => "one",
                             "workflow_one" => {"workflow" => "one", "next_workflow" => "two"},
                             "workflow_two" => {"workflow" => "two", "next_workflow" => ""}
                         })
@@ -204,7 +204,7 @@ describe RePlan do
     end
   end
   
-  describe "setting thew default workflow" do
+  describe "setting the default workflow" do
     
     it "should not change the list if the workflow is not in the list" do
       re_plan = RePlan.new
