@@ -7,7 +7,7 @@ module RulesEngineView
       unless flash[:error].blank?
         result << '<div class="error"><strong>Error : </strong><span>'
         result << flash.delete(:error)
-        result << '</span></div>'
+        result << '</span><a class="re-alert-close" href="#">Close</a></div>'
 
         flash.delete(:success)
         flash.delete(:notice)
@@ -16,7 +16,7 @@ module RulesEngineView
       unless flash[:success].blank?
         result << '<div class="success"><strong>Success : </strong><span>'
         result << flash.delete(:success)
-        result << '</span></div>'
+        result << '</span><a class="re-alert-close" href="#">Close</a></div>'
 
         flash.delete(:notice)
       end      
@@ -24,9 +24,8 @@ module RulesEngineView
       unless flash[:notice].blank?
         result << '<div class="notice"><strong>Warning : </strong><span>'
         result << flash.delete(:notice)
-        result << '</span></div>'
+        result << '</span><a class="re-alert-close" href="#">Close</a></div>'
       end      
-
       result << '</div>'      
       
       return result
