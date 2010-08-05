@@ -113,7 +113,7 @@ module RulesEngine
         
         def _run_workflow_rules(process_id, plan, workflow, data = {})
           
-          RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : started", RulesEngine::Process::AUDIT_INFO)
+          RulesEngine::Process.auditor.audit(process_id, "Rules For : #{workflow["code"]} : started", RulesEngine::Process::AUDIT_INFO)
           
           workflow["rules"].each do | workflow_rule |
             rule_class = RulesEngine::Discovery.rule_class(workflow_rule["rule_class_name"])
@@ -130,22 +130,22 @@ module RulesEngine
             RulesEngine::Process.auditor.audit(process_id, "Rule : #{rule.title} : finished")
 
             if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_SUCCESS
-              RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : stop success", RulesEngine::Process::AUDIT_SUCCESS)
+              RulesEngine::Process.auditor.audit(process_id, "Rules For : #{workflow["code"]} : stop success", RulesEngine::Process::AUDIT_SUCCESS)
               return rule_outcome
             end
       
             if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::STOP_FAILURE
-              RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : stop failure", RulesEngine::Process::AUDIT_FAILURE)
+              RulesEngine::Process.auditor.audit(process_id, "Rules For : #{workflow["code"]} : stop failure", RulesEngine::Process::AUDIT_FAILURE)
               return rule_outcome
             end
       
             if !rule_outcome.nil? && rule_outcome.outcome == RulesEngine::Rule::Outcome::START_WORKFLOW
-              RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : start next workflow - #{rule_outcome.workflow_code}", RulesEngine::Process::AUDIT_INFO)
+              RulesEngine::Process.auditor.audit(process_id, "Rules For  : #{workflow["code"]} : start next workflow - #{rule_outcome.workflow_code}", RulesEngine::Process::AUDIT_INFO)
               return rule_outcome
             end
           end
           
-          RulesEngine::Process.auditor.audit(process_id, "Workflow Rules : #{workflow[:name]} : stop success", RulesEngine::Process::AUDIT_SUCCESS)
+          RulesEngine::Process.auditor.audit(process_id, "Rules For : #{workflow["code"]} : stop success", RulesEngine::Process::AUDIT_SUCCESS)
           return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_SUCCESS)
         end
     end  
