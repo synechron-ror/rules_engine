@@ -12,7 +12,7 @@ module RulesEngineView
       result << "<em>"
       result << "#{links[-1]}"
       result << "</em>"
-      result << "<span class='re-breadcrumbs-seperator'>></span>" if links[-1] == links[0]
+      # result << "<span class='re-breadcrumbs-seperator'>></span>" if links[-1] == links[0]
       result << '</div>'
       result
     end
@@ -28,7 +28,7 @@ module RulesEngineView
       result << "<em>"
       result << "#{links[-2]}"
       result << "</em>"
-      result << "<span class='re-breadcrumbs-seperator'>></span>" if links[-2] == links[0]
+      # result << "<span class='re-breadcrumbs-seperator'>></span>" if links[-2] == links[0]
         
       result << "<div class='re-breadcrumb-right'>#{links[-1]}</div>"
       result << '</div>'      
