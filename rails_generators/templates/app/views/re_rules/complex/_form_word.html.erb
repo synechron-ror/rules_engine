@@ -1,7 +1,7 @@
 <%% id = local_assigns[:position] ? position : 'NEW_RECORD'  %>
 
 <div id="<%=rule_name%>_<%%=id%>">
-  <%%= re_text_field "Words to match", "<%=rule_name%>_words[#{id}][word]",  
+  <%%= re_text_field "Words to match", "<%=rule_name%>_match_words[#{id}][word]",  
                                             local_assigns[:word] ? word : '',
                                             :size => 25, 
                                             :required => id == 0, 

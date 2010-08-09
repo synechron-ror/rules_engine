@@ -2,7 +2,7 @@ module RulesEngine
   module Rule
     class <%=rule_class%> < RulesEngine::Rule::Definition
 
-      attr_reader :words
+      attr_reader :match_words
       attr_reader :workflow_action
       attr_reader :workflow_code
 
@@ -22,11 +22,11 @@ module RulesEngine
       def data= data
         if data.nil?
           @title = nil
-          @words = nil
+          @match_words = nil
           @workflow_action = 'continue'
           @workflow_code = nil
         else
-          @title, @words, @workflow_action, @workflow_code = ActiveSupport::JSON.decode(data)
+          @title, @match_words, @workflow_action, @workflow_code = ActiveSupport::JSON.decode(data)
         end  
       end
   
@@ -37,11 +37,11 @@ module RulesEngine
       end
 
       def summary
-        "Match the #{words.size == 1 ? 'word' : 'words'} #{words.join(', ')}"
+        "Match the #{match_words.size == 1 ? 'word' : 'words'} #{match_words.join(', ')}"
       end
   
       def data
-        [title, words, workflow_action, workflow_code].to_json
+        [title, match_words, workflow_action, workflow_code].to_json
       end
   
       def expected_outcomes
@@ -66,12 +66,12 @@ module RulesEngine
 
         @title = param_hash[:<%=rule_name%>_title]
     
-        @words = []
-        return if param_hash[:<%=rule_name%>_words].nil?
-        param_hash[:<%=rule_name%>_words].each do |key, values| 
+        @match_words = []
+        return if param_hash[:<%=rule_name%>_match_words].nil?
+        param_hash[:<%=rule_name%>_match_words].each do |key, values| 
           if values.is_a?(Hash)
             word_hash = values.symbolize_keys
-            @words << word_hash[:word].downcase unless word_hash[:word].blank? || word_hash[:_delete] == '1'
+            @match_words << word_hash[:word].downcase unless word_hash[:word].blank? || word_hash[:_delete] == '1'
           end  
         end
     
@@ -83,8 +83,8 @@ module RulesEngine
       # validation and errors
       def valid?
         @errors = {}
-        @errors[:<%=rule_name%>_words] = "At least one word must be defined" if words.nil? || words.empty?
         @errors[:<%=rule_name%>_title] = "Title required" if title.blank?    
+        @errors[:<%=rule_name%>_match_words] = "At least one word must be defined" if match_words.nil? || match_words.empty?
         @errors[:<%=rule_name%>_workflow_code] = "Workflow code required" if workflow_action == 'start_workflow' && workflow_code.blank?
         return @errors.empty?
       end
@@ -111,7 +111,7 @@ module RulesEngine
           return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::NEXT) 
         end
     
-        words.each do |word|
+        match_words.each do |word|
           if /\b#{word}\b/i =~ tweet        
             RulesEngine::Process.auditor.audit(process_id, "Found #{word}", RulesEngine::Process::AUDIT_INFO)
             data[:tweet_match] = word

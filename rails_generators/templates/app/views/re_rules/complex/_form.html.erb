@@ -35,7 +35,7 @@
 
 <!-- WORDS -->
 <%% position = 0 %>
-<%% (@re_rule.rule.words || []).each do | word | %>  
+<%% (@re_rule.rule.match_words || []).each do | word | %>  
   <%% f.fields_for :rule_data, {:first => false} do |frd| %>
     <%%= render '/re_rules/<%=rule_name%>/form_word', :f => frd, :position => position, :word => word %>
     <%% position += 1 %>        

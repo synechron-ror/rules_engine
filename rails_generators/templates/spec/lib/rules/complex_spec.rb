@@ -9,7 +9,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
   def valid_attributes
     {
       :<%=rule_name%>_title => 'Another Title',
-      :<%=rule_name%>_words => {
+      :<%=rule_name%>_match_words => {
                     "1" => { "word" => 'first word'  },
                     "2" => { "word" => 'second word' }
                   }
@@ -57,8 +57,8 @@ describe RulesEngine::Rule::<%=rule_class%> do
         @<%=rule_name%>.title.should == "Rule Title"        
       end
 
-      it "should set the words" do
-        @<%=rule_name%>.words.should == ["word one", "word two"]
+      it "should set the match_words" do
+        @<%=rule_name%>.match_words.should == ["word one", "word two"]
       end
 
       it "should set the workflow_action" do
@@ -77,10 +77,10 @@ describe RulesEngine::Rule::<%=rule_class%> do
         @<%=rule_name%>.title.should be_nil
       end
       
-      it "should set the words to nil" do
-        @<%=rule_name%>.words.should_not be_nil
+      it "should set the match_words to nil" do
+        @<%=rule_name%>.match_words.should_not be_nil
         @<%=rule_name%>.data = nil
-        @<%=rule_name%>.words.should be_nil
+        @<%=rule_name%>.match_words.should be_nil
       end
 
       it "should se the workflow action to 'continue'" do
@@ -98,15 +98,15 @@ describe RulesEngine::Rule::<%=rule_class%> do
   end
   
   describe "the summary" do
-    it "should be singluar if there is one word" do
+    it "should be singluar if there is one match_word" do
       <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
-      <%=rule_name%>.stub!(:words).and_return(["one"])
+      <%=rule_name%>.stub!(:match_words).and_return(["one"])
       <%=rule_name%>.summary.should == "Match the word one"
     end
 
-    it "should be plural if there are multiple words" do
+    it "should be plural if there are multiple match_words" do
       <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
-      <%=rule_name%>.stub!(:words).and_return(["one", "two", "three"])
+      <%=rule_name%>.stub!(:match_words).and_return(["one", "two", "three"])
       <%=rule_name%>.summary.should == "Match the words one, two, three"
     end        
   end
@@ -115,7 +115,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
     it "should be converted to a json string" do
       <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
       <%=rule_name%>.should_receive(:title).and_return("mock title")
-      <%=rule_name%>.should_receive(:words).and_return(["one", "two"])
+      <%=rule_name%>.should_receive(:match_words).and_return(["one", "two"])
       <%=rule_name%>.should_receive(:workflow_action).and_return("workflow action")
       <%=rule_name%>.should_receive(:workflow_code).and_return("workflow")
       <%=rule_name%>.data.should == '["mock title",["one","two"],"workflow action","workflow"]'
@@ -186,38 +186,38 @@ describe RulesEngine::Rule::<%=rule_class%> do
       end                
     end
 
-    describe "setting the <%=rule_name%>_words" do
-      it "should set the words" do
+    describe "setting the <%=rule_name%>_match_words" do
+      it "should set the match_words" do
         @<%=rule_name%>.attributes = valid_attributes
-        @<%=rule_name%>.words.should == ['first word', 'second word']
+        @<%=rule_name%>.match_words.should == ['first word', 'second word']
       end            
     
-      it "should not be valid if the '<%=rule_name%>_words' attribute is missing" do
-        @<%=rule_name%>.attributes = valid_attributes.except(:<%=rule_name%>_words)
+      it "should not be valid if the '<%=rule_name%>_match_words' attribute is missing" do
+        @<%=rule_name%>.attributes = valid_attributes.except(:<%=rule_name%>_match_words)
         @<%=rule_name%>.should_not be_valid
-        @<%=rule_name%>.errors.should include(:<%=rule_name%>_words)      
+        @<%=rule_name%>.errors.should include(:<%=rule_name%>_match_words)      
       end            
     
-      it "should not be valid if the '<%=rule_name%>_words' is not a hash" do
-        @<%=rule_name%>.attributes = valid_attributes.merge(:<%=rule_name%>_words => "<%=rule_name%> word")
+      it "should not be valid if the '<%=rule_name%>_match_words' is not a hash" do
+        @<%=rule_name%>.attributes = valid_attributes.merge(:<%=rule_name%>_match_words => "<%=rule_name%> word")
         @<%=rule_name%>.should_not be_valid
-        @<%=rule_name%>.errors.should include(:<%=rule_name%>_words)
+        @<%=rule_name%>.errors.should include(:<%=rule_name%>_match_words)
       end                
 
-      it "should not be valid if the '<%=rule_name%>_words' is empty" do
-        @<%=rule_name%>.attributes = valid_attributes.merge(:<%=rule_name%>_words => {})
+      it "should not be valid if the '<%=rule_name%>_match_words' is empty" do
+        @<%=rule_name%>.attributes = valid_attributes.merge(:<%=rule_name%>_match_words => {})
         @<%=rule_name%>.should_not be_valid
-        @<%=rule_name%>.errors.should include(:<%=rule_name%>_words)
+        @<%=rule_name%>.errors.should include(:<%=rule_name%>_match_words)
       end                
       
       it "should not include parameters that are marked for deletion" do
-        @<%=rule_name%>.attributes = valid_attributes.merge(:<%=rule_name%>_words => {
+        @<%=rule_name%>.attributes = valid_attributes.merge(:<%=rule_name%>_match_words => {
                                                                               "1" => { "word" => 'first word', "_delete" => '1'  },
                                                                               "2" => { "word" => 'second word' }
                                                                             }         
          )
         @<%=rule_name%>.should be_valid
-        @<%=rule_name%>.words.should == ['second word']
+        @<%=rule_name%>.match_words.should == ['second word']
       end
           
     end
@@ -278,7 +278,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
   describe "processing the rule" do
     before(:each) do
       @<%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
-      @<%=rule_name%>.stub!(:words).and_return(["found", "word"])
+      @<%=rule_name%>.stub!(:match_words).and_return(["found", "word"])
     end
     
     it "should do nothing if there is no tweet" do      
@@ -363,7 +363,7 @@ describe ReWorkflowRulesController, :type => :controller  do
         get :new, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
         response.should have_tag("form#re_rule_new_form") do
           with_tag("input#<%=rule_name%>_title")     
-          with_tag("input#<%=rule_name%>_words_0_word")
+          with_tag("input#<%=rule_name%>_match_words_0_word")
           with_tag("select#<%=rule_name%>_workflow_action")
           with_tag("input#<%=rule_name%>_workflow_code")
         end  
@@ -380,8 +380,8 @@ describe ReWorkflowRulesController, :type => :controller  do
         get :edit, :re_workflow_id => @re_workflow.id, :re_rule_id => 1001, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
         response.should have_tag("form#re_rule_edit_form") do
           with_tag("input#<%=rule_name%>_title", :value => 'Rule Title')     
-          with_tag("input#<%=rule_name%>_words_0_word", :value => 'word one')
-          with_tag("input#<%=rule_name%>_words_1_word", :value => 'word two')
+          with_tag("input#<%=rule_name%>_match_words_0_word", :value => 'word one')
+          with_tag("input#<%=rule_name%>_match_words_1_word", :value => 'word two')
           with_tag("select#<%=rule_name%>_workflow_action", :value => 'start_workflow')
           with_tag("input#<%=rule_name%>_workflow_code", :value => 'Other Workflow')
         end  
