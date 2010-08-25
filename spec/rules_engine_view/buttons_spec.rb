@@ -59,7 +59,7 @@ end
     
     it "should call button link" do
       @template.should_receive(:re_button_link).with("title", "url", "#{color}", {})
-      eval_erb("<% re_button_link_#{color}('title', 'url') %>")
+      eval_erb("<%= re_button_link_#{color}('title', 'url') %>")
     end
   end
 end
@@ -68,56 +68,87 @@ end
 describe "re_add_link", :type => :helper do 
   it "should call link_to with the title" do
     @template.should_receive(:link_to).with("mock_title", "#", anything())
-    eval_erb("<% re_add_link('mock_title', 'mock_id') %>")    
+    eval_erb("<%= re_add_link('mock_title', 'mock_id') %>")    
   end      
 
   it "should call link_to with the id" do
     @template.should_receive(:link_to).with(anything(), anything(), hash_including({:id => 'mock_id'}))
-    eval_erb("<% re_add_link('mock_title', 'mock_id') %>")    
+    eval_erb("<%= re_add_link('mock_title', 'mock_id') %>")    
   end      
 
   it "should set the link class to re-add-link" do
     @template.should_receive(:link_to).with(anything(), anything(), hash_including({:class => 're-add-link'}))
-    eval_erb("<% re_add_link('mock_title', 'mock_id') %>")    
+    eval_erb("<%= re_add_link('mock_title', 'mock_id') %>")    
   end      
 
 end
 
 describe "re_remove_link", :type => :helper do 
   it "shouldbe blank if the id is 0" do
-    eval_erb("<% re_remove_link('mock_title', 'object[name]', 0) %>").should be_blank
+    eval_erb("<%= re_remove_link('mock_title', 'object[name]', 0) %>").should be_blank
   end      
 
   it "should call link_to with the title" do
     @template.should_receive(:link_to).with("mock_title", anything(), anything())
-    eval_erb("<% re_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
+    eval_erb("<%= re_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
   end      
 
   it "should call link_to with the id" do
     @template.should_receive(:link_to).with(anything(), anything(), hash_including({:id => 'object_name_remove'}))
-    eval_erb("<% re_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
+    eval_erb("<%= re_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
   end      
 
   it "should set the link class to re-remove-link" do
     @template.should_receive(:link_to).with(anything(), anything(), hash_including({:class => 're-remove-link'}))
-    eval_erb("<% re_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
+    eval_erb("<%= re_remove_link('mock_title', 'object[name]', 'mock_id') %>")    
   end      
 
 end
 
 describe "re_remove_field", :type => :helper do 
   it "should be blank if the id is 0" do
-    eval_erb("<% re_remove_field('object[name]', 0) %>").should be_blank
+    eval_erb("<%= re_remove_field('object[name]', 0) %>").should be_blank
   end      
 
   it "should call hidden_field_tag with the _delete field" do
     @template.should_receive(:hidden_field_tag).with("object[name][_delete]", anything(), anything())
-    eval_erb("<% re_remove_field('object[name]', 'mock_id') %>")    
+    eval_erb("<%= re_remove_field('object[name]', 'mock_id') %>")    
   end      
 
   it "should call hidden_field_tag with the id" do
     @template.should_receive(:hidden_field_tag).with(anything(), anything(), hash_including({:id => 'object_name__delete'}))
-    eval_erb("<% re_remove_field('object[name]', 'mock_id') %>")    
+    eval_erb("<%= re_remove_field('object[name]', 'mock_id') %>")    
   end      
+end
 
+
+describe "re_button_add", :type => :helper do 
+  it "should  a link to with the class re-button-add" do
+    eval_erb("<%= re_button_add('http://test') %>").should have_tag('a.re-button-add[href=http://test]')
+  end      
+end
+
+describe "re_button_remove", :type => :helper do 
+  it "should  a link to with the class re-button-remove" do
+    eval_erb("<%= re_button_remove('http://test') %>").should have_tag('a.re-button-remove[href=http://test]')
+  end      
+end
+
+describe "re_button_select", :type => :helper do 
+  it "should  a link to with the class re-button-select" do
+    eval_erb("<%= re_button_select('http://test') %>").should have_tag('a.re-button-select[href=http://test]')
+  end      
+end
+
+describe "re_button_checked", :type => :helper do 
+  it "should  a link to with the class re-button-checked" do
+    eval_erb("<%= re_button_checked('http://test') %>").should have_tag('a.re-button-checked[href=http://test]')
+  end      
+end
+
+
+describe "re_button_unchecked", :type => :helper do 
+  it "should  a link to with the class re-button-unchecked" do
+    eval_erb("<%= re_button_unchecked('http://test') %>").should have_tag('a.re-button-unchecked[href=http://test]')
+  end      
 end
