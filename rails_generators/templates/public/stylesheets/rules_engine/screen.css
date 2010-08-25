@@ -1089,8 +1089,8 @@ table.data-line tr.odd td {
 .re-form-field {
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid #EEE;
 }
-
 
 .re-form-label, .re-form-label-error{
 	color: #305267;
@@ -1128,7 +1128,7 @@ table.data-line tr.odd td {
 	font-size: 18px;
 	line-height: 20px;
 	color: #222;
-  padding: 0 5px;
+  padding: 4px 5px 0 5px;
 }
 
 .re-form-data .form-error-message,
@@ -1343,31 +1343,70 @@ a.re-form-button-green span{ background: transparent url('./images/re_view_butto
 a.re-form-button-orange span{ background: transparent url('./images/re_view_button/oval-orange-right.gif') no-repeat top right;}
 a.re-form-button-red span{ background: transparent url('./images/re_view_button/oval-red-right.gif') no-repeat top right;}
 
-a.button-checked{
-	background: transparent url('./images/re_view_button/checked-on.gif') no-repeat 1px 1px;
+a.re-button-add{
+	background: transparent url('./images/re_view_button/list-add.png') no-repeat top left;
 /*	border: 1px solid #fff;*/
 	width: 16px;
 	height: 16px;
 	float: left;
 	padding: 0;
-	margin: 0px 2px 0 0;
+	margin:0px 7px 0 0;
 	font-size: 0px;
 	color: #fff;
 }
-a.button-checked:hover	{ background-color: #696969; }
+a.re-button-add:hover	{ background-color: #696969; }
 
-a.button-unchecked{
-	background: transparent url('./images/re_view_button/checked-off.gif') no-repeat 1px 1px;
+a.re-button-remove{
+	background: transparent url('./images/re_view_button/list-remove.png') no-repeat top left;
 /*	border: 1px solid #fff;*/
 	width: 16px;
 	height: 16px;
 	float: left;
 	padding: 0;
-	margin: 0px 2px 0 0;
+	margin:0px 2px 0 0;
 	font-size: 0px;
 	color: #fff;
 }
-a.button-unchecked:hover	{ background-color: #696969; }
+a.re-button-remove:hover	{ background-color: #696969; }
+
+a.re-button-select{
+	background: transparent url('./images/re_view_button/list-select.png') no-repeat top left;
+/*	border: 1px solid #fff;*/
+	width: 16px;
+	height: 16px;
+	float: left;
+	padding: 0;
+	margin:0px 7px 0 0;
+	font-size: 0px;
+	color: #fff;
+}
+a.re-button-select:hover	{ background-color: #696969; }
+
+a.re-button-checked{
+	background: transparent url('./images/re_view_button/checked-on.gif') no-repeat top left;
+/*	border: 1px solid #fff;*/
+	width: 16px;
+	height: 16px;
+	float: left;
+	padding: 0;
+	margin: 0px 4px 0 0;
+	font-size: 0px;
+	color: #fff;
+}
+a.re-button-checked:hover	{ background-color: #696969; }
+
+a.re-button-unchecked{
+	background: transparent url('./images/re_view_button/checked-off.gif') no-repeat top left;
+/*	border: 1px solid #fff;*/
+	width: 16px;
+	height: 16px;
+	float: left;
+	padding: 0;
+	margin: 0px 4px 0 0;
+	font-size: 0px;
+	color: #fff;
+}
+a.re-button-unchecked:hover	{ background-color: #696969; }
 
 a.re-add-link {
   display: block;

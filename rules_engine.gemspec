@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-08-09}
+  s.date = %q{2010-08-25}
   s.description = %q{Rules engine}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -264,6 +264,9 @@ Gem::Specification.new do |s|
      "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_button/checked-on.gif",
      "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_button/icon-add.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_button/icon-delete.png",
+     "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_button/list-add.png",
+     "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_button/list-remove.png",
+     "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_button/list-select.png",
      "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_button/oval-blue-left.gif",
      "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_button/oval-blue-right.gif",
      "rails_generators/templates/public/stylesheets/rules_engine/images/re_view_button/oval-gray-left.gif",

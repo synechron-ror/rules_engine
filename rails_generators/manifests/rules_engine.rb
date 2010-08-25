@@ -260,6 +260,9 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/re_view_button/checked-on.gif
       public/stylesheets/rules_engine/images/re_view_button/icon-add.png
       public/stylesheets/rules_engine/images/re_view_button/icon-delete.png
+      public/stylesheets/rules_engine/images/re_view_button/list-add.png
+      public/stylesheets/rules_engine/images/re_view_button/list-remove.png
+      public/stylesheets/rules_engine/images/re_view_button/list-select.png
       public/stylesheets/rules_engine/images/re_view_button/oval-blue-left.gif
       public/stylesheets/rules_engine/images/re_view_button/oval-blue-right.gif
       public/stylesheets/rules_engine/images/re_view_button/oval-gray-left.gif

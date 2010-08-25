@@ -83,6 +83,33 @@ module RulesEngineView
       hidden_field_tag("#{object_name}[_delete]", "", :id => "#{builder_id}__delete")
     end
     
+    #########################################################
+    ## ADD and REMOVE BUTTONS  
+    def re_button_add url, options = {}
+      klass = "re-button-add #{options[:class]}"
+      link_to("", url, options.merge(:class => klass))
+    end
+
+    def re_button_remove url, options = {}
+      klass = "re-button-remove #{options[:class]}"
+      link_to("", url, options.merge(:class => klass))
+    end
+    
+    def re_button_select url, options = {}
+      klass = "re-button-select #{options[:class]}"
+      link_to("", url, options.merge(:class => klass))
+    end
+
+    def re_button_checked url, options = {}
+      klass = "re-button-checked #{options[:class]}"
+      link_to("", url, options.merge(:class => klass))
+    end
+    
+    def re_button_unchecked url, options = {}
+      klass = "re-button-unchecked #{options[:class]}"
+      link_to("", url, options.merge(:class => klass))
+    end
+    
   end      
 end
 

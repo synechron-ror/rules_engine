@@ -75,6 +75,13 @@
 - re_remove_link(title, object_name, id)
 - re_remove_field(object_name, id)
 
+- re_button_add(url, options = {})
+- re_button_remove(url, options = {})
+- re_button_select(url, options = {})
+- re_button_checked(url, options = {})
+- re_button_unchecked(url, options = {})
+
+
 ##########################################################
 = navigate
 
