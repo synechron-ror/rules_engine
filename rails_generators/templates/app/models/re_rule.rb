@@ -41,7 +41,8 @@ class ReRule < ActiveRecord::Base
   end
 
   def publish
-    { "rule_class_name" => rule_class_name, 
+    { "uuid" => id,
+      "rule_class_name" => rule_class_name, 
       "title" => title, 
       "summary" => summary,
       "data" => data

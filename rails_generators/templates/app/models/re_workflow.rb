@@ -40,7 +40,15 @@ class ReWorkflow < ActiveRecord::Base
     self.title = rule_data["title"]
     self.description = rule_data["description"]
     
-    self.re_rules = (rule_data["rules"] || []).map { |rule| ReRule.new.revert!(rule) }
+    # self.re_rules = (rule_data["rules"] || []).map { |rule| ReRule.new.revert!(rule) }
+    orig_re_rules = []
+    (rule_data["rules"] || []).each do |rule| 
+      re_rule = ReRule.find_by_id(rule["uuid"]) || ReRule.new
+      re_rule.revert!(rule)
+      orig_re_rules << re_rule
+    end
+    
+    self.re_rules = orig_re_rules    
     self
   end  
 
