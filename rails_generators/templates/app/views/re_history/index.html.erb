@@ -1,10 +1,10 @@
-<% set_re_javascript_include ['rules_engine/re_process_index', 'rules_engine/re_process_show'] %>
+<% set_re_javascript_include ['rules_engine/re_history_index', 'rules_engine/re_history_show'] %>
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
-											'<span class="re-bc-process-list">Show Processes</span>' %>
+											'<span class="re-bc-history-list">Process History</span>' %>
 
 <div class="prepend-1 span-22 append-1">      
   <div class="re-infobox">
-    <%= render '/re_processes/index_prepare', :re_plan_id => 0  %>
+    <%= render '/re_history/index_prepare', :re_plan_id => 0  %>
     <div class="clear top-5"></div>
   </div>  
 </div>  

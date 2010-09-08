@@ -96,7 +96,7 @@ ActionController::Routing::Routes.draw do |map|
                               :member => {:move_up => :put, :move_down => :put}
   end  
 
-  map.resources :re_processes,    :only => [:index, :show]
+  map.resources :re_history,    :only => [:index, :show]
   map.resources :re_publications, :only => [:show]
 
   ...

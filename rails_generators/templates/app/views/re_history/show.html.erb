@@ -1,0 +1,8 @@
+<% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
+											link_to("Process History", re_history_index_path, :class => "re-bc-history-list"), 
+											'<span class="re-bc-history-list">Process Audit</span>' %>
+
+<div class="span-22 prepend-1 append-1">      
+	<%= render '/re_history/show' %>
+</div>  
+<div class="clear"></div>

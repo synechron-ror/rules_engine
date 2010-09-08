@@ -16,7 +16,7 @@ module RulesEngineHelper
     "Ver.#{re_plan.plan_version}"    
   end
   
-  def re_process_status process_status
+  def re_history_status process_status
     case process_status.to_i
     when RulesEngine::Process::PROCESS_STATUS_RUNNING
       'running'

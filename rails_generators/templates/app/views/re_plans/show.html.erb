@@ -1,4 +1,4 @@
-<% set_re_javascript_include ['rules_engine/re_workflow_preview', 'rules_engine/re_publication_show', 'rules_engine/re_process_index', 'rules_engine/re_process_show'] %>
+<% set_re_javascript_include ['rules_engine/re_workflow_preview', 'rules_engine/re_publication_show', 'rules_engine/re_history_index', 'rules_engine/re_history_show'] %>
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), '<span class="re-bc-plan-show">View Plan</span>' %>
 
 <div class="span-17 border">      
@@ -42,7 +42,7 @@
 		<div class="clear top-5"></div>
 	<% end %>
 
-	<%= render '/re_processes/index_prepare', :re_plan_id => @re_plan.id %>	
+	<%= render '/re_history/index_prepare', :re_plan_id => @re_plan.id %>	
 	<div class="clear top-5"></div>    
 	
 	<div class="clear top-20"></div>

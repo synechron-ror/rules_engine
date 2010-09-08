@@ -4,9 +4,9 @@ class RePlansController < ApplicationController
 
   # before_filter :login_required
   before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :publish, :revert, :copy, :duplicate]
-  before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview, :re_process]
+  before_filter :rules_engine_reader_access_required,  :only => [:index, :show, :preview, :history]
 
-  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :publish, :revert, :re_process, :copy, :duplicate] do |controller|
+  before_filter :only => [:show, :edit, :update, :destroy, :change, :preview, :publish, :revert, :history, :copy, :duplicate] do |controller|
     controller.re_load_model :re_plan
   end    
 
@@ -125,8 +125,8 @@ class RePlansController < ApplicationController
     end
   end
   
-  def re_process
-    @re_processes = RulesEngine::Process.runner.history(@re_plan.code, :page => params[:page] || 1, :per_page => 5)    
+  def history
+    @re_history = RulesEngine::Process.runner.history(@re_plan.code, :page => params[:page] || 1, :per_page => 5)    
   end
 
   def copy

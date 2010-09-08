@@ -1,6 +1,6 @@
 <div class="clear span-18">
   <div class="re-infobox">
-	  <h3 class="re-hdr-process-show"> Process Audit</h3>
+	  <h3 class="re-hdr-history-show"> Process Audit</h3>
 	  <div class="clear top-10"></div>
 		<% if @re_audits.nil? || @re_audits["audits"].nil? || @re_audits["audits"].empty? %>
 			<h6 class="left-50 red"><em>No Audit History</em></h6>
@@ -8,7 +8,7 @@
 			<% @re_audits["audits"].each do |re_audit| %>
 				<div class="clear top-2"></div>
 				<div class="left-10 right-5">
-					<div class="re-code-small float-left re-xtra-process-audit-<%= re_audit_status(re_audit["code"]) %>">
+					<div class="re-code-small float-left re-xtra-history-audit-<%= re_audit_status(re_audit["code"]) %>">
 						<%= re_audit["message"] %>
 					</div>	
 					<div class="smalltext float-right right-5">	
@@ -19,11 +19,11 @@
 		
 			<% end %>		
 			<% if !@re_audits["audits"].empty? && (@re_audits["next_page"] || @re_audits["previous_page"]) %>
-				<a class="re-xtra-process-next-<%= @re_audits["next_page"] ? 'enabled' : 'disabled' %>" href='#<%= @re_audits["next_page"] || '1' %>'></a>
-				<a class="re-xtra-process-prev-<%= @re_audits["previous_page"] ? 'enabled' : 'disabled' %>" href='#<%= @re_audits["previous_page"] || '1' %>'></a>
+				<a class="re-xtra-history-next-<%= @re_audits["next_page"] ? 'enabled' : 'disabled' %>" href='#<%= @re_audits["next_page"] || '1' %>'></a>
+				<a class="re-xtra-history-prev-<%= @re_audits["previous_page"] ? 'enabled' : 'disabled' %>" href='#<%= @re_audits["previous_page"] || '1' %>'></a>
 			<% end %>
 		<% end %>
-		<%= re_button_link_orange('Close', re_processes_path, :id => "re_process_show_close") %>
+		<%= re_button_link_orange('Close', re_history_index_path, :id => "re_history_show_close") %>
     <div class="clear top-5"></div>
   </div>  
 </div>

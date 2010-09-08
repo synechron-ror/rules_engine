@@ -62,7 +62,7 @@ class RePlan < ActiveRecord::Base
     workflow_data = rule_data["workflow_#{rule_data["workflow"]}"]
     while (workflow_data && orig_re_workflows.length < 500)
       workflow_code = workflow_data["code"]
-      re_workflow = ReWorkflow.find_by_code(workflow_code) || ReWorkflow.new(:code => workflow_code)
+      re_workflow = ReWorkflow.find_by_code(workflow_code) || ReWorkflow.new
       re_workflow.revert!(workflow_data)
       orig_re_workflows << re_workflow
       

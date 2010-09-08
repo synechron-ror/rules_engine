@@ -41,26 +41,26 @@ describe RulesEngineHelper do
 
   describe "re_perocess_status" do
     it "should running" do
-      helper.re_process_status(RulesEngine::Process::PROCESS_STATUS_RUNNING).should == 'running'
+      helper.re_history_status(RulesEngine::Process::PROCESS_STATUS_RUNNING).should == 'running'
     end
     
     it "should be success" do
-      helper.re_process_status(RulesEngine::Process::PROCESS_STATUS_SUCCESS).should == 'success'
+      helper.re_history_status(RulesEngine::Process::PROCESS_STATUS_SUCCESS).should == 'success'
     end
     
     it "should be error" do
-      helper.re_process_status(RulesEngine::Process::PROCESS_STATUS_FAILURE).should == 'error'
+      helper.re_history_status(RulesEngine::Process::PROCESS_STATUS_FAILURE).should == 'error'
     end
     
     it "should be info" do
-      helper.re_process_status(RulesEngine::Process::PROCESS_STATUS_NONE).should == 'info'
+      helper.re_history_status(RulesEngine::Process::PROCESS_STATUS_NONE).should == 'info'
     end
     
     it "should accept string versions of the process status" do
-      helper.re_process_status("#{RulesEngine::Process::PROCESS_STATUS_RUNNING}").should == 'running'
-      helper.re_process_status("#{RulesEngine::Process::PROCESS_STATUS_SUCCESS}").should == 'success'
-      helper.re_process_status("#{RulesEngine::Process::PROCESS_STATUS_FAILURE}").should == 'error'
-      helper.re_process_status("#{RulesEngine::Process::PROCESS_STATUS_NONE}").should == 'info'
+      helper.re_history_status("#{RulesEngine::Process::PROCESS_STATUS_RUNNING}").should == 'running'
+      helper.re_history_status("#{RulesEngine::Process::PROCESS_STATUS_SUCCESS}").should == 'success'
+      helper.re_history_status("#{RulesEngine::Process::PROCESS_STATUS_FAILURE}").should == 'error'
+      helper.re_history_status("#{RulesEngine::Process::PROCESS_STATUS_NONE}").should == 'info'
     end
   end    
 

@@ -277,6 +277,78 @@ describe RePlansController do
       response.should render_template(:update)
     end    
   end
+  
+  describe "revert" do
+    it_should_require_rules_engine_editor_access(:revert, :id => 123)
+  
+    before do
+      @publisher = mock('publisher')
+      @publisher.stub!(:get)
+      RulesEngine::Publish.stub!(:publisher).and_return(@publisher)
+      
+      @re_plan = RePlan.make
+      RePlan.stub!(:find).and_return(@re_plan) 
+    end
+  
+    it "should get the plan record with the ID" do
+      RePlan.should_receive(:find).with("123").and_return(@re_plan)
+      put :revert, :id => 123
+      assigns[:re_plan].should == @re_plan
+    end
+    
+    it "should get the plan from the publisher" do
+      @publisher.should_receive(:get).with(@re_plan.code)
+      put :revert, :id => 123
+    end
+        
+    describe "the publisher does not have the plan" do
+      it "should set an error message" do
+        put :revert, :id => 123
+        flash[:error].should_not be_blank
+      end          
+    end
+    
+    describe "the publisher has the plan" do
+      before(:each) do
+        @plan = {:code => 'mock plan'}
+        @publisher.stub!(:get).and_return(@plan)
+        @publisher.stub!(:revert!)
+        @re_plan.stub!(:save!)
+      end
+      
+      it "should revert the plan" do
+        @re_plan.should_receive(:revert!).with(@plan)
+        put :revert, :id => 123
+      end
+
+      it "should save the plan" do
+        @re_plan.should_receive(:save!)
+        put :revert, :id => 123
+      end
+          
+      it "should display a flash success message" do
+        put :revert, :id => 123
+        flash[:success].should_not be_blank
+      end
+    end
+    
+    it "should redirect to the change re_plan page for HTML" do
+      put :revert, :id => 123
+      response.should redirect_to(change_re_plan_path(@re_plan))
+    end
+  
+    it "should render 'update' template for JAVASCRIPT" do
+      xhr :put, :revert, :id => 123
+      response.should render_template(:update)
+    end    
+  end
+  
+  describe "history" do
+    it "should get the process runner history from the rules engine process runner" do
+      pending("needs to be written")
+    end
+        
+  end
 end
 
 
@@ -439,39 +511,4 @@ end
   #   end    
   # end
   # 
-  # describe "revert" do
-  #   it_should_require_rules_engine_editor_access(:revert, :id => 123)
-  # 
-  #   before do
-  #     @re_plan = mock_model(RePlan)
-  #     @re_plan.stub!(:revert!)
-  #     RePlan.stub!(:find).and_return(@re_plan) 
-  #   end
-  # 
-  #   it "should get the plan record with the ID" do
-  #     RePlan.should_receive(:find).with("123").and_return(@re_plan)
-  #     put :revert, :id => 123
-  #     assigns[:re_plan].should == @re_plan
-  #   end
-  #   
-  #   it "should revert the re_plan" do
-  #     @re_plan.should_receive(:revert!)
-  #     put :revert, :id => 123
-  #   end
-  #  
-  #   it "should display a flash success message" do
-  #     put :revert, :id => 123
-  #     flash[:success].should_not be_blank
-  #   end
-  #   
-  #   it "should redirect to the change re_plan page for HTML" do
-  #     put :revert, :id => 123
-  #     response.should redirect_to(change_re_plan_path(@re_plan))
-  #   end
-  # 
-  #   it "should render 'update' template for JAVASCRIPT" do
-  #     xhr :put, :revert, :id => 123
-  #     response.should render_template(:update)
-  #   end    
-  # end
   # 

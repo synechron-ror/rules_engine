@@ -5,7 +5,7 @@ contents :
   - app/views/re_workflows
   - app/views/re_workflow_rules
   - app/views/re_publications
-  - app/views/re_processes
+  - app/views/re_history
 
   - public/stylesheets/fancybox
   - public/stylesheets/blueprint
@@ -27,7 +27,7 @@ files :
   - app/controllers/re_workflows_controller.rb
   - app/controllers/re_workflow_rules_controller.rb
   - app/controllers/re_publications_controller.rb
-  - app/controllers/re_processes_controller.rb
+  - app/controllers/re_history_controller.rb
 
   - app/helpers/rules_engine_helper.rb
 
