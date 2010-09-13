@@ -357,6 +357,7 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/screen.css
       spec/controllers/re_application_controller_spec.rb
       spec/controllers/re_history_controller_spec.rb
+      spec/controllers/re_plan_workflows_controller_spec.rb
       spec/controllers/re_plans_controller_spec.rb
       spec/controllers/re_publications_controller_spec.rb
       spec/controllers/re_workflows_controller_spec.rb

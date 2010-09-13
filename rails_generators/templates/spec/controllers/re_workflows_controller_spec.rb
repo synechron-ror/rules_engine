@@ -40,7 +40,7 @@ describe ReWorkflowsController do
     end
     
     it "should render the 'new' template" do
-      get :new, :id => 123
+      get :new
       response.should render_template(:new)
     end
   end
@@ -248,7 +248,7 @@ describe ReWorkflowsController do
   describe "add" do
     it_should_require_rules_engine_reader_access(:add)
     
-    it "should list the workflows to add to a workflow" do
+    it "should list the workflows to add to a plan" do
       re_workflows = [ReWorkflow.make(:title => 'a'), ReWorkflow.make(:title => 'b')]
       get :add
       assigns[:re_workflows].should == re_workflows
@@ -260,24 +260,24 @@ describe ReWorkflowsController do
     
     before(:each) do
       @re_workflow = ReWorkflow.make
-      ReWorkflow.stub!(:find).and_return(@re_workflow) 
     end
     
     it "should assign an empty workflow copy" do
-      get :copy, :id => 1234  
+      get :copy, :id => @re_workflow.id
+      assigns[:re_workflow].should == @re_workflow
       assigns[:re_workflow_copy].should be_instance_of(ReWorkflow)
     end        
   end
   
   describe "duplicate" do
-    it_should_require_rules_engine_editor_access(:copy, :id => 123)
+    it_should_require_rules_engine_editor_access(:duplicate, :id => 123)
   
     before(:each) do
       @re_workflow = ReWorkflow.make
       ReWorkflow.stub!(:find).and_return(@re_workflow) 
       
       @re_workflow_copy = ReWorkflow.make
-      ReWorkflow.should_receive(:new).and_return(@re_workflow_copy)      
+      ReWorkflow.stub!(:new).and_return(@re_workflow_copy)      
     end
     
     it "should use the revert and publish method to copy the parameters" do

@@ -40,7 +40,7 @@ describe RePlansController do
     end
     
     it "should render the 'new' template" do
-      get :new, :id => 123
+      get :new
       response.should render_template(:new)
     end
   end
@@ -111,7 +111,6 @@ describe RePlansController do
   
     before do
       @re_plan = RePlan.make
-      RePlan.stub!(:find).and_return(@re_plan) 
     end
   
     it "should get the plan record with the ID" do
@@ -121,48 +120,43 @@ describe RePlansController do
     end
     
     it "should assign the re_plan parameters" do
+      RePlan.stub!(:find).and_return(@re_plan) 
       @re_plan.should_receive(:attributes=).with("title" => "name")
-      put :update, :id => 123, :re_plan => { :title => "name" }
+      put :update, :id => @re_plan.id, :re_plan => { :title => "name" }
     end
   
     it "should not assign the re_plan parameters :code" do
+      RePlan.stub!(:find).and_return(@re_plan) 
       @re_plan.should_receive(:attributes=).with("title" => "name")
-      put :update, :id => 123, :re_plan => { :title => "name", :code => "code" }
+      put :update, :id => @re_plan.id, :re_plan => { :title => "name", :code => "code" }
     end
   
     it "should save the re_plan" do
-      @re_plan.should_receive(:save)
-      put :update, :id => 123, :re_plan => { :title => "name" }
+      put :update, :id => @re_plan.id, :re_plan => { :title => "new name" }
+      @re_plan.reload
+      @re_plan.title.should == 'new name'
     end
         
     describe "save failed" do
-      before(:each) do
-        @re_plan.stub!(:save).and_return(false)
-      end
-      
       it "should render the 'edit' template" do
-        put :update, :id => 123, :re_plan => { :title => "name" }
+        put :update, :id => @re_plan.id, :re_plan => { :title => "" }
         response.should render_template(:edit)
       end
     end
   
     describe "save succeeded" do
-      before do
-        @re_plan.stub!(:save).and_return(true)
-      end
-      
       it "should display a flash success message" do
-        put :update, :id => 123, :re_plan => { :title => "name" }
+        put :update, :id => @re_plan.id, :re_plan => { :title => "name" }
         flash[:success].should_not be_blank
       end
       
       it "should redirect to the change re_plan page for HTML" do
-        put :update, :id => 123, :re_plan => { :title => "name" }
+        put :update, :id => @re_plan.id, :re_plan => { :title => "name" }
         response.should redirect_to(change_re_plan_path(@re_plan))
       end
   
       it "should render 'update' template for JAVASCRIPT" do
-        xhr :put, :update, :id => 123, :re_plan => { :title => "name" }
+        xhr :put, :update, :id => @re_plan.id, :re_plan => { :title => "name" }
         response.should render_template(:update)
       end
     end
@@ -359,24 +353,24 @@ describe RePlansController do
     
     before(:each) do
       @re_plan = RePlan.make
-      RePlan.stub!(:find).and_return(@re_plan) 
     end
     
     it "should assign an empty plan copy" do
-      get :copy, :id => 1234  
+      get :copy, :id => @re_plan.id
+      assigns[:re_plan].should == @re_plan
       assigns[:re_plan_copy].should be_instance_of(RePlan)
     end        
   end
   
   describe "duplicate" do
-    it_should_require_rules_engine_editor_access(:copy, :id => 123)
+    it_should_require_rules_engine_editor_access(:duplicate, :id => 123)
 
     before(:each) do
       @re_plan = RePlan.make
       RePlan.stub!(:find).and_return(@re_plan) 
       
       @re_plan_copy = RePlan.make
-      RePlan.should_receive(:new).and_return(@re_plan_copy)      
+      RePlan.stub!(:new).and_return(@re_plan_copy)      
     end
     
     it "should use the revert and publish method to copy the parameters" do

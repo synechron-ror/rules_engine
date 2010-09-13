@@ -17,11 +17,6 @@ class RePlanWorkflowsController < ApplicationController
     controller.re_load_model :re_workflow, {:redirect_path => :change_re_plan_path}
   end    
 
-  def index    
-    klass = ReWorkflow
-    @re_workflows = klass.find(:all)
-  end
-  
   def show
   end
 
@@ -103,11 +98,8 @@ class RePlanWorkflowsController < ApplicationController
   end
 
   def add
-    if @re_plan.add_workflow(@re_workflow)    
-      flash[:success] = 'Workflow Added.'
-    else
-      flash[:error] = 'Cannot Add Workflow.'
-    end  
+    @re_plan.add_workflow(@re_workflow)    
+    flash[:success] = 'Workflow Added.'
 
     respond_to do |format|
       format.html do
@@ -120,11 +112,8 @@ class RePlanWorkflowsController < ApplicationController
   end
 
   def remove    
-    if @re_plan.remove_workflow(@re_workflow)
-      flash[:success] = 'Workflow Removed.'
-    else
-      flash[:error] = 'Cannot Remove Workflow.'
-    end  
+    @re_plan.remove_workflow(@re_workflow)
+    flash[:success] = 'Workflow Removed.'
 
     respond_to do |format|
       format.html do
