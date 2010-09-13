@@ -344,171 +344,87 @@ describe RePlansController do
   end
   
   describe "history" do
+    it_should_require_rules_engine_reader_access(:history, :id => 123)
+    
     it "should get the process runner history from the rules engine process runner" do
-      pending("needs to be written")
+      re_plan = RePlan.make(:code => "mock_code")
+      
+      runner = mock('runner')
+      RulesEngine::Process.stub!(:runner).and_return(runner)
+      
+      re_history = {:history => "none"}
+      runner.should_receive(:history).with("mock_code", anything()).and_return(re_history)
+      get :history, :id => re_plan.id
+      assigns[:re_history].should == re_history
+    end        
+  end
+
+  describe "copy" do
+    it_should_require_rules_engine_editor_access(:copy, :id => 123)
+    
+    before(:each) do
+      @re_plan = RePlan.make
+      RePlan.stub!(:find).and_return(@re_plan) 
     end
-        
+    
+    it "should assign an empty plan copy" do
+      get :copy, :id => 1234  
+      assigns[:re_plan_copy].should be_instance_of(RePlan)
+    end        
+  end
+  
+  describe "duplicate" do
+    it_should_require_rules_engine_editor_access(:copy, :id => 123)
+
+    before(:each) do
+      @re_plan = RePlan.make
+      RePlan.stub!(:find).and_return(@re_plan) 
+      
+      @re_plan_copy = RePlan.make
+      RePlan.should_receive(:new).and_return(@re_plan_copy)      
+    end
+    
+    it "should use the revert and publish method to copy the parameters" do
+      @re_plan.should_receive(:publish).and_return({:published => "mock value"})
+      @re_plan_copy.should_receive(:revert!).with({:published => "mock value"})      
+      post :duplicate, :id => 1234, :re_plan => {:title => 'new title'}
+    end
+    
+    it "should update the attributes of the new plan" do
+      post :duplicate, :id => 1234, :re_plan => {:title => 'new title'}
+      @re_plan_copy.title.should == 'new title'
+    end
+    
+    describe "the copied plan was saved" do
+      before(:each) do
+        @re_plan_copy.stub!(:save).and_return(true)
+      end  
+      
+      it "should display a flash success message" do
+        post :duplicate, :id => 1234, :re_plan => {:title => 'new title'}
+        flash[:success].should_not be_blank
+      end
+      
+      it "should redirect to the change re_plan page for HTML" do
+        post :duplicate, :id => 1234, :re_plan => {:title => 'new title'}
+        response.should redirect_to(change_re_plan_path(@re_plan_copy))
+      end
+  
+      it "should redirect to the change re_plans page for JAVASCRIPT" do
+        xhr :post, :duplicate, :id => 1234, :re_plan => {:title => 'new title'}
+        response.body.should == "window.location.href = '#{change_re_plan_path(@re_plan_copy)}';"
+      end    
+    end    
+    
+    describe "the copied plan was not saved" do
+      before(:each) do
+        @re_plan_copy.stub!(:save).and_return(false)
+      end  
+
+      it "should render the 'copy' template" do
+        post :duplicate, :id => 1234, :re_plan => {:title => 'new title'}
+        response.should render_template(:copy)
+      end
+    end
   end
 end
-
-
-
-  # describe "activate_all" do
-  #   it_should_require_rules_engine_editor_access(:activate_all)
-  # 
-  #   before do
-  #     @re_plan_1 = mock_model(RePlan)
-  #     @re_plan_1.stub!(:plan_error).and_return(nil)
-  #     @re_plan_1.stub!(:activate!)
-  #     @re_plan_2 = mock_model(RePlan)
-  #     @re_plan_2.stub!(:plan_error).and_return(nil)
-  #     @re_plan_2.stub!(:activate!)
-  #     RePlan.stub!(:find).and_return([@re_plan_1, @re_plan_2])
-  #   end
-  # 
-  #   it "should get the all of the plans" do
-  #     RePlan.should_receive(:find).with(:all).and_return([@re_plan_1, @re_plan_2])
-  #     put :activate_all
-  #     assigns[:re_plans].should == [@re_plan_1, @re_plan_2]
-  #   end
-  #   
-  #   describe "no errors in the plans" do
-  #     it "should activate all of the re_plan" do
-  #       @re_plan_1.should_receive(:activate!)
-  #       @re_plan_2.should_receive(:activate!)
-  #       put :activate_all
-  #     end
-  #      
-  #     it "should display a flash success message" do
-  #       put :activate_all
-  #       flash[:success].should_not be_blank
-  #     end
-  #   end
-  # 
-  #   describe "one of the plans has errors" do
-  #     before(:each) do
-  #       @re_plan_2.stub!(:plan_error).and_return("you bet")  
-  #       @re_plan_2.stub!(:plan_error).and_return("you bet")  
-  #     end
-  # 
-  #     it "should stop checking at the first invalid plan" do
-  #       @re_plan_1.should_receive(:plan_error).and_return("you bet")
-  #       @re_plan_2.should_not_receive(:plan_error)
-  #       put :activate_all
-  #     end
-  #     
-  #     it "should not activate the plans" do
-  #       @re_plan_1.should_not_receive(:activate!)
-  #       @re_plan_2.should_not_receive(:activate!)
-  #       put :activate_all
-  #     end
-  #      
-  #     it "should display a flash error message" do
-  #       put :activate_all
-  #       flash[:error].should_not be_blank
-  #     end
-  #   end
-  #   
-  #   it "should redirect to the re_plan index page for HTML" do
-  #     put :activate_all
-  #     response.should redirect_to(re_plans_path)
-  #   end
-  #   
-  #   it "should render 'index' template for JAVASCRIPT" do
-  #     xhr :put, :activate_all
-  #     response.should render_template(:index)
-  #   end    
-  # end
-  # 
-  # describe "activate" do
-  #   it_should_require_rules_engine_editor_access(:activate, :id => 123)
-  # 
-  #   before do
-  #     @re_plan = mock_model(RePlan)
-  #     @re_plan.stub!(:plan_error).and_return(nil)  
-  #     @re_plan.stub!(:activate!)      
-  #     RePlan.stub!(:find).and_return(@re_plan) 
-  #   end
-  # 
-  #   it "should get the plan record with the ID" do
-  #     RePlan.should_receive(:find).with("123").and_return(@re_plan)
-  #     put :activate, :id => 123
-  #     assigns[:re_plan].should == @re_plan
-  #   end
-  #   
-  #   describe "the plan is valid" do
-  #     it "should activate the re_plan" do
-  #       @re_plan.should_receive(:activate!)
-  #       put :activate, :id => 123
-  #     end
-  #  
-  #     it "should display a flash success message" do
-  #       put :activate, :id => 123
-  #       flash[:success].should_not be_blank
-  #     end
-  #   end
-  #   
-  #   describe "the plan is invalid" do
-  #     before(:each) do
-  #       @re_plan.stub!(:plan_error).and_return("you bet")  
-  #     end
-  # 
-  #     it "should not activate the plan" do
-  #       @re_plan.should_not_receive(:activate!)
-  #       put :activate, :id => 123
-  #     end
-  #      
-  #     it "should display a flash error message" do
-  #       put :activate, :id => 123
-  #       flash[:error].should_not be_blank
-  #     end
-  #   end
-  #   
-  #   it "should redirect to the change re_plan page for HTML" do
-  #     put :activate, :id => 123
-  #     response.should redirect_to(change_re_plan_path(@re_plan))
-  #   end
-  # 
-  #   it "should render 'update' template for JAVASCRIPT" do
-  #     xhr :put, :activate, :id => 123
-  #     response.should render_template(:update)
-  #   end    
-  # end
-  # 
-  # describe "deactivate" do
-  #   it_should_require_rules_engine_editor_access(:deactivate, :id => 123)
-  # 
-  #   before do
-  #     @re_plan = mock_model(RePlan)
-  #     @re_plan.stub!(:deactivate!)
-  #     RePlan.stub!(:find).and_return(@re_plan) 
-  #   end
-  # 
-  #   it "should get the plan record with the ID" do
-  #     RePlan.should_receive(:find).with("123").and_return(@re_plan)
-  #     put :deactivate, :id => 123
-  #     assigns[:re_plan].should == @re_plan
-  #   end
-  #   
-  #   it "should deactivate the re_plan" do
-  #     @re_plan.should_receive(:deactivate!)
-  #     put :deactivate, :id => 123
-  #   end
-  #  
-  #   it "should display a flash success message" do
-  #     put :deactivate, :id => 123
-  #     flash[:success].should_not be_blank
-  #   end
-  #   
-  #   it "should redirect to the change re_plan page for HTML" do
-  #     put :deactivate, :id => 123
-  #     response.should redirect_to(change_re_plan_path(@re_plan))
-  #   end
-  # 
-  #   it "should render 'update' template for JAVASCRIPT" do
-  #     xhr :put, :deactivate, :id => 123
-  #     response.should render_template(:update)
-  #   end    
-  # end
-  # 
-  # 

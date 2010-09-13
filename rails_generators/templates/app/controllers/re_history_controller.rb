@@ -10,6 +10,6 @@ class ReHistoryController < ApplicationController
   end
 
   def show
-    @re_audits = RulesEngine::Process.auditor.history(params[:id])
+    @re_audit_history = RulesEngine::Process.auditor.history(params[:id])
   end
 end

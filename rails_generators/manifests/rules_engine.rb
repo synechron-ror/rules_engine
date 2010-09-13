@@ -355,7 +355,10 @@ class RulesEngineManifest
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/title-plural.png
       public/stylesheets/rules_engine/images/rules_engine/re_workflow/title-single.png
       public/stylesheets/rules_engine/screen.css
+      spec/controllers/re_application_controller_spec.rb
+      spec/controllers/re_history_controller_spec.rb
       spec/controllers/re_plans_controller_spec.rb
+      spec/controllers/re_publications_controller_spec.rb
       spec/helpers/rules_engine_helper_spec.rb
       spec/models/re_plan_spec.rb
       spec/models/re_plan_workflow_spec.rb

@@ -130,22 +130,22 @@ class RePlansController < ApplicationController
   end
 
   def copy
-    @re_plan_new = RePlan.new
+    @re_plan_copy = RePlan.new
   end
 
   def duplicate
-    @re_plan_new = RePlan.new
-    @re_plan_new.revert!(@re_plan.publish)
-    @re_plan_new.attributes = params[:re_plan]
+    @re_plan_copy = RePlan.new
+    @re_plan_copy.revert!(@re_plan.publish)
+    @re_plan_copy.attributes = params[:re_plan]
 
-    if @re_plan_new.save    
+    if @re_plan_copy.save    
       flash[:success] = 'Plan Duplicated.'
       respond_to do |format|
         format.html do
-          redirect_to(change_re_plan_path(@re_plan_new))
+          redirect_to(change_re_plan_path(@re_plan_copy))
         end  
         format.js do
-          render :inline => "window.location.href = '#{change_re_plan_path(@re_plan_new)}';"
+          render :inline => "window.location.href = '#{change_re_plan_path(@re_plan_copy)}';"
         end
       end
     else
