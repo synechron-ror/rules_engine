@@ -5,7 +5,7 @@
   <h3 class="re-hdr-workflow-new">Copy Workflow : <%=h @re_workflow.title  %></h3>
   <div class="clear top-10"></div>
   
-  <% re_form_for(@re_workflow_new, :url => duplicate_path, :method => :post, :span => "3x13", :html => {:id => "re_workflow_copy_form"}) do |f| %>
+  <% re_form_for(@re_workflow_copy, :url => duplicate_path, :method => :post, :span => "3x13", :html => {:id => "re_workflow_copy_form"}) do |f| %>
     <%= f.error_messages :message => "Unable To Duplicate Workflow" %>
     <% re_whitebox do %>    
       <%= f.text_field(:code, :required => true, :hint => "must be unique") %>

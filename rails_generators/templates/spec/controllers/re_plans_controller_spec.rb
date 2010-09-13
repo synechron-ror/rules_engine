@@ -35,10 +35,8 @@ describe RePlansController do
     it_should_require_rules_engine_editor_access(:new, :id => 123)
     
     it "should assign a new plan record" do
-      re_plan = RePlan.make
-      RePlan.should_receive(:new).and_return(re_plan)
-      get :new, :id => 123
-      assigns[:re_plan].should == re_plan
+      get :new
+      assigns[:re_plan].should be_instance_of(RePlan)
     end
     
     it "should render the 'new' template" do
@@ -103,8 +101,7 @@ describe RePlansController do
     
     it "should get the plan record with the ID" do
       re_plan = RePlan.make
-      RePlan.should_receive(:find).with("123").and_return(re_plan)
-      get :edit, :id => 123
+      get :edit, :id => re_plan.id
       assigns[:re_plan].should == re_plan
     end
   end
@@ -211,8 +208,7 @@ describe RePlansController do
     
     it "should get the plan record with the ID" do
       re_plan = RePlan.make
-      RePlan.should_receive(:find).with("123").and_return(re_plan)
-      get :change, :id => 123
+      get :change, :id => re_plan.id
       assigns[:re_plan].should == re_plan
     end
   end
@@ -222,8 +218,7 @@ describe RePlansController do
     
     it "should get the plan record with the ID" do
       re_plan = RePlan.make
-      RePlan.should_receive(:find).with("123").and_return(re_plan)
-      get :preview, :id => 123
+      get :preview, :id => re_plan.id
       assigns[:re_plan].should == re_plan
     end
   end

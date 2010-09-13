@@ -359,6 +359,7 @@ class RulesEngineManifest
       spec/controllers/re_history_controller_spec.rb
       spec/controllers/re_plans_controller_spec.rb
       spec/controllers/re_publications_controller_spec.rb
+      spec/controllers/re_workflows_controller_spec.rb
       spec/helpers/rules_engine_helper_spec.rb
       spec/models/re_plan_spec.rb
       spec/models/re_plan_workflow_spec.rb

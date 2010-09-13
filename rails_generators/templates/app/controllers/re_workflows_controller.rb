@@ -95,22 +95,22 @@ class ReWorkflowsController < ApplicationController
   end
   
   def copy
-    @re_workflow_new = ReWorkflow.new
+    @re_workflow_copy = ReWorkflow.new
   end
 
   def duplicate
-    @re_workflow_new = ReWorkflow.new
-    @re_workflow_new.revert!(@re_workflow.publish)
-    @re_workflow_new.attributes = params[:re_workflow]
+    @re_workflow_copy = ReWorkflow.new
+    @re_workflow_copy.revert!(@re_workflow.publish)
+    @re_workflow_copy.attributes = params[:re_workflow]
 
-    if @re_workflow_new.save    
+    if @re_workflow_copy.save    
       flash[:success] = 'Workflow Duplicated.'
       respond_to do |format|
         format.html do
-          redirect_to(change_re_workflow_path(@re_workflow_new))
+          redirect_to(change_re_workflow_path(@re_workflow_copy))
         end  
         format.js do
-          render :inline => "window.location.href = '#{change_re_workflow_path(@re_workflow_new)}';"
+          render :inline => "window.location.href = '#{change_re_workflow_path(@re_workflow_copy)}';"
         end
       end
     else
