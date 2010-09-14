@@ -87,7 +87,7 @@ describe RePlanWorkflowsController do
         response.should redirect_to(change_re_plan_path(@re_plan))
       end
   
-      it "should render 'create' template for JAVASCRIPT" do
+      it "should render 're_plans/update' template for JAVASCRIPT" do
         xhr :post, :create, :re_plan_id => @re_plan.id, :re_workflow => { :title => "name" }
         response.should render_template('re_plans/update')
       end

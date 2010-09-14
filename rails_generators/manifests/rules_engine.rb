@@ -360,6 +360,7 @@ class RulesEngineManifest
       spec/controllers/re_plan_workflows_controller_spec.rb
       spec/controllers/re_plans_controller_spec.rb
       spec/controllers/re_publications_controller_spec.rb
+      spec/controllers/re_workflow_rules_controller_spec.rb
       spec/controllers/re_workflows_controller_spec.rb
       spec/helpers/rules_engine_helper_spec.rb
       spec/models/re_plan_spec.rb

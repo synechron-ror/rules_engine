@@ -16,6 +16,7 @@ class ReWorkflowRulesController < ApplicationController
   
   def help
     @rule_class = RulesEngine::Discovery.rule_class(params[:rule_class_name])
+    
     if @rule_class.nil?
       flash[:error] = "#{params[:rule_class]} : class not found."
       render :error
@@ -37,7 +38,7 @@ class ReWorkflowRulesController < ApplicationController
   
   def create
     @re_rule = ReRule.new(:re_workflow_id => @re_workflow.id, :rule_class_name => params[:rule_class_name])
-    if @re_rule.rule.nil? 
+    if @re_rule.rule.nil?       
       render :action => "error"
       return      
     end
