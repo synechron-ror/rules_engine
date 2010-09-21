@@ -18,6 +18,9 @@ module RulesEngine
     initializer "rules_engine.action_controller" do |app|
       ActionController::Base.send(:include, RulesEngineView::ModelLoader)
     end
-    
+
+    rake_tasks do
+      load File.expand_path(File.dirname(__FILE__) + "./../../tasks/rules_engine.rake")
+    end    
   end
 end
