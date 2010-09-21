@@ -6,9 +6,9 @@ module RulesEngine
     class ReProcessRun < ActiveRecord::Base
       validates_presence_of :process_status
       
-      named_scope :by_plan_code, lambda {|plan_code| {:conditions => ['plan_code = ?', plan_code]} }
-      named_scope :by_process_status_gt, lambda {|process_status| {:conditions => "process_status > #{process_status}"} }
-      named_scope :order_started_at, lambda {|order| {:order => "started_at #{order}, id #{order}"} }
+      scope :by_plan_code, lambda {|plan_code| where('plan_code = ?', plan_code) }
+      scope :by_process_status_gt, lambda {|process_status| where("process_status > #{process_status}") }
+      scope :order_started_at, lambda {|order| order("started_at #{order}, id #{order}") }
       
       def self.history(plan_code, options = {})
 
@@ -16,7 +16,7 @@ module RulesEngine
         klass = klass.by_plan_code(plan_code) unless plan_code.nil?
         klass = klass.by_process_status_gt(RulesEngine::Process::PROCESS_STATUS_NONE)
         klass = klass.order_started_at('DESC')
-        
+                
         klass.paginate({:page => 1, :per_page => 10}.merge(options))
       end
     end

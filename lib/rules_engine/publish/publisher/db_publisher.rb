@@ -2,9 +2,9 @@ module RulesEngine
   module Publish
     
     class RePublishedPlan < ActiveRecord::Base
-      named_scope :by_plan_code, lambda {|plan_code| {:conditions => ['plan_code = ?', plan_code]} }
-      named_scope :by_plan_version, lambda {|plan_version| {:conditions => ['plan_version = ?', plan_version]} }
-      named_scope :order_plan_version, lambda {|order| {:order => "plan_version #{order}"} }
+      scope :by_plan_code, lambda {|plan_code| where('plan_code = ?', plan_code) }
+      scope :by_plan_version, lambda {|plan_version| where('plan_version = ?', plan_version) }
+      scope :order_plan_version, lambda {|order| order("plan_version #{order}") }
 
       def self.plan(plan_code, options = {})
         klass = self
@@ -86,7 +86,7 @@ module RulesEngine
       
         def get_plan_without_caching(plan_code, plan_version = nil)
           re_plan = RePublishedPlan.plan(plan_code, {:version => plan_version})
-          re_plan.nil? ? nil : JSON.parse(re_plan.data)
+          re_plan.nil? ? nil : ActiveSupport::JSON.backend.decode(re_plan.data)
         end
     end  
   end  

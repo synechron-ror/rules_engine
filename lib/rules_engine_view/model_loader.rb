@@ -23,16 +23,10 @@ module RulesEngineView
     if model == nil
       flash[:error] = "Unable to load #{model_name.to_s.camelcase}."
       redirect_path = model_index_path(model_name, options)
-      respond_to do |format|
-        format.html { 
-                      redirect_to(redirect_path) 
-                    }
-        format.js   { 
-                      render :update do |page| 
-                        page << "window.location.href = '#{redirect_path}';"
-                      end
-                    }
-      end
+      respond_to do |format|  
+        format.html { redirect_to(redirect_path) }
+        format.js   { render :text => "window.location.href = '#{redirect_path}';" }  
+      end  
     end
   end  
 
@@ -67,9 +61,4 @@ module RulesEngineView
       end
     end
   end  
-end
-
-
-ActionController::Base.class_eval do
-  include RulesEngineView::ModelLoader
 end

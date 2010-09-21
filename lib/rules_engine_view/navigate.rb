@@ -36,7 +36,3 @@ module RulesEngineView
     end
   end  
 end
-
-ActionView::Base.class_eval do
-  include RulesEngineView::Navigate
-end

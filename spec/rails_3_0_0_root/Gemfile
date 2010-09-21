@@ -1,0 +1,17 @@
+source 'http://rubygems.org'
+
+gem 'rails', '3.0.0'
+
+# Setting the path now uses our development gem
+gem 'rules_engine', :path => '../../'
+gem 'will_paginate', '>= 3.0.pre2'
+gem 'acts_as_list', '>= 0.1.2'
+
+gem 'sqlite3-ruby', :require => 'sqlite3'
+
+group :development, :test do
+  gem "rspec-rails", ">= 2.0.0.beta.22"
+  gem "webrat"
+
+  gem 'rcov'
+end

@@ -4,8 +4,8 @@ module RulesEngine
   
       validates_presence_of :code
     
-      named_scope :by_process_id, lambda {|process_id| {:conditions => ['process_id = ?', process_id]} }
-      named_scope :order_created_at, lambda {|order| {:order => "created_at #{order}, id #{order}"} }
+      scope :by_process_id, lambda {|process_id| where('process_id = ?', process_id)}
+      scope :order_created_at, lambda {|order| order("created_at #{order}, id #{order}") }
       
       def self.history(process_id, options = {})
         klass = self

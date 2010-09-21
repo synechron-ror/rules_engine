@@ -13,7 +13,10 @@ module RulesEngine
 
       ##################################################################
       # class options
-      class_inheritable_accessor :options
+      class << self    # C's singleton class
+       attr_accessor :options
+      end      
+      
       @@options = {
         # :group          => "The group the rule belongs to",
         # :display_name   => "name to use on forms and views",

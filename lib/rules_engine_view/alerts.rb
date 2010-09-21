@@ -49,7 +49,3 @@ module RulesEngineView
     
   end
 end
-
-ActionView::Base.class_eval do
-  include RulesEngineView::Alerts
-end

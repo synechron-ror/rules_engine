@@ -9,7 +9,7 @@ module RulesEngineView
       result << '</div>'
       result << '</div>'
    
-      concat result
+      concat result.html_safe
     end
     
     def re_shadowbox(&block)
@@ -21,12 +21,8 @@ module RulesEngineView
       result << '</div>'
       result << '</div>'
    
-      concat result
+      concat result.html_safe
     end
     
   end  
-end
-
-ActionView::Base.class_eval do
-  include RulesEngineView::Boxes
 end
