@@ -8,8 +8,7 @@ module RulesEngineView
       result << '<div class="clear"></div>'.html_safe
       result << '</div>'.html_safe
       result << '</div>'.html_safe
-   
-      concat result
+      result
     end
     
     def re_shadowbox(&block)
@@ -20,9 +19,7 @@ module RulesEngineView
       result << '<div class="clear"></div>'.html_safe
       result << '</div>'.html_safe
       result << '</div>'.html_safe
-   
-      concat result
+      result
     end
-    
   end  
 end

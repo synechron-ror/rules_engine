@@ -1,6 +1,16 @@
 module RulesEngineView
   module Alerts
     
+    def re_error_on(model, message)
+      result = ''.html_safe
+      unless model.errors.empty?
+        result << '<div class="re-error"><p>'.html_safe
+        result << message
+        result << '</p></div>'.html_safe
+      end
+      result
+    end  
+
     def re_alert
       result = '<div id="re_alert">'.html_safe
       
