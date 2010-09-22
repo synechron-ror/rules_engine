@@ -13,6 +13,10 @@ describe "re_whitebox" do
     ActionView::Base.new.methods.should include("re_whitebox")
   end
   
+  it "should be html safe" do
+    call_re_whitebox().should be_html_safe
+  end      
+  
   it "should wrap the content in a whitebox" do
     call_re_whitebox().should have_selector('div.re-whitebox div.re-whitebox-content', :content => "body text")
     call_re_whitebox().should have_selector('div.re-whitebox div.clear')
@@ -33,6 +37,10 @@ describe "re_shadowbox" do
     ActionView::Base.new.methods.should include("re_shadowbox")
   end
   
+  it "should be html safe" do
+    call_re_shadowbox.should be_html_safe
+  end      
+
   it "should wrap the content in a shadowbox" do
     call_re_shadowbox.should have_selector('div.re-shadowbox-outer div.re-shadowbox-inner', :content => "body text")
     call_re_shadowbox.should have_selector('div.re-shadowbox-outer div.clear')

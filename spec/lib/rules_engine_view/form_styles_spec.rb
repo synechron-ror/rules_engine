@@ -7,6 +7,11 @@ describe "re_build_form_field" do
     ActionView::Base.new.methods.should include("re_build_form_field")
   end
 
+  it "should be html safe" do
+    helper.re_build_form_field("default value").should be_html_safe
+    helper.re_build_form_field("<default value>").should =~/&lt;default value&gt;/
+  end      
+
   it "should set the default class to re-form-field" do
     helper.re_build_form_field("default value").should have_selector("div.re-form-field", :content => "default value")
   end
@@ -43,6 +48,11 @@ describe "re_build_form_label" do
   it "should be accessible to rails apps by default" do 
     ActionView::Base.new.methods.should include("re_build_form_label")
   end
+
+  it "should be html safe" do
+    helper.re_build_form_label("default value").should be_html_safe
+    helper.re_build_form_label("<default value>").should =~/&lt;default value&gt;/
+  end      
 
   it "should set the default class to re-form-label" do
     helper.re_build_form_label("default value").should have_selector("div.re-form-label", :content => "default value")
@@ -92,6 +102,11 @@ describe "re_build_form_data" do
   it "should be accessible to rails apps by default" do 
     ActionView::Base.new.methods.should include("re_build_form_data")
   end
+
+  it "should be html safe" do
+    helper.re_build_form_data("default value").should be_html_safe
+    helper.re_build_form_data("<default value>").should =~/&lt;default value&gt;/
+  end      
 
   it "should set the default class to re-form-data" do
     helper.re_build_form_data("default value").should have_selector("div.re-form-data", :content => "default value")

@@ -10,7 +10,8 @@ module RulesEngineView
         def #{method}(method, *args)
           options = args.extract_options!           
           
-          error = @template.error_message_on(object || object_name, method)
+          error = @object && @object.respond_to?(:errors) ? @object.errors[method.to_sym] : nil
+          # @template.error_message_on(object || object_name, method)
           options.reverse_merge!(:error => error) unless error.blank?
           options.reverse_merge!(:span => @options[:span]) unless @options.nil? || @options[:span].blank?
           
@@ -28,12 +29,13 @@ module RulesEngineView
       
       def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
   
-        error = @template.error_message_on(object || object_name, method)
+        error = @object && @object.respond_to?(:errors) ? @object.errors[method.to_sym] : nil
+        # error = @template.error_message_on(object || object_name, method)
         options.reverse_merge!(:error => error) unless error.blank?
         options.reverse_merge!(:span => @options[:span]) unless @options.nil? || @options[:span].blank?
         
         field_label = options[:label] || method.to_s.titleize        
-        form_label = re_build_form_label('&nbsp;', options.except(:required).merge(:span => re_label_span(options)))
+        form_label = re_build_form_label("&nbsp;".html_safe, options.except(:required).merge(:span => re_label_span(options)))
         form_data_label = re_build_form_label(label(method, field_label, re_options_exclude(options)), re_options_exclude(options).merge(:required => options[:required]))        
         form_data = re_build_form_data(orig_check_box(method, re_options_exclude(options), checked_value, unchecked_value),  options.merge(:text => form_data_label, :class=>'re-form-field-checkbox', :span => re_data_span(options))) 
         re_build_form_field(form_label + form_data, options.merge(:span => re_field_span(options)))

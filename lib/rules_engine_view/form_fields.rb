@@ -15,7 +15,7 @@ module RulesEngineView
     end
       
     def re_check_box(label, name, value = "1", checked = false, options = {})        
-      form_label = re_build_form_label('&nbsp;', options.except(:required).merge(:span => re_label_span(options)))
+      form_label = re_build_form_label("&nbsp;".html_safe, options.except(:required).merge(:span => re_label_span(options)))
       form_data_label = re_build_form_label(label_tag(name, label, re_options_exclude(options)), re_options_exclude(options).merge(:required => options[:required]))
       form_data = re_build_form_data(check_box_tag(name, value, checked, re_options_exclude(options)), options.merge(:text => form_data_label, :class=>'re-form-field-checkbox', :span => re_data_span(options))) 
       re_build_form_field(form_label + form_data, options.merge(:span => re_field_span(options)))
@@ -28,8 +28,8 @@ module RulesEngineView
     end
   
     def re_form_blank(options = {})
-      form_label = re_build_form_label("&nbsp;", options.merge(:span => re_label_span(options)))
-      form_data = re_build_form_data("&nbsp;", options.merge(:span => re_data_span(options))) 
+      form_label = re_build_form_label("&nbsp;".html_safe, options.merge(:span => re_label_span(options)))
+      form_data = re_build_form_data("&nbsp;".html_safe, options.merge(:span => re_data_span(options))) 
       re_build_form_field(form_label + form_data, options.merge(:span => re_field_span(options)))
     end
 

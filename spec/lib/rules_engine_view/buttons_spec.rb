@@ -3,24 +3,25 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "re_button_submit" do 
   include RSpec::Rails::HelperExampleGroup
   
-  def call_re_button_submit(title, color, options = {})
-    helper.re_button_submit(title, color, options)
-  end
-  
   it "should be accessible to rails apps by default" do 
     ActionView::Base.new.methods.should include("re_button_submit")
   end
 
+  it "should be html safe" do
+    helper.re_button_submit("Title", "red").should be_html_safe
+    helper.re_button_submit("<Title>", "red").should =~/&lt;Title&gt;/
+  end      
+
   it "should set the default class to re-form-field" do
-    call_re_button_submit("Title", "red").should have_selector('div.re-form-button input[type=submit].re-form-button-red')
+    helper.re_button_submit("Title", "red").should have_selector('div.re-form-button input[type=submit].re-form-button-red')
   end
   
   it "should set the width from the span value" do
-    call_re_button_submit("Title", "red", :span => '20').should have_selector('div.re-form-button.span-20')
+    helper.re_button_submit("Title", "red", :span => '20').should have_selector('div.re-form-button.span-20')
   end  
 
   it "should be html safe" do
-    call_re_button_submit("Title", "red").should have_selector('div.re-form-button input[value=Title]')
+    helper.re_button_submit("Title", "red").should have_selector('div.re-form-button input[value=Title]')
   end  
   
 end
@@ -43,22 +44,23 @@ end
 describe "re_button_link" do 
   include RSpec::Rails::HelperExampleGroup
   
-  def call_re_button_link(title, url, color, options = {})
-    helper.re_button_link(title, url, color, options)
-  end
-  
   it "should be accessible to rails apps by default" do 
     ActionView::Base.new.methods.should include("re_button_link")
   end
 
+  it "should be html safe" do
+    helper.re_button_link("Title", "http://wow", "red").should be_html_safe
+    helper.re_button_link("<Title>", "http://wow", "red").should =~/&lt;Title&gt;/
+  end      
+
   it "should set the default class to re-form-field" do
-    call_re_button_link("Title", "http://wow", "red").should have_selector("div.re-form-button a.re-form-button-red") do |anchor|
+    helper.re_button_link("Title", "http://wow", "red").should have_selector("div.re-form-button a.re-form-button-red") do |anchor|
       anchor.first.attribute('href').value.should == "http://wow"
     end    
   end
   
   it "should set the width from the span value" do
-    call_re_button_link("Title", "http://wow", "red", :span => '20').should have_selector('div.re-form-button.span-20')
+    helper.re_button_link("Title", "http://wow", "red", :span => '20').should have_selector('div.re-form-button.span-20')
   end  
   
 end

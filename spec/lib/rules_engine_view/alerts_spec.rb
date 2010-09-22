@@ -14,6 +14,13 @@ describe "re_alert" do
     ActionView::Base.new.methods.should include("re_alert")
   end
   
+  it "should be html safe" do
+    call_re_alert("error", "", "").should  be_html_safe
+    call_re_alert("<error>", "", "").should have_selector('div#re_alert > div.error > span') do |error_message|
+      error_message.inner_html.should == "&lt;error&gt;"
+    end
+  end      
+  
   describe "setting an error message" do
     it "should display the message" do
       call_re_alert("error", "", "").should have_selector('div#re_alert > div.error > strong', :content => 'Error :')
@@ -84,6 +91,11 @@ describe "re_alert_js" do
   it "should be accessible to rails apps by default" do 
     ActionView::Base.new.methods.should include("re_alert_js")
   end
+  
+  it "should be a safe buffer" do
+    call_re_alert_js("error", "", "").should be_html_safe
+    call_re_alert_js("<error>", "", "").should  =~ /&lt;error&gt;/
+  end      
   
   describe "setting an error message" do
     it "should display the message" do

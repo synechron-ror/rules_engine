@@ -1,6 +1,6 @@
 <% set_re_javascript_include ['rules_engine/re_workflow_preview', 'rules_engine/re_workflow_new', 'rules_engine/re_history_index', 'rules_engine/re_history_show'] %>
 <% set_re_breadcrumbs_right link_to("All Workflows", re_workflows_path, :class => "re-bc-workflow-list"),
-														link_to("<em>All Plans</em>", re_plans_path, :class => "re-bc-plan-list blue")%>
+														link_to("<em>All Plans</em>".html_safe, re_plans_path, :class => "re-bc-plan-list blue")%>
 
 <div class="span-2">
  	<div class="re-xtra-workflow-title-plural"><span>Workflows</span></div>

@@ -3,11 +3,11 @@ module RulesEngineView
 
     def re_button_submit(title, color, options ={})
       klass = "re-form-button-#{color} #{options[:class]}"
-      result = "<div class='re-form-button"
+      result = "<div class='re-form-button".html_safe
       result << " span-#{options[:span]}" unless options[:span].blank?
-      result << "'>"
+      result << "'>".html_safe
       result << submit_tag(title, options.merge(:class=> klass).except(:span))      
-      result << "</div>"
+      result << "</div>".html_safe
       result
     end
 
@@ -34,11 +34,11 @@ module RulesEngineView
 
     def re_button_link(title, url, color, options = {})
       klass = "re-form-button-#{color} #{options[:class]}"
-      result = "<div class='re-form-button"
+      result = "<div class='re-form-button".html_safe
       result << " span-#{options[:span]}" unless options[:span].blank?
-      result << "'>"
-      result << link_to("<span>#{title}</span>", url, options.merge(:class=> klass).except(:span))      
-      result << "</div>"
+      result << "'>".html_safe
+      result << link_to("<span>".html_safe + title + "</span>".html_safe, url, options.merge(:class=> klass).except(:span))      
+      result << "</div>".html_safe
       result
     end
     
@@ -66,14 +66,14 @@ module RulesEngineView
     ############################## 
     # nested buttons
     def re_add_link(title, id) 
-      link_to("#{title}", "#", :class => 're-add-link', :id => "#{id}")
+      link_to(title, "#", :class => 're-add-link', :id => "#{id}")
     end  
 
     def re_remove_link(title, object_name, id)
       return "" if id == 0
       
       builder_id = object_name.gsub('[', '_').gsub(']', '')    
-      link_to("#{title}", "#", :class => 're-remove-link', :id => "#{builder_id}_remove")
+      link_to(title, "#", :class => 're-remove-link', :id => "#{builder_id}_remove")
     end
 
     def re_remove_field(object_name, id)
@@ -108,7 +108,6 @@ module RulesEngineView
     def re_button_unchecked url, options = {}
       klass = "re-button-unchecked #{options[:class]}"
       link_to("", url, options.merge(:class => klass))
-    end
-    
+    end    
   end      
 end

@@ -7,7 +7,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
     include RSpec::Rails::HelperExampleGroup
     
     before(:each) do
-      helper.stub!(method + "_tag").and_return("<#{method}/>")
+      helper.stub!(method + "_tag").and_return("<#{method}/>".html_safe)
     end
     
     def call_method method, options = {}
@@ -71,7 +71,7 @@ describe "re_check_box" do
   include RSpec::Rails::HelperExampleGroup
   
   before(:each) do
-    helper.stub!("check_box_tag").and_return("<check_box/>")
+    helper.stub!("check_box_tag").and_return("<check_box/>".html_safe)
   end
   
   def call_re_check_box options = {}

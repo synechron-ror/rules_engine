@@ -2,40 +2,40 @@ module RulesEngineView
   module FormStyles
     
     def re_build_form_field(value, options = {})
-      result = ''
-      result << "<div class='re-form-field"
+      result = ''.html_safe
+      result << "<div class='re-form-field".html_safe
       result << " re-form-disabled" if options.include?(:disabled) && options[:disabled]
       result << " #{options[:class]}" if options.include?(:class)
       result << " span-#{options[:span] || '12'}"
       result << " clear'"
       result << " id='form_field_#{options[:id]}'" unless options[:id].blank?
-      result << ">"          
-      result << "#{value}"
-      result << "</div>"
+      result << ">".html_safe
+      result << value
+      result << "</div>".html_safe
       result      
     end
     
     def re_build_form_label value, options = {}
-      result = "<div class='re-form-label"
+      result = "<div class='re-form-label".html_safe
       result << "-error" if options.include?(:error) && !options[:error].blank?
       result << " re-form-disabled" if options.include?(:disabled) && options[:disabled]
       result << " #{options[:class]}" if options.include?(:class)
       result << " span-#{options[:span] || '4'}"
       result << "'"
       result << " id='re_form_label_#{options[:id]}'" unless options[:id].blank?
-      result << ">"
-      result << "#{value}"
+      result << ">".html_safe
+      result << value
       if options.include?(:required) && options[:required]
-        result << "<span class='re-form-required"
+        result << "<span class='re-form-required".html_safe
         result << " re-form-disabled" if options.include?(:disabled) && options[:disabled]
-        result << "'>*</span>"
+        result << "'>*</span>".html_safe
       end  
-      result << "</div>"
+      result << "</div>".html_safe
       result
     end
     
     def re_build_form_data value, options = {}
-      result = "<div class='re-form-data"
+      result = "<div class='re-form-data".html_safe
       result << "-error" if options.include?(:error) && !options[:error].blank?
       result << " re-form-disabled" if options.include?(:disabled) && options[:disabled]
       result << " #{options[:class]}" if options.include?(:class)
@@ -43,24 +43,24 @@ module RulesEngineView
       result << " last"
       result << "'" 
       result << " id='form_data_#{options[:id]}'" if options.include?(:id)
-      result << ">"
-      result << "#{value}"
+      result << ">".html_safe
+      result << value
       if options.include?(:text) && !options[:text].blank?
-        result << "<span class='form-text'>"
+        result << "<span class='form-text'>".html_safe
         result << options[:text]
-        result << "</span>"
+        result << "</span>".html_safe
       end
       if options.include?(:hint) && !options[:hint].blank? && (!options.include?(:error) || options[:error].blank?)
-        result << "<span class='form-hint'>"
+        result << "<span class='form-hint'>".html_safe
         result << options[:hint]
-        result << "</span>"
+        result << "</span>".html_safe
       end
       if options.include?(:error) && !options[:error].blank?
-        result << "<span class='form-error-message'>"
+        result << "<span class='form-error-message'>".html_safe
         result << options[:error]
-        result << "</span>"
+        result << "</span>".html_safe
       end
-      result << "</div>"
+      result << "</div>".html_safe
       result      
     end
     

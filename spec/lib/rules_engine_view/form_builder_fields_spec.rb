@@ -10,7 +10,7 @@ describe RulesEngineView::FormBuilder do
     @mock_template = mock("the-template")
     
     @mock_template.stub(:error_message_on).and_return("")
-    @mock_template.stub!(:label).and_return("<label/>")
+    @mock_template.stub!(:label).and_return("<label/>".html_safe)
     
     @builder = RulesEngineView::FormBuilder.new('builder-name', @mock_object, @mock_template, {}, nil)
   end
@@ -18,7 +18,7 @@ describe RulesEngineView::FormBuilder do
   %w(text_field password_field file_field text_area select date_select datetime_select time_select time_zone_select).each do |method|
     describe "#{method}" do 
       before(:each) do
-        @mock_template.stub!(method).and_return("<#{method}/>")
+        @mock_template.stub!(method).and_return("<#{method}/>".html_safe)
       end
       
       it "should call the origional method" do 
@@ -84,7 +84,7 @@ describe RulesEngineView::FormBuilder do
 
   describe "check_box" do 
     before(:each) do
-      @mock_template.stub!(:check_box).and_return("<check_box/>")
+      @mock_template.stub!(:check_box).and_return("<check_box/>".html_safe)
     end
     
     it "should call the origional method" do 
