@@ -1,4 +1,4 @@
-Rails::Application.routes.draw do
+Rails.application.routes.draw do
 
   resources :re_plans do
     member do
@@ -29,7 +29,7 @@ Rails::Application.routes.draw do
                 
         member do
           put 'move_up'
-          puts 'move_down'
+          put 'move_down'
         end  
       end                                         
     end  
@@ -56,7 +56,7 @@ Rails::Application.routes.draw do
          
       member do
         put 'move_up'
-        puts 'move_down'
+        put 'move_down'
       end
     end    
   end  
