@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe RePlan do
+  
   def valid_attributes
     {
       :code => "AA MOCK",
@@ -12,20 +13,31 @@ describe RePlan do
     RePlan.new(valid_attributes).should be_valid
   end
 
-  should_have_many :re_plan_workflows
-  should_have_many :re_workflows, :through => :re_plan_workflows
-          
-  should_validate_presence_of :code
-  should_validate_presence_of :title
-  
-  describe "unique attributes" do
-    before(:each) do
-      RePlan.create!(valid_attributes)
-    end
-  
-    should_validate_uniqueness_of :code, :case_sensitive => false, :message=>"alread taken."    
-  end  
+  it "should only be valid with a valid :code" do
+    plan = RePlan.new(valid_attributes.except(:code))
+    plan.should_not be_valid
+    plan.errors[:code].should_not be_blank    
+  end
 
+  it "should only be valid with a valid :title" do
+    plan = RePlan.new(valid_attributes.except(:title))
+    plan.should_not be_valid
+    plan.errors[:title].should_not be_blank    
+  end
+  
+  # look into association testing without remarkable
+  # it { should have_many :re_plan_workflows}
+  # it { should have_many :re_workflows, :through => :re_plan_workflows }
+          
+  it "should validate uniqueness_of :code" do
+    plan = RePlan.create(valid_attributes.merge(:code => "new_code"))
+    plan.should be_valid
+    
+    plan = RePlan.new(valid_attributes.merge(:code => "new_code"))
+    plan.should_not be_valid
+    plan.errors[:code].join.should =~ /taken/
+  end
+  
   describe "creating a plan" do
     it "should set the plan_status to draft" do
       re_plan = RePlan.create!(valid_attributes.except(:plan_status))
@@ -41,7 +53,7 @@ describe RePlan do
         re_plan.save      
         re_plan.plan_status.should == RePlan::PLAN_STATUS_PUBLISHED
       end        
-
+  
       it "should not mark the plan as changed" do
         re_plan = RePlan.create!(valid_attributes)
         re_plan.plan_status = RePlan::PLAN_STATUS_REVERTED
@@ -50,7 +62,7 @@ describe RePlan do
         re_plan.save      
       end        
     end
-
+  
     it "should mark the plan as changed" do
       re_plan = RePlan.create!(valid_attributes)
       re_plan.title = "new title"
@@ -77,7 +89,7 @@ describe RePlan do
     re_plan.save!
     re_plan.code.should == "my_code"
   end
-
+  
   it "should strip any leading or trailing spaces" do
     re_plan = RePlan.new(valid_attributes.merge(:code => "  My code  "))
     re_plan.save!
@@ -116,7 +128,7 @@ describe RePlan do
       publish_data["workflow_two"]["next_workflow"].should == ""
     end
   end
-
+  
   describe "revert!" do
     it "should return self" do
       re_plan = RePlan.new
@@ -177,7 +189,7 @@ describe RePlan do
       re_plan.add_workflow(re_workflow)
     end
   end
-
+  
   describe "removing a workflow" do
     it "should be false if it does not have the workflow" do
       re_plan = RePlan.new
@@ -210,7 +222,7 @@ describe RePlan do
       re_plan = RePlan.new
       re_workflow = mock_model(ReWorkflow, :id => 1001)
       re_plan.stub!(:re_workflows).and_return([])
-
+  
       re_plan.should_not_receive(:changed!)
       re_plan.default_workflow = re_workflow
     end
@@ -256,7 +268,7 @@ describe RePlan do
       re_plan.stub!(:re_workflows).and_return([])
       re_plan.default_workflow.should == nil
     end
-
+  
     it "should return the first workflow in the list" do
       re_workflow_1 = mock_model(ReWorkflow)
       re_workflow_2 = mock_model(ReWorkflow)
@@ -297,7 +309,7 @@ describe RePlan do
       @re_plan.plan_error.should == "workflow error"
     end
   end
-
+  
   describe "published!" do
     it "should update the status to PLAN_STATUS_PUBLISHED" do
       re_plan = RePlan.create!(valid_attributes)
@@ -306,7 +318,7 @@ describe RePlan do
       re_plan.plan_status.should == RePlan::PLAN_STATUS_PUBLISHED
     end
   end
-
+  
   describe "changed!" do
     it "should not update the status when PLAN_STATUS_DRAFT" do
       re_plan = RePlan.create!(valid_attributes)
@@ -315,7 +327,7 @@ describe RePlan do
       re_plan.changed!
       re_plan.plan_status.should == RePlan::PLAN_STATUS_DRAFT
     end
-
+  
     it "should not update the status when PLAN_STATUS_CHANGED" do
       re_plan = RePlan.create!(valid_attributes)
       re_plan.published!
@@ -326,7 +338,7 @@ describe RePlan do
       re_plan.changed!
       re_plan.plan_status.should == RePlan::PLAN_STATUS_CHANGED
     end
-
+  
     it "should update the status to PLAN_STATUS_CHANGED changed when PLAN_STATUS_PUBLISHED" do
       re_plan = RePlan.create!(valid_attributes)
       re_plan.published!
@@ -335,7 +347,7 @@ describe RePlan do
       re_plan.changed!
       re_plan.plan_status.should == RePlan::PLAN_STATUS_CHANGED
     end
-
+  
     it "should not save the plan whe the save flag is false" do
       re_plan = RePlan.create!(valid_attributes)
       re_plan.published!
@@ -344,6 +356,5 @@ describe RePlan do
       re_plan.changed!(false)
       re_plan.plan_status.should == RePlan::PLAN_STATUS_CHANGED
     end
-  end
-  
+  end  
 end

@@ -7,8 +7,8 @@ class ReWorkflow < ActiveRecord::Base
   validates_presence_of   :title
   validates_uniqueness_of :code, :case_sensitive => false, :message=>"alread taken."
   
-  named_scope :order_code,  :order => 're_workflows.code ASC'
-  named_scope :order_title, :order => 're_workflows.title ASC'
+  scope :order_code,  order('re_workflows.code ASC')
+  scope :order_title, order('re_workflows.title ASC')
   
   before_save    :before_save_workflow
   before_destroy :before_destroy_workflow

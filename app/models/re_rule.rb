@@ -4,7 +4,8 @@ class ReRule < ActiveRecord::Base
       
   validates_associated  :re_workflow
   validates_presence_of :rule_class_name
-
+  validate :validate_rule
+  
   default_scope :order => 're_rules.position ASC'
   
   before_save    :before_save_rule
@@ -30,7 +31,7 @@ class ReRule < ActiveRecord::Base
     rule.before_destroy() unless rule.nil?
   end
 
-  def validate
+  def validate_rule
     if self.rule.nil?
       errors.add("rule_class", "not found")
     elsif !self.rule.valid?

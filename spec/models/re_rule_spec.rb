@@ -32,9 +32,15 @@ describe ReRule do
     ReRule.new(valid_attributes).should be_valid
   end
   
-  should_belong_to :re_workflow
-  should_validate_presence_of :rule_class_name
-
+  it "should only be valid with a valid :rule_class_name" do
+    rule = ReRule.new(valid_attributes.except(:rule_class_name))
+    rule.should_not be_valid
+    rule.errors[:rule_class_name].should_not be_blank    
+  end
+  
+  # look into association testing without remarkable
+  # it { should belong_to :re_workflow }
+  
   describe "validate the rule" do
     it "should be false if the rule class not found" do
       re_rule = ReRule.new(valid_attributes)
@@ -111,7 +117,7 @@ describe ReRule do
       @re_rule.should_receive(:rule).and_return(nil)
       @re_rule.save.should == false
     end
-
+  
     it "should set tell the workflow the rule has changed" do
       @re_workflow.should_receive(:changed!)
       @re_rule.save
@@ -147,7 +153,7 @@ describe ReRule do
     it "should notify the rule" do
       re_rule = ReRule.new(valid_attributes)
       re_rule.stub!(:re_workflow).and_return(@re_workflow)
-
+  
       @rule.should_receive(:before_create) 
       re_rule.save
     end  
@@ -169,7 +175,7 @@ describe ReRule do
     it "should notify the rule" do
       re_rule = ReRule.new(valid_attributes)
       re_rule.stub!(:re_workflow).and_return(@re_workflow)
-
+  
       @rule.should_receive(:before_destroy)
       re_rule.destroy
     end  
@@ -185,14 +191,14 @@ describe ReRule do
       @re_rule.should_receive(:rule).and_return(nil)
       @re_rule.rule_error.should == "class MockRuleClass missing"
     end
-
+  
     it "should return 'the rule errors' if the rule has errors" do
       @re_rule.stub!(:rule).and_return(@rule)
       @rule.should_receive(:valid?).and_return(false)
       @rule.should_receive(:errors).and_return(mock('error', :values => ['one', 'two']))
       @re_rule.rule_error.should == "one, two"
     end
-
+  
     it "should return 'nil' if the rule has no errors" do
       @re_rule.stub!(:rule).and_return(@rule)
       @rule.should_receive(:valid?).and_return(true)
@@ -230,13 +236,13 @@ describe ReRule do
       publish_data["data"].should == valid_attributes[:data]
     end
   end
-
+  
   describe "revert!" do
     it "should return self" do
       re_rule = ReRule.new
       re_rule.revert!({}).should == re_rule
     end
-
+  
     it "should set the rule based on the data" do
       re_rule = ReRule.new
       

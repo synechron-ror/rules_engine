@@ -7,25 +7,36 @@ describe ReWorkflow do
       :title => "Rule Title"
     }
   end
-
+  
   it "should be valid with valid attributes" do
     ReWorkflow.new(valid_attributes).should be_valid
   end
 
-  should_have_many :re_plan_workflows
-  should_have_many :re_plans, :through => :re_plan_workflows
-  should_have_many :re_rules
+  it "should only be valid with a valid :code" do
+    workflow = ReWorkflow.new(valid_attributes.except(:code))
+    workflow.should_not be_valid
+    workflow.errors[:code].should_not be_blank
+  end
+
+  it "should only be valid with a valid :title" do
+    workflow = ReWorkflow.new(valid_attributes.except(:title))
+    workflow.should_not be_valid
+    workflow.errors[:title].should_not be_blank    
+  end
+  
+  # look into association testing without remarkable
+  # it { should have_many :re_plan_workflows }
+  # it { should have_many :re_plans, :through => :re_plan_workflows }
+  # it { should have_many :re_rules }
           
-  should_validate_presence_of :code
-  should_validate_presence_of :title
-  
-  describe "unique attributes" do
-    before(:each) do
-      ReWorkflow.create!(valid_attributes)
-    end
-  
-    should_validate_uniqueness_of :code, :case_sensitive => false, :message=>"alread taken."    
-  end  
+  it "should validate uniqueness_of :code" do
+    workflow = ReWorkflow.create(valid_attributes.merge(:code => "new_code"))
+    workflow.should be_valid
+    
+    workflow = ReWorkflow.new(valid_attributes.merge(:code => "new_code"))
+    workflow.should_not be_valid
+    workflow.errors[:code].join.should =~ /taken/
+  end
   
   describe "changing a workflow" do
     it "should mark the workflow as changed" do
@@ -63,7 +74,7 @@ describe ReWorkflow do
     re_workflow.save!
     re_workflow.code.should == "my_code"
   end
-
+  
   it "should strip any leading or trailing spaces" do
     re_workflow = ReWorkflow.new(valid_attributes.merge(:code => "  My code  "))
     re_workflow.save!
@@ -85,7 +96,7 @@ describe ReWorkflow do
       re_workflow.code.should == "my_code"
     end            
   end
-
+  
   describe "publish" do
     it "should convert the workflow to a hash" do
       re_workflow = ReWorkflow.new(valid_attributes)
@@ -98,13 +109,13 @@ describe ReWorkflow do
       publish_data["rules"].should == ['rule one', 'rule two']
     end
   end
-
+  
   describe "revert!" do
     it "should return self" do
       re_workflow = ReWorkflow.new
       re_workflow.revert!({}).should == re_workflow
     end
-
+  
     it "should set the workflow based on the data" do
       re_rule_1 = mock_model(ReRule)
       re_rule_2 = mock_model(ReRule)
@@ -157,14 +168,14 @@ describe ReWorkflow do
       @re_workflow.workflow_error.should == "error within rules"
     end
   end
-
+  
   describe "changed!" do
     it "should update all of the plans that the rule has changed" do
       re_plan_1 = mock('RePlan')
       re_plan_2 = mock('RePlan')
       re_workflow = ReWorkflow.new(valid_attributes)
       re_workflow.stub(:re_plans).and_return([re_plan_1, re_plan_2])
-
+  
       re_plan_1.should_receive(:changed!)
       re_plan_2.should_receive(:changed!)
       

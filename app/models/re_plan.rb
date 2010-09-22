@@ -11,8 +11,8 @@ class RePlan < ActiveRecord::Base
   validates_presence_of   :title
   validates_uniqueness_of :code, :case_sensitive => false, :message=>"alread taken."
   
-  named_scope :order_code,  :order => 'code ASC'
-  named_scope :order_title, :order => 'title ASC'
+  scope :order_code,  order('code ASC')
+  scope :order_title, order('title ASC')
   
   before_create :before_create_plan
   before_save :before_save_plan
