@@ -23,7 +23,7 @@
 				<a class="re-xtra-history-prev-<%= @re_audit_history["previous_page"] ? 'enabled' : 'disabled' %>" href='#<%= @re_audit_history["previous_page"] || '1' %>'></a>
 			<% end %>
 		<% end %>
-		<%= re_button_link_orange('Close', re_history_index_path, :id => "re_history_show_close") %>
+		<%= re_button_link_orange('Close', re_history_path, :id => "re_history_show_close") %>
     <div class="clear top-5"></div>
   </div>  
 </div>

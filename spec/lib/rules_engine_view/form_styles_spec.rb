@@ -265,6 +265,26 @@ describe "re_field_span" do
     helper.re_field_span(:span => '15').should == 16
     helper.re_field_span(:span => '16').should == 24
     helper.re_field_span(:span => '17').should == 24
+  end  
+end
+
+describe "re_error_on_tag" do 
+  include RSpec::Rails::HelperExampleGroup
+
+  it "should be accessible to rails apps by default" do 
+    ActionView::Base.new.methods.should include("re_error_on_tag")
   end
   
+  it "should be html safe" do
+    helper.re_error_on_tag("The Error Message to Show").should be_html_safe
+    helper.re_error_on_tag("<The Error Message to Show>").should have_selector('div.re-error > p') do |error_message|
+      error_message.inner_html.should == "&lt;The Error Message to Show&gt;"
+    end
+  end  
+        
+  it "should display the error" do
+    helper.re_error_on_tag("The Error Message to Show").should have_selector('div.re-error > p', :content => "The Error Message to Show")
+  end      
 end
+
+

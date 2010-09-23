@@ -23,6 +23,25 @@ namespace :spec do
     task.pattern = rules_engine_root + '/spec/lib/rules_engine_view/**/*_spec.rb'
   end
 
+  desc "Test the rules_engine models"
+  RSpec::Core::RakeTask.new(:model) do |task|
+    rules_engine_root = File.expand_path(File.dirname(__FILE__) + '/..')
+    task.pattern = rules_engine_root + '/spec/models/**/*_spec.rb'
+  end
+
+  desc "Test the rules_engine routing"
+  RSpec::Core::RakeTask.new(:routing) do |task|
+    rules_engine_root = File.expand_path(File.dirname(__FILE__) + '/..')
+    task.pattern = rules_engine_root + '/spec/routing/**/*_spec.rb'
+  end
+
+  desc "Test the rules_engine controller helpers"
+  RSpec::Core::RakeTask.new(:controller) do |task|
+    rules_engine_root = File.expand_path(File.dirname(__FILE__) + '/..')
+    # task.pattern = rules_engine_root + '/spec/controllers/**/*_spec.rb'
+    task.pattern = rules_engine_root + '/spec/controllers/**/re_plans_controller_spec.rb'
+  end
+
   desc "Run the coverage report"
   RSpec::Core::RakeTask.new(:rcov) do |task|
     rules_engine_root = File.expand_path(File.dirname(__FILE__) + '/..')

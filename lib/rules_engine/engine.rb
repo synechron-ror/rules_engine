@@ -3,6 +3,7 @@ require "rails"
 
 module RulesEngine
   class Engine < Rails::Engine
+      
     initializer "rules_engine.action_view" do |app|
       ActionView::Base.send(:include, RulesEngineView::Alerts)
       ActionView::Base.send(:include, RulesEngineView::Boxes)

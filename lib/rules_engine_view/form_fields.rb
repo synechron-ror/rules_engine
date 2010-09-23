@@ -33,5 +33,9 @@ module RulesEngineView
       re_build_form_field(form_label + form_data, options.merge(:span => re_field_span(options)))
     end
 
+    def re_error_on(model, message)
+      return '' if model.errors.empty?
+      re_error_on_tag(message)
+    end  
   end      
 end

@@ -6,25 +6,17 @@ module RulesEngine
       end
 
       module ClassMethods  
+        attr_accessor :options
+        
         def rule_class_name
           self.name.classify
         end
       end
 
-      ##################################################################
-      # class options
-      class << self    # C's singleton class
-       attr_accessor :options
-      end      
+      def options
+        self.class.options
+      end
       
-      @@options = {
-        # :group          => "The group the rule belongs to",
-        # :display_name   => "name to use on forms and views",
-        # :help_partial   => "the help html.erb template",
-        # :new_partial    => "the new html.erb template",
-        # :edit_partial   => "the edit html.erb template"
-      }
-
       ##################################################################
       # set the rule data
       def data= data      

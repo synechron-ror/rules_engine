@@ -185,3 +185,35 @@ describe "re_form_blank" do
     end
   end
 end
+
+describe "re_error_on_tag" do 
+  include RSpec::Rails::HelperExampleGroup
+
+  before(:each) do
+    @model = mock('model')
+    @model.stub!(:errors).and_return({:opps => "something wen wrong"})      
+  end
+
+  it "should be accessible to rails apps by default" do 
+    ActionView::Base.new.methods.should include("re_error_on_tag")
+  end
+  
+  describe "no error" do
+    it "should be blank" do
+      @model.stub!(:errors).and_return({})
+      helper.re_error_on(@model, "The Error Message to Show").should be_blank
+    end      
+  end
+
+  describe "has errors error" do
+    it "should call re_error_on_tag" do
+      helper.should_receive(:re_error_on_tag).with("The Error Message to Show")
+      helper.re_error_on(@model, "The Error Message to Show")
+    end  
+        
+    it "should display the error" do
+      helper.re_error_on(@model, "The Error Message to Show").should =~ /The Error Message to Show/
+    end      
+  end
+end
+

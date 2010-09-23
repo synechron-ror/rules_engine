@@ -13,7 +13,7 @@
 		<hr/>
 
 		<div style="display:none">
-		  <% re_form_for(re_workflow, :url => '#', :html => {:method => :put, :id => "re_workflow_add_form_#{re_workflow.id}"}) do |f| %>
+		  <%= re_form_for(re_workflow, :url => '#', :html => {:method => :put, :id => "re_workflow_add_form_#{re_workflow.id}"}) do |f| %>
 		  <% end %>  
 		</div>  				
 	<% end %>

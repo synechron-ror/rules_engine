@@ -51,12 +51,12 @@
 <% end %>
 
 <div style="display:none">
-  <% re_form_for(re_rule, :url => delete_path, :html => {:method => :delete, :id => "re_rule_delete_form_#{re_rule.id}"}) do |f| %>
+  <%= re_form_for(re_rule, :url => delete_path, :html => {:method => :delete, :id => "re_rule_delete_form_#{re_rule.id}"}) do |f| %>
   <% end %>  
   
-  <% re_form_for(re_rule, :url => move_up_path, :html => {:method => :put, :id => "re_rule_move_up_form_#{re_rule.id}"}) do |f| %>
+  <%= re_form_for(re_rule, :url => move_up_path, :html => {:method => :put, :id => "re_rule_move_up_form_#{re_rule.id}"}) do |f| %>
   <% end %>  
   
-  <% re_form_for(re_rule, :url => move_down_path, :html => {:method => :put, :id => "re_rule_move_down_form_#{re_rule.id}"}) do |f| %>
+  <%= re_form_for(re_rule, :url => move_down_path, :html => {:method => :put, :id => "re_rule_move_down_form_#{re_rule.id}"}) do |f| %>
   <% end %>  
 </div>  

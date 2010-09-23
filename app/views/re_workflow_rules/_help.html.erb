@@ -4,7 +4,7 @@
   <h3 class="re-hdr-rule-help"> Help : <%= @rule_class.options[:display_name] %></h3>
   <div class="clear top-10"></div>
 
-  <% re_whitebox do %>      
+  <%= re_whitebox do %>      
   
     <%= render(@rule_class.options[:help_partial]) %>    
     

@@ -5,9 +5,9 @@
   <h3 class="re-hdr-rule-edit"> Edit <%= @re_rule.rule.options[:display_name] %></h3>
   <div class="clear top-10"></div>
 
-  <% re_form_for(@re_rule, :url => update_path, :method => :post, :span => "3x13", :html => {:id => "re_rule_edit_form"}) do |f| %>
-    <%= f.error_messages :message => "Unable To Update Rule : #{@re_rule.rule.options[:display_name]}" %>
-    <% re_whitebox do %>    
+  <%= re_form_for(@re_rule, :url => update_path, :method => :post, :span => "3x13", :html => {:id => "re_rule_edit_form"}) do |f| %>
+    <%= f.re_error_on "Unable To Update Rule : #{@re_rule.rule.options[:display_name]}" %>
+    <%= re_whitebox do %>    
       <%= render(@re_rule.rule.options[:edit_partial], :f => f) %>
       
       <div class="clear"></div>

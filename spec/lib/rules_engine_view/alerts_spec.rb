@@ -1,43 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe "re_error_on" do 
-  include RSpec::Rails::HelperExampleGroup
-
-  it "should be accessible to rails apps by default" do 
-    ActionView::Base.new.methods.should include("re_alert")
-  end
-  
-  describe "no error" do
-    before(:each) do
-      @model = mock('model')
-      @model.stub!(:errors).and_return({})      
-    end
-
-    it "should be blank" do
-      helper.re_error_on(@model, "The Error Message to Show").should be_blank
-    end      
-  end
-
-  describe "has errors error" do
-    before(:each) do
-      @model = mock('model')
-      @model.stub!(:errors).and_return({:opps => "something wen wrong"})      
-    end
-
-    it "should be html safe" do
-      helper.re_error_on(@model, "The Error Message to Show").should be_html_safe
-      helper.re_error_on(@model, "<The Error Message to Show>").should have_selector('div.re-error > p') do |error_message|
-        error_message.inner_html.should == "&lt;The Error Message to Show&gt;"
-      end
-    end  
-        
-    it "should display the error" do
-      helper.re_error_on(@model, "The Error Message to Show").should have_selector('div.re-error > p', :content => "The Error Message to Show")
-    end      
-    
-  end
-end
-
 describe "re_alert" do 
   include RSpec::Rails::HelperExampleGroup
   

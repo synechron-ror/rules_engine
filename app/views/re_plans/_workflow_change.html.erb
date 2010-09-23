@@ -36,9 +36,9 @@
 <% end %>
 
 <div style="display:none">
-  <% re_form_for(re_workflow, :url => remove_re_plan_workflow_path(@re_plan, re_workflow), :html => {:method => :put, :id => "re_workflow_remove_form_#{re_workflow.id}"}) do |f| %>
+  <%= re_form_for(re_workflow, :url => remove_re_plan_workflow_path(@re_plan, re_workflow), :html => {:method => :put, :id => "re_workflow_remove_form_#{re_workflow.id}"}) do |f| %>
   <% end %>  
   
-  <% re_form_for(re_workflow, :url => default_re_plan_workflow_path(@re_plan, re_workflow), :html => {:method => :put, :id => "re_workflow_default_form_#{re_workflow.id}"}) do |f| %>
+  <%= re_form_for(re_workflow, :url => default_re_plan_workflow_path(@re_plan, re_workflow), :html => {:method => :put, :id => "re_workflow_default_form_#{re_workflow.id}"}) do |f| %>
   <% end %>  
 </div>  

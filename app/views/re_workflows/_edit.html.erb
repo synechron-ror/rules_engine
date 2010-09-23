@@ -5,9 +5,9 @@
   <h3 class="re-hdr-workflow-edit">Edit Workflow Details</h3>
   <div class="clear top-10"></div>
   
-  <% re_form_for(@re_workflow, :url => update_path, :method => :post, :span => "3x13", :html => {:id => "re_workflow_edit_form"}) do |f| %>
-    <%= f.error_messages :message => "Unable To Update Workflow" %>
-    <% re_whitebox do %>    
+  <%= re_form_for(@re_workflow, :url => update_path, :method => :post, :span => "3x13", :html => {:id => "re_workflow_edit_form"}) do |f| %>
+    <%= f.re_error_on "Unable To Update Workflow" %>
+    <%= re_whitebox do %>    
       <%= re_form_text("Code", @re_workflow.code, :span => "3x13", :hint => "<strong>NOTE :</strong> the workflow code cannot be changed") %>
       <div class="clear top-5"></div>
       

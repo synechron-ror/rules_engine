@@ -45,10 +45,10 @@ describe "RulesEngine::Discovery" do
 
   it "should undefine an existing the rule class" do
     RulesEngine::Discovery.discover! 
-    RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule').options.should == {:group=>"mock group"}
-    RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule').options[:name] = "test"
+    RulesEngine::Discovery.rule_class('mock_rule').options[:group].should == "mock group"
+    RulesEngine::Discovery.rule_class('mock_rule').options[:group] = "test"
     RulesEngine::Discovery.discover! 
-    RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule').options.should == {:group=>"mock group"}
+    RulesEngine::Discovery.rule_class('mock_rule').options[:group].should == "mock group"
   end
 
   it "should add the rule to the rule group" do
@@ -58,7 +58,7 @@ describe "RulesEngine::Discovery" do
   
   it "should return the class that matches the name" do
     RulesEngine::Discovery.discover!      
-    RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule').should == RulesEngine::Rule::MockRule
+    RulesEngine::Discovery.rule_class('mock_rule').should == RulesEngine::Rule::MockRule
   end
 
   it "should return nil if the class is unknown" do
@@ -69,8 +69,8 @@ describe "RulesEngine::Discovery" do
   describe "the rule class" do
     it "should have a matching rule_class_name" do
       RulesEngine::Discovery.discover!      
-      rule = RulesEngine::Discovery.rule_class('RulesEngine::Rule::MockRule')
-      rule.rule_class_name.should == 'RulesEngine::Rule::MockRule'
+      rule = RulesEngine::Discovery.rule_class('mock_rule')
+      rule.rule_class_name.should == 'mock_rule'
     end        
   end
   

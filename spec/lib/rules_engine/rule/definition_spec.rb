@@ -1,15 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../../spec_helper')
 
-class MockRule < RulesEngine::Rule::Definition
+class MockRuleDefinition < RulesEngine::Rule::Definition
 end
 
 describe "RulesEngine::Rule::Definition" do
   it "should add a class method rule_class_name" do
-    MockRule.methods.should include("rule_class_name")
+    MockRuleDefinition.methods.should include("rule_class_name")
   end
   
   it "should return the rule_class_name as the rule class" do    
-    MockRule.rule_class_name.should == "MockRule"
+    MockRuleDefinition.rule_class_name.should == "MockRuleDefinition"
   end
 
   it "should be able to set the attribute 'data'" do
@@ -44,7 +44,7 @@ describe "RulesEngine::Rule::Definition" do
   
   describe "valid?" do
     it "should be valid by default" do
-      MockRule.new.valid?.should be_true
+      MockRuleDefinition.new.valid?.should be_true
     end    
   end
 
@@ -69,11 +69,11 @@ describe "RulesEngine::Rule::Definition" do
   
   describe "processing a rule" do
     it "should return a rule_outcome" do
-      MockRule.new.process(101, {}, {}).should be_instance_of(RulesEngine::Rule::Outcome)
+      MockRuleDefinition.new.process(101, {}, {}).should be_instance_of(RulesEngine::Rule::Outcome)
     end
 
     it "should set the outcome to NEXT by default" do
-      MockRule.new.process(101, {}, {}).outcome.should == RulesEngine::Rule::Outcome::NEXT
+      MockRuleDefinition.new.process(101, {}, {}).outcome.should == RulesEngine::Rule::Outcome::NEXT
     end        
   end
   

@@ -25,7 +25,7 @@ class RePlanWorkflowRulesController < ApplicationController
       render :error
     else
       @rule = @rule_class.new  
-    end      
+    end
   end  
   
   def error

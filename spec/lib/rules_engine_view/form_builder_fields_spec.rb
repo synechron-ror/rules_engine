@@ -9,7 +9,6 @@ describe RulesEngineView::FormBuilder do
     @mock_object = mock('the-object')
     @mock_template = mock("the-template")
     
-    @mock_template.stub(:error_message_on).and_return("")
     @mock_template.stub!(:label).and_return("<label/>".html_safe)
     
     @builder = RulesEngineView::FormBuilder.new('builder-name', @mock_object, @mock_template, {}, nil)
@@ -160,4 +159,26 @@ describe RulesEngineView::FormBuilder do
       end
     end    
   end
+  
+  describe "re_error_on" do 
+    describe "no error" do
+      it "should be blank" do
+        @mock_object.stub!(:errors).and_return({})
+        @builder.send(:re_error_on, "Error Message to Write").should be_blank
+      end      
+    end
+  
+    describe "has errors error" do
+      it "should call re_error_on_tag" do
+        @mock_object.stub!(:errors).and_return({:opps => "there is an error"})
+        @builder.should_receive(:re_error_on_tag).with("Error Message to Write")
+        @builder.send(:re_error_on, "Error Message to Write")
+      end  
+        
+      it "should display the error" do
+        @mock_object.stub!(:errors).and_return({:opps => "there is an error"})
+        @builder.send(:re_error_on, "Error Message to Write").should =~ /Error Message to Write/
+      end      
+    end
+  end     
 end

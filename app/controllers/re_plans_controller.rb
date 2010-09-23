@@ -12,7 +12,7 @@ class RePlansController < ApplicationController
 
   def index    
     klass = RePlan
-    klass = klass.order_title
+    @re_plans = klass.order_title
     @re_plans = klass.find(:all)
   end
 

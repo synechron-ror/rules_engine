@@ -27,13 +27,13 @@
 </div>  
 
 <div style="display:none">
-  <% re_form_for(@re_plan, :url => publish_re_plan_path(@re_plan), :html => {:method => :put, :id => "re_plan_publish_form"}) do |f| %>
+  <%= re_form_for(@re_plan, :url => publish_re_plan_path(@re_plan), :html => {:method => :put, :id => "re_plan_publish_form"}) do |f| %>
 		<%= hidden_field_tag(:tag) %>
   <% end %>  
 
-  <% re_form_for(@re_plan, :url => revert_re_plan_path(@re_plan), :html => {:method => :put, :id => "re_plan_revert_form"}) do |f| %>
+  <%= re_form_for(@re_plan, :url => revert_re_plan_path(@re_plan), :html => {:method => :put, :id => "re_plan_revert_form"}) do |f| %>
   <% end %>  
 
-  <% re_form_for(@re_plan, :url => re_plan_path(@re_plan), :html => {:method => :delete, :id => "re_plan_delete_form"}) do |f| %>
+  <%= re_form_for(@re_plan, :url => re_plan_path(@re_plan), :html => {:method => :delete, :id => "re_plan_delete_form"}) do |f| %>
   <% end %>  
 </div>

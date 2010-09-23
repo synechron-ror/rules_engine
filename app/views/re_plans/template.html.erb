@@ -25,7 +25,7 @@
 <h1>Boxes</h1>   
   <div class="span-12">
     <h3>Whitebox</h3>   
-    <% re_whitebox do %>
+    <%= re_whitebox do %>
       <div class="span-11 last">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p> 
       </div>  
@@ -34,7 +34,7 @@
   
   <div class="span-12 last">
     <h3>Shadowbox</h3>   
-    <% re_shadowbox do %>
+    <%= re_shadowbox do %>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </p> 
     <% end %>  
   </div>
@@ -154,11 +154,11 @@
 
 <div class="span-23 prepend-1 last showgrid">  
   <h1>re_form_for</h1>   
-  <% re_form_for(:demo_form) do |f| %>
+  <%= re_form_for(:demo_form) do |f| %>
     <%= f.text_field("default_4x8")%>
   <% end %>
 
-  <% re_form_for(:demo_form, :span => "6x8") do |f| %>
+  <%= re_form_for(:demo_form, :span => "6x8") do |f| %>
     <%= f.text_field("default_6x8")%>
     <%= f.text_field("override_5x9", :span => "5x9")%>
   <% end %>

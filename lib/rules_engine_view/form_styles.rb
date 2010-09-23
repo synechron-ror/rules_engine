@@ -99,6 +99,14 @@ module RulesEngineView
     def re_field_span(options)
       re_label_span(options) + re_data_span(options)
     end    
+    
+    def re_error_on_tag(message)
+      result = ''.html_safe
+      result << '<div class="re-error"><p>'.html_safe
+      result << message
+      result << '</p></div>'.html_safe
+      result
+    end      
   end
 end
 
