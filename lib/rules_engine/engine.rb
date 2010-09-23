@@ -23,5 +23,9 @@ module RulesEngine
     rake_tasks do
       load File.expand_path(File.dirname(__FILE__) + "./../../tasks/rules_engine.rake")
     end    
+    
+    generators do
+      require File.expand_path(File.dirname(__FILE__) + "./../../generators/rules_engine_generator")      
+    end    
   end
 end
