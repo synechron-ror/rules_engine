@@ -5,6 +5,9 @@ require 'rake/testtask'
 require 'rspec'
 require 'rspec/core/rake_task'
 
+desc "Run the test suite"
+task :spec => ['spec:rules_engine_lib', 'spec:rules_engine_view', 'spec:model', 'spec:routing', 'spec:controller']
+
 namespace :spec do
   desc "Setup the test environment"
   task :setup do
@@ -38,8 +41,13 @@ namespace :spec do
   desc "Test the rules_engine controller helpers"
   RSpec::Core::RakeTask.new(:controller) do |task|
     rules_engine_root = File.expand_path(File.dirname(__FILE__) + '/..')
-    # task.pattern = rules_engine_root + '/spec/controllers/**/*_spec.rb'
-    task.pattern = rules_engine_root + '/spec/controllers/**/re_plans_controller_spec.rb'
+    task.pattern = rules_engine_root + '/spec/controllers/**/*_spec.rb'
+  end
+
+  desc "All"
+  RSpec::Core::RakeTask.new(:all) do |task|
+    rules_engine_root = File.expand_path(File.dirname(__FILE__) + '/..')
+    task.pattern = rules_engine_root + '/spec/**/*_spec.rb'
   end
 
   desc "Run the coverage report"
@@ -51,8 +59,8 @@ namespace :spec do
   end
 
 
-  # desc "Run the test suite"
-  # task :default => ['spec:lib'] # , 'spec:basic', 'spec:features', 'spec:views', 'spec:features_for_views']
+  desc "Run the test suite"
+  task :default => ['spec:rules_engine_lib', 'spec:rules_engine_view', 'spec:model', 'spec:routing', 'spec:controller']
   
   # Spec::Rake::SpecTask.new(:basic => %w(spec:generator:cleanup spec:generator:rules_engine)) do |task|
   #   task.spec_files = FileList['spec/*/*_spec.rb']
