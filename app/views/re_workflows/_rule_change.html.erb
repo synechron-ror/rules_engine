@@ -10,10 +10,10 @@
 <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %>">
 	<h4 class="float-left  re-sts-rule-<%= re_rule_error.blank? ? 'valid' : 'verify' %>"><%=h re_rule.title %></h4>
 	<div class="float-right">
-		<%= link_to("<span>Edit</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "re-list-rule-edit") %>
-		<%= link_to("<span>Delete</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "re-list-rule-delete") %>
-		<%= link_to("<span>Move Down</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "#{local_last_rule ? 're-list-rule-move-down-off' : 're-list-rule-move-down'}") %>
-		<%= link_to("<span>Move Up</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "#{local_first_rule ? 're-list-rule-move-up-off' : 're-list-rule-move-up'}") %>
+		<%= link_to("<span>Edit</span>".html_safe, "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "re-list-rule-edit") %>
+		<%= link_to("<span>Delete</span>".html_safe, "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "re-list-rule-delete") %>
+		<%= link_to("<span>Move Down</span>".html_safe, "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "#{local_last_rule ? 're-list-rule-move-down-off' : 're-list-rule-move-down'}") %>
+		<%= link_to("<span>Move Up</span>".html_safe, "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.id}", :class => "#{local_first_rule ? 're-list-rule-move-up-off' : 're-list-rule-move-up'}") %>
 	</div>
 	<div class="clear"></div>
 </div>

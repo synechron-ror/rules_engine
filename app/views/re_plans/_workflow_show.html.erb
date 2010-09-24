@@ -11,7 +11,7 @@
 	<div class="float-right">
 		<!-- NO ACTIONS ON THE RULE	 -->
 		<div class="float-right re-list-workflow-is-default<%= default_workflow ? '' : '-off' %>"><span>Default</span></div>
-			<%= link_to("<span>Show</span>", re_plan_workflow_path(re_plan, re_workflow), :class => "re-list-workflow-show") %>
+			<%= link_to("<span>Show</span>".html_safe, re_plan_workflow_path(re_plan, re_workflow), :class => "re-list-workflow-show") %>
   		</div>
   	<div class="clear top-2"></div>    
 	<hr/>

@@ -1,7 +1,7 @@
 <% set_re_javascript_include ['rules_engine/re_workflow_add', 'rules_engine/re_workflow_preview', 'rules_engine/re_plan_change'] %>
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
 											link_to("View Plan", re_plan_path(@re_plan), :class => "re-bc-plan-show"),
-											'<span class="re-bc-plan-change">Edit Plan</span>' %>
+											'<span class="re-bc-plan-change">Edit Plan</span>'.html_safe %>
 
 <div class="span-17 border">      
 	<div class="span-1">

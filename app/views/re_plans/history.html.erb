@@ -1,7 +1,7 @@
 <% set_re_javascript_include ['rules_engine/re_history_index'] %>
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
 										  link_to("Show Plan", re_plan_path(@re_plan), :class => "re-bc-plan-show"), 
-											'<span class="re-bc-history-list">Process History</span>' %>
+											'<span class="re-bc-history-list">Process History</span>'.html_safe %>
 
 <div class="prepend-1 span-22 append-1">      
   <div class="re-infobox">

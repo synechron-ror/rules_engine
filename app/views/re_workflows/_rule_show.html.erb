@@ -5,7 +5,7 @@
   <h4 class="float-left re-sts-rule-<%= re_rule_error.blank? ? 'valid' : 'verify' %>"><%=h re_rule.title %></h4>
   <div class="float-right">
 		<!-- NO ACTIONS ON THE RULE	 -->
-		<%= link_to("<span>Help</span>", "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.rule_class_name}", :class => "re-list-rule-help") %>
+		<%= link_to("<span>Help</span>".html_safe, "##{re_plan_id}|#{@re_workflow.id}|#{re_rule.rule_class_name}", :class => "re-list-rule-help") %>
   </div>
   <div class="clear"></div>    
 </div>

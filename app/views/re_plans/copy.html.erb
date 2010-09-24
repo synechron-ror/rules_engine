@@ -1,6 +1,6 @@
 <% set_re_breadcrumbs link_to("All Plans", re_plans_path, :class => "re-bc-plan-list"), 
 											link_to("Edit Plan", change_re_plan_path(@re_plan), :class => "re-bc-plan-change"), 
-											'<span class="re-bc-plan-copy">Copy Plan</span>' %>
+											'<span class="re-bc-plan-copy">Copy Plan</span>'.html_safe %>
 
 <div class="prepend-1 span-22 append-1">      
   <div class="re-infobox">

@@ -1,6 +1,6 @@
 <% set_re_javascript_include ['rules_engine/re_workflow_add', 'rules_engine/re_workflow_preview'] %>
 <% set_re_breadcrumbs link_to("All Workflows", re_workflows_path, :class => "re-bc-workflow-list"), 
-											'<span class="re-bc-plan-list">Add Workflow</span>' %>
+											'<span class="re-bc-plan-list">Add Workflow</span>'.html_safe %>
 
 <div class="prepend-1 span-22 append-1">      
   <div class="re-infobox">
