@@ -1,4 +1,4 @@
-<%% javascript_tag do %>
+<%%= javascript_tag do %>
   var new_<%=rule_name%> = '<%%=escape_javascript(render("/re_rules/<%=rule_name%>/form_word"))%>'  
   
   var update<%=rule_class%>WorkflowAction = function() {
@@ -36,13 +36,13 @@
 <!-- WORDS -->
 <%% position = 0 %>
 <%% (@re_rule.rule.match_words || []).each do | word | %>  
-  <%% f.fields_for :rule_data, {:first => false} do |frd| %>
+  <%%= f.fields_for :rule_data, {:first => false} do |frd| %>
     <%%= render '/re_rules/<%=rule_name%>/form_word', :f => frd, :position => position, :word => word %>
     <%% position += 1 %>        
   <%% end %>
 <%% end %>  
 <%% if position == 0 %>
-  <%% f.fields_for :rule_data, {:first => false} do |frd| %>
+  <%%= f.fields_for :rule_data, {:first => false} do |frd| %>
     <%%= render '/re_rules/<%=rule_name%>/form_word', :f => frd, :position => position %>      
   <%% end %>
 <%% end %>

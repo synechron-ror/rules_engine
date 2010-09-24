@@ -1,0 +1,3 @@
+templates :
+  files : 
+    - app/views/layouts/rules_engine.html.erb

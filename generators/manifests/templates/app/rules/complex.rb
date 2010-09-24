@@ -23,7 +23,7 @@ module RulesEngine
         if data.nil?
           @title = nil
           @match_words = nil
-          @workflow_action = 'continue'
+          @workflow_action = 'next'
           @workflow_code = nil
         else
           @title, @match_words, @workflow_action, @workflow_code = ActiveSupport::JSON.decode(data)
@@ -75,7 +75,7 @@ module RulesEngine
           end  
         end
     
-        @workflow_action = param_hash[:<%=rule_name%>_workflow_action] || 'continue'
+        @workflow_action = param_hash[:<%=rule_name%>_workflow_action] || 'next'
         @workflow_code = param_hash[:<%=rule_name%>_workflow_code]
       end
   

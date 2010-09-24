@@ -25,7 +25,9 @@ module RulesEngine
     end    
     
     generators do
-      require File.expand_path(File.dirname(__FILE__) + "./../../generators/rules_engine_generator")      
+      require File.expand_path(File.dirname(__FILE__) + "./../../generators/install_generator")
+      require File.expand_path(File.dirname(__FILE__) + "./../../generators/layout_generator")
+      require File.expand_path(File.dirname(__FILE__) + "./../../generators/rule_generator")
     end    
   end
 end

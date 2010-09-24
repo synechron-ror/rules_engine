@@ -83,10 +83,10 @@ describe RulesEngine::Rule::<%=rule_class%> do
         @<%=rule_name%>.match_words.should be_nil
       end
 
-      it "should se the workflow action to 'continue'" do
-        @<%=rule_name%>.workflow_action.should_not == 'continue'
+      it "should se the workflow action to 'next'" do
+        @<%=rule_name%>.workflow_action.should_not == 'next'
         @<%=rule_name%>.data = nil
-        @<%=rule_name%>.workflow_action.should == 'continue'
+        @<%=rule_name%>.workflow_action.should == 'next'
       end
       
       it "should set the 'workflow' to nil" do
@@ -229,10 +229,10 @@ describe RulesEngine::Rule::<%=rule_class%> do
         @<%=rule_name%>.workflow_action.should == 'mock action'
       end
 
-      it "should set the workflow action to 'continue' by default" do
+      it "should set the workflow action to 'next' by default" do
         @<%=rule_name%>.attributes = valid_attributes.except(:<%=rule_name%>_workflow_action)        
         @<%=rule_name%>.should be_valid
-        @<%=rule_name%>.workflow_action.should == 'continue'
+        @<%=rule_name%>.workflow_action.should == 'next'
       end
 
       it "should set the workflow_code" do
@@ -335,8 +335,10 @@ describe RulesEngine::Rule::<%=rule_class%> do
   end
 end
 
-describe ReWorkflowRulesController, :type => :controller  do
-  integrate_views
+describe ReWorkflowRulesController  do
+  include RSpec::Rails::ControllerExampleGroup
+  
+  render_views
   
   describe "RulesEngine::Rule::<%=rule_class%>" do
     before(:each) do
@@ -347,43 +349,58 @@ describe ReWorkflowRulesController, :type => :controller  do
       controller.stub!(:rules_engine_reader_access_required).and_return(true)
       controller.stub!(:rules_engine_editor_access_required).and_return(true)
 
-      @re_workflow = ReWorkflow.make
+      @re_workflow = ReWorkflow.create!(:code => "valid code", :title => 'Valid title', :description => 'Test Workflow')
       ReWorkflow.stub!(:find).and_return(@re_workflow)
     end  
   
     describe "<%=rule_name%> rule help" do
       it "should assign the <%=rule_name%> rule class" do
-        get :help, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
+        get :help, :re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
         assigns[:rule_class].should == RulesEngine::Rule::<%=rule_class%>
       end
     end
   
     describe "new" do
       it "show the new form" do
-        get :new, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
-        response.should have_tag("form#re_rule_new_form") do
-          with_tag("input#<%=rule_name%>_title")     
-          with_tag("input#<%=rule_name%>_match_words_0_word")
-          with_tag("select#<%=rule_name%>_workflow_action")
-          with_tag("input#<%=rule_name%>_workflow_code")
+        get :new, :re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
+        response.should have_selector("form#re_rule_new_form") do |form|
+          form.should have_selector("input#<%=rule_name%>_title")     
+          form.should have_selector("input#<%=rule_name%>_match_words_0_word")
+          form.should have_selector("select#<%=rule_name%>_workflow_action") do |selector|
+            selector.should have_selector("option", :content => "Continue Next") do |option|
+              option.attr("selected").should_not be_nil
+              option.attr("selected").value.should == "selected"
+            end
+            selector.should have_selector("option", :content => "Stop Success")
+            selector.should have_selector("option", :content => "Stop Failure")
+            selector.should have_selector("option", :content => "Start another Workflow")
+          end  
+          form.should have_selector("input#<%=rule_name%>_workflow_code")
         end  
       end
     end
 
     describe "edit" do
       it "show the edit form" do
-        re_rule = ReRule.make(:re_workflow_id => @re_workflow.id, 
-                              :rule_class_name => "RulesEngine::Rule::<%=rule_class%>",
-                              :data => valid_<%=rule_name%>_rule_data)
+        re_rule = ReRule.create!(:re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>",
+                                  :data => valid_<%=rule_name%>_rule_data)
         ReRule.stub!(:find).and_return(re_rule)
       
-        get :edit, :re_workflow_id => @re_workflow.id, :re_rule_id => 1001, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
-        response.should have_tag("form#re_rule_edit_form") do
-          with_tag("input#<%=rule_name%>_title", :value => 'Rule Title')     
-          with_tag("input#<%=rule_name%>_match_words_0_word", :value => 'word one')
-          with_tag("input#<%=rule_name%>_match_words_1_word", :value => 'word two')
-          with_tag("select#<%=rule_name%>_workflow_action", :value => 'start_workflow')
-          with_tag("input#<%=rule_name%>_workflow_code", :value => 'Other Workflow')
+        get :edit, :re_workflow_id => @re_workflow.id, :id => 1001, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
+        response.should have_selector("form#re_rule_edit_form") do |form|
+          form.should have_selector("input#<%=rule_name%>_title", :value => 'Rule Title')     
+          form.should have_selector("input#<%=rule_name%>_match_words_0_word", :value => 'word one')
+          form.should have_selector("input#<%=rule_name%>_match_words_1_word", :value => 'word two')
+          form.should have_selector("select#<%=rule_name%>_workflow_action") do |selector|
+            selector.should have_selector("option", :content => "Continue Next")
+            selector.should have_selector("option", :content => "Stop Success")
+            selector.should have_selector("option", :content => "Stop Failure")
+            selector.should have_selector("option", :content => "Start another Workflow") do |option|
+              option.attr("selected").should_not be_nil
+              option.attr("selected").value.should == "selected"
+            end
+          end  
+          form.should have_selector("input#<%=rule_name%>_workflow_code", :value => 'Other Workflow')
         end  
       end
     end

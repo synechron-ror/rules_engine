@@ -3,6 +3,8 @@ contents :
   - public/javascripts/rules_engine
 
 files :  
+  - public/stylesheets/application.css
+  
   - doc/README.rules_engine
   - doc/README.rules_engine_view
 
