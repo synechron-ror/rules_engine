@@ -1,6 +1,6 @@
 class RePlanWorkflowsController < ApplicationController    
   helper :rules_engine 
-  layout 'rules_engine'
+  layout RulesEngineView::Config.layout || 'rules_engine'
   
   # before_filter :login_required
   before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :default, :add, :remove, :copy, :duplicate]
@@ -54,7 +54,7 @@ class RePlanWorkflowsController < ApplicationController
       
       respond_to do |format|
         format.html do          
-          redirect_to(change_re_workflow_path(@re_workflow))
+          redirect_to(change_re_plan_workflow_path(@re_plan, @re_workflow))
         end  
         format.js do
           render :action => "update"
@@ -149,5 +149,5 @@ class RePlanWorkflowsController < ApplicationController
        render :action => "copy"  
     end  
   end
-  
+
 end

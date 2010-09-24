@@ -1,6 +1,6 @@
 class RePublicationsController < ApplicationController    
   helper :rules_engine 
-  layout 'rules_engine'
+  layout RulesEngineView::Config.layout || 'rules_engine'
 
   # before_filter :login_required
   before_filter :rules_engine_reader_access_required,  :only => [:show]

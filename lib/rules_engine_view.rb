@@ -1,3 +1,5 @@
+require 'rules_engine_view/config'
+
 require 'rules_engine_view/form_styles'
 require 'rules_engine_view/form_fields'
 require 'rules_engine_view/form_builder'

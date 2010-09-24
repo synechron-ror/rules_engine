@@ -114,6 +114,8 @@ describe "routing to profiles" do
   end
   
   describe "/re_publications" do
-    match_route(:get, :re_publications, :show => '/re_publications')
+    with_route_params(:id => "101") do  
+      match_route(:get, :re_publications, :show => '/re_publications/101')
+    end  
   end
 end

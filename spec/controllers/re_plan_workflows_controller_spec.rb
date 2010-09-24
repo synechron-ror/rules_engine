@@ -151,7 +151,7 @@ describe RePlanWorkflowsController do
       
       it "should redirect to the change re_workflow page for HTML" do
         put :update, :re_plan_id => @re_plan.id, :id => @re_workflow.id, :re_workflow => { :title => "name" }
-        response.should redirect_to(change_re_workflow_path(@re_workflow))
+        response.should redirect_to(change_re_plan_workflow_path(@re_plan, @re_workflow))
       end
   
       it "should render 'update' template for JAVASCRIPT" do        
@@ -361,4 +361,117 @@ describe RePlanWorkflowsController do
       end
     end
   end
+  
+  # describe "publish" do
+  #   it_should_require_rules_engine_editor_access(:publish, :id => 123)
+  # 
+  #   before do
+  #     @re_plan = RePlan.make
+  #     @re_plan.stub!(:plan_error).and_return(nil)
+  #     RePlan.stub!(:find).and_return(@re_plan) 
+  #     
+  #     @publisher = mock('publisher')
+  #     @publisher.stub!(:publish)
+  #     RulesEngine::Publish.stub!(:publisher).and_return(@publisher)
+  #   end
+  #   
+  #   describe "tag is blank" do
+  #     it "should display a flash error message" do
+  #       put :publish, :id => 123, :tag => ""
+  #       flash[:error].should_not be_blank
+  #     end
+  #   end
+  # 
+  #   it "should publish the plan" do
+  #     @publisher.should_receive(:publish).with(@re_plan.code, "publish tag", @re_plan.publish)
+  #     put :publish, :id => 123, :tag => "publish tag"
+  #   end
+  # 
+  #   it "should update the plan to published" do
+  #     put :publish, :id => 123, :tag => "publish tag"
+  #     @re_plan.plan_status.should == RePlan::PLAN_STATUS_PUBLISHED
+  #   end
+  # 
+  #   it "should display a flash success message" do
+  #     put :publish, :id => 123, :tag => "publish tag"
+  #     flash[:success].should_not be_blank
+  #   end
+  #   
+  #   it "should redirect to the change_re_plan page for HTML" do
+  #     put :publish, :id => 123, :tag => "publish tag"
+  #     response.should redirect_to(change_re_plan_path(@re_plan))
+  #   end
+  # 
+  #   it "should render the update page for JAVASCRIPT" do
+  #     xhr :put, :publish, :id => 123, :tag => "publish tag"
+  #     response.should render_template(:update)
+  #   end    
+  # end
+  
+  # describe "revert" do
+  #   it_should_require_rules_engine_editor_access(:revert, :id => 123)
+  # 
+  #   before do
+  #     @publisher = mock('publisher')
+  #     @publisher.stub!(:get)
+  #     RulesEngine::Publish.stub!(:publisher).and_return(@publisher)
+  #     
+  #     @re_plan = RePlan.make
+  #     RePlan.stub!(:find).and_return(@re_plan) 
+  #   end
+  # 
+  #   it "should get the plan record with the ID" do
+  #     RePlan.should_receive(:find).with(123).and_return(@re_plan)
+  #     put :revert, :id => 123
+  #     assigns[:re_plan].should == @re_plan
+  #   end
+  #   
+  #   it "should get the plan from the publisher" do
+  #     @publisher.should_receive(:get).with(@re_plan.code)
+  #     put :revert, :id => 123
+  #   end
+  #       
+  #   describe "the publisher does not have the plan" do
+  #     it "should set an error message" do
+  #       put :revert, :id => 123
+  #       flash[:error].should_not be_blank
+  #     end          
+  #   end
+  #   
+  #   describe "the publisher has the plan" do
+  #     before(:each) do
+  #       @plan = {:code => 'mock plan'}
+  #       @publisher.stub!(:get).and_return(@plan)
+  #       @publisher.stub!(:revert!)
+  #       @re_plan.stub!(:save!)
+  #     end
+  #     
+  #     it "should revert the plan" do
+  #       @re_plan.should_receive(:revert!).with(@plan)
+  #       put :revert, :id => 123
+  #     end
+  # 
+  #     it "should save the plan" do
+  #       @re_plan.should_receive(:save!)
+  #       put :revert, :id => 123
+  #     end
+  #         
+  #     it "should display a flash success message" do
+  #       put :revert, :id => 123
+  #       flash[:success].should_not be_blank
+  #     end
+  #   end
+  #   
+  #   it "should redirect to the change re_plan page for HTML" do
+  #     put :revert, :id => 123
+  #     response.should redirect_to(change_re_plan_path(@re_plan))
+  #   end
+  # 
+  #   it "should render 'update' template for JAVASCRIPT" do
+  #     xhr :put, :revert, :id => 123
+  #     response.should render_template(:update)
+  #   end    
+  # end
+  # 
+  
 end

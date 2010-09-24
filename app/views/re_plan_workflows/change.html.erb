@@ -51,16 +51,17 @@
 <div class="span-7 last">      
 	<div class="clear top-5"></div>
 
-	<h4>
+<h4>
 		<%= link_to("View Plan", re_plan_path(@re_plan), :class => "re-menu-plan-show") %>
 	</h4>
 	<div class="clear top-5"></div>
 
 	<h4>
-		<%= link_to("Edit Plan", change_re_plan_path(@re_plan), :class => "re-menu-plan-change") %>
+		<%= link_to("Edit/Publish Plan", change_re_plan_path(@re_plan), :class => "re-menu-plan-change") %>
 	</h4>
 	<div class="clear top-5"></div>
 
+	
 	<h4>
 		<%= link_to("View Workflow", re_plan_workflow_path(@re_plan, @re_workflow), :class => "re-menu-workflow-show") %>
 	</h4>

@@ -61,7 +61,7 @@ Rails.application.routes.draw do
     end    
   end  
 
-  match '/re_history'       => 're_history#index'
-  match '/re_history/:id'   => 're_history#show'
-  match '/re_publications'  => 're_publications#show'
+  match '/re_history'           => 're_history#index'
+  match '/re_history/:id'       => 're_history#show'
+  match '/re_publications/:id'  => 're_publications#show'
 end  

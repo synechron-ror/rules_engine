@@ -22,7 +22,7 @@ describe "set_re_breadcrumbs" do
   include RSpec::Rails::HelperExampleGroup
   
   before(:each) do
-    RulesEngineView::Defer.prefix_breadcrumbs = nil
+    RulesEngineView::Config.prefix_breadcrumbs = nil
   end
 
   it "should be accessible to rails apps by default" do 
@@ -44,7 +44,7 @@ describe "set_re_breadcrumbs_prefix" do
   include RSpec::Rails::HelperExampleGroup
   
   before(:each) do
-    RulesEngineView::Defer.prefix_breadcrumbs = "HERE"
+    RulesEngineView::Config.prefix_breadcrumbs = "HERE"
   end
   
   it "should add the prefix to the breadcrumb array" do    
@@ -57,7 +57,7 @@ describe "set_re_breadcrumbs_right" do
   include RSpec::Rails::HelperExampleGroup
   
   before(:each) do
-    RulesEngineView::Defer.prefix_breadcrumbs = nil
+    RulesEngineView::Config.prefix_breadcrumbs = nil
   end
   
   it "should be accessible to rails apps by default" do 
@@ -79,7 +79,7 @@ describe "set_re_breadcrumbs_right_prefix" do
   include RSpec::Rails::HelperExampleGroup
   
   before(:each) do
-    RulesEngineView::Defer.prefix_breadcrumbs = "HERE"
+    RulesEngineView::Config.prefix_breadcrumbs = "HERE"
   end
   
   it "should add the prefix to the breadcrumb array" do

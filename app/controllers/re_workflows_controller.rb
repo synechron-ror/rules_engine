@@ -1,6 +1,6 @@
 class ReWorkflowsController < ApplicationController    
   helper :rules_engine 
-  layout 'rules_engine'
+  layout RulesEngineView::Config.layout || 'rules_engine'
   
   # before_filter :login_required
   before_filter :rules_engine_editor_access_required,  :only => [:new, :create, :edit, :update, :destroy, :change, :copy, :duplicate]
