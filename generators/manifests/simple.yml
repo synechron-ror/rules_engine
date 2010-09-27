@@ -5,7 +5,7 @@ directories :
 templates :
   replacements :
     - simple : rule_name
-    - RuleSimple : rule_class
+    - Simple : rule_class
     
   directories : 
     - app/views/re_rules/simple

@@ -1,3 +1,5 @@
 templates :
+  replacements :
+    - rules_engine_layout : rule_name
   files : 
-    - app/views/layouts/rules_engine.html.erb
+    - app/views/layouts/rules_engine_layout.html.erb

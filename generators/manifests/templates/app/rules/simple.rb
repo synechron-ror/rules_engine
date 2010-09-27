@@ -1,6 +1,6 @@
 module RulesEngine
   module Rule
-    class Simple < RulesEngine::Rule::Definition
+    class <%=rule_class%> < RulesEngine::Rule::Definition
 
       attr_reader :description
       ##################################################################
@@ -8,7 +8,7 @@ module RulesEngine
       self.options = 
         {
           :group => 'General',
-          :display_name => 'Simple',    
+          :display_name => '<%=rule_class%>',    
           :help_partial => '/re_rules/<%=rule_name%>/help',
           :new_partial => '/re_rules/<%=rule_name%>/new',
           :edit_partial => '/re_rules/<%=rule_name%>/edit'
