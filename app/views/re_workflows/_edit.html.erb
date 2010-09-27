@@ -8,7 +8,7 @@
   <%= re_form_for(@re_workflow, :url => update_path, :method => :post, :span => "3x13", :html => {:id => "re_workflow_edit_form"}) do |f| %>
     <%= f.re_error_on "Unable To Update Workflow" %>
     <%= re_whitebox do %>    
-      <%= re_form_text("Code", @re_workflow.code, :span => "3x13", :hint => "<strong>NOTE :</strong> the workflow code cannot be changed") %>
+      <%= re_form_text("Code", @re_workflow.code, :span => "3x13", :hint => "<strong>NOTE :</strong> the workflow code cannot be changed".html_safe) %>
       <div class="clear top-5"></div>
       
       <%= f.text_field(:title, :required => true) %>

@@ -5,7 +5,7 @@
   <%= re_form_for(@re_plan, :url => re_plan_path(@re_plan), :method => :post, :span => "3x13", :html => {:id => "re_plan_edit_form"}) do |f| %>
     <%= f.re_error_on "Unable To Update Plan" %>
     <%= re_whitebox do %>    
-      <%= re_form_text("Code", @re_plan.code, :span => "3x13", :hint => "<strong>NOTE :</strong> the plan code cannot be changed") %>
+      <%= re_form_text("Code", @re_plan.code, :span => "3x13", :hint => "<strong>NOTE :</strong> the plan code cannot be changed".html_safe) %>
       <div class="clear top-5"></div>
       
       <%= f.text_field(:title, :required => true) %>
