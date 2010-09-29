@@ -12,7 +12,7 @@ html, body {
 	background: #fff;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6 {
   font-weight:normal;
   color: #222;
 }
@@ -47,10 +47,10 @@ h6 {
   margin: 8px 6px 6px 6px;
 }
 p {
+  font-weight:normal;
+  color: #444;
   font-size:14px;
   line-height:20px;
-  padding-top:4px;
-  padding-bottom:2px; 
   margin: 6px;
 }
 hr {margin:0 0 2px;}
