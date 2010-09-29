@@ -21,6 +21,7 @@ module RulesEngine
       end
       
       def audit(process_id, message, code = RulesEngine::Process::AUDIT_INFO)
+        super
         if perform_audit?(code)
           # $stderr.puts("#{'*' * 5} #{process_id}, #{code}, #{message}")
           ReProcessAudit.create({
