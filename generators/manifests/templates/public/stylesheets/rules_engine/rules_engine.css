@@ -1,3 +1,45 @@
+.re_container {
+  min-height: 700px;  
+}
+
+.re_container h1, #re_content h1 {
+  font-size:36px;
+  line-height:42px;
+  margin: 0px 6px;
+}
+.re_container h2, #re_content h2 {
+  font-size:30px;
+  line-height:36px;
+  margin: 0px 6px;
+}
+.re_container h3, #re_content h3 {
+  font-size:24px;
+  line-height:30px;
+  margin: 0px 6px;
+}
+.re_container h4, #re_content h4 {
+  font-size:20px;
+  line-height:24px;
+  margin: 0px 6px;
+}
+.re_container h5, #re_content h5 {
+  font-size:18px;
+  line-height:22px;
+  margin: 0px 6px;
+}
+.re_container h6, #re_content h6 {
+  font-size:16px;
+  line-height:20px;
+  margin: 0px 6px;
+}
+.re_container p, #re_content p {
+  font-size:14px;
+  line-height:16px;
+  padding-top:4px;
+  padding-bottom:2px; 
+  margin: 0px 6px;
+}
+
 .re-code{
   font-size: 14px;
   line-height: 16px;

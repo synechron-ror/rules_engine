@@ -382,7 +382,8 @@ describe ReWorkflowRulesController  do
 
     describe "edit" do
       it "show the edit form" do
-        re_rule = ReRule.create!(:re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>",
+        re_rule = ReRule.create!(:re_workflow_id => @re_workflow.id, 
+                                  :rule_class_name => "RulesEngine::Rule::<%=rule_class%>",
                                   :data => valid_<%=rule_name%>_rule_data)
         ReRule.stub!(:find).and_return(re_rule)
       

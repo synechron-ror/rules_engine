@@ -32,7 +32,7 @@ module RulesEngine
       end
   
       def summary
-        description || "Does Nothing"
+        "Summary Required"
       end
   
       def data

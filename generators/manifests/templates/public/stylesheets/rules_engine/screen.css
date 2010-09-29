@@ -3,7 +3,7 @@ html, body {
   margin: 0px;
   padding: 0px;
   font-size: 14px;
-  color: #222;
+  color: #333;
   background: #2F323C;
   font-family: "Lucida Grande","Lucida Sans Unicode",verdana,arial,helvetica,sans-serif;
 }
@@ -12,50 +12,46 @@ html, body {
 	background: #fff;
 }
 
-.re_container {
-  min-height: 700px;  
-}
-
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
   font-weight:normal;
   color: #222;
 }
 h1 {
   font-size:36px;
   line-height:42px;
-  margin: 0px 6px;
+  margin: 18px 6px 6px 6px;
 }
 h2 {
   font-size:30px;
   line-height:36px;
-  margin: 0px 6px;
+  margin: 16px 6px 6px 6px;
 }
 h3 {
   font-size:24px;
   line-height:30px;
-  margin: 0px 6px;
+  margin: 12px 6px 6px 6px;
 }
 h4 {
   font-size:20px;
   line-height:24px;
-  margin: 0px 6px;
+  margin: 8px 6px 6px 6px;
 }
 h5 {
   font-size:18px;
   line-height:22px;
-  margin: 0px 6px;
+  margin: 8px 6px 6px 6px;
 }
 h6 {
   font-size:16px;
   line-height:20px;
-  margin: 0px 6px;
+  margin: 8px 6px 6px 6px;
 }
 p {
   font-size:14px;
-  line-height:16px;
+  line-height:20px;
   padding-top:4px;
   padding-bottom:2px; 
-  margin: 0px 6px;
+  margin: 6px;
 }
 hr {margin:0 0 2px;}
 
@@ -461,10 +457,10 @@ table.data-line tr.odd td {
 }
 .re-form-data .form-text{
   display:inline-block;
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 20px;
 	color: #222;
-  padding: 4px 5px 0 5px;
+  padding: 6px 5px 0 5px;
 }
 
 .re-form-data .form-error-message,
@@ -508,7 +504,8 @@ select{
   float:left;
 }
 .re-form-field-checkbox .form-text{
-  margin-top: 2px;
+  margin-top: 0px;
+  padding-top: 4px;
 }
 
 .re-form-field-checkbox .form-text .re-form-label, 

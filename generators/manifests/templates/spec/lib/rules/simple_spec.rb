@@ -66,27 +66,19 @@ describe RulesEngine::Rule::<%=rule_class%> do
         @<%=rule_name%>.title.should be_nil
       end
 
-      it "should set the description to nil" do
-        @<%=rule_name%>.title.should_not be_nil
-        @<%=rule_name%>.data = nil
-        @<%=rule_name%>.description.should be_nil
-      end
+      # it "should set the description to nil" do
+      #   @<%=rule_name%>.description.should_not be_nil
+      #   @<%=rule_name%>.data = nil
+      #   @<%=rule_name%>.description.should be_nil
+      # end
     end
   end
   
   describe "the summary" do
-    describe "description set" do
-      it "should be the rule description" do
-        <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
-        <%=rule_name%>.should_receive(:description).and_return("mock description")
-        <%=rule_name%>.summary.should == "mock description"
-      end
-    end
     describe "description not set" do
-      it "should be Does Nothing" do
+      it "should be Summary Required" do
         <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
-        <%=rule_name%>.should_receive(:description).and_return(nil)
-        <%=rule_name%>.summary.should == "Does Nothing"
+        <%=rule_name%>.summary.should == "Summary Required"
       end
     end
   end
@@ -180,7 +172,7 @@ describe ReWorkflowRulesController  do
       controller.stub!(:rules_engine_reader_access_required).and_return(true)
       controller.stub!(:rules_engine_editor_access_required).and_return(true)
 
-      @re_workflow = ReWorkflow.create!(:code => "valid code", :title => 'Valid title', :description => 'Test Workflow')
+      @re_workflow = ReWorkflow.create!(:code => "valid code", :title => 'Valid title')
       ReWorkflow.stub!(:find).and_return(@re_workflow)
     end  
   
@@ -196,7 +188,7 @@ describe ReWorkflowRulesController  do
         get :new, :re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
         response.should have_selector("form#re_rule_new_form") do |form|
           form.should have_selector("input#<%=rule_name%>_title")
-          form.should have_selector("input#<%=rule_name%>_description")      
+          # form.should have_selector("input#<%=rule_name%>_description")      
         end  
       end
     end
@@ -210,7 +202,7 @@ describe ReWorkflowRulesController  do
         get :edit, :re_workflow_id => @re_workflow.id, :id => 1001, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
         response.should have_selector("form#re_rule_edit_form") do |form|
           form.should have_selector("input#<%=rule_name%>_title", :value => 'Rule Title')     
-          form.should have_selector("input#<%=rule_name%>_description", :value => 'Rule Description')     
+          # form.should have_selector("input#<%=rule_name%>_description", :value => 'Rule Description')     
         end  
       end
     end
