@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rules_engine}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-09-28}
+  s.date = %q{2010-09-29}
   s.description = %q{Ruby Rails Rules Engine Framework : R3EF}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
