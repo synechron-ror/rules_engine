@@ -4,12 +4,13 @@
 	<% @re_publications["publications"].each do |re_publication| %>
 		<div class="clear top-2"></div>
 		<div class="left-10 right-5">
-			<div class="re-code-small float-left">
-				<%= re_publication["version_tag"] %> <span class="blue">V.<%= re_publication["plan_version"] %></span>
-			</div>
-			<div class="smalltext float-right">	
+			<span class="re-code-small float-left blue">V.<%= re_publication["plan_version"] %></span>
+			<span class="re-code-small left-5 float-left">	
+				<%= re_publication["version_tag"] %> 
+			</span>	
+			<span class="re-code-small float-right">	
 				<%= re_publication["published_at"].nil? ? '' : Time.parse(re_publication["published_at"]).strftime('%d %b %Y - %H:%M') %>
-			</div>	
+			</span>	
 			<hr/>	
 		</div>		
 	<% end %>		

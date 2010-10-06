@@ -4,12 +4,14 @@
 	<% @re_history["processes"].each do |re_process| %>
 		<div class="clear top-2"></div>
 		<div class="left-10 right-5">
-			<a class="re-code-small float-left re-xtra-history-show re-xtra-history-<%= re_history_status(re_process["process_status"]) %>" href="#<%= re_process["process_id"] %>">
-				<%= re_process["plan_code"] %> <span class="blue">V.<%= re_process["plan_version"] %></span>
+			<a class="re-xtra-history-show" href="#<%= re_process["process_id"] %>">
+				<span class="float-left re-xtra-history-<%= re_history_status(re_process["process_status"]) %>"></span>
+				<span class="re-code-small float-left">V.<%= re_process["plan_version"] %></span>
+				<span class="re-code-small float-left left-5"><%= re_process["plan_code"] %> </span>
+				<span class="re-code-small float-right right-5">	
+					<%= re_process["started_at"].nil? ? '' : Time.parse(re_process["started_at"]).strftime('%d %b %Y - %H:%M') %>
+				</span>	
 			</a>	
-			<div class="smalltext float-right right-5">	
-				<%= re_process["started_at"].nil? ? '' : Time.parse(re_process["started_at"]).strftime('%d %b %Y - %H:%M') %>
-			</div>	
 			<hr/>	
 		</div>		
 	<% end %>		

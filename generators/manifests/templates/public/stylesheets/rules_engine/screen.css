@@ -47,7 +47,12 @@ h6 {
   margin: 8px 6px 6px 6px;
 }
 p {
-  font-weight:normal;
+  color: #444;
+  font-size:14px;
+  line-height:20px;
+  margin: 6px;
+}
+li {
   color: #444;
   font-size:14px;
   line-height:20px;
@@ -546,6 +551,7 @@ a.re-alert-close {
   float: right;
   text-decoration: none;
 	background: url('./images/re_view_error/re-alert-close.png') no-repeat 2px 2px;
+	height: 20px;
   padding-left: 24px;
 }
 a.re-alert-close:hover {

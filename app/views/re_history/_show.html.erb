@@ -11,7 +11,7 @@
 					<div class="re-code-small float-left re-xtra-history-audit-<%= re_audit_status(re_audit["code"]) %>">
 						<%= re_audit["message"] %>
 					</div>	
-					<div class="smalltext float-right right-5">	
+					<div class="re-code-small float-right right-5">	
 						<%= re_audit["created_at"].nil? ? '' : Time.parse(re_audit["created_at"]).strftime('%d %b %Y - %H:%M') %>
 					</div>	
 					<hr/>	
