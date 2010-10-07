@@ -23,7 +23,7 @@ module RulesEngine
         Dir.glob("#{rules_path}/**/*.rb").each do |rule| 
           Kernel.load rule
 
-          rule_class = Rule.const_get(File.basename(rule, '.rb').classify)
+          rule_class = RulesEngine::Rule.const_get(File.basename(rule, '.rb').classify)
           @rule_classes << rule_class
           
           group = rule_class.options[:group]

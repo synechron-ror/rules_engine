@@ -1,11 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "RulesEngine::Cache" do
-  before(:each) do
-    ActiveSupport::Cache.stub!(:lookup_store).and_return("mock store")    
-  end
-  
+
   it "should set perform caching to false if cahing not set" do
+    RulesEngine::Cache.cache_store=nil
     RulesEngine::Cache.should_not be_perform_caching
   end
   

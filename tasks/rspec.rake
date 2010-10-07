@@ -30,6 +30,7 @@ namespace :spec do
     FileUtils.rm_rf("#{rules_engine_rails_path}/db/migrate/20100308225008_create_rules_engine.rb")
     FileUtils.rm_rf("#{rules_engine_rails_path}/doc/README.rules_engine")
     FileUtils.rm_rf("#{rules_engine_rails_path}/doc/README.rules_engine_view")
+    FileUtils.rm_rf("#{rules_engine_rails_path}/Gemfile.lock")
   end
 
   desc "Test the rules_engine library"

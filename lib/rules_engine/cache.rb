@@ -14,7 +14,7 @@ module RulesEngine
       end
 
       def cache_store=(store_option)
-        @cache_store = ActiveSupport::Cache.lookup_store(store_option)
+        @cache_store = store_option.nil? ? nil : ActiveSupport::Cache.lookup_store(store_option)
       end
 
       def cache_store
