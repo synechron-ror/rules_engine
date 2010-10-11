@@ -4,118 +4,123 @@ describe "routes" do
   extend RulesEngine::RouteMatcher
   
   describe "/re_plans" do
-    # index methods
-    match_route(:get,  :re_plans, :index => '/re_plans')
-    match_route(:get,  :re_plans, :new => '/re_plans/new')
-    match_route(:post, :re_plans, :create => '/re_plans')
+    match_controller(:re_plans) do
+      with_route(:get, '/re_plans' => :index,
+                        '/re_plans/new' => :new)
+      with_route(:post, '/re_plans' => :create)
+    end  
 
-    with_route_params(:id => "101") do
-      match_route(:get, :re_plans, :show => '/re_plans/101', 
-                                  :edit => '/re_plans/101/edit')
-      match_route(:put, :re_plans, :update => '/re_plans/101')
-      match_route(:delete, :re_plans, :destroy => '/re_plans/101')
+    match_controller(:re_plans, :id => "101") do
+      with_route(:get, '/re_plans/101' => :show, 
+                       '/re_plans/101/edit' => :edit)
+      with_route(:put, '/re_plans/101' => :update)
+      with_route(:delete, '/re_plans/101' => :destroy)
+
+      with_route(:get, '/re_plans/101/change' => :change,
+                       '/re_plans/101/preview' => :preview,
+                       '/re_plans/101/history' => :history)
     
-      match_route(:get,  :re_plans, :change => '/re_plans/101/change', 
-                                     :preview => "/re_plans/101/preview",
-                                     :history => "/re_plans/101/history")
-    
-      match_route(:put,  :re_plans, :publish => '/re_plans/101/publish', 
-                                     :revert => '/re_plans/101/revert')
-    
-      match_route(:get,  :re_plans,  :copy => '/re_plans/101/copy')
-      match_route(:post,  :re_plans, :duplicate => '/re_plans/101/duplicate')
+      with_route(:put, '/re_plans/101/publish' => :publish, 
+                       '/re_plans/101/revert' => :revert)
+
+      with_route(:get,  '/re_plans/101/copy' => :copy)
+      with_route(:post, '/re_plans/101/duplicate' => :duplicate)
     end
   end    
   
   describe "/re_plans/101/workflows" do
-    with_route_params(:re_plan_id => "101") do
-      match_route(:get,  :re_plan_workflows, :new => '/re_plans/101/workflows/new')
-      match_route(:post, :re_plan_workflows, :create => '/re_plans/101/workflows')
+    match_controller(:re_plan_workflows, :re_plan_id => "101") do
+      with_route(:get, '/re_plans/101/workflows/new' => :new)
+      with_route(:post, '/re_plans/101/workflows' => :create)
     end
-    with_route_params(:re_plan_id => "101", :id => "202") do  
-      match_route(:get, :re_plan_workflows, :show => '/re_plans/101/workflows/202', 
-                                            :edit => '/re_plans/101/workflows/202/edit')
-      match_route(:put, :re_plan_workflows, :update => '/re_plans/101/workflows/202')
-      match_route(:delete, :re_plan_workflows, :destroy => '/re_plans/101/workflows/202')
-      
-      match_route(:get, :re_plan_workflows, :change => '/re_plans/101/workflows/202/change')
-      match_route(:put, :re_plan_workflows, :default => '/re_plans/101/workflows/202/default')
-      match_route(:put, :re_plan_workflows, :add => '/re_plans/101/workflows/202/add')
-      match_route(:put, :re_plan_workflows, :remove => '/re_plans/101/workflows/202/remove')
-      match_route(:get, :re_plan_workflows, :copy => '/re_plans/101/workflows/202/copy')
-      match_route(:post, :re_plan_workflows, :duplicate => '/re_plans/101/workflows/202/duplicate')      
-    end
-  end
-
-  describe "/re_plans/101/workflows/202/rules" do
-    with_route_params(:re_plan_id => "101", :workflow_id => "202") do
-      match_route(:get,  :re_plan_workflow_rules, :new => '/re_plans/101/workflows/202/rules/new')
-      match_route(:post, :re_plan_workflow_rules, :create => '/re_plans/101/workflows/202/rules')
-
-      match_route(:get, :re_plan_workflow_rules, :help => '/re_plans/101/workflows/202/rules/help')
-      match_route(:get, :re_plan_workflow_rules, :error => '/re_plans/101/workflows/202/rules/error')      
-    end
-    with_route_params(:re_plan_id => "101", :workflow_id => "202", :id => "303") do  
-      match_route(:get, :re_plan_workflow_rules, :edit => '/re_plans/101/workflows/202/rules/303/edit')
-      match_route(:put, :re_plan_workflow_rules, :update => '/re_plans/101/workflows/202/rules/303')
-      match_route(:delete, :re_plan_workflow_rules, :destroy => '/re_plans/101/workflows/202/rules/303')
-
-      match_route(:put, :re_plan_workflow_rules, :move_up => '/re_plans/101/workflows/202/rules/303/move_up')
-      match_route(:put, :re_plan_workflow_rules, :move_down => '/re_plans/101/workflows/202/rules/303/move_down')
-    end
-  end
-
-  describe "/re_workflows" do
-    # index methods
-    match_route(:get,  :re_workflows, :index => '/re_workflows')
-    match_route(:get,  :re_workflows, :new => '/re_workflows/new')
-    match_route(:post, :re_workflows, :create => '/re_workflows')
-    match_route(:get,  :re_workflows, :add => '/re_workflows/add')
-
-    with_route_params(:id => "101") do
-      match_route(:get, :re_workflows, :show => '/re_workflows/101', 
-                                        :edit => '/re_workflows/101/edit')
-      match_route(:put, :re_workflows, :update => '/re_workflows/101')
-      match_route(:delete, :re_workflows, :destroy => '/re_workflows/101')
     
-      match_route(:get,  :re_workflows, :plan => '/re_workflows/101/plan', 
-                                        :change => '/re_workflows/101/change', 
-                                        :preview => "/re_workflows/101/preview")
+    match_controller(:re_plan_workflows, :re_plan_id => "101", :id => "202") do  
+      with_route(:get, '/re_plans/101/workflows/202' => :show, 
+                       '/re_plans/101/workflows/202/edit' => :edit)
+      with_route(:put, '/re_plans/101/workflows/202' => :update)
+      with_route(:delete, '/re_plans/101/workflows/202' => :destroy)
+      
+      with_route(:get, '/re_plans/101/workflows/202/change' => :change)
+      with_route(:put, '/re_plans/101/workflows/202/default' => :default)
+      with_route(:put, '/re_plans/101/workflows/202/add' => :add)
+      with_route(:put, '/re_plans/101/workflows/202/remove' => :remove)
+      with_route(:get, '/re_plans/101/workflows/202/copy' => :copy)
+      with_route(:post, '/re_plans/101/workflows/202/duplicate' => :duplicate)      
+    end
+  end
+  
+  describe "/re_plans/101/workflows/202/rules" do
+    match_controller(:re_plan_workflow_rules, :re_plan_id => "101", :workflow_id => "202") do
+      with_route(:get, '/re_plans/101/workflows/202/rules/new' => :new)
+      with_route(:post, '/re_plans/101/workflows/202/rules' => :create)
+  
+      with_route(:get, '/re_plans/101/workflows/202/rules/help' => :help)
+      with_route(:get, '/re_plans/101/workflows/202/rules/error' => :error)
+    end
+    match_controller(:re_plan_workflow_rules, :re_plan_id => "101", :workflow_id => "202", :id => "303") do  
+      with_route(:get, '/re_plans/101/workflows/202/rules/303/edit' => :edit)
+      with_route(:put, '/re_plans/101/workflows/202/rules/303' => :update)
+      with_route(:delete, '/re_plans/101/workflows/202/rules/303' => :destroy)
+  
+      with_route(:put, '/re_plans/101/workflows/202/rules/303/move_up' => :move_up)
+      with_route(:put, '/re_plans/101/workflows/202/rules/303/move_down' => :move_down)
+    end
+  end
+  
+  describe "/re_workflows" do
+    match_controller(:re_workflows) do
+      with_route(:get, '/re_workflows' => :index)
+      with_route(:get, '/re_workflows/new' => :new)
+      with_route(:post, '/re_workflows' => :create)
+      with_route(:get, '/re_workflows/add' => :add)
+    end
+    
+    match_controller(:re_workflows, :id => "101") do
+      with_route(:get, '/re_workflows/101' => :show, 
+                       '/re_workflows/101/edit' => :edit)
+      with_route(:put, '/re_workflows/101' => :update)
+      with_route(:delete, '/re_workflows/101' => :destroy)
+    
+      with_route(:get, '/re_workflows/101/plan' => :plan, 
+                       '/re_workflows/101/change' => :change, 
+                       '/re_workflows/101/preview' => :preview)
           
-      match_route(:get,  :re_workflows,  :copy => '/re_workflows/101/copy')
-      match_route(:post,  :re_workflows, :duplicate => '/re_workflows/101/duplicate')
+      with_route(:get, '/re_workflows/101/copy' => :copy)
+      with_route(:post, '/re_workflows/101/duplicate' => :duplicate)
     end
   end    
-
+  
   describe "/re_workflows/101/rules" do
-    with_route_params(:re_workflow_id => "101") do
-      match_route(:get,  :re_workflow_rules, :new => '/re_workflows/101/rules/new')
-      match_route(:post, :re_workflow_rules, :create => '/re_workflows/101/rules')
-
-      match_route(:get, :re_workflow_rules, :help => '/re_workflows/101/rules/help')
-      match_route(:get, :re_workflow_rules, :error => '/re_workflows/101/rules/error')      
+    match_controller(:re_workflow_rules, :re_workflow_id => "101") do
+      with_route(:get, '/re_workflows/101/rules/new' => :new)
+      with_route(:post, '/re_workflows/101/rules' => :create)
+  
+      with_route(:get, '/re_workflows/101/rules/help' => :help)
+      with_route(:get, '/re_workflows/101/rules/error' => :error)      
     end
-    with_route_params(:re_workflow_id => "101", :id => "202") do  
-      match_route(:get, :re_workflow_rules, :edit => '/re_workflows/101/rules/202/edit')
-      match_route(:put, :re_workflow_rules, :update => '/re_workflows/101/rules/202')
-      match_route(:delete, :re_workflow_rules, :destroy => '/re_workflows/101/rules/202')
-
-      match_route(:put, :re_workflow_rules, :move_up => '/re_workflows/101/rules/202/move_up')
-      match_route(:put, :re_workflow_rules, :move_down => '/re_workflows/101/rules/202/move_down')
+    match_controller(:re_workflow_rules, :re_workflow_id => "101", :id => "202") do  
+      with_route(:get, '/re_workflows/101/rules/202/edit' => :edit)
+      with_route(:put, '/re_workflows/101/rules/202' => :update)
+      with_route(:delete, '/re_workflows/101/rules/202' => :destroy)
+  
+      with_route(:put, '/re_workflows/101/rules/202/move_up' => :move_up)
+      with_route(:put, '/re_workflows/101/rules/202/move_down' => :move_down)
     end
   end
-
   
   describe "/re_history" do
-    match_route(:get, :re_history, :index => '/re_history')
-    with_route_params(:id => "101") do  
-      match_route(:get, :re_history, :show => '/re_history/101')
+    match_controller(:re_history) do  
+      with_route(:get, '/re_history' => :index)
+    end 
+    
+    match_controller(:re_history, :id => "101") do  
+      with_route(:get, '/re_history/101' => :show)
     end  
   end
   
   describe "/re_publications" do
-    with_route_params(:id => "101") do  
-      match_route(:get, :re_publications, :show => '/re_publications/101')
+    match_controller(:re_publications, :id => "101") do  
+      with_route(:get, '/re_publications/101' => :show)
     end  
   end
 end

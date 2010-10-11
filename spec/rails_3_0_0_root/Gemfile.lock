@@ -1,7 +1,7 @@
 PATH
   remote: /Users/chris/Workspace/chris/Gems/rules_engine
   specs:
-    rules_engine (0.3.2)
+    rules_engine (0.3.3)
       acts_as_list (>= 0.1.2)
       will_paginate (>= 3.0.pre2)
 
