@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "routing to profiles" do
+describe "routes" do
   extend RulesEngine::RouteMatcher
   
   describe "/re_plans" do
