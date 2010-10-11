@@ -22,7 +22,7 @@ gem 'will_paginate', '>= 3.0.pre2'
 gem 'acts_as_list', '>= 0.1.2'
 
 group :development, :test do
-  gem "rspec-rails", ">= 2.0.0.beta.22"
+  gem "rspec-rails", ">= 2.0.0"
   gem "webrat"
   
   gem 'faker'
@@ -119,4 +119,4 @@ open http://localhost:3000/re_pipelines
 
 h3. 10. Create Workflows and Rules
 
-Watch the demo at "TODO":http://www.r3ef.com/
+Watch the demo at "r3ef":http://www.r3ef.com/
