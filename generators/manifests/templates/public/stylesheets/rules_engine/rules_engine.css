@@ -58,66 +58,66 @@
 /* ************************************* */
 /* breadcrumbs */
 .re-breadcrumbs .re-bc-plan-list {
-	background: transparent url('./images/rules_engine/re_plan/list-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_plan/list-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-plan-new {
-	background: transparent url('./images/rules_engine/re_plan/new-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_plan/new-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-plan-show {
-	background: transparent url('./images/rules_engine/re_plan/show-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_plan/show-25.png') no-repeat 0 4px;
 	padding: 0 0 0 28px;
 }
 .re-breadcrumbs .re-bc-plan-edit {
-	background: transparent url('./images/rules_engine/re_plan/edit-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_plan/edit-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-plan-change {
-	background: transparent url('./images/rules_engine/re_plan/change-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_plan/change-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-plan-copy {
-	background: transparent url('./images/rules_engine/re_plan/copy-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_plan/copy-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 
 /* sub headers*/
 h3.re-hdr-plan-alert {
-	background: transparent url('./images/rules_engine/re_plan/alert-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_plan/alert-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 h3.re-hdr-plan-new {
-	background: transparent url('./images/rules_engine/re_plan/new-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_plan/new-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 h3.re-hdr-plan-edit {
-	background: transparent url('./images/rules_engine/re_plan/edit-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_plan/edit-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 h3.re-hdr-plan-delete {
-	background: transparent url('./images/rules_engine/re_plan/delete-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_plan/delete-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 
 /* status */
 h4.re-sts-plan-draft {
-	background: transparent url('./images/rules_engine/re_common/status-draft-18.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-draft-18.png') no-repeat left 4px;
   padding: 0 0 0 22px;
   margin: 0;
 }
 h4.re-sts-plan-changed {
-	background: transparent url('./images/rules_engine/re_common/status-changed-18.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-changed-18.png') no-repeat left 4px;
   padding: 0 0 0 22px;
   margin: 0;
 }
 h4.re-sts-plan-published {
-	background: transparent url('./images/rules_engine/re_common/status-published-18.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-published-18.png') no-repeat left 4px;
   padding: 0 0 0 22px;
   margin: 0;
 }
 h4.re-sts-plan-verify {
-	background: transparent url('./images/rules_engine/re_common/status-verify-18.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-verify-18.png') no-repeat left 4px;
   padding: 0 0 0 22px;
   margin: 0;
 }
@@ -140,7 +140,7 @@ em.re-sts-plan-verify {
 
 /* menu  */
 a.re-menu-plan-new {
-	background: transparent url('./images/rules_engine/re_plan/new-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_plan/new-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -149,7 +149,7 @@ a.re-menu-plan-new:hover {
   text-decoration: underline;
 }
 a.re-menu-plan-show {
-	background: transparent url('./images/rules_engine/re_plan/show-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_plan/show-25.png') no-repeat left -1px;
   padding: 0 0 0 28px;
   color: #218868;
   text-decoration: none;
@@ -158,7 +158,7 @@ a.re-menu-plan-show:hover {
   text-decoration: underline;
 }
 a.re-menu-plan-change {
-	background: transparent url('./images/rules_engine/re_plan/change-25.png') no-repeat left -2px;
+	background: transparent url('./images/re_plan/change-25.png') no-repeat left -2px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -167,7 +167,7 @@ a.re-menu-plan-change:hover {
   text-decoration: underline;
 }
 a.re-menu-plan-copy {
-	background: transparent url('./images/rules_engine/re_plan/copy-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_plan/copy-25.png') no-repeat left -1px;
   padding: 0 0 0 28px;
   color: #218868;
   text-decoration: none;
@@ -176,7 +176,7 @@ a.re-menu-plan-copy:hover {
   text-decoration: underline;
 }
 a.re-menu-plan-edit {
-	background: transparent url('./images/rules_engine/re_plan/edit-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_plan/edit-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -185,7 +185,7 @@ a.re-menu-plan-edit a:hover {
   text-decoration: underline;
 }
 a.re-menu-plan-delete {
-	background: transparent url('./images/rules_engine/re_plan/delete-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_plan/delete-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -194,7 +194,7 @@ a.re-menu-plan-delete:hover {
   text-decoration: underline;
 }
 a.re-menu-plan-publish-all {
-	background: transparent url('./images/rules_engine/re_plan/publish-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_plan/publish-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -203,7 +203,7 @@ a.re-menu-plan-publish-all:hover {
   text-decoration: underline;
 }
 a.re-menu-plan-publish {
-	background: transparent url('./images/rules_engine/re_plan/publish-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_plan/publish-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -212,7 +212,7 @@ a.re-menu-plan-publish:hover {
   text-decoration: underline;
 }
 a.re-menu-plan-revert {
-	background: transparent url('./images/rules_engine/re_plan/revert-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_plan/revert-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -225,7 +225,7 @@ a.re-menu-plan-revert:hover {
 
 /* extra */
 div.re-xtra-plan-title-plural {
-  background: transparent url('./images/rules_engine/re_plan/title-plural.png') no-repeat 0px 15px;
+  background: transparent url('./images/re_plan/title-plural.png') no-repeat 0px 15px;
   width: 50px;
   height: 45px;  
 }
@@ -233,7 +233,7 @@ div.re-xtra-plan-title-plural span {
   display: none;
 }
 div.re-xtra-plan-title-single {
-  background: transparent url('./images/rules_engine/re_plan/title-single.png') no-repeat 0px 15px;
+  background: transparent url('./images/re_plan/title-single.png') no-repeat 0px 15px;
   width: 50px;
   height: 45px;  
 }
@@ -241,7 +241,7 @@ div.re-xtra-plan-title-single span {
   display: none;
 }
 div.re-xtra-plan-preview {
-  background: transparent url('./images/rules_engine/re_plan/preview-18.png') no-repeat 8px 4px;
+  background: transparent url('./images/re_plan/preview-18.png') no-repeat 8px 4px;
   width: 25px;
   height: 22px;  
 }
@@ -252,65 +252,65 @@ div.re-xtra-plan-preview {
 /* ************************************* */
 /* breadcrumbs */
 .re-breadcrumbs .re-bc-workflow-list {
-	background: transparent url('./images/rules_engine/re_workflow/list-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_workflow/list-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-workflow-new {
-	background: transparent url('./images/rules_engine/re_workflow/new-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_workflow/new-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-workflow-show {
-	background: transparent url('./images/rules_engine/re_workflow/show-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_workflow/show-25.png') no-repeat 0 4px;
 	padding: 0 0 0 28px;
 }
 .re-breadcrumbs .re-bc-workflow-change {
-	background: transparent url('./images/rules_engine/re_workflow/change-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_workflow/change-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-workflow-edit {
-	background: transparent url('./images/rules_engine/re_workflow/edit-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_workflow/edit-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-workflow-copy {
-	background: transparent url('./images/rules_engine/re_workflow/copy-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_workflow/copy-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 
 
 /* sub headers*/
 h3.re-hdr-workflow-alert {
-	background: transparent url('./images/rules_engine/re_workflow/alert-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/alert-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 h3.re-hdr-workflow-new {
-	background: transparent url('./images/rules_engine/re_workflow/new-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/new-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 h3.re-hdr-workflow-add {
-	background: transparent url('./images/rules_engine/re_workflow/add-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/add-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 h3.re-hdr-workflow-edit {
-	background: transparent url('./images/rules_engine/re_workflow/edit-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/edit-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 h3.re-hdr-workflow-change {
-	background: transparent url('./images/rules_engine/re_workflow/change-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/change-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 h3.re-hdr-workflow-delete {
-	background: transparent url('./images/rules_engine/re_workflow/destroy-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/destroy-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 
 /* status */
 h4.re-sts-workflow-valid {
-	background: transparent url('./images/rules_engine/re_common/status-valid-18.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-valid-18.png') no-repeat left 4px;
   padding: 0 0 0 22px;
   margin: 0;
 }
 h4.re-sts-workflow-verify {
-	background: transparent url('./images/rules_engine/re_common/status-verify-18.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-verify-18.png') no-repeat left 4px;
   padding: 0 0 0 22px;
   margin: 0;
 }
@@ -323,7 +323,7 @@ em.re-sts-workflow-verify {
 
 /* menu  */
 a.re-menu-workflow-new {
-	background: transparent url('./images/rules_engine/re_workflow/new-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_workflow/new-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -332,7 +332,7 @@ a.re-menu-workflow-new:hover {
   text-decoration: underline;
 }
 a.re-menu-workflow-change {
-	background: transparent url('./images/rules_engine/re_workflow/change-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_workflow/change-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -341,13 +341,13 @@ a.re-menu-workflow-change a:hover {
   text-decoration: underline;
 }
 div.re-menu-workflow-add {
-	background: transparent url('./images/rules_engine/re_workflow/add-25.png') no-repeat left 0px;
+	background: transparent url('./images/re_workflow/add-25.png') no-repeat left 0px;
   padding: 0 0 0 30px;
   color: #222;
 }
 a.re-menu-workflow-add-link {
   float:left;
-	background: transparent url('./images/rules_engine/re_workflow/add-14.png') no-repeat left 3px;
+	background: transparent url('./images/re_workflow/add-14.png') no-repeat left 3px;
   padding: 0px 0 0 20px;
   margin: 0 8px 0 0;
   color: #222;
@@ -360,7 +360,7 @@ a.re-menu-workflow-add-link:hover {
 }
 a.re-menu-workflow-add-link-off {
   float:left;
-	background: transparent url('./images/rules_engine/re_workflow/add-off-14.png') no-repeat left 3px;
+	background: transparent url('./images/re_workflow/add-off-14.png') no-repeat left 3px;
   padding: 0px 0 0 20px;
   margin: 0 8px 0 0;
   color: #222;
@@ -373,12 +373,12 @@ a.re-menu-workflow-add-link-off:hover {
 }
 
 div.re-menu-workflow-plan {
-	background: transparent url('./images/rules_engine/re_workflow/plan-25.png') no-repeat left 0px;
+	background: transparent url('./images/re_workflow/plan-25.png') no-repeat left 0px;
   padding: 0 0 0 30px;
   color: #696969;
 }
 a.re-menu-workflow-show {
-	background: transparent url('./images/rules_engine/re_workflow/show-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_workflow/show-25.png') no-repeat left -1px;
   padding: 0 0 0 28px;
   color: #218868;
   text-decoration: none;
@@ -387,7 +387,7 @@ a.re-menu-workflow-show:hover {
   text-decoration: underline;
 }
 a.re-menu-workflow-copy {
-	background: transparent url('./images/rules_engine/re_workflow/copy-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_workflow/copy-25.png') no-repeat left -1px;
   padding: 0 0 0 28px;
   color: #218868;
   text-decoration: none;
@@ -396,7 +396,7 @@ a.re-menu-workflow-copy:hover {
   text-decoration: underline;
 }
 a.re-menu-workflow-edit {
-	background: transparent url('./images/rules_engine/re_workflow/edit-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_workflow/edit-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -405,7 +405,7 @@ a.re-menu-workflow-edit:hover {
   text-decoration: underline;
 }
 a.re-menu-workflow-delete {
-	background: transparent url('./images/rules_engine/re_workflow/delete-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_workflow/delete-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #218868;
   text-decoration: none;
@@ -417,7 +417,7 @@ a.re-menu-workflow-delete:hover {
 /* list  */
 div.re-list-workflow-is-default {
   float: right;
-	background: transparent url('./images/rules_engine/re_workflow/is-default-18.png') no-repeat left 4px;
+	background: transparent url('./images/re_workflow/is-default-18.png') no-repeat left 4px;
   width: 25px;
   height: 22px;  
 }
@@ -425,7 +425,7 @@ div.re-list-workflow-is-default span {
   display: none;
 }
 div.re-list-workflow-is-default-off {
-/*  background: transparent url('./images/rules_engine/re_workflow/is-default-off-18.png') no-repeat left 4px;*/
+/*  background: transparent url('./images/re_workflow/is-default-off-18.png') no-repeat left 4px;*/
   width: 25px;
   height: 22px;  
 }
@@ -434,7 +434,7 @@ div.re-list-workflow-is-default-off span {
 }
 a.re-list-workflow-show {
   float: right;
-	background: transparent url('./images/rules_engine/re_workflow/show-18.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/show-18.png') no-repeat left 2px;
   width: 25px;
   height: 22px;  
 }
@@ -443,7 +443,7 @@ a.re-list-workflow-show span {
 }
 a.re-list-workflow-make-default {
   float: right;
-	background: transparent url('./images/rules_engine/re_workflow/make-default-18.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/make-default-18.png') no-repeat left 2px;
   width: 25px;
   height: 22px;  
 }
@@ -452,7 +452,7 @@ a.re-list-workflow-make-default span {
 }
 a.re-list-workflow-make-default-off {
   float: right;
-	background: transparent url('./images/rules_engine/re_workflow/make-default-off-18.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/make-default-off-18.png') no-repeat left 2px;
   width: 25px;
   height: 22px;  
 }
@@ -461,7 +461,7 @@ a.re-list-workflow-make-default-off span {
 }
 a.re-list-workflow-change {
   float: right;
-	background: transparent url('./images/rules_engine/re_workflow/change-18.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/change-18.png') no-repeat left 2px;
   width: 25px;
   height: 22px;  
 }
@@ -470,7 +470,7 @@ a.re-list-workflow-change span {
 }
 a.re-list-workflow-remove {
   float: right;
-	background: transparent url('./images/rules_engine/re_workflow/remove-18.png') no-repeat left 2px;
+	background: transparent url('./images/re_workflow/remove-18.png') no-repeat left 2px;
   width: 25px;
   height: 22px;  
 }
@@ -482,7 +482,7 @@ a.re-list-workflow-remove span {
 
 /* extra */
 div.re-xtra-workflow-title-plural {
-  background: transparent url('./images/rules_engine/re_workflow/title-plural.png') no-repeat 5px 15px;
+  background: transparent url('./images/re_workflow/title-plural.png') no-repeat 5px 15px;
   width: 95px;
   height: 60px;
 }
@@ -490,7 +490,7 @@ div.re-xtra-workflow-title-plural span {
   display: none;
 }
 div.re-xtra-workflow-title-single {
-  background: transparent url('./images/rules_engine/re_workflow/title-single.png') no-repeat 5px 15px;
+  background: transparent url('./images/re_workflow/title-single.png') no-repeat 5px 15px;
   width: 90px;
   height: 60px;
 }
@@ -498,44 +498,44 @@ div.re-xtra-workflow-title-single span {
   display: none;
 }
 div.re-xtra-workflow-preview {
-  background: transparent url('./images/rules_engine/re_workflow/preview-18.png') no-repeat 8px 4px;
+  background: transparent url('./images/re_workflow/preview-18.png') no-repeat 8px 4px;
   width: 25px;
   height: 22px;  
 }
 div.re-xtra-workflow-plan-pending {
-  background: transparent url('./images/rules_engine/re_common/loading.gif') no-repeat 20px 4px;
+  background: transparent url('./images/re_common/loading.gif') no-repeat 20px 4px;
   padding: 16px 0 0 70px;
   color: #696969;
 }
 div.re-xtra-workflow-add-pending {
-  background: transparent url('./images/rules_engine/re_common/loading.gif') no-repeat 20px 4px;
+  background: transparent url('./images/re_common/loading.gif') no-repeat 20px 4px;
   padding: 16px 0 0 50px;
   color: #696969;
 }
 a.re-xtra-workflow-next-enabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_common/list-next-enabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/re_common/list-next-enabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 5px 0 2px;
 }
 a.re-xtra-workflow-next-disabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_common/list-next-disabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/re_common/list-next-disabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 5px 0 2px;
 }
 a.re-xtra-workflow-prev-enabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_common/list-prev-enabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/re_common/list-prev-enabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 2px 0 5px;
 }
 a.re-xtra-workflow-prev-disabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_common/list-prev-disabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/re_common/list-prev-disabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 2px 0 5px;
@@ -548,59 +548,59 @@ a.re-xtra-workflow-prev-disabled {
 
 /* breadcrumbs */
 .re-breadcrumbs .re-bc-rule-new {
-	background: transparent url('./images/rules_engine/re_rule/new-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_rule/new-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-rule-help {
-	background: transparent url('./images/rules_engine/re_rule/help-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_rule/help-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-rule-edit {
-	background: transparent url('./images/rules_engine/re_rule/edit-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_rule/edit-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 .re-breadcrumbs .re-bc-rule-error {
-	background: transparent url('./images/rules_engine/re_rule/error-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_rule/error-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 
 /* sub headers*/
 h3.re-hdr-rule-new {
-	background: transparent url('./images/rules_engine/re_rule/new-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_rule/new-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;  
 }
 h3.re-hdr-rule-help {
-	background: transparent url('./images/rules_engine/re_rule/help-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_rule/help-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;  
 }
 h3.re-hdr-rule-edit {
-	background: transparent url('./images/rules_engine/re_rule/edit-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_rule/edit-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;  
 }
 h3.re-hdr-rule-alert {
-	background: transparent url('./images/rules_engine/re_rule/alert-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_rule/alert-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;  
 }
 
 /* status */
 h4.re-sts-rule-valid {
-	background: transparent url('./images/rules_engine/re_common/status-valid-18.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-valid-18.png') no-repeat left 4px;
   padding: 0 0 0 20px;
   margin: 0;
 }
 h4.re-sts-rule-verify {
-	background: transparent url('./images/rules_engine/re_common/status-verify-18.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-verify-18.png') no-repeat left 4px;
   padding: 0 0 0 20px;
   margin: 0;
 }
 
 h6.re-sts-rule-valid {
-	background: transparent url('./images/rules_engine/re_common/status-valid-14.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-valid-14.png') no-repeat left 4px;
   padding: 0 0 0 18px;
   margin: 0;
 }
 h6.re-sts-rule-verify {
-	background: transparent url('./images/rules_engine/re_common/status-verify-14.png') no-repeat left 4px;
+	background: transparent url('./images/re_common/status-verify-14.png') no-repeat left 4px;
   padding: 0 0 0 18px;
   margin: 0;
 }
@@ -608,7 +608,7 @@ h6.re-sts-rule-verify {
 /* menu  */
 a.re-menu-rule-new {
   float: left;
-	background: transparent url('./images/rules_engine/re_rule/add-14.png') no-repeat 4px 6px;
+	background: transparent url('./images/re_rule/add-14.png') no-repeat 4px 6px;
   width: 20px;
   height: 20px;
 }
@@ -617,7 +617,7 @@ a.re-menu-rule-new span {
 }
 a.re-menu-rule-help {
   float: left;
-	background: transparent url('./images/rules_engine/re_rule/help-14.png') no-repeat 4px 6px;
+	background: transparent url('./images/re_rule/help-14.png') no-repeat 4px 6px;
   width: 20px;
   height: 20px;
 }
@@ -628,7 +628,7 @@ a.re-menu-rule-help span {
 /* list  */
 a.re-list-rule-edit {
   float:right;
-	background: transparent url('./images/rules_engine/re_rule/edit-25.png') no-repeat 0px 0px;
+	background: transparent url('./images/re_rule/edit-25.png') no-repeat 0px 0px;
   width: 25px;
   height: 25px;  
   margin: 0px 3px 0 0;
@@ -638,7 +638,7 @@ a.re-list-rule-edit span {
 }
 a.re-list-rule-delete {
   float:right;
-	background: transparent url('./images/rules_engine/re_rule/destroy-25.png') no-repeat 0px 0px;
+	background: transparent url('./images/re_rule/destroy-25.png') no-repeat 0px 0px;
   width: 25px;
   height: 25px;  
   margin: 0px 3px 0 0;
@@ -648,7 +648,7 @@ a.re-list-rule-delete span {
 }
 a.re-list-rule-move-down {
   float:right;
-	background: transparent url('./images/rules_engine/re_rule/move-down-25.png') no-repeat 0px 0px;
+	background: transparent url('./images/re_rule/move-down-25.png') no-repeat 0px 0px;
   width: 25px;
   height: 25px;  
   margin: 0px 10px 0 0;
@@ -658,7 +658,7 @@ a.re-list-rule-move-down span {
 }
 a.re-list-rule-move-down-off {
   float:right;
-	background: transparent url('./images/rules_engine/re_rule/move-down-off-25.png') no-repeat 0px 0px;
+	background: transparent url('./images/re_rule/move-down-off-25.png') no-repeat 0px 0px;
   width: 25px;
   height: 25px;  
   margin: 0px 10px 0 0;
@@ -668,7 +668,7 @@ a.re-list-rule-move-down-off span {
 }
 a.re-list-rule-move-up {
   float:right;
-	background: transparent url('./images/rules_engine/re_rule/move-up-25.png') no-repeat 0px 0px;
+	background: transparent url('./images/re_rule/move-up-25.png') no-repeat 0px 0px;
   width: 25px;
   height: 25px;  
   margin: 0px 3px 0 0;
@@ -678,7 +678,7 @@ a.re-list-rule-move-up span {
 }
 a.re-list-rule-move-up-off {
   float:right;
-	background: transparent url('./images/rules_engine/re_rule/move-up-off-25.png') no-repeat 0px 0px;
+	background: transparent url('./images/re_rule/move-up-off-25.png') no-repeat 0px 0px;
   width: 25px;
   height: 25px;  
   margin: 0px 3px 0 0;
@@ -688,7 +688,7 @@ a.re-list-rule-move-up-off span {
 }
 a.re-list-rule-help {
   float:right;
-	background: transparent url('./images/rules_engine/re_rule/help-25.png') no-repeat 0px 0px;
+	background: transparent url('./images/re_rule/help-25.png') no-repeat 0px 0px;
   width: 25px;
   height: 25px;  
   margin: 0px 3px 0 0;
@@ -700,7 +700,7 @@ a.re-list-rule-help span {
 
 /* extra */
 div.re-xtra-rule-title-plural {
-  background: transparent url('./images/rules_engine/re_rule/title-plural.png') no-repeat 40px 20px;
+  background: transparent url('./images/re_rule/title-plural.png') no-repeat 40px 20px;
   width: 90px;
   height: 50px;
 }
@@ -708,7 +708,7 @@ div.re-xtra-rule-title-plural span {
   display: none;
 }
 div.re-xtra-rule-title-single {
-  background: transparent url('./images/rules_engine/re_rule/title-single.png') no-repeat 40px 20px;
+  background: transparent url('./images/re_rule/title-single.png') no-repeat 40px 20px;
   width: 90px;
   height: 50px;
 }
@@ -727,18 +727,18 @@ div.re-xtra-rule-title-single span {
 }
 .re-xtra-rule-next-right {
   float:left;
-	background: transparent url('./images/rules_engine/re_rule/next-right-18.png') no-repeat 10px 30px;
+	background: transparent url('./images/re_rule/next-right-18.png') no-repeat 10px 30px;
   width: 40px;
   height: 54px;  
 }
 .re-xtra-rule-next-down {
-	background: transparent url('./images/rules_engine/re_rule/next-down-25.png') no-repeat 0px 7px;
+	background: transparent url('./images/re_rule/next-down-25.png') no-repeat 0px 7px;
   width: 40px;
   height: 40px;  
 }
 .re-xtra-rule-continue {
   width: 155px;
-	background: #fffef0 url('./images/rules_engine/re_rule/start-pipeline-18.png') no-repeat 165px 2px;
+	background: #fffef0 url('./images/re_rule/start-pipeline-18.png') no-repeat 165px 2px;
 	font-weight: normal;
 	font-size: 17px;
 	border: 1px #92b83c solid; 
@@ -747,7 +747,7 @@ div.re-xtra-rule-title-single span {
 }
 .re-xtra-rule-stop-failure {
   width: 155px;
-	background: #FBE3E4 url('./images/rules_engine/re_rule/stop-failure-18.png') no-repeat 165px 2px;
+	background: #FBE3E4 url('./images/re_rule/stop-failure-18.png') no-repeat 165px 2px;
 	font-weight: normal;
 	font-size: 17px;
 	border: 1px #7c1e1e solid; 
@@ -756,7 +756,7 @@ div.re-xtra-rule-title-single span {
 }
 .re-xtra-rule-stop-success {
   width: 155px;
-	background: #fffef0 url('./images/rules_engine/re_rule/stop-success-18.png') no-repeat 165px 2px;
+	background: #fffef0 url('./images/re_rule/stop-success-18.png') no-repeat 165px 2px;
 	font-weight: normal;
 	font-size: 17px;
 	border: 1px #7c1e1e solid; 
@@ -765,7 +765,7 @@ div.re-xtra-rule-title-single span {
 }
 .re-xtra-rule-start-workflow {
   width: 155px;
-	background: #fffef0 url('./images/rules_engine/re_rule/start-workflow-18.png') no-repeat 165px 2px;
+	background: #fffef0 url('./images/re_rule/start-workflow-18.png') no-repeat 165px 2px;
 	font-weight: normal;
 	font-size: 17px;
 	border: 1px #92b83c solid; 
@@ -794,14 +794,14 @@ p.re-xtra-rule-name {
 /* PUBLICATIONS */
 /* ************************************* */
 div.re-menu-publication-show {
-	background: transparent url('./images/rules_engine/re_publication/show-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_publication/show-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #222;
   text-decoration: none;
 }
 
 div.re-xtra-publication-show-pending {
-  background: transparent url('./images/rules_engine/re_common/loading.gif') no-repeat 20px 4px;
+  background: transparent url('./images/re_common/loading.gif') no-repeat 20px 4px;
   padding: 16px 0 0 50px;
   color: #696969;
 }
@@ -810,90 +810,90 @@ div.re-xtra-publication-show-pending {
 /* HISTORY */
 /* ************************************* */
 .re-breadcrumbs .re-bc-history-list {
-	background: transparent url('./images/rules_engine/re_history/list-25.png') no-repeat 0 4px;
+	background: transparent url('./images/re_history/list-25.png') no-repeat 0 4px;
 	padding: 0 0 0 30px;
 }
 
 h3.re-hdr-history-show {
-	background: transparent url('./images/rules_engine/re_history/list-25.png') no-repeat left 2px;
+	background: transparent url('./images/re_history/list-25.png') no-repeat left 2px;
   padding: 0 0 0 30px;
 }
 
 div.re-menu-history-list {
-	background: transparent url('./images/rules_engine/re_history/list-25.png') no-repeat left -1px;
+	background: transparent url('./images/re_history/list-25.png') no-repeat left -1px;
   padding: 0 0 0 30px;
   color: #222;
   text-decoration: none;
 }
 
 div.re-xtra-history-list-pending {
-  background: transparent url('./images/rules_engine/re_common/loading.gif') no-repeat 20px 4px;
+  background: transparent url('./images/re_common/loading.gif') no-repeat 20px 4px;
   padding: 16px 0 0 50px;
   color: #696969;
 }
 
 a.re-xtra-history-next-enabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_common/list-next-enabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/re_common/list-next-enabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 5px 0 2px;
 }
 a.re-xtra-history-next-disabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_common/list-next-disabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/re_common/list-next-disabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 5px 0 2px;
 }
 a.re-xtra-history-prev-enabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_common/list-prev-enabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/re_common/list-prev-enabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 2px 0 5px;
 }
 a.re-xtra-history-prev-disabled {
   float: right;
-  background: transparent url('./images/rules_engine/re_common/list-prev-disabled-14.png') no-repeat 0px 0px;
+  background: transparent url('./images/re_common/list-prev-disabled-14.png') no-repeat 0px 0px;
   height: 16px;  
   width: 16px;  
   padding: 0 2px 0 5px;
 }
 
 .re-xtra-history-success {
-  background: transparent url('./images/rules_engine/re_common/status-success-14.png') no-repeat 0px 2px;
+  background: transparent url('./images/re_common/status-success-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }
 .re-xtra-history-error {
-  background: transparent url('./images/rules_engine/re_common/status-error-14.png') no-repeat 0px 2px;
+  background: transparent url('./images/re_common/status-error-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }
 .re-xtra-history-info {
-  background: transparent url('./images/rules_engine/re_common/status-info-14.png') no-repeat 0px 2px;
+  background: transparent url('./images/re_common/status-info-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }
 .re-xtra-history-running {
-  background: transparent url('./images/rules_engine/re_common/status-info-14.png') no-repeat 0px 2px;
+  background: transparent url('./images/re_common/status-info-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }
 
 .re-xtra-history-audit-success {
-  background: transparent url('./images/rules_engine/re_common/status-success-14.png') no-repeat 0px 2px;
+  background: transparent url('./images/re_common/status-success-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }
 .re-xtra-history-audit-error {
-  background: transparent url('./images/rules_engine/re_common/status-error-14.png') no-repeat 0px 2px;
+  background: transparent url('./images/re_common/status-error-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }
 .re-xtra-history-audit-info {
-  background: transparent url('./images/rules_engine/re_common/status-info-14.png') no-repeat 0px 2px;
+  background: transparent url('./images/re_common/status-info-14.png') no-repeat 0px 2px;
   height: 16px;  
   padding-left: 20px;
 }

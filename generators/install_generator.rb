@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/manifests/application.rb"
+require "#{File.dirname(__FILE__)}/manifests/rules_engine_install.rb"
 
 module RulesEngine
   module Generators
@@ -11,11 +11,11 @@ module RulesEngine
       end
   
       def install
-        ApplicationManifest.populate_record(self, "rules_engine")
-        puts InstallGenerator.description_all
+        RulesEngineInstallManifest.populate_record(self, "rules_engine")
+        puts InstallGenerator.description
       end
   
-      def self.description_all
+      def self.description
         <<-DESCRIPTION 
         *******************************************************************    
         To add the rules engine to you application
@@ -32,7 +32,7 @@ module RulesEngine
         DESCRIPTION
       end      
   
-      desc(description_all)
+      desc(description)
     end      
   end
 end    

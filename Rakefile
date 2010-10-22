@@ -10,9 +10,10 @@ begin
     gem.email = "dougo.chris@gmail.com"
     gem.homepage = "http://github.com/dougochris/rules_engine"
     gem.authors = ["Chris Douglas"]
+    gem.add_dependency 'rules_view'
     gem.add_dependency 'will_paginate', '>= 3.0.pre2'
-    gem.add_dependency 'acts_as_list', '>= 0.1.2'
-    gem.add_development_dependency "rspec-rails", ">= 2.0.0"
+    gem.add_dependency 'acts_as_list'
+    gem.add_development_dependency "rspec-rails"
     gem.add_development_dependency "webrat"
     gem.add_development_dependency 'faker'
     gem.add_development_dependency'machinist'  

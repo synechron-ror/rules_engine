@@ -19,7 +19,7 @@ module RulesEngine
           puts "    ***************** rule_type and rule_name required ***************** "
         else  
           begin
-            manifest = Kernel.const_get("#{@rule_type.classify}Manifest")
+            manifest = Kernel.const_get("RulesEngine#{@rule_type.classify}Manifest")
             manifest.populate_record(self, @rule_name)
           rescue
             puts "    ***************** Failed to generate rule #{@rule_type.classify}Manifest ***************** "  

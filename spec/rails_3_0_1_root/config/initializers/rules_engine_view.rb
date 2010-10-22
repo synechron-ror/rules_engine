@@ -1,0 +1,1 @@
+RulesEngineView::Config.layout = 'application'

@@ -8,6 +8,6 @@ require 'rules_engine/process/auditor'
 require 'rules_engine/process/runner'
 
 if defined?(Rails)
-  require File.expand_path(File.dirname(__FILE__) + "/rules_engine_view") 
+  require File.expand_path(File.dirname(__FILE__) + "/rules_engine_view/config")
   require File.expand_path(File.dirname(__FILE__) + "/rules_engine/engine")
 end  

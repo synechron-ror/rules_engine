@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/manifests/layout.rb"
+require "#{File.dirname(__FILE__)}/manifests/rules_engine_layout.rb"
 
 module RulesEngine
   module Generators
@@ -15,7 +15,7 @@ module RulesEngine
         if @layout_name.blank? 
           puts "    ***************** layout_name required ***************** "
         else  
-          LayoutManifest.populate_record(self, @layout_name)
+          RulesEngineLayoutManifest.populate_record(self, @layout_name)
         end  
         puts LayoutGenerator.description
       end
