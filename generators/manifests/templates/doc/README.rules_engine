@@ -13,12 +13,13 @@ rm ./public/index.html
 # 2. Add & Install the gems
 ./Gemfile
 
-gem 'rules_engine', '>= 0.3.0'
+gem 'rules_view' #, :path => '/Users/chris/Workspace/chris/Gems/rules_view'
+gem 'rules_engine' #, :path => '/Users/chris/Workspace/chris/Gems/rules_engine'
 gem 'will_paginate', '>= 3.0.pre2'
-gem 'acts_as_list', '>= 0.1.2'
+gem 'acts_as_list'
 
 group :development, :test do
-  gem "rspec-rails", ">= 2.0.0"
+  gem "rspec-rails"
   gem "webrat"
   
   gem 'faker'
@@ -38,6 +39,7 @@ root :to => "re_plans#index"
 # 4. Generate the Code 
 
 script/rails generate rspec:install
+script/rails generate rules_view:install
 script/rails generate rules_engine:install
 
 ###################################### 
