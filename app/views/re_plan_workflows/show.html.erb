@@ -4,17 +4,17 @@
 											'<span class="re-bc-workflow-show">View Workflow</span>'.html_safe %>
 
 
-<div class="span-17 border">      
+<div class="span-22 border">      
 	<div class="span-1">
 		<div class="re-xtra-plan-title-single"><span>Plan</span></div>
 	</div>	
-	<div class="span-16 last">
+	<div class="span-21 last">
  		<%= render '/re_plans/show' %>
 
 		<div class="span-2 pull-1">
 		 	<div class="re-xtra-workflow-title-single"><span>Workflow</span></div>
 		</div>
-		<div class="span-15 last">
+		<div class="span-20 last">
 			<div class="re-infobox no-top">    
 	  		<%= render '/re_workflows/show' %>    
 				<div class="clear"></div>
@@ -23,7 +23,7 @@
 			<div class="span-2 pull-1">
 			 	<div class="re-xtra-rule-title-plural"><span>Rules</span></div>
 			</div>	
-			<div class="span-14 last">
+			<div class="span-19 last">
 			  <div class="re-infobox no-top">    
 					<%= render '/re_workflows/rule_empty', :hide => !@re_workflow.re_rules.empty? %>
 
@@ -40,7 +40,7 @@
 	</div>	
 </div>  
 
-<div class="span-7 last">      
+<div class="span-8 last">      
 	<div class="clear top-5"></div>
 
 	<h4>

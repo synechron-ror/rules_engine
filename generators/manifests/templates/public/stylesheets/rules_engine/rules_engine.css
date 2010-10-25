@@ -743,7 +743,7 @@ div.re-xtra-rule-title-single span {
 	font-size: 15px;
 	border: 1px #92b83c solid; 
 	padding: 3px 24px 3px 6px;
-	margin: 0 2px 4px 2px;  
+	margin: 0 8px 4px;
 }
 .re-xtra-rule-stop-failure {
   width: 155px;
@@ -752,7 +752,7 @@ div.re-xtra-rule-title-single span {
 	font-size: 15px;
 	border: 1px #7c1e1e solid; 
 	padding: 3px 24px 3px 6px;
-	margin: 0 2px 4px 2px;  
+	margin: 0 8px 4px;  
 }
 .re-xtra-rule-stop-success {
   width: 155px;
@@ -761,7 +761,7 @@ div.re-xtra-rule-title-single span {
 	font-size: 15px;
 	border: 1px #7c1e1e solid; 
 	padding: 3px 24px 3px 6px;
-	margin: 0 2px 4px 2px;  
+	margin: 0 8px 4px;  
 }
 .re-xtra-rule-start-workflow {
   width: 155px;
@@ -770,7 +770,7 @@ div.re-xtra-rule-title-single span {
 	font-size: 15px;
 	border: 1px #92b83c solid; 
 	padding: 3px 24px 3px 6px;
-	margin: 0 2px 4px 2px;  
+	margin: 0 8px 4px;  
 }
 select#re_rule_class_list {
   width: 240px;

@@ -66,6 +66,7 @@ class RePlansController < ApplicationController
 
   def destroy
     RulesEngine::Publish.publisher.remove(@re_plan.code)
+    # Remove the runner history ???
     @re_plan.destroy
     flash[:success] = 'Plan Deleted.'
     

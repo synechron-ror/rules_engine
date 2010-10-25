@@ -1,6 +1,6 @@
 <% re_workflow_error = re_workflow.workflow_error %>
 
-<div class="span-14">
+<div class="span-19">
 	<h4 class="re-sts-workflow-<%= re_workflow_error.blank? ? 'valid' : 'verify' %>">
 		<%=h re_workflow.title %>
 		<span class="re-code blue">(<%=h re_workflow.code%>)</span>
@@ -10,10 +10,10 @@
 <div class="clear top-5"></div>
 <hr/>
 
-<div class="span-9 prepend-1">
+<div class="span-13 prepend-1">
 	<p><%=h re_workflow.description%></p>
 </div>  
-<div class="span-4 last">
+<div class="span-5 last">
 	<% if re_workflow_error.blank? %>
 		<em class="float-right top-5 re-sts-workflow-valid">Valid</em>
 	<% else %>

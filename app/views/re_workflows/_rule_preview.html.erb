@@ -10,30 +10,30 @@
 <div class="<%= local_new_row ? 'left-10' : '' %> re-xtra-rule-preview">
   <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %>"><%=h re_rule.title %></div>
   <div class="<%= re_rule_error.blank? ? 're-bluebox' : 're-redbox' %> no-top"> 
-      <p class="float-left top-5">
-				<span class="re-code blue"><%=h re_rule.rule.options[:display_name]%>.</span>
-				<%=h re_rule.summary %>
-			</p>	
-			<div class="float-right red smalltext right-5">
-				<%=h re_rule_error %>
-			</div>
-			<div class="clear"></div>
+		<p class="float-left top-5">
+			<span class="re-code blue"><%=h re_rule.rule.options[:display_name]%>.</span>
+			<%=h re_rule.summary %>
+		</p>	
+		<div class="float-right red smalltext right-5">
+			<%=h re_rule_error %>
+		</div>
+		<div class="clear"></div>
 
-      <!-- <div class="top-5 float-right">
-				<% re_rule.rule.expected_outcomes.each do |expected_outcome| %>
-					<% if expected_outcome[:outcome] == RulesEngine::Rule::Outcome::STOP_SUCCESS %>	
-						<div class="re-xtra-rule-stop-success"><%= expected_outcome[:title] || 'Stop Success' %></div>
-					<% elsif expected_outcome[:outcome] == RulesEngine::Rule::Outcome::STOP_FAILURE %>	
-						<div class="re-xtra-rule-stop-failure"><%= expected_outcome[:title] || 'Stop Failure' %></div>
-					<% elsif expected_outcome[:outcome] == RulesEngine::Rule::Outcome::START_WORKFLOW %>	
-						<div class="re-xtra-rule-start-workflow"><%= expected_outcome[:title] || 'Start Workflow' %></div>
-					<% elsif expected_outcome[:outcome] == RulesEngine::Rule::Outcome::NEXT %>
-						<div class="re-xtra-rule-continue"><%= expected_outcome[:title] || 'Continue' %></div>
-					<% end %>        
-				<% end %>  
-      </div> -->
-      <div class="clear"></div>  
-    </div>          
+		<!-- <div class="top-5 float-right">
+			<% re_rule.rule.expected_outcomes.each do |expected_outcome| %>
+				<% if expected_outcome[:outcome] == RulesEngine::Rule::Outcome::STOP_SUCCESS %>	
+					<div class="re-xtra-rule-stop-success"><%= expected_outcome[:title] || 'Stop Success' %></div>
+				<% elsif expected_outcome[:outcome] == RulesEngine::Rule::Outcome::STOP_FAILURE %>	
+					<div class="re-xtra-rule-stop-failure"><%= expected_outcome[:title] || 'Stop Failure' %></div>
+				<% elsif expected_outcome[:outcome] == RulesEngine::Rule::Outcome::START_WORKFLOW %>	
+					<div class="re-xtra-rule-start-workflow"><%= expected_outcome[:title] || 'Start Workflow' %></div>
+				<% elsif expected_outcome[:outcome] == RulesEngine::Rule::Outcome::NEXT %>
+					<div class="re-xtra-rule-continue"><%= expected_outcome[:title] || 'Continue' %></div>
+				<% end %>        
+			<% end %>  
+     </div> -->
+     <div class="clear"></div>  
+   </div>          
 </div>
 
 <% unless local_last_rule %>

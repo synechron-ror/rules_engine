@@ -3,13 +3,10 @@
 											link_to("Edit Workflow", change_re_plan_workflow_path(@re_plan, @re_workflow), :class => "re-bc-workflow-change"), 
 											'<span class="re-bc-rule-new">New Rule</span>'.html_safe %>
 
-<div class="prepend-1 span-20 append-1">      
+<div class="prepend-2 span-22 append-1">      
 	<div class="re-infobox">
-		<div class="prepend-1 span-18 append-1">      
-    	<%= render '/re_workflow_rules/new', :create_path => re_plan_workflow_rules_path(@re_plan, @re_workflow), 
-																						:cancel_path => change_re_plan_workflow_path(@re_plan, @re_workflow) %>
-    	<div class="clear"></div>
-  	</div>  
+   	<%= render '/re_workflow_rules/new', :create_path => re_plan_workflow_rules_path(@re_plan, @re_workflow), 
+																					:cancel_path => change_re_plan_workflow_path(@re_plan, @re_workflow) %>
 		<div class="clear"></div>
 	</div>  
 	<div class="clear"></div>

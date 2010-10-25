@@ -5,8 +5,10 @@
 <div class="span-1">
 	<div class="re-xtra-plan-title-plural"><span>plans</span></div>
 </div>
-<div class="span-16 border">      
-	<%= render '/re_plans/empty', :hide => !@re_plans.empty? %>
+<div class="span-21 border">      
+	<div class="prepend-1">
+		<%= render '/re_plans/empty', :hide => !@re_plans.empty? %>
+	</div>	
 
 	<div id="re_plan_index">
 		<% @re_plans.each do | re_plan | %>
@@ -14,7 +16,7 @@
 	 <% end %>  
 	</div>
 </div>
-<div class="span-7 last">      
+<div class="span-8 last">      
 	<div class="clear top-5"></div>
 	
 	<% if rules_engine_editor?%>

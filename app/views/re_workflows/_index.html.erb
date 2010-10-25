@@ -3,7 +3,7 @@
 
 <div id="re_workflow_index_<%= re_workflow.id %>" style="<%= local_hide ?  'display:none' : '' %>">
   <div class="re-infobox">
-    <div class="span-9">
+    <div class="span-14">
       <h4 class="re-sts-workflow-<%= re_workflow_error.blank? ? 'valid' : 'verify' %>">
 				<%=h re_workflow.title %>				
 				<span class="re-code blue">(<%=h re_workflow.code%>)</span>
@@ -24,7 +24,7 @@
 				<div class="re-xtra-workflow-preview"></div>
 			</a>	
     </div>
-    <div class="span-9">
+    <div class="span-14">
 			<p><%=h re_workflow.description%></p>
     </div>  
 		<div class="span-4 last">

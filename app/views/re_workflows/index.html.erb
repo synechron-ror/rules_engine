@@ -5,8 +5,10 @@
 <div class="span-2">
  	<div class="re-xtra-workflow-title-plural"><span>Workflows</span></div>
 </div>
-<div class="span-15 border">
-  <%= render '/re_workflows/empty', :hide => !@re_workflows.empty? %>
+<div class="span-20 border">
+	<div class="prepend-1">
+  	<%= render '/re_workflows/empty', :hide => !@re_workflows.empty? %>
+	</div>
 
   <div id="re_workflow_index">
 	  <% @re_workflows.each do | re_workflow | %>
@@ -15,7 +17,7 @@
 	</div>
 </div>  
 
-<div class="span-7 last">      
+<div class="span-8 last">      
 	<div class="clear top-5"></div>
 	
 	<% if rules_engine_editor?%>

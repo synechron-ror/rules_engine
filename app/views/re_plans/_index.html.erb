@@ -4,7 +4,7 @@
 
 <div id="re_plan_index_<%= re_plan.id %>" style="<%= local_hide ?  'display:none' : '' %>">
 	<div class="re-infobox">
-    <div class="span-10">
+    <div class="span-15">
       <h4 class="re-sts-plan-<%= re_plan_error.blank? ? re_plan_status : 'verify' %>">
 				<%=h re_plan.title %>
 				<span class="re-code blue">(<%=h re_plan.code%>)</span>
@@ -25,7 +25,7 @@
 				<div class="re-xtra-plan-preview"></div>
 			</a>	
 		</div>	
-    <div class="span-10">
+    <div class="span-15">
 			<p><%=h re_plan.description%></p>
     </div>
 		<div class="span-4 last">

@@ -166,7 +166,7 @@ describe RePlansController do
     it_should_require_rules_engine_editor_access(:destroy, :id => 123)
   
     before do
-      @re_plan = RePlan.make
+      @re_plan = RePlan.make(:code => 'test_code')
       RePlan.stub!(:find).and_return(@re_plan) 
     end
   
@@ -181,6 +181,14 @@ describe RePlansController do
       delete :destroy, :id => 123
     end
    
+    it "should remove the published plan" do
+      publisher = mock('publisher')
+      publisher.stub!(:publish)
+      RulesEngine::Publish.stub!(:publisher).and_return(publisher)
+      publisher.should_receive(:remove).with('test_code')
+      delete :destroy, :id => 123
+    end
+
     it "should display a flash success message" do
       delete :destroy, :id => 123
       flash[:success].should_not be_blank

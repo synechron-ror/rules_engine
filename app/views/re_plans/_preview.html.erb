@@ -1,8 +1,8 @@
-<div class="span-17">
+<div class="span-22">
 	<div class="span-1">
 		<div class="re-xtra-plan-title-single"><span>Plans</span></div>
 	</div>	
-	<div class="span-16 last">
+	<div class="span-21 last">
  		<%= render '/re_plans/show' %>
 
 		<% @re_plan.re_workflows.each_with_index do |re_workflow, workflow_index | %>
@@ -13,7 +13,7 @@
 					&nbsp;
 				<% end %>
 			</div>
-			<div class="span-15 last">
+			<div class="span-20 last">
 				<div class="re-infobox <%= @re_plan.re_workflows[0] == re_workflow ?  'no-top' : '' %>"> 
 		  		<%= render '/re_plans/workflow_preview', :re_workflow => re_workflow  %>    
 					<div class="clear"></div>
@@ -26,7 +26,7 @@
 						&nbsp;
 					<% end %>
 				</div>	
-				<div class="span-14 last">
+				<div class="span-19 last">
 				  <div class="re-infobox no-top">    
 						<%= render '/re_workflows/rule_empty', :hide => !re_workflow.re_rules.empty? %>
 

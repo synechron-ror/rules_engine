@@ -56,8 +56,7 @@ module RulesEngine
       end  
       
       def history(plan_code, options = {})
-        re_published_plans = RePublishedPlan.plans(plan_code, options)
-        
+        re_published_plans = RePublishedPlan.plans(plan_code, options)        
         {
           "publications" => re_published_plans.map do |re_published_plan|
             { 
