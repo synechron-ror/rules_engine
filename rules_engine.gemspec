@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Douglas"]
-  s.date = %q{2010-10-22}
+  s.date = %q{2010-10-25}
   s.description = %q{Ruby Rails Rules Engine Framework : R3EF}
   s.email = %q{dougo.chris@gmail.com}
   s.extra_rdoc_files = [
@@ -85,7 +85,6 @@ Gem::Specification.new do |s|
      "app/views/re_plans/preview.html.erb",
      "app/views/re_plans/preview.js.erb",
      "app/views/re_plans/show.html.erb",
-     "app/views/re_plans/template.html.erb",
      "app/views/re_plans/update.js.erb",
      "app/views/re_publications/_show_prepare.html.erb",
      "app/views/re_publications/_show_update.html.erb",

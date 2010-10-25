@@ -717,7 +717,7 @@ div.re-xtra-rule-title-single span {
 }
 .re-xtra-rule-preview {
   float:left;
-  width: 210px;  
+  width: 315px;  
 }
 .re-xtra-rule-preview p {
   font-size: 13px;
@@ -727,7 +727,7 @@ div.re-xtra-rule-title-single span {
 }
 .re-xtra-rule-next-right {
   float:left;
-	background: transparent url('./images/re_rule/next-right-18.png') no-repeat 10px 30px;
+	background: transparent url('./images/re_rule/next-right-18.png') no-repeat 10px 20px;
   width: 40px;
   height: 54px;  
 }
