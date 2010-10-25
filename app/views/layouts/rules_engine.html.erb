@@ -9,17 +9,17 @@
     <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
   <![endif]-->
 
-  <%= javascript_include_tag 'jquery/jquery-1.4.3.min.js' %>
-  <%= javascript_include_tag 'jquery/jquery.blockUI.js' %>
-  <%= javascript_include_tag 'jquery/jquery.fancybox-1.3.1/fancybox/jquery.fancybox-1.3.1.js' %>
-  <%= javascript_include_tag 'rules_view/rules_view' %>
+ 	<script type="text/javascript" src="/javascripts/jquery/jquery-1.4.3.min.js"></script>
+  <script type="text/javascript" src="/javascripts/jquery/jquery.blockUI.js"></script>
+  <script type="text/javascript" src="/javascripts/jquery/jquery.fancybox-1.3.1/fancybox/jquery.fancybox-1.3.1.js"></script>
+  <script type="text/javascript" src="/javascripts/rules_view/rules_view.js"></script>
 
-  <%= stylesheet_link_tag '/javascripts/jquery/jquery.fancybox-1.3.1/fancybox/jquery.fancybox-1.3.1.css' %>
-  <%= stylesheet_link_tag 'rules_view/rules_view' %>
-  <%= stylesheet_link_tag 'rules_engine/rules_engine' %>
+	<link rel="stylesheet" type="text/css" media="screen" href="/javascripts/jquery/jquery.fancybox-1.3.1/fancybox/jquery.fancybox-1.3.1.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/rules_view/rules_view.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/rules_engine/rules_engine.css"/>
 
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%#= stylesheet_link_tag :all %>
+  <%#= javascript_include_tag :defaults %>
 	
 	<%= yield :defer_re_javascript_include %>
 	
