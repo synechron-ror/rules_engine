@@ -11,7 +11,8 @@ module RulesEngine
     generators do
       require File.expand_path(File.dirname(__FILE__) + "./../../generators/install_generator")
       require File.expand_path(File.dirname(__FILE__) + "./../../generators/layout_generator")
-      require File.expand_path(File.dirname(__FILE__) + "./../../generators/rule_generator")
+      require File.expand_path(File.dirname(__FILE__) + "./../../generators/simple_generator")
+      require File.expand_path(File.dirname(__FILE__) + "./../../generators/complex_generator")
     end    
   end
 end

@@ -1,10 +1,12 @@
 #!/bin/sh
 
-for plan in "rules_engine_install" "rules_engine_layout" "rules_engine_simple" "rules_engine_complex"; do
+for plan in "install" "layout" "simple" "complex"; do
   echo "********************"  
   echo "$plan"  
-  bam ~/Temp/MyCoolNewApp $plan
+  cd generators
+  ~/Workspace/chris/gfm/gfm ~/Temp/MyCoolNewApp $plan
   if [ "$?" != "0" ]; then
     echo "******************** ******************** failed"
   fi
+  cd ..
 done

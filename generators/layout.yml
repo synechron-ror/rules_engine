@@ -1,0 +1,14 @@
+class : RulesEngine:Generators:LayoutGenerator
+
+description : 
+  - *******************************************************************    
+  -  To add the rules engine layout to you application
+  -  > script/rails generate rules_engine:layout [layout_name]
+  - *******************************************************************    
+
+template :
+  replacements :
+    - rules_engine_layout : layout_name
+    
+  files : 
+    - app/views/layouts/rules_engine_layout.html.erb

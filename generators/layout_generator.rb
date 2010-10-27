@@ -1,36 +1,34 @@
-require "#{File.dirname(__FILE__)}/manifests/rules_engine_layout.rb"
-
 module RulesEngine
   module Generators
     class LayoutGenerator < Rails::Generators::Base
-  
-      source_root File.expand_path(File.dirname(__FILE__) + "/manifests/templates")      
-  
+
+      source_root File.expand_path(File.join(File.dirname(__FILE__), "templates"))
+
       def initialize(runtime_args, *runtime_options)
-        super        
-        @layout_name = runtime_args[0] unless runtime_args.length < 1
+        super
+        @layout_name = runtime_args[0] if runtime_args.length > 0
       end
-  
+
       def install
-        if @layout_name.blank? 
-          puts "    ***************** layout_name required ***************** "
-        else  
-          RulesEngineLayoutManifest.populate_record(self, @layout_name)
-        end  
-        puts LayoutGenerator.description
+        throw("parameter layout_name required") if @layout_name.blank?
+
+        template "app/views/layouts/rules_engine_layout.html.erb", "app/views/layouts/#{layout_name}.html.erb"
+
+        LayoutGenerator.description
       end
-  
+
       def self.description
-        <<-DESCRIPTION 
-        *******************************************************************    
-        To add the rules engine layout to you application
-        > script/rails generate rules_engine:layout [layout_name]
-        
-        *******************************************************************    
+        <<-DESCRIPTION
         DESCRIPTION
-      end      
-  
+      end
+
       desc(description)
-    end      
+
+      protected
+
+        def layout_name
+          @layout_name
+        end
+    end
   end
-end    
+end

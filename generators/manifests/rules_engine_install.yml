@@ -1,9 +1,0 @@
-contents :
-  - public/stylesheets/rules_engine
-  - public/javascripts/rules_engine
-
-files :  
-  - doc/README.rules_engine
-
-  - config/initializers/rules_engine.rb
-  - db/migrate/20100308225008_create_rules_engine.rb

@@ -1,0 +1,24 @@
+class : RulesEngine:Generators:InstallGenerator
+
+description : 
+  - *******************************************************************    
+  - To add the rules engine to you application
+  - > script/rails generate rules_engine:install
+  - 
+  - To create a new rule from the simple or complex templates
+  - > script/rails generate rules_engine:rule [simple|complex] [new_rule_name]    
+  - Example : 
+  - > script/rails generate rules_engine:rule simple my_simple_rule
+  - 
+  - Or to see other rule templates install the rules_engine_templates gem
+  - > gem install rules_engine_templates
+  - *******************************************************************    
+
+files :
+  - public/stylesheets/rules_engine
+  - public/javascripts/rules_engine
+
+  - doc/README.rules_engine
+
+  - config/initializers/rules_engine.rb
+  - db/migrate/20100308225008_create_rules_engine.rb
