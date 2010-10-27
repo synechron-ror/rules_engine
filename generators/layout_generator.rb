@@ -10,7 +10,11 @@ module RulesEngine
       end
 
       def install
-        throw("parameter layout_name required") if @layout_name.blank?
+        if @layout_name.blank?
+          puts "**** ERROR : parameter layout_name required"
+          puts LayoutGenerator.description
+          return
+        end
 
         template "app/views/layouts/rules_engine_layout.html.erb", "app/views/layouts/#{layout_name}.html.erb"
 

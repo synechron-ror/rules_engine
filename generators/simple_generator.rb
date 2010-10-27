@@ -11,8 +11,16 @@ module RulesEngine
       end
 
       def install
-        throw("parameter rule_name required") if @rule_name.blank?
-        throw("parameter rule_class required") if @rule_class.blank?
+        if @rule_name.blank?
+          puts "**** ERROR : parameter rule_name required"
+          puts SimpleGenerator.description
+          return
+        end
+        if @rule_class.blank?
+          puts "**** ERROR : parameter rule_class required"
+          puts SimpleGenerator.description
+          return
+        end
 
         template "app/rules/simple.rb", "app/rules/#{rule_name}.rb"
         template "app/views/re_rules/simple/_edit.html.erb", "app/views/re_rules/#{rule_name}/_edit.html.erb"

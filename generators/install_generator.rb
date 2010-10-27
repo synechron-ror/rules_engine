@@ -84,7 +84,6 @@ module RulesEngine
           public/stylesheets/rules_engine/images/re_plan/title-plural.png
           public/stylesheets/rules_engine/images/re_plan/title-single.png
           public/stylesheets/rules_engine/images/re_publication/show-25.png
-          public/stylesheets/rules_engine/images/re_rule/_continue-18.png
           public/stylesheets/rules_engine/images/re_rule/add-14.png
           public/stylesheets/rules_engine/images/re_rule/alert-25.png
           public/stylesheets/rules_engine/images/re_rule/continue-18.png
