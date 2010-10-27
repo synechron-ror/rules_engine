@@ -13,8 +13,8 @@ rm ./public/index.html
 # 2. Add & Install the gems
 ./Gemfile
 
-gem 'rules_view' #, :path => '/Users/chris/Workspace/chris/Gems/rules_view'
-gem 'rules_engine' #, :path => '/Users/chris/Workspace/chris/Gems/rules_engine'
+gem 'rules_view'
+gem 'rules_engine'
 gem 'will_paginate', '>= 3.0.pre2'
 gem 'acts_as_list'
 

@@ -84,8 +84,10 @@ module RulesEngine
           public/stylesheets/rules_engine/images/re_plan/title-plural.png
           public/stylesheets/rules_engine/images/re_plan/title-single.png
           public/stylesheets/rules_engine/images/re_publication/show-25.png
+          public/stylesheets/rules_engine/images/re_rule/_continue-18.png
           public/stylesheets/rules_engine/images/re_rule/add-14.png
           public/stylesheets/rules_engine/images/re_rule/alert-25.png
+          public/stylesheets/rules_engine/images/re_rule/continue-18.png
           public/stylesheets/rules_engine/images/re_rule/destroy-25.png
           public/stylesheets/rules_engine/images/re_rule/edit-25.png
           public/stylesheets/rules_engine/images/re_rule/error-25.png
@@ -100,7 +102,7 @@ module RulesEngine
           public/stylesheets/rules_engine/images/re_rule/next-down-25.png
           public/stylesheets/rules_engine/images/re_rule/next-right-18.png
           public/stylesheets/rules_engine/images/re_rule/show-25.png
-          public/stylesheets/rules_engine/images/re_rule/start-pipeline-18.png
+          public/stylesheets/rules_engine/images/re_rule/start-workflow-18.png
           public/stylesheets/rules_engine/images/re_rule/stop-failure-18.png
           public/stylesheets/rules_engine/images/re_rule/stop-success-18.png
           public/stylesheets/rules_engine/images/re_rule/title-plural.png
@@ -136,6 +138,18 @@ module RulesEngine
 
       def self.description
         <<-DESCRIPTION
+*******************************************************************
+To add the rules engine to you application
+script/rails generate rules_engine:install
+
+To create a new rule from the simple or complex templates
+script/rails generate rules_engine:rule [simple|complex] [new_rule_name]    
+Example
+script/rails generate rules_engine:rule simple my_simple_rule
+
+Or to see other rule templates install the rules_engine_templates gem
+gem install rules_engine_templates
+*******************************************************************
         DESCRIPTION
       end
 

@@ -27,6 +27,16 @@ module RulesEngine
 
       def self.description
         <<-DESCRIPTION
+*******************************************************************
+To create a new rule from the complex rule template
+rails generate rules_engine:complex [rule_name] [RuleName]    
+
+Example
+rails generate rules_engine:complex my_cool_rule MyCoolRule
+
+Or to see other rule templates install the rules_engine_templates gem
+gem install rules_engine_templates
+*******************************************************************
         DESCRIPTION
       end
 

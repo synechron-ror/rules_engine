@@ -19,6 +19,10 @@ module RulesEngine
 
       def self.description
         <<-DESCRIPTION
+*******************************************************************
+To add the rules engine layout to you application
+script/rails generate rules_engine:layout [layout_name]
+*******************************************************************
         DESCRIPTION
       end
 
