@@ -12,16 +12,17 @@ description :
   - > gem install rules_engine_templates
   - *******************************************************************    
 
-template :
-  replacements :
-    - simple : rule_name
-    - Simple : rule_class
-    
-  files : 
-    - app/rules/simple.rb
-    - app/views/re_rules/simple/_edit.html.erb
-    - app/views/re_rules/simple/_form.html.erb
-    - app/views/re_rules/simple/_help.html.erb
-    - app/views/re_rules/simple/_new.html.erb
-    - spec/lib/rules/simple_spec.rb
+templates :
+  - app/rules/simple.rb
+  - app/views/re_rules/simple/_edit.html.erb
+  - app/views/re_rules/simple/_form.html.erb
+  - app/views/re_rules/simple/_help.html.erb
+  - app/views/re_rules/simple/_new.html.erb
+  - spec/lib/rules/simple_spec.rb
+
+replace_with_args :
+  - simple : rule_name
+  
+replace_with_methods :
+  - Simple : rule_name.camelize
   

@@ -7,17 +7,11 @@ module RulesEngine
       def initialize(runtime_args, *runtime_options)
         super
         @rule_name = runtime_args[0] if runtime_args.length > 0
-        @rule_class = runtime_args[1] if runtime_args.length > 1
       end
 
       def install
         if @rule_name.blank?
           puts "**** ERROR : parameter rule_name required"
-          puts ComplexGenerator.description
-          return
-        end
-        if @rule_class.blank?
-          puts "**** ERROR : parameter rule_class required"
           puts ComplexGenerator.description
           return
         end
@@ -30,17 +24,17 @@ module RulesEngine
         template "app/views/re_rules/complex/_new.html.erb", "app/views/re_rules/#{rule_name}/_new.html.erb"
         template "spec/lib/rules/complex_spec.rb", "spec/lib/rules/#{rule_name}_spec.rb"
 
-        ComplexGenerator.description
+        puts ComplexGenerator.description
       end
 
       def self.description
         <<-DESCRIPTION
 *******************************************************************
 To create a new rule from the complex rule template
-rails generate rules_engine:complex [rule_name] [RuleName]    
+rails generate rules_engine:complex [rule_name]
 
 Example
-rails generate rules_engine:complex my_cool_rule MyCoolRule
+rails generate rules_engine:complex my_cool_rule
 
 Or to see other rule templates install the rules_engine_templates gem
 gem install rules_engine_templates
@@ -54,10 +48,6 @@ gem install rules_engine_templates
 
         def rule_name
           @rule_name
-        end
-
-        def rule_class
-          @rule_class
         end
     end
   end

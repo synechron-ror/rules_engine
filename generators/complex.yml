@@ -3,25 +3,26 @@ class : RulesEngine:Generators:ComplexGenerator
 description : 
   - *******************************************************************    
   - To create a new rule from the complex rule template
-  - > rails generate rules_engine:complex [rule_name] [RuleName]    
+  - > rails generate rules_engine:complex [rule_name]
   -
   - Example : 
-  - > rails generate rules_engine:complex my_cool_rule MyCoolRule
+  - > rails generate rules_engine:complex my_cool_rule
   -   
   - Or to see other rule templates install the rules_engine_templates gem
   - > gem install rules_engine_templates
   - *******************************************************************    
 
-template :
-  replacements :
-    - complex : rule_name
-    - Complex : rule_class
-    
-  files : 
-    - app/rules/complex.rb
-    - app/views/re_rules/complex/_edit.html.erb
-    - app/views/re_rules/complex/_form_word.html.erb
-    - app/views/re_rules/complex/_form.html.erb
-    - app/views/re_rules/complex/_help.html.erb
-    - app/views/re_rules/complex/_new.html.erb
-    - spec/lib/rules/complex_spec.rb
+templates :
+  - app/rules/complex.rb
+  - app/views/re_rules/complex/_edit.html.erb
+  - app/views/re_rules/complex/_form_word.html.erb
+  - app/views/re_rules/complex/_form.html.erb
+  - app/views/re_rules/complex/_help.html.erb
+  - app/views/re_rules/complex/_new.html.erb
+  - spec/lib/rules/complex_spec.rb
+
+replace_with_args :
+  - complex : rule_name
+
+replace_with_methods :
+  - Complex : rule_name.camelize

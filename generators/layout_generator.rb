@@ -18,7 +18,7 @@ module RulesEngine
 
         template "app/views/layouts/rules_engine_layout.html.erb", "app/views/layouts/#{layout_name}.html.erb"
 
-        LayoutGenerator.description
+        puts LayoutGenerator.description
       end
 
       def self.description

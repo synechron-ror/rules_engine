@@ -1,7 +1,7 @@
 <%%= javascript_tag do %>
   var new_<%=rule_name%> = '<%%=escape_javascript(render("/re_rules/<%=rule_name%>/form_word"))%>'  
   
-  var update<%=rule_class%>WorkflowAction = function() {
+  var update<%=rule_name.camelize%>WorkflowAction = function() {
     if ($('#<%=rule_name%>_workflow_action').attr('value') == "start_workflow")
     {
       $('#<%=rule_name%>_workflow_code').re_form_enable();
@@ -16,10 +16,10 @@
     $('#<%=rule_name%>_title').focus();	
     
     $('#<%=rule_name%>_workflow_action').change(function() {
-      update<%=rule_class%>WorkflowAction();
+      update<%=rule_name.camelize%>WorkflowAction();
     });    
     
-    update<%=rule_class%>WorkflowAction();
+    update<%=rule_name.camelize%>WorkflowAction();
   });
 
 <%% end %>

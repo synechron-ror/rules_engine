@@ -7,17 +7,11 @@ module RulesEngine
       def initialize(runtime_args, *runtime_options)
         super
         @rule_name = runtime_args[0] if runtime_args.length > 0
-        @rule_class = runtime_args[1] if runtime_args.length > 1
       end
 
       def install
         if @rule_name.blank?
           puts "**** ERROR : parameter rule_name required"
-          puts SimpleGenerator.description
-          return
-        end
-        if @rule_class.blank?
-          puts "**** ERROR : parameter rule_class required"
           puts SimpleGenerator.description
           return
         end
@@ -29,7 +23,7 @@ module RulesEngine
         template "app/views/re_rules/simple/_new.html.erb", "app/views/re_rules/#{rule_name}/_new.html.erb"
         template "spec/lib/rules/simple_spec.rb", "spec/lib/rules/#{rule_name}_spec.rb"
 
-        SimpleGenerator.description
+        puts SimpleGenerator.description
       end
 
       def self.description
@@ -53,10 +47,6 @@ gem install rules_engine_templates
 
         def rule_name
           @rule_name
-        end
-
-        def rule_class
-          @rule_class
         end
     end
   end

@@ -4,7 +4,7 @@ def valid_<%=rule_name%>_rule_data
   '["Rule Title", ["word one", "word two"], "start_workflow", "Other Workflow"]'
 end
 
-describe RulesEngine::Rule::<%=rule_class%> do
+describe RulesEngine::Rule::<%=rule_name.camelize%> do
 
   def valid_attributes
     {
@@ -17,34 +17,34 @@ describe RulesEngine::Rule::<%=rule_class%> do
   end
   
   it "should be discoverable" do
-    RulesEngine::Discovery.rule_class("RulesEngine::Rule::<%=rule_class%>").should == RulesEngine::Rule::<%=rule_class%>
+    RulesEngine::Discovery.rule_class("RulesEngine::Rule::<%=rule_name.camelize%>").should == RulesEngine::Rule::<%=rule_name.camelize%>
   end
 
   describe "the expected class options" do    
     it "should be in the 'General' group" do
-      RulesEngine::Rule::<%=rule_class%>.options[:group].should == "General"
+      RulesEngine::Rule::<%=rule_name.camelize%>.options[:group].should == "General"
     end
     
-    it "should have the diplay name of '<%=rule_class%>'" do
-      RulesEngine::Rule::<%=rule_class%>.options[:display_name].should == "<%=rule_class%>"
+    it "should have the diplay name of '<%=rule_name.camelize%>'" do
+      RulesEngine::Rule::<%=rule_name.camelize%>.options[:display_name].should == "<%=rule_name.camelize%>"
     end
 
     it "should have the help template of '/re_rules/<%=rule_name%>/help'" do
-      RulesEngine::Rule::<%=rule_class%>.options[:help_partial].should == '/re_rules/<%=rule_name%>/help'
+      RulesEngine::Rule::<%=rule_name.camelize%>.options[:help_partial].should == '/re_rules/<%=rule_name%>/help'
     end
 
     it "should have the new template of '/re_rules/<%=rule_name%>/new'" do
-      RulesEngine::Rule::<%=rule_class%>.options[:new_partial].should == '/re_rules/<%=rule_name%>/new'
+      RulesEngine::Rule::<%=rule_name.camelize%>.options[:new_partial].should == '/re_rules/<%=rule_name%>/new'
     end
 
     it "should have the edit view partial template of '/re_rules/<%=rule_name%>/edit'" do
-      RulesEngine::Rule::<%=rule_class%>.options[:edit_partial].should == '/re_rules/<%=rule_name%>/edit'
+      RulesEngine::Rule::<%=rule_name.camelize%>.options[:edit_partial].should == '/re_rules/<%=rule_name%>/edit'
     end
   end
   
   describe "setting the rule data" do
     before(:each) do
-      @<%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      @<%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       @<%=rule_name%>.data = valid_<%=rule_name%>_rule_data
     end  
     
@@ -99,13 +99,13 @@ describe RulesEngine::Rule::<%=rule_class%> do
   
   describe "the summary" do
     it "should be singluar if there is one match_word" do
-      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       <%=rule_name%>.stub!(:match_words).and_return(["one"])
       <%=rule_name%>.summary.should == "Match the word one"
     end
 
     it "should be plural if there are multiple match_words" do
-      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       <%=rule_name%>.stub!(:match_words).and_return(["one", "two", "three"])
       <%=rule_name%>.summary.should == "Match the words one, two, three"
     end        
@@ -113,7 +113,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
 
   describe "the data" do
     it "should be converted to a json string" do
-      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       <%=rule_name%>.should_receive(:title).and_return("mock title")
       <%=rule_name%>.should_receive(:match_words).and_return(["one", "two"])
       <%=rule_name%>.should_receive(:workflow_action).and_return("workflow action")
@@ -124,25 +124,25 @@ describe RulesEngine::Rule::<%=rule_class%> do
   
   describe "the expected_outcomes" do
     it "should be next" do
-      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       <%=rule_name%>.stub!(:workflow_action).and_return('next')
       <%=rule_name%>.expected_outcomes[0][:outcome].should == RulesEngine::Rule::Outcome::NEXT
     end
     
     it "should be stop success" do
-      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       <%=rule_name%>.stub!(:workflow_action).and_return('stop_success')
       <%=rule_name%>.expected_outcomes[0][:outcome].should == RulesEngine::Rule::Outcome::STOP_SUCCESS
     end
     
     it "should be stop failure" do
-      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       <%=rule_name%>.stub!(:workflow_action).and_return('stop_failure')
       <%=rule_name%>.expected_outcomes[0][:outcome].should == RulesEngine::Rule::Outcome::STOP_FAILURE      
     end
     
     it "should be start workflow" do
-      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       <%=rule_name%>.stub!(:workflow_action).and_return('start_workflow')
       <%=rule_name%>.stub!(:workflow_code).and_return('workflow_code')
       <%=rule_name%>.expected_outcomes[0][:outcome].should == RulesEngine::Rule::Outcome::START_WORKFLOW
@@ -150,7 +150,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
     end
     
     it "should be next be default" do
-      <%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       <%=rule_name%>.stub!(:workflow_action).and_return('this is not valid')
       <%=rule_name%>.expected_outcomes.should == [:outcome => RulesEngine::Rule::Outcome::NEXT]
     end
@@ -159,7 +159,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
   
   describe "setting the rule attributes" do
     before(:each) do
-      @<%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      @<%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
     end  
     
     it "should be valid with valid attributes" do
@@ -277,7 +277,7 @@ describe RulesEngine::Rule::<%=rule_class%> do
   
   describe "processing the rule" do
     before(:each) do
-      @<%=rule_name%> = RulesEngine::Rule::<%=rule_class%>.new
+      @<%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       @<%=rule_name%>.stub!(:match_words).and_return(["found", "word"])
     end
     
@@ -340,7 +340,7 @@ describe ReWorkflowRulesController  do
   
   render_views
   
-  describe "RulesEngine::Rule::<%=rule_class%>" do
+  describe "RulesEngine::Rule::<%=rule_name.camelize%>" do
     before(:each) do
       controller.instance_eval { flash.stub!(:sweep) }
     
@@ -355,14 +355,14 @@ describe ReWorkflowRulesController  do
   
     describe "<%=rule_name%> rule help" do
       it "should assign the <%=rule_name%> rule class" do
-        get :help, :re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
-        assigns[:rule_class].should == RulesEngine::Rule::<%=rule_class%>
+        get :help, :re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_name.camelize%>"
+        assigns[:rule_class].should == RulesEngine::Rule::<%=rule_name.camelize%>
       end
     end
   
     describe "new" do
       it "show the new form" do
-        get :new, :re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
+        get :new, :re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_name.camelize%>"
         response.should have_selector("form#re_rule_new_form") do |form|
           form.should have_selector("input#<%=rule_name%>_title")     
           form.should have_selector("input#<%=rule_name%>_match_words_0_word")
@@ -383,11 +383,11 @@ describe ReWorkflowRulesController  do
     describe "edit" do
       it "show the edit form" do
         re_rule = ReRule.create!(:re_workflow_id => @re_workflow.id, 
-                                  :rule_class_name => "RulesEngine::Rule::<%=rule_class%>",
+                                  :rule_class_name => "RulesEngine::Rule::<%=rule_name.camelize%>",
                                   :data => valid_<%=rule_name%>_rule_data)
         ReRule.stub!(:find).and_return(re_rule)
       
-        get :edit, :re_workflow_id => @re_workflow.id, :id => 1001, :rule_class_name => "RulesEngine::Rule::<%=rule_class%>"
+        get :edit, :re_workflow_id => @re_workflow.id, :id => 1001, :rule_class_name => "RulesEngine::Rule::<%=rule_name.camelize%>"
         response.should have_selector("form#re_rule_edit_form") do |form|
           form.should have_selector("input#<%=rule_name%>_title", :value => 'Rule Title')     
           form.should have_selector("input#<%=rule_name%>_match_words_0_word", :value => 'word one')

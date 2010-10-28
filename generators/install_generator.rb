@@ -132,7 +132,7 @@ module RulesEngine
           copy_file filename, filename
         end
 
-        InstallGenerator.description
+        puts InstallGenerator.description
       end
 
       def self.description
