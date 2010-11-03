@@ -356,7 +356,6 @@ describe RulesEngine::Rule::<%=rule_name.camelize%> do
       end
     end
 
-
     describe "matching workflow actions" do
       before(:each) do
         @<%=rule_name%>.stub!(:match_type).and_return(RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_ALL)        
@@ -420,6 +419,15 @@ describe ReWorkflowRulesController  do
         response.should have_selector("form#re_rule_new_form") do |form|
           form.should have_selector("input#<%=rule_name%>_title")     
           form.should have_selector("input#<%=rule_name%>_match_words_0_word")
+          form.should have_selector("select#<%=rule_name%>_match_type") do |selector|
+            selector.should have_selector("option", :content => "Whole Message") do |option|
+              option.attr("selected").should_not be_nil
+              option.attr("selected").value.should == "selected"
+            end
+            selector.should have_selector("option", :content => "Exact Word")
+            selector.should have_selector("option", :content => "Begins With")
+            selector.should have_selector("option", :content => "End With")
+          end  
           form.should have_selector("select#<%=rule_name%>_workflow_action") do |selector|
             selector.should have_selector("option", :content => "Continue Next") do |option|
               option.attr("selected").should_not be_nil
@@ -446,6 +454,15 @@ describe ReWorkflowRulesController  do
           form.should have_selector("input#<%=rule_name%>_title", :value => 'Rule Title')     
           form.should have_selector("input#<%=rule_name%>_match_words_0_word", :value => 'word one')
           form.should have_selector("input#<%=rule_name%>_match_words_1_word", :value => 'word two')
+          form.should have_selector("select#<%=rule_name%>_match_type") do |selector|
+            selector.should have_selector("option", :content => "Whole Message")
+            selector.should have_selector("option", :content => "Exact Word") do |option|
+              option.attr("selected").should_not be_nil
+              option.attr("selected").value.should == "selected"
+            end
+            selector.should have_selector("option", :content => "Begins With")
+            selector.should have_selector("option", :content => "End With")
+          end  
           form.should have_selector("select#<%=rule_name%>_workflow_action") do |selector|
             selector.should have_selector("option", :content => "Continue Next")
             selector.should have_selector("option", :content => "Stop Success")

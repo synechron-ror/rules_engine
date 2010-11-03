@@ -122,13 +122,13 @@ module RulesEngine
         
         match_words.each do |match_word|
           filter = case match_type
-          when RulesEngine::Rule::MessageFilter::MESSAGE_MATCH_ALL
+          when RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_ALL
             /^#{match_word}$/i
-          when RulesEngine::Rule::MessageFilter::MESSAGE_MATCH_WORD
+          when RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_WORD
             /\b#{match_word}\b/i
-          when RulesEngine::Rule::MessageFilter::MESSAGE_MATCH_BEGIN_WITH
+          when RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_BEGIN_WITH
             /^#{match_word}/i
-          when RulesEngine::Rule::MessageFilter::MESSAGE_MATCH_END_WITH
+          when RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_END_WITH
             /#{match_word}$/i
           end
           
