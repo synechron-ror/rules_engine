@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 def valid_<%=rule_name%>_rule_data
-  '["Rule Title", ["word one", "word two"], "start_workflow", "Other Workflow"]'
+  '["Rule Title", ["word one", "word two"],"1","start_workflow","Other Workflow"]'
 end
 
 describe RulesEngine::Rule::<%=rule_name.camelize%> do
@@ -12,7 +12,8 @@ describe RulesEngine::Rule::<%=rule_name.camelize%> do
       :<%=rule_name%>_match_words => {
                     "1" => { "word" => 'first word'  },
                     "2" => { "word" => 'second word' }
-                  }
+                  },
+      :<%=rule_name%>_match_type => RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_WORD
     }
   end
   
@@ -61,6 +62,10 @@ describe RulesEngine::Rule::<%=rule_name.camelize%> do
         @<%=rule_name%>.match_words.should == ["word one", "word two"]
       end
 
+      it "should set match_type" do
+        @<%=rule_name%>.match_type.should == RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_WORD
+      end
+      
       it "should set the workflow_action" do
         @<%=rule_name%>.workflow_action.should == "start_workflow"
       end
@@ -83,6 +88,12 @@ describe RulesEngine::Rule::<%=rule_name.camelize%> do
         @<%=rule_name%>.match_words.should be_nil
       end
 
+      it "should set match_types to MESSAGE_MATCH_ALL" do
+        @<%=rule_name%>.match_type.should_not == false
+        @<%=rule_name%>.data = nil
+        @<%=rule_name%>.match_type.should == RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_ALL
+      end
+
       it "should se the workflow action to 'next'" do
         @<%=rule_name%>.workflow_action.should_not == 'next'
         @<%=rule_name%>.data = nil
@@ -98,17 +109,10 @@ describe RulesEngine::Rule::<%=rule_name.camelize%> do
   end
   
   describe "the summary" do
-    it "should be singluar if there is one match_word" do
+    it "should describe the rule" do
       <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
-      <%=rule_name%>.stub!(:match_words).and_return(["one"])
-      <%=rule_name%>.summary.should == "Match the word one"
+      <%=rule_name%>.summary.should == "The next action is based on a match being found"
     end
-
-    it "should be plural if there are multiple match_words" do
-      <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
-      <%=rule_name%>.stub!(:match_words).and_return(["one", "two", "three"])
-      <%=rule_name%>.summary.should == "Match the words one, two, three"
-    end        
   end
 
   describe "the data" do
@@ -116,9 +120,10 @@ describe RulesEngine::Rule::<%=rule_name.camelize%> do
       <%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
       <%=rule_name%>.should_receive(:title).and_return("mock title")
       <%=rule_name%>.should_receive(:match_words).and_return(["one", "two"])
+      <%=rule_name%>.should_receive(:match_type).and_return(RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_WORD)
       <%=rule_name%>.should_receive(:workflow_action).and_return("workflow action")
       <%=rule_name%>.should_receive(:workflow_code).and_return("workflow")
-      <%=rule_name%>.data.should == '["mock title",["one","two"],"workflow action","workflow"]'
+      <%=rule_name%>.data.should == '["mock title",["one","two"],"1","workflow action","workflow"]'
     end
   end
   
@@ -219,7 +224,13 @@ describe RulesEngine::Rule::<%=rule_name.camelize%> do
         @<%=rule_name%>.should be_valid
         @<%=rule_name%>.match_words.should == ['second word']
       end
-          
+    end
+
+    describe "setting the <%=rule_name%>_match_type" do
+      it "should set the match_type" do
+        @<%=rule_name%>.attributes = valid_attributes.merge(:<%=rule_name%>_match_type => "3")
+        @<%=rule_name%>.match_type.should == RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_END_WITH
+      end                
     end
 
     describe "setting the <%=rule_name%>_workflow" do
@@ -278,59 +289,102 @@ describe RulesEngine::Rule::<%=rule_name.camelize%> do
   describe "processing the rule" do
     before(:each) do
       @<%=rule_name%> = RulesEngine::Rule::<%=rule_name.camelize%>.new
-      @<%=rule_name%>.stub!(:match_words).and_return(["found", "word"])
+      @<%=rule_name%>.stub!(:match_words).and_return(["found this sentance", "word", "other word"])
     end
     
-    it "should do nothing if there is no tweet" do      
+    it "should do nothing if there is no message" do      
       @<%=rule_name%>.process(1001, {:plan => "plan"}, {:data => "data"}).outcome.should == RulesEngine::Rule::Outcome::NEXT
     end        
   
-    it "should do nothing if there is no match" do
-      @<%=rule_name%>.process(@job, {:plan => "plan"}, {:tweet => "not here"}).outcome.should == RulesEngine::Rule::Outcome::NEXT
-    end        
-    
-    describe "a match found" do
+    describe "no matches found" do
+      it "should record the misses" do
+        matched_data = {:message => "nothing to see here"}
+        @<%=rule_name%>.process(@job, {:plan => "plan"}, matched_data.merge!(:misses => ["none"]))
+        matched_data[:misses].should == ["found this sentance", "word", "other word"]
+      end
+    end    
+
+    describe "MATCH_ALL" do
       before(:each) do
-        @matched_data = {:tweet => "here is a word"}
+        @<%=rule_name%>.stub!(:match_type).and_return(RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_ALL)        
+        @matched_data = {:message => "found this sentance"}
       end
       
-      it "should add the match to the data" do              
-        @<%=rule_name%>.process(@job, {:plan => "plan"}, @matched_data)
-        @matched_data[:tweet_match].should == "word"
-      end        
-      
-      it "should audit the match" do  
-        RulesEngine::Process.auditor.should_receive(:audit) do |process_id, message, code|
-          process_id.should == 1001
-          message.should =~ /word$/
-        end
-        @<%=rule_name%>.process(1001, {:plan => "plan"}, @matched_data)
-      end        
-      
-      describe "matching workflow actions" do
-        it "should return next" do
-          @<%=rule_name%>.should_receive(:workflow_action).and_return('next')
-          @<%=rule_name%>.process(1001, {:plan => "plan"}, @matched_data).outcome.should == RulesEngine::Rule::Outcome::NEXT
-        end
-
-        it "should return stop_success" do
-          @<%=rule_name%>.should_receive(:workflow_action).and_return('stop_success')
-          @<%=rule_name%>.process(1001, {:plan => "plan"}, @matched_data).outcome.should == RulesEngine::Rule::Outcome::STOP_SUCCESS
-        end
-
-        it "should return stop_failure" do
-          @<%=rule_name%>.should_receive(:workflow_action).and_return('stop_failure')
-          @<%=rule_name%>.process(1001, {:plan => "plan"}, @matched_data).outcome.should == RulesEngine::Rule::Outcome::STOP_FAILURE
-        end
-        
-        it "should return start workflow with the workflow_code" do
-          @<%=rule_name%>.should_receive(:workflow_action).and_return('start_workflow')
-          @<%=rule_name%>.should_receive(:workflow_code).and_return('mock_workflow')
-          <%=rule_name%>_outcome = @<%=rule_name%>.process(1001, {:plan => "plan"}, @matched_data)
-          <%=rule_name%>_outcome.outcome.should == RulesEngine::Rule::Outcome::START_WORKFLOW
-          <%=rule_name%>_outcome.workflow_code.should == "mock_workflow"
-        end        
+      it "should record the matches and misses" do
+        @<%=rule_name%>.process(@job, {:plan => "plan"}, @matched_data.merge!(:matches => ["none"], :misses => ["none"]))
+        @matched_data[:matches].should == ["found this sentance"]
+        @matched_data[:misses].should == ["word", "other word"]
       end
+    end
+
+    describe "MATCH_WORD" do
+      before(:each) do
+        @<%=rule_name%>.stub!(:match_type).and_return(RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_WORD)        
+        @matched_data = {:message => "found this word in a sentance"}
+      end
+      
+      it "should record the matches and misses" do
+        @<%=rule_name%>.process(@job, {:plan => "plan"}, @matched_data.merge!(:matches => ["none"], :misses => ["none"]))
+        @matched_data[:matches].should == ["word"]
+        @matched_data[:misses].should == ["found this sentance", "other word"]
+      end
+    end
+
+    describe "MATCH_BEGIN_WITH" do
+      before(:each) do
+        @<%=rule_name%>.stub!(:match_type).and_return(RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_BEGIN_WITH)        
+        @matched_data = {:message => "word found in a other word sentance"}
+      end
+      
+      it "should record the matches and misses" do
+        @<%=rule_name%>.process(@job, {:plan => "plan"}, @matched_data.merge!(:matches => ["none"], :misses => ["none"]))
+        @matched_data[:matches].should == ["word"]
+        @matched_data[:misses].should == ["found this sentance", "other word"]
+      end
+    end
+
+    describe "MATCH_END_WITH" do
+      before(:each) do
+        @<%=rule_name%>.stub!(:match_type).and_return(RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_END_WITH)
+        @matched_data = {:message => "found in a other word sentance word"}
+      end
+      
+      it "should record the matches and misses" do
+        @<%=rule_name%>.process(@job, {:plan => "plan"}, @matched_data.merge!(:matches => ["none"], :misses => ["none"]))
+        @matched_data[:matches].should == ["word"]
+        @matched_data[:misses].should == ["found this sentance", "other word"]
+      end
+    end
+
+
+    describe "matching workflow actions" do
+      before(:each) do
+        @<%=rule_name%>.stub!(:match_type).and_return(RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_ALL)        
+        @matched_data = {:message => "found this sentance"}
+      end
+      
+      it "should return next" do
+        @<%=rule_name%>.should_receive(:workflow_action).and_return('next')
+        @<%=rule_name%>.process(1001, {:plan => "plan"}, @matched_data).outcome.should == RulesEngine::Rule::Outcome::NEXT
+      end
+
+      it "should return stop_success" do
+        @<%=rule_name%>.should_receive(:workflow_action).and_return('stop_success')
+        @<%=rule_name%>.process(1001, {:plan => "plan"}, @matched_data).outcome.should == RulesEngine::Rule::Outcome::STOP_SUCCESS
+      end
+
+      it "should return stop_failure" do
+        @<%=rule_name%>.should_receive(:workflow_action).and_return('stop_failure')
+        @<%=rule_name%>.process(1001, {:plan => "plan"}, @matched_data).outcome.should == RulesEngine::Rule::Outcome::STOP_FAILURE
+      end
+      
+      it "should return start workflow with the workflow_code" do
+        @<%=rule_name%>.should_receive(:workflow_action).and_return('start_workflow')
+        @<%=rule_name%>.should_receive(:workflow_code).and_return('mock_workflow')
+        <%=rule_name%>_outcome = @<%=rule_name%>.process(1001, {:plan => "plan"}, @matched_data)
+        <%=rule_name%>_outcome.outcome.should == RulesEngine::Rule::Outcome::START_WORKFLOW
+        <%=rule_name%>_outcome.workflow_code.should == "mock_workflow"
+      end        
     end    
   end
 end

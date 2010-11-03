@@ -66,11 +66,11 @@ describe RulesEngine::Rule::<%=rule_name.camelize%> do
         @<%=rule_name%>.title.should be_nil
       end
 
-      # it "should set the description to nil" do
-      #   @<%=rule_name%>.description.should_not be_nil
-      #   @<%=rule_name%>.data = nil
-      #   @<%=rule_name%>.description.should be_nil
-      # end
+      it "should set the description to nil" do
+        @<%=rule_name%>.description.should_not be_nil
+        @<%=rule_name%>.data = nil
+        @<%=rule_name%>.description.should be_nil
+      end
     end
   end
   
@@ -188,7 +188,7 @@ describe ReWorkflowRulesController  do
         get :new, :re_workflow_id => @re_workflow.id, :rule_class_name => "RulesEngine::Rule::<%=rule_name.camelize%>"
         response.should have_selector("form#re_rule_new_form") do |form|
           form.should have_selector("input#<%=rule_name%>_title")
-          # form.should have_selector("input#<%=rule_name%>_description")      
+          form.should have_selector("input#<%=rule_name%>_description")      
         end  
       end
     end
@@ -202,7 +202,7 @@ describe ReWorkflowRulesController  do
         get :edit, :re_workflow_id => @re_workflow.id, :id => 1001, :rule_class_name => "RulesEngine::Rule::<%=rule_name.camelize%>"
         response.should have_selector("form#re_rule_edit_form") do |form|
           form.should have_selector("input#<%=rule_name%>_title", :value => 'Rule Title')     
-          # form.should have_selector("input#<%=rule_name%>_description", :value => 'Rule Description')     
+          form.should have_selector("input#<%=rule_name%>_description", :value => 'Rule Description')     
         end  
       end
     end

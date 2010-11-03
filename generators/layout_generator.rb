@@ -26,6 +26,11 @@ module RulesEngine
 *******************************************************************
 To add the rules engine layout to you application
 script/rails generate rules_engine:layout [layout_name]
+
+Once you have changed the layout you need to set the layout name in
+the ./config/initializers/rules_engine.rb file
+RulesEngineView::Config.layout = '[layout_name]'
+
 *******************************************************************
         DESCRIPTION
       end

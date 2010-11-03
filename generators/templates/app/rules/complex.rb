@@ -3,9 +3,15 @@ module RulesEngine
     class <%=rule_name.camelize%> < RulesEngine::Rule::Definition
 
       attr_reader :match_words
+      attr_reader :match_type
       attr_reader :workflow_action
       attr_reader :workflow_code
 
+      MESSAGE_MATCH_ALL         = 0 unless defined? MESSAGE_MATCH_ALL
+      MESSAGE_MATCH_WORD        = 1 unless defined? MESSAGE_MATCH_WORD
+      MESSAGE_MATCH_BEGIN_WITH  = 2 unless defined? MESSAGE_MATCH_BEGIN_WITH
+      MESSAGE_MATCH_END_WITH    = 3 unless defined? MESSAGE_MATCH_END_WITH
+      
       ##################################################################
       # class options
       self.options = 
@@ -23,10 +29,12 @@ module RulesEngine
         if data.nil?
           @title = nil
           @match_words = nil
+          @match_type = RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_ALL
           @workflow_action = 'next'
           @workflow_code = nil
         else
-          @title, @match_words, @workflow_action, @workflow_code = ActiveSupport::JSON.decode(data)
+          @title, @match_words, tmp_match_type, @workflow_action, @workflow_code = ActiveSupport::JSON.decode(data)
+          @match_type = tmp_match_type.to_i
         end  
       end
   
@@ -37,11 +45,11 @@ module RulesEngine
       end
 
       def summary
-        "Match the #{match_words.size == 1 ? 'word' : 'words'} #{match_words.join(', ')}"
+        "The next action is based on a match being found"
       end
   
       def data
-        [title, match_words, workflow_action, workflow_code].to_json
+        [title, match_words, match_type.to_s, workflow_action, workflow_code].to_json
       end
   
       def expected_outcomes
@@ -75,6 +83,8 @@ module RulesEngine
           end  
         end
     
+        @match_type = param_hash[:<%=rule_name%>_match_type].to_i
+    
         @workflow_action = param_hash[:<%=rule_name%>_workflow_action] || 'next'
         @workflow_code = param_hash[:<%=rule_name%>_workflow_code]
       end
@@ -103,29 +113,44 @@ module RulesEngine
       ##################################################################
       # execute the rule
       # if a match is found procees to the expected outcome
-      # it gets the data parameter :tweet
+      # it gets the data parameter :message
       # it sets the data parameter :match
       def process(process_id, plan, data)
-        tweet = data[:tweet] || data["tweet"]    
-        if tweet.blank?
-          return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::NEXT) 
-        end
-    
-        match_words.each do |word|
-          if /\b#{word}\b/i =~ tweet        
-            RulesEngine::Process.auditor.audit(process_id, "Found #{word}", RulesEngine::Process::AUDIT_INFO)
-            data[:tweet_match] = word
+        message = data[:message] || data["message"]    
+        data[:matches] = []
+        data[:misses] = []
         
-            case workflow_action
-            when 'stop_success'
-              return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_SUCCESS)
-            when 'stop_failure'
-              return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_FAILURE)
-            when 'start_workflow'
-              return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::START_WORKFLOW, workflow_code)
-            else #'next'
-              return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::NEXT)
-            end
+        match_words.each do |match_word|
+          filter = case match_type
+          when RulesEngine::Rule::MessageFilter::MESSAGE_MATCH_ALL
+            /^#{match_word}$/i
+          when RulesEngine::Rule::MessageFilter::MESSAGE_MATCH_WORD
+            /\b#{match_word}\b/i
+          when RulesEngine::Rule::MessageFilter::MESSAGE_MATCH_BEGIN_WITH
+            /^#{match_word}/i
+          when RulesEngine::Rule::MessageFilter::MESSAGE_MATCH_END_WITH
+            /#{match_word}$/i
+          end
+          
+          if filter =~ message
+            RulesEngine::Process.auditor.audit(process_id, "found #{match_word}", RulesEngine::Process::AUDIT_INFO)
+            data[:matches] << match_word
+          else
+            RulesEngine::Process.auditor.audit(process_id, "missed #{match_word}", RulesEngine::Process::AUDIT_INFO)
+            data[:misses] << match_word
+          end
+        end
+        
+        unless data[:matches].empty?
+          case workflow_action
+          when 'stop_success'
+            return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_SUCCESS)
+          when 'stop_failure'
+            return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::STOP_FAILURE)
+          when 'start_workflow'
+            return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::START_WORKFLOW, workflow_code)
+          else #'next'
+            return RulesEngine::Rule::Outcome.new(RulesEngine::Rule::Outcome::NEXT)
           end
         end
         

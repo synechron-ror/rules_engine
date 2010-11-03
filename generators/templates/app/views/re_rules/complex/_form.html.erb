@@ -50,6 +50,16 @@
 <div id="new_position_<%=rule_name%>"></div>
 <%%= re_form_text "", re_add_link('Add another word to match', '<%=rule_name%>') %>    
 
+<%%= re_select "Match Type", '<%=rule_name%>_match_type', 
+                                  options_for_select([
+                                                      ["Whole Message", 	RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_ALL],
+                                                      ["Exact Word", 			RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_WORD],
+                                                      ["Begins With", 		RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_BEGIN_WITH],
+																											["End With", 				RulesEngine::Rule::<%=rule_name.camelize%>::MESSAGE_MATCH_END_WITH]
+                                                      ], 
+                                                      params['<%=rule_name%>_match_type'] || @re_rule.rule.match_type),
+																:required => true %>
+
 
 <!-- ACTION -->
 <div class="clear top-10"></div>

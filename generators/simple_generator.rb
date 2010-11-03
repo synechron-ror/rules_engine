@@ -30,10 +30,10 @@ module RulesEngine
         <<-DESCRIPTION
 *******************************************************************
 To create a new rule from the simple rule template
-rails generate rules_engine:simple [rule_name] [RuleName]    
+rails generate rules_engine:simple [rule_name]
 
 Example
-rails generate rules_engine:simple my_cool_rule MyCoolRule
+rails generate rules_engine:simple my_cool_rule
 
 Or to see other rule templates install the rules_engine_templates gem
 gem install rules_engine_templates
